@@ -3,7 +3,7 @@
 {% block titrePage %}
     Accueil
 {% endblock %}
-{% block contenu %}
+{% block content %}
   
     {% if notification is defined and notification != null %}
     <div class="panel panel-default">
@@ -17,4 +17,6 @@
     </div>
         {% endif %}
     Vous pouvez voir ici les informations qui vous interessent
+    <br />
+    <a href="{{ path("CMS_static_create") }}">Ajouter une page CMS</a>
 {% endblock %}
