@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+{% block title %}
+    Connexion
+   {%endblock %}
+{% block content %}    
+   
+     {% if error %}
+        <div class="alert alert-warning" role="alert">{{ error.message }}</div>
+    {% endif %}
+    {{ include('RopiAuthenticationBundle:Authenticate:loginForm.html.twig', {'last_username': last_username}) }}
+{% endblock %}

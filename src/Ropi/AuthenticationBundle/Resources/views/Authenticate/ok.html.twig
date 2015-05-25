@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block titrePage %}
+    Accueil
+{% endblock %}
+{% block contenu %}
+  
+    {% if notification is defined and notification != null %}
+    <div class="panel panel-default">
+        <div class="panel-heading">Notifications</div>
+        <div class="panel-body">
+            {% for notif in notification  %}
+                {% include notif.vue with {'parametre': notif.parametre}  %}
+            
+            {% endfor %}
+        </div>
+    </div>
+        {% endif %}
+    Vous pouvez voir ici les informations qui vous interessent
+{% endblock %}

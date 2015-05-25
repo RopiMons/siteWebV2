@@ -1,0 +1,19 @@
+{# empty Twig template #}
+
+<div class="input-group input-group-sm">
+    <form action="{{ path('login_check') }}" method="post">
+        <label for="username">Votre nom d'utilisateur :</label>
+        <input type="text" id="username" name="_username" {% if last_username is defined %}value="{{ last_username }}"{% endif %} />
+        <br />
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="_password" />
+        <br />
+
+
+        <input type="hidden" name="_target_path" value="{{ url('Ropi_ok') }}" />
+
+
+        <button type="submit">Se connecter</button>
+    </form>
+</div>

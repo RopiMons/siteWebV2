@@ -1,0 +1,7 @@
+ropicms:
+    resource: "@RopiCMSBundle/Controller/"
+
+ropi_authentication:
+    resource: "@RopiAuthenticationBundle/Controller/"
+ropi_user:
+    resource: "@RopiAuthenticationBundle/Resources/config/routing.yml"

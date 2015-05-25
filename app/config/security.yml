@@ -1,0 +1,33 @@
+
+security:
+    encoders:
+        Ropi\AuthenticationBundle\Entity\IdentifiantWeb : sha512
+    providers:
+        database:
+            entity: { class:  RopiAuthenticationBundle:IdentifiantWeb }
+   
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    
+    firewalls:
+       
+            
+        auth_area:
+            
+            pattern: ^/(login_check|my|logout)
+            form_login:
+                check_path:  /login_check
+            logout:
+                path:   /logout
+                target: login
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    # with these settings you can restrict or allow access for different parts
+    # of your application based on roles, ip, host or methods
+    # http://symfony.com/doc/current/cookbook/security/access_control.html
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
