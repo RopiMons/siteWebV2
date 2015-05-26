@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace JSBTrajetBundle\DataFixtures\ORM;
+namespace Ropi\CMSBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
