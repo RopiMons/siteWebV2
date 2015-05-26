@@ -9,7 +9,7 @@
 /web/css/*
 /web/js/*
 /web/fonts/*
-/web/results.txt
+/web/*.txt
 composer.lock
 /scripts/*
 /app/cache/*
