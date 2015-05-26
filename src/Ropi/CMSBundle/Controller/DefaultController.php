@@ -35,9 +35,10 @@ class DefaultController extends Controller {
 
             $em->persist($page);
 
-            $this->ecrireResultat($page);
-
             $em->flush();
+            
+            
+            $this->ecrireResultat($page);
 
             $this->get('session')->getFlashBag()->add(
                     'success', 'La page a bien été créée !'
