@@ -34,7 +34,7 @@ class AuthenticateController extends Controller
         ));
     }
     /**
-     * @Route("/my/",name="Ropi_ok")
+     * @Route("/my",name="Ropi_ok")
      * 
      */
      public function okAction() {

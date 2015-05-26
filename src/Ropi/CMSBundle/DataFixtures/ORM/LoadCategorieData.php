@@ -26,7 +26,7 @@ class LoadCategorieData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            array(1,"Acceuil",true), //Monopage
+            array(1,"Accueil",true), //Monopage
             array(2,"Ropi",true),
             array(3,"Commerces",true), //Monopage
             array(4,"Documents",true)

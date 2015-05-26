@@ -14,15 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PageStatique extends Page
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="contenu", type="text")
@@ -31,16 +22,6 @@ class PageStatique extends Page
      */
     private $contenu;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set contenu
