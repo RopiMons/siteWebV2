@@ -17,9 +17,9 @@ class IdentifiantWebRepository extends EntityRepository  implements UserProvider
     public function loadUserByUsername($username) {
           $q = $this
                 ->createQueryBuilder('i')
-                //->select(array('i','p','r'))
-                //->leftJoin('i.personne','p')
-                //->leftJoin('p.roles','r')
+                ->select(array('i','p','r'))
+                ->leftJoin('i.roles','r')
+                ->leftJoin('i.permission','p')
                 ->where('i.username = :login')
                 ->setParameter('login', $username)
                 ->getQuery();

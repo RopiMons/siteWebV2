@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks
  * 
  *  UniqueEntity(fields="personne", message="Cette personne a déjà  un compte web")
- * @UniqueEntity(fields="login", message="Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre")
+ * @UniqueEntity(fields="username", message="Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre")
  */
 class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableInterface {
 
@@ -81,7 +81,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     /**
      *
      * @var type 
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="identifiantWeb")
+     * @ORM\ManyToMany(targetEntity="Role" ,inversedBy="identifiantWeb")
      */
     private $roles;
 
@@ -91,6 +91,8 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @ORM\ManyToMany(targetEntity="Permission", inversedBy="identifiantWeb")
      */
     private $permission;
+    
+   
 
     /**
      * Get id
@@ -233,7 +235,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     public function __construct() {
         $this->salt = md5(uniqid(null, true));
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->Permission = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -254,6 +256,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @param \Ropi\AuthenticationBundle\Entity\Role $roles
      */
     public function removeRole(\Ropi\AuthenticationBundle\Entity\Role $roles) {
+        
         $this->roles->removeElement($roles);
     }
 
@@ -263,9 +266,29 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getRoles() {
-        //return $this->roles;
-
-        return array('ROLE_ADMIN',);
+        //dump($this->roles->getPermission()->getPermission());
+      
+        //return $this->roles->toArray();
+        $tab = array();
+        foreach($this->roles as $perm){
+           foreach($perm->getPermission() as $val){
+               if (!in_array($val->getPermission(), $tab)){
+                   $tab[] = $val->getPermission();
+               }
+           }
+            
+        }
+        foreach($this->permission as $val){
+             if (!in_array($val->getPermission(), $tab)){
+                   $tab[] = $val->getPermission();
+               }
+        }
+       
+        return $tab;
+        
+        
+        
+        //return array('ROLE_ADMIN',);
     }
 
     /**
@@ -275,7 +298,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return IdentifiantWeb
      */
     public function addPermission(\Ropi\AuthenticationBundle\Entity\Permission $permission) {
-        $this->Permission[] = $permission;
+        $this->permission[] = $permission;
 
         return $this;
     }
@@ -286,7 +309,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @param \Ropi\AuthenticationBundle\Entity\Permission $permission
      */
     public function removePermission(\Ropi\AuthenticationBundle\Entity\Permission $permission) {
-        $this->Permission->removeElement($permission);
+        $this->permission->removeElement($permission);
     }
 
     /**
@@ -295,7 +318,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getPermission() {
-        return $this->Permission;
+        return $this->permission;
     }
 
     public function eraseCredentials() {
@@ -343,9 +366,15 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     public function onPrePersist() {
         if (!isset($this->actif)) {
-            $this->actif = true;
+            $this->actif = false;
         }
         $this->setCreateAt(new \DateTime());
+        
+       
+        
     }
 
+    public function __toString() {
+        return $this->username;
+    }
 }

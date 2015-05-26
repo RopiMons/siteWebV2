@@ -5,6 +5,7 @@ namespace Ropi\CMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Ropi\CMSBundle\Entity\PositionnableInterface;
 
 /**
  * Categorie
@@ -13,8 +14,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\CategorieRepository")
  * @UniqueEntity(fields={"nom"}, message="Il existe déjà une catégorie possèdant ce nom")
  */
-class Categorie
-{
+class Categorie implements PositionnableInterface {
+
     /**
      * @var integer
      *
@@ -44,7 +45,7 @@ class Categorie
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="categorie") 
      */
@@ -55,8 +56,7 @@ class Categorie
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -66,8 +66,7 @@ class Categorie
      * @param string $nom
      * @return Categorie
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -78,8 +77,7 @@ class Categorie
      *
      * @return string 
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -89,8 +87,7 @@ class Categorie
      * @param integer $position
      * @return Categorie
      */
-    public function setPosition($position)
-    {
+    public function setPosition($position) {
         $this->position = $position;
 
         return $this;
@@ -101,8 +98,7 @@ class Categorie
      *
      * @return integer 
      */
-    public function getPosition()
-    {
+    public function getPosition() {
         return $this->position;
     }
 
@@ -112,8 +108,7 @@ class Categorie
      * @param boolean $isActive
      * @return Categorie
      */
-    public function setIsActive($isActive)
-    {
+    public function setIsActive($isActive) {
         $this->isActive = $isActive;
 
         return $this;
@@ -124,15 +119,14 @@ class Categorie
      *
      * @return boolean 
      */
-    public function getIsActive()
-    {
+    public function getIsActive() {
         return $this->isActive;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->pages = new ArrayCollection();
     }
 
@@ -142,8 +136,7 @@ class Categorie
      * @param \Ropi\CMSBundle\Entity\Page $pages
      * @return Categorie
      */
-    public function addPage(\Ropi\CMSBundle\Entity\Page $pages)
-    {
+    public function addPage(\Ropi\CMSBundle\Entity\Page $pages) {
         $this->pages[] = $pages;
 
         return $this;
@@ -154,8 +147,7 @@ class Categorie
      *
      * @param \Ropi\CMSBundle\Entity\Page $pages
      */
-    public function removePage(\Ropi\CMSBundle\Entity\Page $pages)
-    {
+    public function removePage(\Ropi\CMSBundle\Entity\Page $pages) {
         $this->pages->removeElement($pages);
     }
 
@@ -164,8 +156,8 @@ class Categorie
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPages()
-    {
+    public function getPages() {
         return $this->pages;
     }
+
 }

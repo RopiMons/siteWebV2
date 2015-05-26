@@ -28,6 +28,12 @@ class KeyValidation
      */
     private $cle;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="validation", type="datetime")
+     */
+    private $validation;
+    /**
      *
      * @ORM\OneToOne(targetEntity="IdentifiantWeb")
      */

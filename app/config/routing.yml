@@ -1,3 +1,10 @@
+ropi_test:
+    resource: "@RopiTestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+
 ropicms:
     resource: "@RopiCMSBundle/Controller/"
 
