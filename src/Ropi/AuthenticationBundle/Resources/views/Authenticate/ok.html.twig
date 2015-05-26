@@ -11,12 +11,15 @@
         <div class="panel-body">
             {% for notif in notification  %}
                 {% include notif.vue with {'parametre': notif.parametre}  %}
-            
             {% endfor %}
         </div>
     </div>
         {% endif %}
-    Vous pouvez voir ici les informations qui vous interessent
+        <h1>Menu temporaire - A toi de jouer Fa</h1>
+        <ul>
+            <li> <a href="{{ path("CMS_static_create") }}">Ajouter une page CMS</a></li>
+            <li><a href="{{ path("CMS_static_update") }}">Modifier une page existante</a></li>
+        </ul>
     <br />
-    <a href="{{ path("CMS_static_create") }}">Ajouter une page CMS</a>
+   
 {% endblock %}

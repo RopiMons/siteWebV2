@@ -41,21 +41,81 @@ class DefaultController extends Controller {
             $this->get('session')->getFlashBag()->add(
                     'success', 'La page a bien été créée !'
             );
-            
+
             return $this->redirect($this->generateUrl("CMS_static_create"));
         }
 
         return array(
             'form' => $form->createView(),
+            'titre' => 'Créer une nouvelle page'
         );
     }
 
     private function ecrireResultat(PageStatique $ps) {
-        $fp = fopen("results.txt", "w+");
-        fseek($fp, -1, SEEK_END);
-        $texte = 'array("' . $ps->getContenu() . '", new DateTime("' . $ps->getCreatedAt()->format(DATE_W3C) . '"), "' . $ps->getIsActive() . '", new DateTime("' . $ps->getLastUpdate()->format(DATE_W3C) . '"), "' . $ps->getPosition() . '", new DateTime("' . $ps->getPublicationDate()->format(DATE_W3C) . '"), "' . $ps->getTitreMenu() . '", $this->getReference("CAT_' . $ps->getCategorie()->getPosition() . '")),';
+        $nomFichier = "page_" . $ps->getId() . ".txt";
+        $fp = fopen($nomFichier, "w+");
+        fseek($fp, 0);
+        $texte = 'array("' . $ps->getContenu() . '", new DateTime("' . $ps->getCreatedAt()->format(DATE_W3C) . '"), "' . $ps->getIsActive() . '", new DateTime("' . $ps->getLastUpdate()->format(DATE_W3C) . '"), "' . $ps->getPosition() . '", new DateTime("' . $ps->getPublicationDate()->format(DATE_W3C) . '"), "' . $ps->getTitreMenu() . '", $this->getReference("CAT_' . $ps->getCategorie()->getPosition() . '"))';
         fputs($fp, $texte);
         fclose($fp);
+    }
+
+    /**
+     * @Route("/", name="home")
+     * @Route("/page/{categorie}/{titreMenu}", name="cms_page")
+     */
+    public function getPageAction($categorie = null, $titreMenu = null) {
+        if (isset($categorie) && isset($titreMenu)) {
+            
+        } else {
+            return $this->indexAction();
+        }
+    }
+
+    private function indexAction() {
+        
+    }
+
+    /**
+     * @Route("/my/cms/update/static/{id}", requirements={"id" = "\d+"}, defaults={"id" = 0}, name="CMS_static_update")
+     */
+    public function updatePageAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique");
+        if ($id > 0) {
+
+            $page = $repo->findOneBy(array('id' => $id));
+            if ($page) {
+                $form = $this->createForm(new PageStatiqueForm(), $page);
+                $form->add('Modifier', 'submit');
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $this->ecrireResultat($form->getData());
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add(
+                            'success', 'Modification réalisée avec succès !'
+                    );
+                    return $this->redirect($this->generateUrl("CMS_static_update"));
+                }
+                
+                return $this->render('RopiCMSBundle:Default:createStatique.html.twig', array(
+                    'titre' => 'Modification de la page',
+                    'form' => $form->createView()
+                ));
+                
+            }else{
+                return $this->redirect($this->generateUrl("CMS_static_update"));
+            }
+
+            
+        } else {
+            $pages = $repo->findAll();
+
+            return $this->render("RopiCMSBundle:Default:listeA.html.twig", array(
+                        'liste' => $pages,
+                        'titre' => "Sélection de la page à modifier",
+            ));
+        }
     }
 
 }
