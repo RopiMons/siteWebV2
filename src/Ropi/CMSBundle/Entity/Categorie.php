@@ -4,12 +4,14 @@ namespace Ropi\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Categorie
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\CategorieRepository")
+ * @UniqueEntity(fields={"nom"}, message="Il existe déjà une catégorie possèdant ce nom")
  */
 class Categorie
 {

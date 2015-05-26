@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>Je suis la page d'accueil de ce magnifique site à en devenir</h1>
+    <h2>Fonction authentifiées</h2>
+    <p>
+        Peut-être souhaites-tu te <a href="{{ path("Ropi_ok") }}">connecter</a> ?
+    </p>
+    <h2>Pages CMS</h2>
+    <ul>
+        {% for page in pages %}
+            <li><a href="{{ path('cms_page', {'categorie': page.categorie.nom ,'titreMenu': page.titreMenu}) }}">{{ page.titreMenu }}</a> (Catégorie : {{ page.categorie.nom }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

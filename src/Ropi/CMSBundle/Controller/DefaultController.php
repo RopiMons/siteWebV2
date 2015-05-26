@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\CMSBundle\Form\PageStatiqueForm;
 use Ropi\CMSBundle\Entity\PageStatique;
+use Doctrine\ORM\NoResultException;
 
 class DefaultController extends Controller {
 
@@ -66,6 +67,20 @@ class DefaultController extends Controller {
      */
     public function getPageAction($categorie = null, $titreMenu = null) {
         if (isset($categorie) && isset($titreMenu)) {
+            $repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique');
+            try{
+                $page = $repo->getPageForCMS($categorie, $titreMenu);
+            } catch (NoResultException $ex) {
+                $page = null;
+            }
+            
+            if($page){
+                return $this->render('RopiCMSBundle:Default:cmsStatique.html.twig',array(
+                    'page' => $page,
+                ));
+            }else {
+                throw $this->createNotFoundException("Cette page n'a pas été trouvée");
+            }
             
         } else {
             return $this->indexAction();
@@ -73,7 +88,9 @@ class DefaultController extends Controller {
     }
 
     private function indexAction() {
-        
+        return $this->render('RopiCMSBundle:Default:index.html.twig',array(
+            'pages'=>$this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
+        ));
     }
 
     /**
