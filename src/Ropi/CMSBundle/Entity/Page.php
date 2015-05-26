@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\DiscriminatorMap({"dynamique"="PageDynamique", "statique"="PageStatique"})
  * 
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"position","categorie"}, message="Il y a déjà une page à cette position")
+ * 
  * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
  * 
  */
