@@ -12,6 +12,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ropi\CMSBundle\Entity\PageStatique;
+USE DateTime;
 
 /**
  * Description of LoadPageData
@@ -129,6 +130,45 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 </ul>
 <p><strong>Le prestatiare est donc encourag&eacute; &agrave; trouver de nouvelles fili&egrave;res d'approvisonnement dans l'&eacute;conomie locale. </strong></p>
 <p><strong>Il contribue ainsi &agrave; relocaliser et circulariser l'&eacute;conomie.</strong></p>"),
+            array(4, "Adhérer à l'asbl", 1, new DateTime("2015-05-26T15:09:44+02:00"), new DateTime("2015-05-26T15:07:02+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l'asbl</h1>
+<h2>Les membres, pour une gouvernance d&eacute;mocratique en Assembl&eacute; G&eacute;n&eacute;rale</h2>
+<p>L'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront mis progressivement en place (ex: sondage via internet).</p>
+<p>En effet, nous consid&eacute;rons que la monnaie devrait &ecirc;tre un outil au service du citoyen, et non l'inverse comme c'est le cas avec les monnaies dominantes (l'euro chez nous). Cet outil ne pourra v&eacute;ritablement assumer son r&ocirc;le de servitude que si le plus grand nombre de citoyens participe &agrave; sa politique dans le sens le plus noble du terme.</p>
+<p>Pour devenir membre, enregistrez-vous via le formulaire en ligne TODO LIEN FORMULAIRE EN LIGNE ou en nous envoyant un email &agrave; info@ropi.be.</p>
+<p>Votre seule obligation est d'&ecirc;tre en ordre de cotisation (15 Ropi &agrave; verser via votre compte &eacute;lectronique Ropi ou 20 Euro &agrave; verser sur le compte BEXX XXXX XXXX XXXX).</p>
+<p><strong>Faites entendre votre voix!</strong></p>
+<h2>Les b&eacute;n&eacute;voles, pour une gestion journali&egrave;re</h2>
+<p>Si la d&eacute;mocratie passe par la voix de ses membres lors de l'Assembl&eacute;e G&eacute;n&eacute;rale, l'asbl ne pourrait remplir ses fonctions journali&egrave;res sans l'aide de ses b&eacute;n&eacute;voles, v&eacute;ritables chevilles ouvri&egrave;re de l'organisation. De nombreuses fonctions sont &agrave; pourvoir! Consulter la page Comment nous aider? pour en savoir plus.</p>"),
+            
+            array(1, "Visuels", 1, new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
+<p>Sur cette pages, vous trouverez tous nos visuels de communication (logo, d&eacute;pliant, autocollants, ...) que vous pouvez utiliser pour faire la promotion du Ropi. Imprimez les vous m&ecirc;me, ou commandez les via TODO FORMULAIRE DE COMMANDE DES VISUELS</p>
+<p>FORMULAIRE</p>
+<p>--&gt; se logger (il faut &ecirc;tre membre)</p>
+<p>--&gt; cocher le type de visuel et le nombre d'unit&eacute; souhait&eacute;e</p>
+<p>&nbsp;</p>
+<h2>Le logo Ropi</h2>
+<p>&nbsp;</p>
+<h2>Le d&eacute;pliant (triptyque)</h2>
+<p>&nbsp;</p>
+<h2>L'autocollant, \"Ici on accepte le Ropi\"</h2>
+<p>&nbsp;</p>
+<h2>Les cartes de visites (pour les ambassadeurs, ...)</h2>"),
+            
+            array(1, "Documents fondateurs", 1, new DateTime("2015-05-26T16:18:47+02:00"), new DateTime("2015-05-26T16:18:47+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les documents fondateurs</h1>
+<h2>Statuts</h2>
+<p>L'association a pour objet, en dehors de tout but de lucre</p>
+<ul>
+<li>de promouvoir des activit&eacute;s visant &agrave; am&eacute;liorer l'autonomie &eacute;conomique locale, et ce particuli&egrave;rement en assurant la cr&eacute;ation, la promotion et la gestion d'une monnaie locale compl&eacute;mentaire &agrave; l'euro : le Ropi. Cette monnaie circulera entre les citoyens, des artisans, des agriculteurs, des entreprises, des commerces, des associations, institutions souhaitant retrouver la ma&icirc;trise de l'usage local des moyens d'&eacute;change.</li>
+<li>d'informer les citoyens sur les fondements et r&eacute;alit&eacute;s du syst&egrave;me mon&eacute;taire et &eacute;conomique en cours dans notre soci&eacute;t&eacute;, et des injustices qui en d&eacute;coulent.</li>
+<li>d'agir en tant que groupe local du R&eacute;seau Financit&eacute;, afin de promouvoir une finance responsable et solidaire et de favoriser un autre rapport &agrave; l'argent.</li>
+</ul>
+<p>D&eacute;couvrez les statuts complets de l'ASBL Ropi au &lt;a href=\"http://www.ejustice.just.fgov.be/cgi_tsv/tsv_rech.pl?language=fr&amp;amp;btw=0506894878&amp;amp;liste=Liste\"&gt;moniteur&lt;/a&gt; et les membres du Conseil d'Administration --&gt; lien ver Ropi/L'&eacute;quipe</p>
+<p>&nbsp;</p>
+<h2>Charte</h2>
+<p>&nbsp;</p>
+<p>&nbsp;</p>")
+            
+            
         );
 
         foreach ($tab as $element) {
@@ -142,7 +182,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
             $page->setPublicationDate($element[5]);
             $page->setCategorie($element[6]);
             $page->setContenu($element[7]);
-            
+
             $manager->persist($page);
         }
 
