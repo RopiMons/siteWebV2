@@ -11,7 +11,7 @@ namespace RopiAuthentificationBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\AuthenticationBundle\Entity\Role;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -28,25 +28,17 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            0 => array("Adrien","abcde"),
-              1 => array("Fabian","@Bcde1"),
-              2 => array("Laurent5","admin"),
-              3 => array("Joelle","abcde"),
+            0 => array("Admin","Je suis un groupe Admin"),
+             
              );
         
         foreach($tab as $element){
-            $identifiant = new IdentifiantWeb();
-            $identifiant->setUsername($element[0]);
-            $encoder = $this->container
-                ->get('security.encoder_factory')
-                ->getEncoder($identifiant)
-        ;
-            
-             $identifiant->setMotDePasse($encoder->encodePassword($element[1], $identifiant->getSalt()));
-            //$this->setReference("PERM_".$element[0], $permission);
-            $identifiant->setActif(true);
-            $identifiant->addRole($this->getReference("ROLE_Admin"));
-            $manager->persist($identifiant);
+            $role = new Role();
+            $role->setNom($element[0]);
+            $role->setDescription($element[1]);
+            $role->addPermission($this->getReference("PERM_ROLE_ADMIN"));
+            $this->setReference("ROLE_".$element[0], $role);
+            $manager->persist($role);
         }
         
         $manager->flush();
@@ -57,7 +49,7 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 3; // the order in which fixtures will be loaded
+        return 2; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks
  * 
  *  UniqueEntity(fields="personne", message="Cette personne a déjà  un compte web")
- * @UniqueEntity(fields="login", message="Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre")
+ * @UniqueEntity(fields="username", message="Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre")
  */
 class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableInterface {
 
@@ -81,7 +81,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     /**
      *
      * @var type 
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="identifiantWeb")
+     * @ORM\ManyToMany(targetEntity="Role" ,inversedBy="identifiantWeb")
      */
     private $roles;
 
@@ -91,6 +91,8 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @ORM\ManyToMany(targetEntity="Permission", inversedBy="identifiantWeb")
      */
     private $permission;
+    
+   
 
     /**
      * Get id
@@ -254,6 +256,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @param \Ropi\AuthenticationBundle\Entity\Role $roles
      */
     public function removeRole(\Ropi\AuthenticationBundle\Entity\Role $roles) {
+        
         $this->roles->removeElement($roles);
     }
 
@@ -263,9 +266,9 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getRoles() {
-        //return $this->roles;
+        return $this->roles->toArray();
 
-        return array('ROLE_ADMIN',);
+        //return array('ROLE_ADMIN',);
     }
 
     /**
@@ -343,9 +346,15 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     public function onPrePersist() {
         if (!isset($this->actif)) {
-            $this->actif = true;
+            $this->actif = false;
         }
         $this->setCreateAt(new \DateTime());
+        
+       
+        
     }
 
+    public function __toString() {
+        return $this->username;
+    }
 }

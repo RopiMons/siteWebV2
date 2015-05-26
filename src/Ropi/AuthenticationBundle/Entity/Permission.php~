@@ -210,4 +210,7 @@ class Permission
     {
         return $this->identifiantWeb;
     }
+    public function __toString() {
+        return $this->nom;
+    }
 }

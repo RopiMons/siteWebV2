@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\AuthenticationBundle\Entity\RoleRepository")
  */
-class Role
+class Role implements  \Serializable
 {
     /**
      * @var integer
@@ -37,14 +37,14 @@ class Role
     
      /**
      *
-     * @var identifiantWeb
+     * @var IdentifiantWeb
      * @ORM\ManyToMany(targetEntity="IdentifiantWeb", mappedBy="roles")
      */
     private $identifiantWeb;
     
      /**
      *
-     * @var type 
+     * @var Permission 
      * @ORM\ManyToMany(targetEntity="Permission", inversedBy="roles")
      */
     private $permission;
@@ -177,5 +177,21 @@ class Role
     public function getIdentifiantWeb()
     {
         return $this->identifiantWeb;
+    }
+
+    public function serialize() {
+        return serialize(array(
+            $this->id, $this->nom, $this->description,
+        ));
+    }
+
+    public function unserialize($serialized) {
+          list (
+                $this->id, $this->nom, $this->description,
+                ) = unserialize($serialized);
+    }
+
+    public function __toString(){
+        return $this->nom;
     }
 }

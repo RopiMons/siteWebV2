@@ -28,6 +28,12 @@ class KeyValidation
      */
     private $cle;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="validation", type="datetime")
+     */
+    private $validation;
+    /**
      *
      * @ORM\OneToOne(targetEntity="IdentifiantWeb")
      */
@@ -89,4 +95,40 @@ class KeyValidation
     {
         return $this->IdentifiantWeb;
     }
+
+    /**
+     * Set validation
+     *
+     * @param \DateTime $validation
+     * @return KeyValidation
+     */
+    public function setValidation($validation)
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return \DateTime 
+     */
+    public function getValidation()
+    {
+        return $this->validation;
+    }
+    public function __construct(\Doctrine\ORM\EntityRepository $em, $user) {
+        $cleString ="";
+        $this->setIdentifiantWeb($user);
+        $this->validation = new \DateTime();
+        do{
+              $cleString = md5(uniqid(null, true).$user->getSalt());
+             $validation = $em->findBy(array("cle"=>$cleString));
+            
+            }while (!isset($validation) && count($validation) <=0);
+          
+            $this->cle = $cleString;
+    }
+    
 }
