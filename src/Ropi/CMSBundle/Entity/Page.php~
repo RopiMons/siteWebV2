@@ -5,7 +5,6 @@ namespace Ropi\CMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Page
@@ -18,7 +17,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\DiscriminatorMap({"dynamique"="PageDynamique", "statique"="PageStatique"})
  * 
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"position","categorie"}, message="Il y a déjà une page à cette position")
+ * 
+ * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
+ * 
  */
 abstract class Page
 {

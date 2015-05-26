@@ -1,0 +1,77 @@
+<?php
+
+namespace Ropi\IdentiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Contact
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Contact
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur", type="string", length=100)
+     */
+    private $valeur;
+    
+    /**
+     *
+     * @var typContact
+     * @ORM\ManyToOne(targetEntity="TypeContact", cascade={"persist"})
+     */
+    private $typeContact;
+    /**
+     *@ORM\ManyToOne(targetEntity="Personne", inversedBy="contacts", cascade={"persist"})
+     */
+     private $personne;
+     
+    
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set valeur
+     *
+     * @param string $valeur
+     * @return Contact
+     */
+    public function setValeur($valeur)
+    {
+        $this->valeur = $valeur;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur
+     *
+     * @return string 
+     */
+    public function getValeur()
+    {
+        return $this->valeur;
+    }
+}
