@@ -184,14 +184,6 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>T&eacute;l&eacute;chargez la charte au format pdf --&gt; charte_ropi.pdf</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>"),
-            array(3, "Documents opérationnels", 1, new DateTime("2015-05-26T16:47:49+02:00"), new DateTime("2015-05-26T16:47:49+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Documents op&eacute;rationnels</h1>
-<h2>Le r&egrave;glement d'ordre int&eacute;rieur.</h2>
-<p>T&eacute;l&eacute;chargez le R&egrave;glement d'Ordre Int&eacute;rieur (ROI)--&gt; TODO LIEN.</p>
-<p>Pour le fonctionnement simplifi&eacute; du Ropu, consultez la page le Ropi / en pratique (todo lien)</p>
-<p>&nbsp;</p>
-<h2>Mod&egrave;le de conventions avec les prestataires,&nbsp;</h2>
-<h2><br />Compte rendus des r&eacute;unions (CA et AG)</h2>
-<h2>Comptabilit&eacute;</h2>"),
             array(1, "Les commerces", 1, new DateTime("2015-05-26T20:54:06+02:00"), new DateTime("2015-05-26T20:54:06+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_3"), "<h1>Comment trouver les prestataires membres</h1>
 <h2>Cartographie</h2>
 <p>mapfaire.com/Ropi</p>
@@ -231,7 +223,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p><br /> Pour nous proposer votre aide, inscrivez-vous via le formulaire en ligne --&gt; TODO ou par email via info@ropi.be<br /> <br /> Nous invitons &eacute;galement tous les b&eacute;n&eacute;voles &agrave; devenir membre de l'asbl.</p>
 <h2><br /> Devenir membre de l'asbl</h2>
 <p><br /> Les membres, de par leur apports (avis, id&eacute;es, propositions, critiques, votes, ...) &agrave; l'Assembl&eacute;e G&eacute;n&eacute;rale ou participation aux ateliers pratiques (r&eacute;unions de travail ou brainstorming) sont indsipensables &agrave; la vie de l'asbl. De par leurs contributions financi&egrave;re via les cotisations, les membres assurent la p&eacute;rennit&eacute; de l'asbl? Consultez la page Ropi / Adh&eacute;rer &agrave; l'asbl pour devenir membre.</p>"),
-            array(2, "Documents opérationnels", 1, new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "<h1>Documents op&eacute;rationnels</h1>
+            array(2, "Documents opérationnels", 1, new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Documents op&eacute;rationnels</h1>
 <h2>R&eacute;glement d'ordre int&eacute;rieur (ROI)</h2>
 <p>Le r&eacute;glement d'ordre int&eacute;rieur est le document de r&eacute;f&eacute;rence d&eacute;crivant les r&egrave;gles de fonctionnement du Ropi. [RopiROI.pdf].</p>
 <p>Pour une description simplifi&eacute;e, consultez Le Ropi / En pratique.</p>
