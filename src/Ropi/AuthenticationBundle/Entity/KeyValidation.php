@@ -28,6 +28,12 @@ class KeyValidation
      */
     private $cle;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="validation", type="datetime")
+     */
+    private $validation;
+    /**
      *
      * @ORM\OneToOne(targetEntity="IdentifiantWeb")
      */
@@ -88,5 +94,28 @@ class KeyValidation
     public function getIdentifiantWeb()
     {
         return $this->IdentifiantWeb;
+    }
+
+    /**
+     * Set validation
+     *
+     * @param \DateTime $validation
+     * @return KeyValidation
+     */
+    public function setValidation($validation)
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return \DateTime 
+     */
+    public function getValidation()
+    {
+        return $this->validation;
     }
 }

@@ -41,10 +41,10 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
                 ->get('security.encoder_factory')
                 ->getEncoder($identifiant)
         ;
-
+            
              $identifiant->setMotDePasse($encoder->encodePassword($element[1], $identifiant->getSalt()));
             //$this->setReference("PERM_".$element[0], $permission);
-            
+            $identifiant->setActif(true);
             $manager->persist($identifiant);
         }
         
