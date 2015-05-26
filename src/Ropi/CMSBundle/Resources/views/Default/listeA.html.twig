@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>{{ titre }}</h1>
+    <ul>
+        {% for element in liste %}
+            <li><a href="{{ path("CMS_static_update", { 'id': element.id }) }}">{{ element.titreMenu }}</a> (Catégorie : {{ element.categorie.nom }})</li>
+            {% endfor %}
+    </ul>
+{% endblock %}
