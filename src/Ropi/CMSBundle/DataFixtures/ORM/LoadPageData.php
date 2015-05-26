@@ -166,7 +166,16 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>&nbsp;</p>
 <h2>Charte</h2>
 <p>&nbsp;</p>
-<p>&nbsp;</p>")
+<p>&nbsp;</p>"),
+            
+            array(3, "Documents opérationnels", 1, new DateTime("2015-05-26T16:47:49+02:00"), new DateTime("2015-05-26T16:47:49+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Documents op&eacute;rationnels</h1>
+<h2>Le r&egrave;glement d'ordre int&eacute;rieur.</h2>
+<p>T&eacute;l&eacute;chargez le R&egrave;glement d'Ordre Int&eacute;rieur (ROI)--&gt; TODO LIEN.</p>
+<p>Pour le fonctionnement simplifi&eacute; du Ropu, consultez la page le Ropi / en pratique (todo lien)</p>
+<p>&nbsp;</p>
+<h2>Mod&egrave;le de conventions avec les prestataires,&nbsp;</h2>
+<h2><br />Compte rendus des r&eacute;unions (CA et AG)</h2>
+<h2>Comptabilit&eacute;</h2>"),
             
             
         );

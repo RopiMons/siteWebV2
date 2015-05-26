@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ropi\CMSBundle\Form\PageStatiqueForm;
 use Ropi\CMSBundle\Entity\PageStatique;
 use Doctrine\ORM\NoResultException;
+use Ropi\CMSBundle\Entity\PositionnableInterface;
 
 class DefaultController extends Controller {
 
@@ -36,8 +37,8 @@ class DefaultController extends Controller {
             $em->persist($page);
 
             $em->flush();
-            
-            
+
+
             $this->ecrireResultat($page);
 
             $this->get('session')->getFlashBag()->add(
@@ -69,28 +70,27 @@ class DefaultController extends Controller {
     public function getPageAction($categorie = null, $titreMenu = null) {
         if (isset($categorie) && isset($titreMenu)) {
             $repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique');
-            try{
+            try {
                 $page = $repo->getPageForCMS($categorie, $titreMenu);
             } catch (NoResultException $ex) {
                 $page = null;
             }
-            
-            if($page){
-                return $this->render('RopiCMSBundle:Default:cmsStatique.html.twig',array(
-                    'page' => $page,
+
+            if ($page) {
+                return $this->render('RopiCMSBundle:Default:cmsStatique.html.twig', array(
+                            'page' => $page,
                 ));
-            }else {
+            } else {
                 throw $this->createNotFoundException("Cette page n'a pas été trouvée");
             }
-            
         } else {
             return $this->indexAction();
         }
     }
 
     private function indexAction() {
-        return $this->render('RopiCMSBundle:Default:index.html.twig',array(
-            'pages'=>$this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
+        return $this->render('RopiCMSBundle:Default:index.html.twig', array(
+                    'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
         ));
     }
 
@@ -115,17 +115,14 @@ class DefaultController extends Controller {
                     );
                     return $this->redirect($this->generateUrl("CMS_static_update"));
                 }
-                
+
                 return $this->render('RopiCMSBundle:Default:createStatique.html.twig', array(
-                    'titre' => 'Modification de la page',
-                    'form' => $form->createView()
+                            'titre' => 'Modification de la page',
+                            'form' => $form->createView()
                 ));
-                
-            }else{
+            } else {
                 return $this->redirect($this->generateUrl("CMS_static_update"));
             }
-
-            
         } else {
             $pages = $repo->findAll();
 
@@ -134,6 +131,137 @@ class DefaultController extends Controller {
                         'titre' => "Sélection de la page à modifier",
             ));
         }
+    }
+
+    /**
+     * @Route("/my/cms/pages", name="CMS_pages")
+     * @Template()
+     */
+    public function listAction() {
+        $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie");
+        $tab = $repo->getAllOrderedPage();
+
+        usort($tab, function($a, $b) {
+            return $this->comparePosition($a, $b);
+        });
+        return array(
+            'categories' => $tab,
+        );
+    }
+
+    /**
+     * @Route("/my/cms/page/remove/{id}", requirements={"id" = "\d+"}, name="CMS_page_remove")
+     */
+    public function removePage($id) {
+        $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique")->find($id);
+        if ($page) {
+            $this->getDoctrine()->getManager()->remove($page);
+            $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add(
+                    'success', 'La page a bien été supprimée'
+            );
+
+            $this->clearPosition($this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page")->findBy(array('categorie' => $page->getCategorie())));
+        } else {
+            $this->get('session')->getFlashBag()->add(
+                    'danger', 'La page n\'a pas été trouvée, elle n\'est donc pas supprimée'
+            );
+        }
+
+        return $this->redirect($this->generateUrl('CMS_pages'));
+    }
+
+    private function clearPosition($tab) {
+
+        $i = 1;
+        usort($tab, function($a, $b) {
+            return $this->comparePosition($a, $b);
+        });
+
+        foreach ($tab as $element) {
+            $element->setPosition($i);
+            $i++;
+        }
+        $this->getDoctrine()->getManager()->flush();
+    }
+
+    private function comparePosition(PositionnableInterface $a, PositionnableInterface $b) {
+        if ($a->getPosition() == $b->getPosition()) {
+            return 0;
+        }
+
+        return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+    }
+
+    /**
+     * @Route("/my/cms/page/active/{id}", requirements={"id" = "\d+"}, name="CMS_page_inverse" )
+     * 
+     */
+    public function inversedActive($id) {
+        $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique")->findOneBy(array('id' => $id));
+
+        $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique")->findOneBy(array('id' => $id));
+        if ($page) {
+            $page->setIsActive(!$page->getIsActive());
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->redirect($this->generateUrl("CMS_pages"));
+    }
+
+    /**
+     * @Route("/my/cms/page/up/{id}", requirements={"id" = "\d+"}, defaults={"sens" = -1, "type"="page"}, name="CMS_pages_up")
+     * @Route("/my/cms/page/down/{id}", requirements={"id" = "\d+"}, defaults={"sens" = 1, "type"="page"}, name="CMS_pages_down")
+     * 
+     * @Route("/my/cms/categorie/up/{id}", requirements={"id" = "\d+"}, defaults={"sens" = -1, "type"="categorie"}, name="CMS_categories_up")
+     * @Route("/my/cms/categorie/down/{id}", requirements={"id" = "\d+"}, defaults={"sens" = 1, "type"="categorie"}, name="CMS_categories_down")
+     */
+    public function moveAction($id, $sens, $type) {
+
+        $ok = false;
+
+        if ($type == "page") {
+            $class = "Ropi\CMSBundle\Entity\PageStatique";
+        } else {
+            $class = "Ropi\CMSBundle\Entity\Categorie";
+        }
+
+        $repo = $this->getDoctrine()->getRepository($class);
+        $element1 = $repo->findOneBy(array('id' => $id));
+
+
+        if ($element1) {
+
+            $position = $element1->getPosition();
+            $newPosition = $position + $sens;
+
+            if ($type == "page") {
+                $conditions = array(
+                    'position' => $newPosition,
+                    'categorie' => $element1->getCategorie()
+                );
+            } else {
+                $conditions = array(
+                    'position' => $newPosition
+                );
+            }
+
+            $element2 = $repo->findOneBy($conditions);
+            if ($element2) {
+                $element1->setPosition($newPosition);
+                $element2->setPosition($position);
+
+                $this->getDoctrine()->getManager()->flush();
+
+                $ok = true;
+            }
+        }
+
+        if (!$ok) {
+            $this->get('session')->getFlashBag()->add('danger', 'La modification n\'a pas été effectuée');
+        }
+
+        return $this->redirect($this->generateUrl("CMS_pages"));
     }
 
 }

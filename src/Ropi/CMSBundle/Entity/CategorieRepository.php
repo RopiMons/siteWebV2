@@ -26,5 +26,15 @@ class CategorieRepository extends EntityRepository {
         return intval($retour);
         
     }
+    
+    public function getAllOrderedPage(){
+        return $this->createQueryBuilder("c")
+                ->select(array('c','p'))
+                ->leftJoin("c.pages", "p")
+                ->orderBy("p.position")
+                ->getQuery()
+                ->execute()
+                ;
+    }
 
 }
