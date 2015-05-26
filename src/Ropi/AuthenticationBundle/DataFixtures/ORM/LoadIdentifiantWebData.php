@@ -45,6 +45,7 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
              $identifiant->setMotDePasse($encoder->encodePassword($element[1], $identifiant->getSalt()));
             //$this->setReference("PERM_".$element[0], $permission);
             $identifiant->setActif(true);
+            $identifiant->addRole($this->getReference("ROLE_Admin"));
             $manager->persist($identifiant);
         }
         
@@ -56,7 +57,7 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 1; // the order in which fixtures will be loaded
+        return 3; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

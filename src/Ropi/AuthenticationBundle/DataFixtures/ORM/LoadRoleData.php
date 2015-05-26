@@ -36,6 +36,8 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, C
             $role = new Role();
             $role->setNom($element[0]);
             $role->setDescription($element[1]);
+            $role->addPermission($this->getReference("PERM_ROLE_ADMIN"));
+            $this->setReference("ROLE_".$element[0], $role);
             $manager->persist($role);
         }
         
@@ -47,7 +49,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, C
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 1; // the order in which fixtures will be loaded
+        return 2; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

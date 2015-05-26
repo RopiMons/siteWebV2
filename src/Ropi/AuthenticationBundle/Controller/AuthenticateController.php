@@ -67,10 +67,8 @@ class AuthenticateController extends Controller
             $validation = $em->findBy(array("cle"=>$key));
             
            if(isset($validation) && $validation[0]->getIdentifiantWeb() === $id){
-       
-               if($validation[0]->getValidation()->modify('+2 day') >= new \DateTime())
+                if($validation[0]->getValidation()->modify('+2 day') >= new \DateTime())
                {
-                 
                    $id->setActif(true);
                    $em = $this->getDoctrine()->getManager();
                     $em->persist($id);

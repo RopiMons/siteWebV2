@@ -27,6 +27,7 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
         
         $tab = array(
             0 => array("ROLE_CMS_CREATE","Créer une page avec le CMS","Autorise la personne qui possède cette autorisation à créer une nouvelle page dans le système de CMS"),
+            1 => array("ROLE_ADMIN","Administrateur","Donne l'access total à l'administration"),
              );
         
         foreach($tab as $element){

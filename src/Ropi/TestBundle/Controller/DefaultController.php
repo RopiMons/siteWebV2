@@ -31,11 +31,11 @@ class DefaultController extends Controller
             $encoder = $factory->getEncoder($user);
            
             $user->setMotDePasse($encoder->encodePassword($user->getMotDePasse(), $user->getSalt()));
-
-            $cle = new KeyValidation();
-            $cle->setCle(md5(uniqid(null, true).$user->getSalt()));
-            $cle->setIdentifiantWeb($user);
-            $cle->setValidation(new \DateTime());
+           
+            
+            $em = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
+            $cle = new KeyValidation($em,$user);           
+            
            
             $em = $this->getDoctrine()->getManager();
             $em->persist($cle);

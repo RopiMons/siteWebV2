@@ -118,4 +118,17 @@ class KeyValidation
     {
         return $this->validation;
     }
+    public function __construct(\Doctrine\ORM\EntityRepository $em, $user) {
+        $cleString ="";
+        $this->setIdentifiantWeb($user);
+        $this->validation = new \DateTime();
+        do{
+              $cleString = md5(uniqid(null, true).$user->getSalt());
+             $validation = $em->findBy(array("cle"=>$cleString));
+            
+            }while (!isset($validation) && count($validation) <=0);
+          
+            $this->cle = $cleString;
+    }
+    
 }
