@@ -23,6 +23,8 @@ class CategorieRepository extends EntityRepository {
                         ->getSingleScalarResult()
                 ;
         
+        dump($retour);
+        
         return intval($retour);
         
     }
