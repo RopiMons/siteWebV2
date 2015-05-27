@@ -235,7 +235,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     public function __construct() {
         $this->salt = md5(uniqid(null, true));
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->Permission = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -266,8 +266,28 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getRoles() {
-        return $this->roles->toArray();
-
+        //dump($this->roles->getPermission()->getPermission());
+      
+        //return $this->roles->toArray();
+        $tab = array();
+        foreach($this->roles as $perm){
+           foreach($perm->getPermission() as $val){
+               if (!in_array($val->getPermission(), $tab)){
+                   $tab[] = $val->getPermission();
+               }
+           }
+            
+        }
+        foreach($this->permission as $val){
+             if (!in_array($val->getPermission(), $tab)){
+                   $tab[] = $val->getPermission();
+               }
+        }
+       
+        return $tab;
+        
+        
+        
         //return array('ROLE_ADMIN',);
     }
 
@@ -278,7 +298,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return IdentifiantWeb
      */
     public function addPermission(\Ropi\AuthenticationBundle\Entity\Permission $permission) {
-        $this->Permission[] = $permission;
+        $this->permission[] = $permission;
 
         return $this;
     }
@@ -289,7 +309,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @param \Ropi\AuthenticationBundle\Entity\Permission $permission
      */
     public function removePermission(\Ropi\AuthenticationBundle\Entity\Permission $permission) {
-        $this->Permission->removeElement($permission);
+        $this->permission->removeElement($permission);
     }
 
     /**
@@ -298,7 +318,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getPermission() {
-        return $this->Permission;
+        return $this->permission;
     }
 
     public function eraseCredentials() {
