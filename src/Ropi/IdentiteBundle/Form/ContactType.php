@@ -13,16 +13,14 @@ class ContactType extends AbstractType
      * @param array $options
      * 
      */
-    private $type ;
-    public  function __construct(\Ropi\IdentiteBundle\Entity\TypeMoyenContact $typeContact) {
-        $this->type = $typeContact;
-    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             //->add('typeContact')
-            ->add('valeur',null,array("label"=>$this->type->getType()))
-            
+            ->add('valeur',null,array(
+                'label' => ' ',
+            ))
             //->add('personne')
         ;
     }
