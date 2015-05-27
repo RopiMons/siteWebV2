@@ -8,9 +8,7 @@ and open the template in the editor.
     Author     : Laurent Cardon <laurent.cardon@ropi.be>
 */
 
-h1{
-    color: blue;
-}
+
 
 .dropdown-submenu{position:relative;}
 .dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
@@ -19,3 +17,96 @@ h1{
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 .margin-left{margin-left: 10px;}
+
+/* Police personalisée*/
+@font-face {
+    font-family: 'Rupture';
+    src: url('font/rupture-webfont.eot');
+    src: url('font/rupture-webfont.eot?#iefix') format('eot'),
+         url('font/rupture-webfont.woff') format('woff'),
+         url('font/rupture-webfont.ttf') format('truetype'),
+         url('font/rupture-webfont.svg#webfontgcwKlGj6') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* Background */
+body{ 
+	background : url("/img/ROPI_WEB_BG_BL.png")fixed no-repeat;
+	margin:0;
+}
+
+.container{
+	background-color: rgba(255, 255, 255,0.75);
+	width:100%;
+	box-shadow: 2px 2px 15px grey inset;
+}
+
+#background {
+	background-color: rgba(255, 255, 255,0.75);
+}
+
+/* #logo{
+	min-width:150px;
+	max-width:300px;
+} */
+
+#slogan{
+	clear:both;
+	display:block;
+}
+
+h2{
+	font-family : rupture, Arial, Verdana, serif;
+	font-size:1.5em;
+}
+
+/* VerticalSlider */
+
+aside{
+	float:left;
+	background : orange;
+}
+aside li {
+	list-style:none;
+}
+
+#billets{
+	width:100%;
+ 	box-shadow : 0px 3px 2px gray; 
+}
+
+ul li img:hover{
+	-webkit-transform: scale(1.10);
+		-moz-transform: scale(1.10);
+		-ms-transform: scale(1.10);
+		-o-transform: scale(1.10);
+			transform: scale(1.10);
+}
+ul li img{
+	-webkit-transition: all .5s cubic-bezier( .6, 2, .4, 1);
+		-moz-transition: all .5s cubic-bezier( .6, 2, .4, 1);
+		-ms-transition: all .5s cubic-bezier( .6, 2, .4, 1);
+		-o-transition: all .5s cubic-bezier( .6, 2, .4, 1);
+			transition: all .5s cubic-bezier( .6, 2, .4, 1);
+}
+ul:hover li img:not(:hover){
+	-webkit-filter: grayscale(1) blur(2px);
+		-moz-filter: grayscale(1) blur(2px);
+		-ms-filter: grayscale(1) blur(2px);
+		-o-filter: grayscale(1) blur(2px);
+			filter: grayscale(1) blur(2px);
+}
+.col-sm-12 #content{
+ width:100%;
+ }
+ 
+/*[class*="col-"], footer  
+{  
+background-color: lightgreen;  
+ border: 2px solid black;  
+ border-radius: 6px;  
+ line-height: 40px;  
+}*/
+
