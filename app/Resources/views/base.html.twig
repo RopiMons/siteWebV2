@@ -17,33 +17,115 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% for flashMessage in app.session.flashbag.get('info') %}
-            <div class="alert alert-info" role="alert">
-                {{ flashMessage }}
+        <div class="container">
+            <header class="row"> <!-- Logo & slogan -->
+                <div class="col-xs-12">
+                    <div class="col-sm-5">
+                        <img id="logo" class="col-sm-12" src="img/ropi_logo.png" alt="logo du ropi"/>
+                        <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
+                    </div>
+                    <div class="col-sm-4"></p>chiffres
+                        </p></div>
+                    <div class="col-sm-3">slider commerces
+                    </div>
+                </div>	
+            </header>
+
+            {% for flashMessage in app.session.flashbag.get('info') %}
+                <div class="alert alert-info" role="alert">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('danger') %}
+                <div class="alert alert-danger" role="alert">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% block header %}{% endblock %}
+        {% block menu %}
+        </nav> <nav class="navbar navbar-default row ">
+
+
+            <div class="container-fluid"> 
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+
+                    </button>
+
+                    <a class="navbar-brand men" href="{{ path('home') }}">Ropi</a> 
+
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+
+                    {#{ np_menu_render('breadcrumb',{'currentAsLink':false}) }#}
+
+                    {#{ knp_menu_render('RopiCMSBundle:Builder:createBreadcrumbMenu') }#}
+                    {{ knp_menu_render('main') }}
+
+
+
+                </div><!--/.nav-collapse -->
             </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="alert alert-success" role="alert">
-                {{ flashMessage }}
+
+        </nav>
+
+
+    {% endblock %}
+    <section class="col-sm-12 row">section
+        <aside class="col-sm-3"> {% block left %}vertical slider{% endblock %}</aside>
+        <div class="col-sm-6"> 
+            <!-- Text Area-->
+
+            {% block content %}<article class="col-sm-12"> plan</article>
+
+                <article class="col-sm-12">blog
+                </article>{% endblock %}
+
+            </div>                  
+            <div class="col-sm-3"> {% block right %}
+                <div class="col-md-12">Agenda</div>
+                <!-- Google Map -->
+                <div class="col-md-12">Map</div>
+
+            {% endblock %}</div> 
+
+</section>
+<footer class="row"> 
+    <div class="col-sm-9">
+        <nav class="navbar navbar-default" > <!-- Menu -->
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                        {% block footNav %}{% endblock %}
+                        </li>
+                    </ul>
+                </div>
             </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-error" role="alert">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
-    {% block header %}{% endblock %}
-{% block menu %}{% endblock %}
-{% block left %}{% endblock %}
-{% block content %}{% endblock %}
-{% block right %}{% endblock %}
-{% block footCopyright %}{% endblock %}
-{% block footNav %}{% endblock %}
+        </nav>			
+    </div> 
+    <div class="col-sm-3"id="copyright">
+        {% block footCopyright %} <p>2015 Copyright©ropi.be</p>{% endblock %}
+       
+    </div>
+
+</footer>
+ </div>        
 {% block javascripts %}
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <!-- Include all JavaScripts, compiled by Assetic -->
     <script src="{{ asset('js/bootstrap.js') }}"></script>
 {% endblock %}
+</div>
 </body>
 </html>

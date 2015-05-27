@@ -5,6 +5,7 @@ namespace Ropi\CMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Ropi\CMSBundle\Entity\PositionnableInterface;
 
 /**
  * Page
@@ -21,8 +22,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
  * 
  */
-abstract class Page
-{
+abstract class Page implements PositionnableInterface {
+
     /**
      * @var integer
      *
@@ -75,7 +76,7 @@ abstract class Page
      * @ORM\Column(name="publicationDate", type="datetime")
      */
     private $publicationDate;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="pages")
      */
@@ -86,8 +87,7 @@ abstract class Page
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -97,8 +97,7 @@ abstract class Page
      * @param integer $position
      * @return Page
      */
-    public function setPosition($position)
-    {
+    public function setPosition($position) {
         $this->position = $position;
 
         return $this;
@@ -109,8 +108,7 @@ abstract class Page
      *
      * @return integer 
      */
-    public function getPosition()
-    {
+    public function getPosition() {
         return $this->position;
     }
 
@@ -120,8 +118,7 @@ abstract class Page
      * @param string $titreMenu
      * @return Page
      */
-    public function setTitreMenu($titreMenu)
-    {
+    public function setTitreMenu($titreMenu) {
         $this->titreMenu = $titreMenu;
 
         return $this;
@@ -132,8 +129,7 @@ abstract class Page
      *
      * @return string 
      */
-    public function getTitreMenu()
-    {
+    public function getTitreMenu() {
         return $this->titreMenu;
     }
 
@@ -143,8 +139,7 @@ abstract class Page
      * @param boolean $isActive
      * @return Page
      */
-    public function setIsActive($isActive)
-    {
+    public function setIsActive($isActive) {
         $this->isActive = $isActive;
 
         return $this;
@@ -155,8 +150,7 @@ abstract class Page
      *
      * @return boolean 
      */
-    public function getIsActive()
-    {
+    public function getIsActive() {
         return $this->isActive;
     }
 
@@ -166,8 +160,7 @@ abstract class Page
      * @param \DateTime $lastUpdate
      * @return Page
      */
-    public function setLastUpdate($lastUpdate)
-    {
+    public function setLastUpdate($lastUpdate) {
         $this->lastUpdate = $lastUpdate;
 
         return $this;
@@ -178,8 +171,7 @@ abstract class Page
      *
      * @return \DateTime 
      */
-    public function getLastUpdate()
-    {
+    public function getLastUpdate() {
         return $this->lastUpdate;
     }
 
@@ -189,8 +181,7 @@ abstract class Page
      * @param \DateTime $createdAt
      * @return Page
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -201,8 +192,7 @@ abstract class Page
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -212,8 +202,7 @@ abstract class Page
      * @param \DateTime $publicationDate
      * @return Page
      */
-    public function setPublicationDate($publicationDate)
-    {
+    public function setPublicationDate($publicationDate) {
         $this->publicationDate = $publicationDate;
 
         return $this;
@@ -224,22 +213,21 @@ abstract class Page
      *
      * @return \DateTime 
      */
-    public function getPublicationDate()
-    {
+    public function getPublicationDate() {
         return $this->publicationDate;
     }
-    
+
     abstract function getURL();
-    
+
     /**
      * @ORM\PrePersist()
      */
-    public function onPrePersist(){
+    public function onPrePersist() {
         $now = new \DateTime();
         $this->setCreatedAt($now);
         $this->setLastUpdate($now);
-        
-        if(!isset($this->isActive)){
+
+        if (!isset($this->isActive)) {
             $this->isActive = false;
         }
     }
@@ -250,8 +238,7 @@ abstract class Page
      * @param \Ropi\CMSBundle\Entity\Categorie $categorie
      * @return Page
      */
-    public function setCategorie(\Ropi\CMSBundle\Entity\Categorie $categorie = null)
-    {
+    public function setCategorie(\Ropi\CMSBundle\Entity\Categorie $categorie = null) {
         $this->categorie = $categorie;
 
         return $this;
@@ -262,15 +249,14 @@ abstract class Page
      *
      * @return \Ropi\CMSBundle\Entity\Categorie 
      */
-    public function getCategorie()
-    {
+    public function getCategorie() {
         return $this->categorie;
     }
-    
+
     /**
      * @ORM\PreUpdate
      */
-    public function onPreUpdate(){
+    public function onPreUpdate() {
         $this->lastUpdate = new \DateTime();
     }
 }
