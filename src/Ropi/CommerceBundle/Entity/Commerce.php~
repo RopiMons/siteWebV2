@@ -66,7 +66,7 @@ class Commerce
     private $updateAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce",cascade={"persist","remove"})
      */
     private $adresses;
 
@@ -235,51 +235,5 @@ class Commerce
     public function getAdresses()
     {
         return $this->adresses;
-    }
-
-    /**
-     * Set valide
-     *
-     * @param boolean $valide
-     * @return Commerce
-     */
-    public function setValide($valide)
-    {
-        $this->valide = $valide;
-
-        return $this;
-    }
-
-    /**
-     * Get valide
-     *
-     * @return boolean 
-     */
-    public function getValide()
-    {
-        return $this->valide;
-    }
-
-    /**
-     * Set visible
-     *
-     * @param boolean $visible
-     * @return Commerce
-     */
-    public function setVisible($visible)
-    {
-        $this->visible = $visible;
-
-        return $this;
-    }
-
-    /**
-     * Get visible
-     *
-     * @return boolean 
-     */
-    public function getVisible()
-    {
-        return $this->visible;
     }
 }

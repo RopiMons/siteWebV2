@@ -3,6 +3,7 @@
 namespace Ropi\IdentiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Adresse
@@ -32,25 +33,33 @@ class Adresse
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=10)
+     * @Assert\NotBlank()
      */
     private $numero;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="complement", type="string", length=255)
+     * @ORM\Column(name="complement", type="string", length=255, nullable=true)
      */
     private $complement;
     
     /**
      * @ORM\ManyToOne(targetEntity="TypeAdresse")
+     * @Assert\NotBlank()
      */
     private $typeAdresse;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Ville")
+     * @ORM\ManyToOne(targetEntity="Ville", cascade={"persist"})
+     * @Assert\NotBlank()
      */
     private $ville;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses")
+     */
+    private $commerce;
 
     /**
      * Get id
@@ -175,5 +184,28 @@ class Adresse
     public function getVille()
     {
         return $this->ville;
+    }
+
+    /**
+     * Set commerce
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Commerce $commerce
+     * @return Adresse
+     */
+    public function setCommerce(\Ropi\IdentiteBundle\Entity\Commerce $commerce = null)
+    {
+        $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * Get commerce
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Commerce 
+     */
+    public function getCommerce()
+    {
+        return $this->commerce;
     }
 }

@@ -51,10 +51,15 @@ class Adresse
     private $typeAdresse;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Ville")
+     * @ORM\ManyToOne(targetEntity="Ville", cascade={"persist"})
      * @Assert\NotBlank()
      */
     private $ville;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses", cascade={"persist"})
+     */
+    private $commerce;
 
     /**
      * Get id
@@ -179,5 +184,28 @@ class Adresse
     public function getVille()
     {
         return $this->ville;
+    }
+
+    /**
+     * Set commerce
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Commerce $commerce
+     * @return Adresse
+     */
+    public function setCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerce = null)
+    {
+        $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * Get commerce
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Commerce 
+     */
+    public function getCommerce()
+    {
+        return $this->commerce;
     }
 }
