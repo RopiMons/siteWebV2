@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@RopiCMSBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~
@@ -139,3 +140,13 @@ stfalcon_tinymce:
     theme:
         simple:
             content_css: "/css/ropi.css"
+
+knp_menu:
+    twig: 
+        template: knp_menu.html.twig
+    templating: false
+    default_renderer: twig
+    providers:
+        builder_alias: false
+        container_aware: true
+    

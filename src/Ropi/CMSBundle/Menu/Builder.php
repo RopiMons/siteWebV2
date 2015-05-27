@@ -9,8 +9,8 @@
 
 namespace Ropi\CMSBundle\Menu;
 
-use Knp\Menu\FactoryInterface;
 use Doctrine\ORM\EntityManager;
+use Knp\Menu\FactoryInterface;
 
 class Builder {
 
@@ -24,18 +24,32 @@ class Builder {
     private $factory;
     private $em;
 
-    public function __construct(FactoryInterface $factory, Entitymanager $em) {
+    public function __construct(FactoryInterface $factory, EntityManager $em) {
         $this->factory = $factory;
         $this->em = $em;
     }
 
     private function tab() {
-        $listeCategories = $this->em->getRepository('RopiAuthenticationBundle:IdentifiantWeb')->findall(); 
-        dump($listeCategories);
-        $tab["acceil"] = array('route' => 'home');
-        $tab["acceil2"] = array('route' => 'home');
-        $tab["acceil3"] = array("test" => array('route' => 'home'), "test2" => array('route' => 'home'), "test3" => array("coucou" => array('route' => 'home'), "coucou2" => array("cool" => array('route' => 'home'))));
+        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages(); 
+        $tab = array();
         
+        foreach($listeCategories as $categorie)
+        {
+            $pages = $categorie->getPages();
+            $temp = array();
+            foreach ($pages as $page)
+            {
+                $temp[$page->getTitreMenu()] = array(
+                    'route' => 'home'
+                    );
+            }
+            $tab[$categorie->getNom()] = $temp;
+        }
+                
+//        $tab["acceil"] = array('route' => 'home');
+//        $tab["acceil2"] = array('route' => 'home');
+//        $tab["acceil3"] = array("test" => array('route' => 'home'), "test2" => array('route' => 'home'), "test3" => array("coucou" => array('route' => 'home'), "coucou2" => array("cool" => array('route' => 'home'))));
+//        
         return $tab;
     }
 
