@@ -1,5 +1,7 @@
 ropi_commerce:
     resource: "@RopiCommerceBundle/Controller/"
+ropi_identite:
+    resource: "@RopiIdentiteBundle/Controller/"
     type:     annotation
     prefix:   /
 

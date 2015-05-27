@@ -124,19 +124,29 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Pour devenir membre, enregistrez-vous via le formulaire en ligne TODO LIEN FORMULAIRE EN LIGNE ou en nous envoyant un email &agrave; info@ropi.be (+ mod&egrave;le automatique de mail)</p>
 <p>Vous pouvez &eacute;galement vous rendre &agrave; un comptoir de change et y compl&eacute;ter un formulaire d'inscription papier. Nous vous contacterons ensuite par couriel ou par la poste.</p>
 <p>Vous serez ensuite invit&eacute; &agrave; r&eacute;gler votre cotisation de 15 Ropi (par votre compte Ropi en ligne) ou de 20 Euro (BEXX XXXX XXXX XXXX).</p>"),
-            array(1, "Visuels", 1, new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
+            array(1, "Visuels", 1, new DateTime("2015-05-27T18:14:48+02:00"), new DateTime("2015-05-27T18:02:22+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
 <p>Sur cette pages, vous trouverez tous nos visuels de communication (logo, d&eacute;pliant, autocollants, ...) que vous pouvez utiliser pour faire la promotion du Ropi. Imprimez les vous m&ecirc;me, ou commandez les via TODO FORMULAIRE DE COMMANDE DES VISUELS</p>
 <p>FORMULAIRE</p>
 <p>--&gt; se logger (il faut &ecirc;tre membre)</p>
 <p>--&gt; cocher le type de visuel et le nombre d'unit&eacute; souhait&eacute;e</p>
 <p>&nbsp;</p>
-<h2>Le logo Ropi</h2>
+<h2>Les logo Ropi</h2>
+<p><img src=\"../../../../../source/ROPI_Logo-1l.png\" alt=\"Logo Ropi &quot;R&quot;\" width=\"100\" height=\"100\" /></p>
+<p><img src=\"../../../../../source/ROPI_Logo_4l.png\" alt=\"Logo Ropi &quot;ROPI&quot;\" width=\"200\" /></p>
 <p>&nbsp;</p>
 <h2>Le d&eacute;pliant (triptyque)</h2>
+<p>&nbsp;<img src=\"../../../../../source/ROPI_Depliant_recto.jpg\" alt=\"D&eacute;pliant triptyque Ropi recto\" width=\"300\" /></p>
+<p><img src=\"../../../../../source/ROPI_Depliant_verso.jpg\" alt=\"D&eacute;pliant triptyque Ropi verso\" width=\"300\" /></p>
+<h2><a title=\"D&eacute;plian Ropi tryptique\" href=\"../../../../../source/ROPI_Depliant.pdf\">/source/ROPI_Depliant.pdf</a></h2>
+<h2>L'autocollant indiquant qu'un commerce accepte le Ropi</h2>
+<p>&nbsp;<img src=\"../../../../../source/autocollant.png\" alt=\"Autocollant - accepte le Ropi\" width=\"200\" /></p>
+<p><a href=\"../../../../../source/autocollant.png\">/source/autocollant.png</a></p>
+<h2>Les cartes de visites (pour les ambassadeurs, ...)</h2>
 <p>&nbsp;</p>
-<h2>L'autocollant, \"Ici on accepte le Ropi\"</h2>
+<p><img src=\"../../../../../source/Carte_visite_ROPI_specimen_recto.png\" alt=\"Carte de visite recto\" width=\"200\" /></p>
 <p>&nbsp;</p>
-<h2>Les cartes de visites (pour les ambassadeurs, ...)</h2>"),
+<p><img src=\"../../../../../source/Carte_visite_ROPI_specimen_verso.png\" alt=\"Carte de visite verso\" width=\"200\" /></p>"),
+            
             array(2, "Documents fondateurs", 1, new DateTime("2015-05-26T16:55:20+02:00"), new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les documents fondateurs</h1>
 <h2>Statuts</h2>
 <p>L'association a pour objet, en dehors de tout but de lucre</p>

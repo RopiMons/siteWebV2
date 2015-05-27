@@ -1,0 +1,67 @@
+/*
+Develloper par Adrien Huygens.
+ Pour Ropi.Be
+*/
+/* 
+    Created on : 27-mai-2015, 18:41:04
+    Author     : Adrien Huygens <Adrien.huygens@gmail.com>
+*/
+
+header h1{
+    color: #BBFFFF;
+}
+header{
+    background-color: #000000;
+    padding-left: 6%;
+    margin-left: 40px;
+    border-bottom-left-radius: 40px;
+     border-bottom-right-radius: 40px;
+    
+}
+
+header .name {
+   background-color: #112233; 
+   margin-top: 15px;
+   color: #BBFFFF;
+   margin-right: 20px;
+   padding-bottom: 5px;
+   margin-bottom: 10px;
+}
+header .name button {
+    border-radius: 10px;
+  margin-top: 4px;
+   
+   
+}
+body{
+    background-color: #7d7d7d;
+    
+}
+
+nav{
+    background-color: #000;
+     margin: 15px;
+    
+     
+    
+}
+.navbar{
+    border-radius: 2%;
+}
+.navbar-default{
+    background-color: #000;
+    
+}
+.container{
+    margin-top: 15px;
+    background-color: #FDFDFD;
+    border-radius: 2%;
+    margin-bottom: 15px;
+}
+.container h1 {
+    color: #000012;
+}
+.container textarea{
+    min-height: 400px;
+   
+}

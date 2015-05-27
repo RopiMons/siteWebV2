@@ -7,7 +7,7 @@
         {% block stylesheets %}
             <!-- Bootstrap -->
             <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
-            {% stylesheets '../app/Resources/public/css/ropi.css' filter='cssrewrite' output='css/ropi.css' %}
+            {% stylesheets '../app/Resources/public/css/admin.css' filter='cssrewrite' output='css/ropiAdmin.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
@@ -16,21 +16,31 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+    
     <body>
-        <div class="container">
+       
+       
+             {% block header %}
             <header class="row"> <!-- Logo & slogan -->
-                <div class="col-xs-12">
-                    <div class="col-sm-5">
-                        <img id="logo" class="col-sm-12" src="/img/ropi_logo.png" alt="logo du ropi"/>
-                        <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
+                <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="col-sm-12 col-lg-8 col-md-8">
+                        <h1> Administration </h1>
                     </div>
-                    <div class="col-sm-4"></p>chiffres
-                        </p></div>
-                    <div class="col-sm-3">slider commerces
+                    
+                     <div class="name col-sm-12 col-lg-3 col-md-3">
+                       
+                         {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                             
+                            Bonjour {{ app.user.username|capitalize }} !
+                             <br />
+                             <a href="{{ path('logout') }}"><button value="deconnexion">déconnexion</button></a>
+                              <a href="{{ path('home') }}"><button value="deconnexion">retour sur site</button></a>
+                        {%endif%}
                     </div>
+                    
                 </div>	
-            </header>
-
+            </header>  {% endblock %}
+ <div class="container">
             {% for flashMessage in app.session.flashbag.get('info') %}
                 <div class="alert alert-info" role="alert">
                     {{ flashMessage }}
@@ -46,10 +56,11 @@
                     {{ flashMessage }}
                 </div>
             {% endfor %}
-        {% block header %}{% endblock %}
+        
+      
         {% block menu %}
-        </nav> <nav class="navbar navbar-default row ">
-            <div class="col-sm-3 col-lg-3 col-md-3"> </div>
+        <nav class="navbar navbar-default row ">
+            <div class="col-sm-1 col-lg-1 col-md-1"> </div>
 
             <div class="container-fluid"> 
                 <div class="navbar-header">
@@ -65,13 +76,7 @@
 
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-
-                    {#{ np_menu_render('breadcrumb',{'currentAsLink':false}) }#}
-
-                    {#{ knp_menu_render('RopiCMSBundle:Builder:createBreadcrumbMenu') }#}
-                    {{ knp_menu_render('main') }}
-
-
+                    {{ knp_menu_render('main2') }}
 
                 </div><!--/.nav-collapse -->
             </div>
@@ -80,45 +85,20 @@
 
 
     {% endblock %}
-    <section class="col-sm-12 row">section
-        <aside class="col-sm-3"> {% block left %}vertical slider{% endblock %}</aside>
-        <div class="col-sm-6"> 
-            <!-- Text Area-->
+    
+            {% block content %}
 
-            {% block content %}<article class="col-sm-12"> plan</article>
+               {% endblock %}
 
-                <article class="col-sm-12">blog
-                </article>{% endblock %}
+           {% block right %}
+               
+            {% endblock %}
 
-            </div>                  
-            <div class="col-sm-3"> {% block right %}
-                <div class="col-md-12">Agenda</div>
-                <!-- Google Map -->
-                <div class="col-md-12">Map</div>
 
-            {% endblock %}</div> 
+           {% block footNav %}{% endblock %}
+                        
+           <footer class="col-lg-12 col-md-12 col-sm-12">{% block footCopyright %} <p>2015 Copyright©ropi.be -- Administration</p>{% endblock %}</footer>
 
-</section>
-<footer class="row"> 
-    <div class="col-sm-9">
-        <nav class="navbar navbar-default" > <!-- Menu -->
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                        {% block footNav %}{% endblock %}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>			
-    </div> 
-    <div class="col-sm-3"id="copyright">
-        {% block footCopyright %} <p>2015 Copyright©ropi.be</p>{% endblock %}
-       
-    </div>
-
-</footer>
  </div>        
 {% block javascripts %}
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
@@ -129,3 +109,4 @@
 </div>
 </body>
 </html>
+

@@ -28,6 +28,7 @@ class AppKernel extends Kernel {
 
             new Ropi\TestBundle\RopiTestBundle(),
             new Ropi\CommerceBundle\RopiCommerceBundle(),
+            new Ropi\IdentiteBundle\RopiIdentiteBundle(),
         );
 
 
