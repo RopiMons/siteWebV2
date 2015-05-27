@@ -7,7 +7,7 @@
         {% block stylesheets %}
             <!-- Bootstrap -->
             <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
-            {% stylesheets '../app/Resources/public/css/*' filter='cssrewrite' output='css/ropi.css' %}
+            {% stylesheets '../app/Resources/public/css/ropi.css' filter='cssrewrite' output='css/ropi.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}

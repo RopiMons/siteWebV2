@@ -9,3 +9,15 @@ services:
         factory_method: createBreadcrumbMenu
         tags:
             - { name: knp_menu.menu, alias: main }
+            
+    ropicms2.menu_builder:
+        class: Ropi\CMSBundle\Menu\MenuAdmin
+        arguments: ["@knp_menu.factory"]
+        
+        
+    ropicms2.main_menu: 
+        class: Knp\Menu\MenuItem
+        factory_service: ropicms2.menu_builder
+        factory_method: AdminMenu
+        tags:
+            - { name: knp_menu.menu, alias: main2 }
