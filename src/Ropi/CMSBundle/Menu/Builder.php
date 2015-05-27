@@ -11,7 +11,7 @@ namespace Ropi\CMSBundle\Menu;
 
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
-
+use Ropi\CMSBundle\Entity\PositionnableInterface;
 
 class Builder {
 
@@ -32,23 +32,42 @@ class Builder {
 
     private function tab() {
         $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages();
-        $tab = array();
 
+        usort($listeCategories, function($a, $b) {
+            return $this->comparePosition($a, $b);
+        });
+
+        $tab = array();
         foreach ($listeCategories as $categorie) {
             $pages = $categorie->getPages();
             $temp = array();
-            foreach ($pages as $page) {
-                $temp[$page->getTitreMenu()] = array(
-                    'route' => 'home'
-                );
-            }
-            $tab[$categorie->getNom()] = $temp;
-        }
 
-        usort($tab, function($a, $b) {
-            return $this->comparePosition($a, $b);
-        });
-      
+            $unique = count($pages) == 1;
+            
+                foreach ($pages as $page) {
+                                        
+                    $contenu = array(
+                        'route' => 'cms_page',
+                        'routeParameters' => array(
+                            'categorie' => $categorie->getNom(),
+                            'titreMenu' => $page->getTitreMenu()
+                        )
+                    );
+                    
+                    if($unique){
+                        $tab[$page->getTitreMenu()] = $contenu;
+                    }else{
+                        $temp[$page->getTitreMenu()] = $contenu;
+                    }
+                }
+
+                if(!$unique)
+                    $tab[$categorie->getNom()] = $temp;
+            
+        }
+        
+        dump($tab);
+
         return $tab;
     }
 
