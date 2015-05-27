@@ -1,0 +1,10 @@
+services:
+    acme_main.menu_builder:
+        class: Ropi\CMSBundle\Menu\Builder 
+        arguments: ['@knp_menu.factory', '@doctrine.orm.entity_manager']
+    acme_main.menu.main: 
+        class: Knp\Menu\MenuItem 
+        factory_service: acme_main.menu_builder
+        factory_method: createBreadcrumbMenu
+        tags: 
+            - { name: knp_menu.menu, alias: main }
