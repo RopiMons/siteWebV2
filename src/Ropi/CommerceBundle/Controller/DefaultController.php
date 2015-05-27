@@ -9,11 +9,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/my/commerce/new")
      * @Template()
      */
-    public function indexAction($name)
-    {
-        return array('name' => $name);
+    public function newCommerceAction(){
+        $form = $this->createForm($type);
+        
+        return array(
+            'form' => $form->createView(),
+        );
     }
 }
