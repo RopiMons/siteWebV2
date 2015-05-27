@@ -54,24 +54,6 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <h3>&nbsp;</h3>
 <p>&nbsp;</p>
 <p>&nbsp;</p>"),
-            array(2, "La charte", true, new \DateTime("2015-05-26 13:23:20"), new \DateTime("2015-05-26 13:23:20"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_2"), "<h1>La Charte</h1>
-<p>Emanant d'actions men&eacute;es par des citoyens montois pour la promotion d'une &eacute;conomie socialement et environnementalement soutenable, le projet vise &agrave; mettre en place une <strong>monnaie compl&eacute;mentaire &agrave; l'euro</strong> dans la<strong> r&eacute;gion de Mons-Borinage</strong>.</p>
-<h2>Un triple objectif</h2>
-<ul>
-<li>Relocaliser l'&eacute;conomie afin de se pr&eacute;parer aux d&eacute;fis environnementaux et &agrave; la fin du pr&eacute;trole bon march&eacute; (pic p&eacute;trolier).</li>
-<li>remettre le citoyen au coeur des d&eacute;bats et prises de d&eacute;cisions, notamment &agrave; propos des questions financi&egrave;res, mon&eacute;taires et des processus de production.</li>
-<li>proposer une alternative &agrave; la monnaie dominante bas&eacute;e sur les revenus du capital et g&eacute;n&eacute;ratrice d'in&eacute;galit&eacute;s sociales.</li>
-</ul>
-<p>La monnaie compl&eacute;mentaire mise en place - le Ropi - entend r&eacute;aliser ces objectifs par le soutien qu'elle apporte aux <strong>petites structures </strong>et <strong>commerces de proximit&eacute;</strong>, face &agrave; la grande distribution, les multinationales, et les franchises.</p>
-<h2>Engagement</h2>
-<p>En tant que prestataire de biens de services (distributeurs, fournisseurs, transformateurs ou producteurs), nous adh&eacute;rons par cette charte au projet Ropi mis en place par l'asbl Ropi.</p>
-<p>Nous nous engageons &agrave; <strong>promouvoir le Ropi</strong> et les <strong>valeurs &eacute;thiques</strong> qu'il sous-tend</p>
-<ul>
-<li>en acceptant le Ropi comme moyen de paiement.</li>
-<li>en sensibilisant les citoyens &agrave; ce nouveau moyen d'&eacute;change porteur de valeurs.</li>
-</ul>
-<h2>Document</h2>
-<p>T&eacute;l&eacute;chargez la charte au format pdf --&gt; charte_ropi.pdf</p>"),
             array(1, "Accueil", 1, new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "<p>&nbsp;</p>
 <h1>todo ajouter image Ropi clickable avec le texe suivant:</h1>
 <p><strong>Fonds de garantie</strong>: \"Les Euro sont &eacute;pargn&eacute;s sur un compte dans une banque &eacute;thique. Les Ropi peuvent donc &ecirc;tre reconvertis en euro &agrave; tout instant. Le fonds de garantie, plac&eacute; dans une banque &eacute; thique, peut &agrave; son tour financer l'&eacute;conomie locale. La monnaie sert donc doublement\"</p>
@@ -110,7 +92,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Le fonctionnement du Ropi est d&eacute;taill&eacute; dans le R&egrave;glement d'Ordre d'Int&eacute;rieur [TODO lien]</p>
 <p>TODO SCHEMA DEPLIANT statique</p>
 <p>&nbsp;</p>"),
-            array(4, "Adhérer à l'asbl", 1, new DateTime("2015-05-26T17:36:28+02:00"), new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l'asbl</h1>
+            array(2, "Adhérer à l'asbl", 1, new DateTime("2015-05-26T17:36:28+02:00"), new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l'asbl</h1>
 <h2>Les membres, pour une gouvernance d&eacute;mocratique en Assembl&eacute; G&eacute;n&eacute;rale</h2>
 <p>L'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront mis progressivement en place (ex: sondage via internet).</p>
 <p>En effet, nous consid&eacute;rons que la monnaie devrait &ecirc;tre un outil au service du citoyen, et non l'inverse comme c'est le cas avec les monnaies dominantes (l'euro chez nous). Cet outil ne pourra v&eacute;ritablement assumer son r&ocirc;le de servitude que si le plus grand nombre de citoyens participe &agrave; sa politique dans le sens le plus noble du terme.</p>
@@ -142,7 +124,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Pour devenir membre, enregistrez-vous via le formulaire en ligne TODO LIEN FORMULAIRE EN LIGNE ou en nous envoyant un email &agrave; info@ropi.be (+ mod&egrave;le automatique de mail)</p>
 <p>Vous pouvez &eacute;galement vous rendre &agrave; un comptoir de change et y compl&eacute;ter un formulaire d'inscription papier. Nous vous contacterons ensuite par couriel ou par la poste.</p>
 <p>Vous serez ensuite invit&eacute; &agrave; r&eacute;gler votre cotisation de 15 Ropi (par votre compte Ropi en ligne) ou de 20 Euro (BEXX XXXX XXXX XXXX).</p>"),
-            array(2, "Visuels", 1, new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
+            array(1, "Visuels", 1, new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-05-26T15:36:36+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
 <p>Sur cette pages, vous trouverez tous nos visuels de communication (logo, d&eacute;pliant, autocollants, ...) que vous pouvez utiliser pour faire la promotion du Ropi. Imprimez les vous m&ecirc;me, ou commandez les via TODO FORMULAIRE DE COMMANDE DES VISUELS</p>
 <p>FORMULAIRE</p>
 <p>--&gt; se logger (il faut &ecirc;tre membre)</p>
@@ -155,7 +137,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <h2>L'autocollant, \"Ici on accepte le Ropi\"</h2>
 <p>&nbsp;</p>
 <h2>Les cartes de visites (pour les ambassadeurs, ...)</h2>"),
-            array(1, "Documents fondateurs", 1, new DateTime("2015-05-26T16:55:20+02:00"), new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les documents fondateurs</h1>
+            array(2, "Documents fondateurs", 1, new DateTime("2015-05-26T16:55:20+02:00"), new DateTime("2015-05-26T16:55:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les documents fondateurs</h1>
 <h2>Statuts</h2>
 <p>L'association a pour objet, en dehors de tout but de lucre</p>
 <ul>
@@ -192,7 +174,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Les premiers sont les plus r&eacute;cemments inscrits comme membre</p>
 <h2>Recherche</h2>
 <p>(par commerce / produits / quartier)</p>"),
-            array(6, "Les billets", 1, new DateTime("2015-05-26T21:28:27+02:00"), new DateTime("2015-05-26T21:21:39+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Pr&eacute;sentation des billets</h1>
+            array(5, "Les billets", 1, new DateTime("2015-05-26T21:28:27+02:00"), new DateTime("2015-05-26T21:21:39+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Pr&eacute;sentation des billets</h1>
 <h2>L'&eacute;dition 2015</h2>
 <p>En 2015, le Ropi se dote de nouveaux billets reprenant des monuments montois charg&eacute;s d'histoire</p>
 <p>Ces billets peuvent-&ecirc;tre command&eacute;s en ligne via ce formulaire --&gt; TODO, ou chez les commer&ccedil;ants membres (sous r&eacute;serve de disponibilit&eacute;).</p>
@@ -202,11 +184,11 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Cette &eacute;dition a &eacute;t&eacute; tir&eacute;e lors de la cr&eacute;ation du projet Ropi. Les &eacute;l&eacute;ments grapiques ont &eacute;t&eacute; d&eacute;termin&eacute;s sur base d'un concours de dessin au sein de l'&eacute;cole Le Nursing. Ces billets sont toujours valides aujourd'hui mais ne sont plus mis en vente. Ils seront progressivement retir&eacute;s de la circulation.</p>
 <p>TODO montrer les billets de 1 et 5 Ropi, recto verso --&gt; avec SPECIMEN en FILIGRAN</p>
 <p>&nbsp;</p>"),
-            array(7, "La monnaie électronique", 1, new DateTime("2015-05-26T21:22:03+02:00"), new DateTime("2015-05-26T21:22:03+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>La monnaie &eacute;lectronique</h1>
+            array(6, "La monnaie électronique", 1, new DateTime("2015-05-26T21:22:03+02:00"), new DateTime("2015-05-26T21:22:03+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>La monnaie &eacute;lectronique</h1>
 <p>Une version &eacute;lectronique du Ropi sera bient&ocirc;t disponible, en plus de la version papier.</p>
 <p>Chaque membre de l'asbl disposera d'un (ou plusieurs) compte virtuel accessible par internet (Ropi banking). Ce compte pourra &ecirc;tre cr&eacute;dit&eacute; en Ropi par virement bancaire en Euro. Des op&eacute;rations de transfert entre les comptes pourront &ecirc;tre effectu&eacute;es par internet mais &eacute;galement par SMS sans aucun co&ucirc;t pour l'utilisateur. Ce syst&egrave;me permettra notamment de faire des paiements chez le commer&ccedil;ants.</p>
 <p>&nbsp;</p>"),
-            array(5, "Nous aider", 1, new DateTime("2015-05-26T17:18:36+02:00"), new DateTime("2015-05-26T17:14:04+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Comment nous aider?</h1>
+            array(4, "Nous aider", 1, new DateTime("2015-05-26T17:18:36+02:00"), new DateTime("2015-05-26T17:14:04+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Comment nous aider?</h1>
 <h2>Devenir b&eacute;n&eacute;vole</h2>
 <p><br /> Une organisation comme le Ropi ne peut fonctionner sans ses nombreux b&eacute;n&eacute;voles, qui constituent la cheville ouvri&egrave;re de l'abl. Il y a de nombreux postes &agrave; renforcer ou &agrave; pourvoir au sein de l'asbl Ropi, notamment:</p>
 <ul>
@@ -223,7 +205,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p><br /> Pour nous proposer votre aide, inscrivez-vous via le formulaire en ligne --&gt; TODO ou par email via info@ropi.be<br /> <br /> Nous invitons &eacute;galement tous les b&eacute;n&eacute;voles &agrave; devenir membre de l'asbl.</p>
 <h2><br /> Devenir membre de l'asbl</h2>
 <p><br /> Les membres, de par leur apports (avis, id&eacute;es, propositions, critiques, votes, ...) &agrave; l'Assembl&eacute;e G&eacute;n&eacute;rale ou participation aux ateliers pratiques (r&eacute;unions de travail ou brainstorming) sont indsipensables &agrave; la vie de l'asbl. De par leurs contributions financi&egrave;re via les cotisations, les membres assurent la p&eacute;rennit&eacute; de l'asbl? Consultez la page Ropi / Adh&eacute;rer &agrave; l'asbl pour devenir membre.</p>"),
-            array(2, "Documents opérationnels", 1, new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Documents op&eacute;rationnels</h1>
+            array(3, "Documents opérationnels", 1, new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-05-26T20:26:31+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Documents op&eacute;rationnels</h1>
 <h2>R&eacute;glement d'ordre int&eacute;rieur (ROI)</h2>
 <p>Le r&eacute;glement d'ordre int&eacute;rieur est le document de r&eacute;f&eacute;rence d&eacute;crivant les r&egrave;gles de fonctionnement du Ropi. [RopiROI.pdf].</p>
 <p>Pour une description simplifi&eacute;e, consultez Le Ropi / En pratique.</p>

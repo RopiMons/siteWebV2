@@ -104,16 +104,33 @@ class DefaultController extends Controller {
 
             $page = $repo->findOneBy(array('id' => $id));
             if ($page) {
+                $oldCategorie = $page->getCategorie();
                 $form = $this->createForm(new PageStatiqueForm(), $page);
                 $form->add('Modifier', 'submit');
                 $form->handleRequest($request);
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $this->ecrireResultat($form->getData());
+
+                    $page = $form->getData();
+                    $chg = $oldCategorie->getId() != $page->getCategorie()->getId();
+
+                    if($chg) {
+                        $catRepo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie");
+                        $page->setPosition($catRepo->getLastPosition($page->getCategorie()->getId()) + 1);
+                        }
+
+                    $this->ecrireResultat($page);
+                    $em->persist($page);
                     $em->flush();
+                    
+                    if($chg)
+                    {
+                        $this->clearPosition($this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page")->findBy(array('categorie'=>$oldCategorie)));
+                    }
+                                        
                     $this->get('session')->getFlashBag()->add(
                             'success', 'Modification réalisée avec succès !'
                     );
-                    return $this->redirect($this->generateUrl("CMS_static_update"));
+                    return $this->redirect($this->generateUrl("CMS_pages"));
                 }
 
                 return $this->render('RopiCMSBundle:Default:createStatique.html.twig', array(
