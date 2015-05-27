@@ -1,1 +1,5 @@
-Hello {{ name }}!
+{% extends '::baseAdmin.html.twig' %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}

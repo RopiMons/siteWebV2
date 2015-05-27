@@ -5,6 +5,7 @@ namespace Ropi\CommerceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Ropi\CommerceBundle\Form\CommerceType;
 
 class DefaultController extends Controller
 {
@@ -13,7 +14,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function newCommerceAction(){
-        $form = $this->createForm($type);
+        $form = $this->createForm(new CommerceType());
         
         return array(
             'form' => $form->createView(),
