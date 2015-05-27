@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\TypeMoyenContactRepository")
  */
 class TypeMoyenContact
 {
@@ -150,5 +151,8 @@ class TypeMoyenContact
     public function getValidateur()
     {
         return $this->validateur;
+    }
+    public function __toString() {
+        return $this->type;
     }
 }

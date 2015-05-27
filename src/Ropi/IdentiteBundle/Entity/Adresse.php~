@@ -1,0 +1,179 @@
+<?php
+
+namespace Ropi\IdentiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Adresse
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\AdresseRepository")
+ */
+class Adresse
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rue", type="string", length=255)
+     */
+    private $rue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero", type="string", length=10)
+     */
+    private $numero;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="complement", type="string", length=255)
+     */
+    private $complement;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TypeAdresse")
+     */
+    private $typeAdresse;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Ville")
+     */
+    private $ville;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set rue
+     *
+     * @param string $rue
+     * @return Adresse
+     */
+    public function setRue($rue)
+    {
+        $this->rue = $rue;
+
+        return $this;
+    }
+
+    /**
+     * Get rue
+     *
+     * @return string 
+     */
+    public function getRue()
+    {
+        return $this->rue;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param string $numero
+     * @return Adresse
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return string 
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set complement
+     *
+     * @param string $complement
+     * @return Adresse
+     */
+    public function setComplement($complement)
+    {
+        $this->complement = $complement;
+
+        return $this;
+    }
+
+    /**
+     * Get complement
+     *
+     * @return string 
+     */
+    public function getComplement()
+    {
+        return $this->complement;
+    }
+
+    /**
+     * Set typeAdresse
+     *
+     * @param \Ropi\IdentiteBundle\Entity\TypeAdresse $typeAdresse
+     * @return Adresse
+     */
+    public function setTypeAdresse(\Ropi\IdentiteBundle\Entity\TypeAdresse $typeAdresse = null)
+    {
+        $this->typeAdresse = $typeAdresse;
+
+        return $this;
+    }
+
+    /**
+     * Get typeAdresse
+     *
+     * @return \Ropi\IdentiteBundle\Entity\TypeAdresse 
+     */
+    public function getTypeAdresse()
+    {
+        return $this->typeAdresse;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Ville $ville
+     * @return Adresse
+     */
+    public function setVille(\Ropi\IdentiteBundle\Entity\Ville $ville = null)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Ville 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+}

@@ -167,4 +167,45 @@ class Personne
     {
         return $this->creeLe;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->creeLe = new \DateTime();
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add contacts
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Contact $contacts
+     * @return Personne
+     */
+    public function addContact(\Ropi\IdentiteBundle\Entity\Contact $contacts)
+    {
+        $this->contacts[] = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * Remove contacts
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Contact $contacts
+     */
+    public function removeContact(\Ropi\IdentiteBundle\Entity\Contact $contacts)
+    {
+        $this->contacts->removeElement($contacts);
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
 }

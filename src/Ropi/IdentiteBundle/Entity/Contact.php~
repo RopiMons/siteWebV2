@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ *  @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\ContactRepository")
  */
 class Contact
 {
@@ -18,6 +19,7 @@ class Contact
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
 
@@ -30,8 +32,8 @@ class Contact
     
     /**
      *
-     * @var typContact
-     * @ORM\ManyToOne(targetEntity="TypeContact", cascade={"persist"})
+     * @var typeMoyenContact
+     * @ORM\ManyToOne(targetEntity="TypeMoyenContact", cascade={"persist"})
      */
     private $typeContact;
     /**
@@ -73,5 +75,51 @@ class Contact
     public function getValeur()
     {
         return $this->valeur;
+    }
+
+    /**
+     * Set typeContact
+     *
+     * @param \Ropi\IdentiteBundle\Entity\TypeContact $typeContact
+     * @return Contact
+     */
+    public function setTypeContact(\Ropi\IdentiteBundle\Entity\TypeMoyenContact $typeContact = null)
+    {
+        $this->typeContact = $typeContact;
+
+        return $this;
+    }
+
+    /**
+     * Get typeContact
+     *
+     * @return \Ropi\IdentiteBundle\Entity\TypeContact 
+     */
+    public function getTypeContact()
+    {
+        return $this->typeContact;
+    }
+
+    /**
+     * Set personne
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personne
+     * @return Contact
+     */
+    public function setPersonne(\Ropi\IdentiteBundle\Entity\Personne $personne = null)
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
+
+    /**
+     * Get personne
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Personne 
+     */
+    public function getPersonne()
+    {
+        return $this->personne;
     }
 }
