@@ -133,9 +133,30 @@ knp_paginator:
         
 stfalcon_tinymce:
     include_jquery: false
-    tinymce_jquery: true
+    tinymce_jquery: false
     selector: ".tinymce"
     language: %locale%
     theme:
-        simple:
+        simple: ~
+        advanced:
             content_css: "/css/ropi.css"
+            plugins:
+                - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+                - "searchreplace wordcount visualblocks visualchars code fullscreen"
+                - "insertdatetime media nonbreaking save table contextmenu directionality"
+                - "emoticons template paste textcolor"
+            toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+            toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example | code "
+            image_advtab: true
+            link_list:
+                - {title: 'Ropi1', value: 'http://www.ropi.be'}
+                - {title: 'Ropi2', value: 'http://www.ropi.be'}
+            # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
+            bbcode:
+                plugins: ["bbcode, code, link, preview"]
+                menubar: false
+                toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"
+            #external_plugins:
+                #filemanager:
+                    #url: "asset[bundles/ropicms/js/tinymce/plugins/filemanager/plugin.min.js]"
+    

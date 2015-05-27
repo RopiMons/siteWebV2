@@ -27,6 +27,7 @@ class AppKernel extends Kernel {
             //new JMS\DiExtraBundle\JMSDiExtraBundle($this),
 
             new Ropi\TestBundle\RopiTestBundle(),
+            new Ropi\CommerceBundle\RopiCommerceBundle(),
         );
 
 

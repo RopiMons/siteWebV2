@@ -19,7 +19,8 @@ class PageStatiqueForm extends PageType {
                 ->add('contenu', 'textarea', array(
                     'label' => 'Contenu de la page',
                     'attr' => array(
-                        'class'=>'tinymce'
+                        'class'=>'tinymce',
+                        'data-theme' => 'advanced'
                         )
                 ))
 
