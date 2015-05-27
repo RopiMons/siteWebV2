@@ -65,8 +65,6 @@ class Builder {
                     $tab[$categorie->getNom()] = $temp;
             
         }
-        
-        dump($tab);
 
         return $tab;
     }
