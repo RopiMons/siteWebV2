@@ -83,13 +83,13 @@ class AuthenticateController extends Controller
                }
                else{
                    $this->get("session")->getFlashBag(array(
-                       'error'=>"Votre clé de validation n'est plus valide" ));
+                       'danger'=>"Votre clé de validation n'est plus valide" ));
                }
                
            }
            else{
                $this->get("session")->getFlashBag(array(
-                       'error'=>"Votre clé de validation à déjà été utilisé ou n'existe pas" ));
+                       'danger'=>"Votre clé de validation à déjà été utilisé ou n'existe pas" ));
                }
             }
         
