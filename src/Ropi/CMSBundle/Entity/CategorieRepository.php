@@ -33,6 +33,7 @@ class CategorieRepository extends EntityRepository {
                         ->where('c.isActive = :true')
                         ->andWhere('p.isActive = :true')
                         ->andWhere('p.publicationDate <= :date')
+                        ->orderBy('p.position')
                         ->setParameter('true', TRUE, \Doctrine\DBAL\Types\Type::BOOLEAN)
                         ->setParameter('date', new \DateTime(), \Doctrine\DBAL\Types\Type::DATETIME)
                         ->getQuery()

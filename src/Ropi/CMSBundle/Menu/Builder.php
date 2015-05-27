@@ -12,6 +12,7 @@ namespace Ropi\CMSBundle\Menu;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 
+
 class Builder {
 
     /**
@@ -30,26 +31,24 @@ class Builder {
     }
 
     private function tab() {
-        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages(); 
+        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages();
         $tab = array();
-        
-        foreach($listeCategories as $categorie)
-        {
+
+        foreach ($listeCategories as $categorie) {
             $pages = $categorie->getPages();
             $temp = array();
-            foreach ($pages as $page)
-            {
+            foreach ($pages as $page) {
                 $temp[$page->getTitreMenu()] = array(
                     'route' => 'home'
-                    );
+                );
             }
             $tab[$categorie->getNom()] = $temp;
         }
-                
-//        $tab["acceil"] = array('route' => 'home');
-//        $tab["acceil2"] = array('route' => 'home');
-//        $tab["acceil3"] = array("test" => array('route' => 'home'), "test2" => array('route' => 'home'), "test3" => array("coucou" => array('route' => 'home'), "coucou2" => array("cool" => array('route' => 'home'))));
-//        
+
+        usort($tab, function($a, $b) {
+            return $this->comparePosition($a, $b);
+        });
+      
         return $tab;
     }
 
@@ -93,7 +92,7 @@ class Builder {
     public function createBreadcrumbMenu() {
 
         $tab = $this->tab();
-       
+
 
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', ' nav navbar-nav');
@@ -164,6 +163,14 @@ class Builder {
           // ... add more children
          */
         return $menu;
+    }
+
+    private function comparePosition(PositionnableInterface $a, PositionnableInterface $b) {
+        if ($a->getPosition() == $b->getPosition()) {
+            return 0;
+        }
+
+        return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
     }
 
 }
