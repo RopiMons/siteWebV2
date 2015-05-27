@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@RopiCMSBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~
@@ -160,3 +161,13 @@ stfalcon_tinymce:
                 #filemanager:
                     #url: "asset[bundles/ropicms/js/tinymce/plugins/filemanager/plugin.min.js]"
     
+
+knp_menu:
+    twig: 
+        template: knp_menu.html.twig
+    templating: false
+    default_renderer: twig
+    providers:
+        builder_alias: false
+        container_aware: true
+            

@@ -13,20 +13,32 @@ use Doctrine\ORM\EntityRepository;
 class CategorieRepository extends EntityRepository {
 
     public function getLastPosition($id) {
-        
+
         $retour = $this->createQueryBuilder("cat")
-                        ->select('count(page.titreMenu)')
-                        ->join("cat.pages", "page")
-                        ->where('cat.id = :id')
-                        ->setParameter('id', intval($id))
-                        ->getQuery()
-                        ->getSingleScalarResult()
-                ;
-        
-        dump($retour);
-        
+                ->select('count(page.titreMenu)')
+                ->join("cat.pages", "page")
+                ->where('cat.id = :id')
+                ->setParameter('id', intval($id))
+                ->getQuery()
+                ->getSingleScalarResult()
+        ;
+
         return intval($retour);
-        
+    }
+
+    public function loadPages() {
+        return $this->createQueryBuilder("c")
+                        ->select(array('c', 'p'))
+                        ->innerJoin('c.pages', "p")
+                        ->where('c.isActive = :true')
+                        ->andWhere('p.isActive = :true')
+                        ->andWhere('p.publicationDate <= :date')
+                        ->orderBy('p.position')
+                        ->setParameter('true', TRUE, \Doctrine\DBAL\Types\Type::BOOLEAN)
+                        ->setParameter('date', new \DateTime(), \Doctrine\DBAL\Types\Type::DATETIME)
+                        ->getQuery()
+                        ->execute()
+        ;
     }
     
     public function getAllOrderedPage(){
