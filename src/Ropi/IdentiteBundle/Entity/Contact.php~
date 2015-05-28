@@ -3,6 +3,8 @@
 namespace Ropi\IdentiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Contact
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  *  @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\ContactRepository")
  */
-class Contact
+class Contact 
 {
     /**
      * @var integer
@@ -121,5 +123,48 @@ class Contact
     public function getPersonne()
     {
         return $this->personne;
+    }
+    
+     /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context) {
+        $mdc = $this->typeContact;
+       
+        switch ($mdc->getValidateur()) {
+            case "Email":
+                
+                $emailValidator = new Assert\EmailValidator();
+                $emailValidator->initialize($context);
+                 
+                 $emailValidator->validate($this->valeur, new Assert\Email(array(
+                    'message' => "Ce mail {{ value }} n'est pas valide",
+                    'checkMX' => true,
+                    'checkHost' => true,
+                
+                )));
+               
+                 
+                break;
+
+            case "type: integer":
+                $integerValidator = new Assert\TypeValidator();
+                $integerValidator->initialize($context);
+                $integerValidator->validate($this->valeur, new Assert\Type(array(
+                    'type' => 'numeric',
+                    'message' => "La valeur {{ value }} n'est pas un nombre",
+                )))
+                ;
+                break;
+            case "":
+                break;
+            default :
+                $context
+                        ->buildViolation("Impossible de valider les données")
+                        ->atPath("valeur")
+                        ->addViolation()
+                ;
+                break;
+        }
     }
 }

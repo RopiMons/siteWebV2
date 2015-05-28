@@ -26,7 +26,7 @@ class AdresseType extends AbstractType
                 'label' => 'Complément d\'adresse',
                 'required' => false
             ))
-            //->add('typeAdresse')
+            ->add('typeAdresse',new TypeAdresseType())
             ->add('ville', new VilleType(), array(
                 'cascade_validation' => true
             ))
@@ -39,7 +39,8 @@ class AdresseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\IdentiteBundle\Entity\Adresse'
+            'data_class' => 'Ropi\IdentiteBundle\Entity\Adresse',
+            'cascade_validation' =>true
         ));
     }
 

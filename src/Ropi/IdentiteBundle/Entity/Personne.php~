@@ -74,7 +74,11 @@ class Personne
      * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne")
      */
     private $identifiantWeb;
-
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove"})
+     */
+    private $adresses;
 
     /**
      * Get id
