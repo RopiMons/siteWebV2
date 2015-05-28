@@ -13,17 +13,13 @@ namespace Ropi\CMSBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Ropi\CMSBundle\Entity\PositionnableInterface;
 
-class MenuAdmin {
+class MenuAdmin extends AbstractMenu {
 
    
     
-private $factory;
+
     
 
-    public function __construct(FactoryInterface $factory) {
-        $this->factory = $factory;
-     
-    }
 
    public function AdminMenu()
     {
@@ -104,12 +100,16 @@ private $factory;
         return $menu;
     }
 
-    private function comparePosition(PositionnableInterface $a, PositionnableInterface $b) {
-        if ($a->getPosition() == $b->getPosition()) {
-            return 0;
-        }
 
-        return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+    protected function tableau() {
+        $tab = array();
+        $tab["Home"] = array('route' => 'home');
+        $tab["Gestion CMS"]['Création de pages'] =  array('route' => 'CMS_static_create');
+         $tab["Gestion CMS"]['Gestion des pages'] =  array('route' => 'CMS_pages');
+    
+        return $tab;
+
+                
     }
 
 }

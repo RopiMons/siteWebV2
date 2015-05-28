@@ -12,12 +12,12 @@ services:
             
     ropicms2.menu_builder:
         class: Ropi\CMSBundle\Menu\MenuAdmin
-        arguments: ["@knp_menu.factory"]
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.context"]
         
         
     ropicms2.main_menu: 
         class: Knp\Menu\MenuItem
         factory_service: ropicms2.menu_builder
-        factory_method: AdminMenu
+        factory_method: createBreadcrumbMenu
         tags:
             - { name: knp_menu.menu, alias: main2 }
