@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Inscription {% endblock %}
+
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.dateNaissance) }}
+
+    {% for contact in form.contacts %}
+        {{ form_label(contact, contact.vars.value.typeContact.type) }}
+        {{ form_errors(contact) }}
+        {{ form_widget(contact) }}
+    {% endfor %}
+    {{ form_rest(form) }}
+
+{% endblock %}

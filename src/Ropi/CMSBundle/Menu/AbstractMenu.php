@@ -32,8 +32,9 @@ use Symfony\Component\Intl\Exception\NotImplementedException;
     public function __construct(FactoryInterface $factory, EntityManager $em, SecurityContext $securityContext) {
         $this->factory = $factory;
         $this->em = $em;
+        if($securityContext->getToken() != null)
         $this->role = $securityContext->getToken()->getUser()->getRoles();
-        
+        else{ $this->role = array();}
         
     }
 
