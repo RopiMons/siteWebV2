@@ -37,17 +37,25 @@ private $factory;
         $menu->addChild('Home', array('route' => 'home'));
 
 
-          $menu->addChild('Admin',array('uri'=>'#','label'=>'Gestion CMS ▼'))->setAttribute('class', 'dropdown');
+          $menu->addChild('CMS',array('uri'=>'#','label'=>'Gestion CMS ▼'))->setAttribute('class', 'dropdown');
+          $menu['CMS']->setLinkAttribute('class', 'dropdown-toggle');
+          $menu['CMS']->setLinkAttribute('role', 'button');
+          $menu['CMS']->setLinkAttribute('data-toggle', 'dropdown');
+          $menu['CMS']->setChildrenAttribute('role', 'menu');
+          $menu['CMS']->setChildrenAttribute('class', 'dropdown-menu');
+
+          $menu['CMS']->addChild('Création de pages', array('route' => 'CMS_static_create'))->setAttribute('divider_append', true);
+
+          $menu['CMS']->addChild('Gestion des pages', array('route' => 'CMS_pages'));
+
+         $menu->addChild('Admin',array('uri'=>'#','label'=>'Administration ▼'))->setAttribute('class', 'dropdown');
           $menu['Admin']->setLinkAttribute('class', 'dropdown-toggle');
           $menu['Admin']->setLinkAttribute('role', 'button');
           $menu['Admin']->setLinkAttribute('data-toggle', 'dropdown');
           $menu['Admin']->setChildrenAttribute('role', 'menu');
           $menu['Admin']->setChildrenAttribute('class', 'dropdown-menu');
 
-          $menu['Admin']->addChild('Création de pages', array('route' => 'CMS_static_create'))->setAttribute('divider_append', true);
-
-          $menu['Admin']->addChild('Gestion des pages', array('route' => 'CMS_pages'));
-
+          $menu['Admin']->addChild('Accueil', array('route' => 'admin_home'))->setAttribute('divider_append', true);
          
 
 

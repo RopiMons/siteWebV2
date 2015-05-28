@@ -57,7 +57,7 @@ class Adresse
     private $ville;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses")
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses", cascade={"persist"})
      */
     private $commerce;
 
@@ -192,7 +192,7 @@ class Adresse
      * @param \Ropi\IdentiteBundle\Entity\Commerce $commerce
      * @return Adresse
      */
-    public function setCommerce(\Ropi\IdentiteBundle\Entity\Commerce $commerce = null)
+    public function setCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerce = null)
     {
         $this->commerce = $commerce;
 

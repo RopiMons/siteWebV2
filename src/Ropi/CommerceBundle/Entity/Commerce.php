@@ -69,6 +69,11 @@ class Commerce
      * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
      */
     private $adresses;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commerces")
+     */
+    private $personnes;
 
 
     /**
@@ -281,5 +286,38 @@ class Commerce
     public function getVisible()
     {
         return $this->visible;
+    }
+
+    /**
+     * Add personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     * @return Commerce
+     */
+    public function addPersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes[] = $personnes;
+
+        return $this;
+    }
+
+    /**
+     * Remove personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     */
+    public function removePersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes->removeElement($personnes);
+    }
+
+    /**
+     * Get personnes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPersonnes()
+    {
+        return $this->personnes;
     }
 }

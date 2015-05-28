@@ -66,9 +66,14 @@ class Commerce
     private $updateAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce",cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
      */
     private $adresses;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commerces")
+     */
+    private $personnes;
 
 
     /**
@@ -235,5 +240,84 @@ class Commerce
     public function getAdresses()
     {
         return $this->adresses;
+    }
+
+    /**
+     * Set valide
+     *
+     * @param boolean $valide
+     * @return Commerce
+     */
+    public function setValide($valide)
+    {
+        $this->valide = $valide;
+
+        return $this;
+    }
+
+    /**
+     * Get valide
+     *
+     * @return boolean 
+     */
+    public function getValide()
+    {
+        return $this->valide;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return Commerce
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Add personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     * @return Commerce
+     */
+    public function addPersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes[] = $personnes;
+
+        return $this;
+    }
+
+    /**
+     * Remove personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     */
+    public function removePersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes->removeElement($personnes);
+    }
+
+    /**
+     * Get personnes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPersonnes()
+    {
+        return $this->personnes;
     }
 }

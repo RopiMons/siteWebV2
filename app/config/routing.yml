@@ -1,3 +1,8 @@
+ropi_parametres:
+    resource: "@RopiParametresBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 ropi_commerce:
     resource: "@RopiCommerceBundle/Controller/"
 ropi_identite:

@@ -28,7 +28,8 @@ class CommerceType extends AbstractType {
                 ))
                 ->add('visible', null, array(
                     'label' => 'Publier les informations sur le site ',
-                    'required' => false
+                    'required' => false,
+                    'data' => true
                 ))
 
         //->add('createdAt')

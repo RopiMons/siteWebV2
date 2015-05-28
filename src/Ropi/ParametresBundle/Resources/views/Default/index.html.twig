@@ -1,0 +1,13 @@
+{% extends '::baseAdmin.html.twig' %}
+
+{% block content %}
+    <h1>Bienvenue dans la zone d'administration !</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Notifications</h3>
+        </div>
+        <div class="panel-body">
+            <a href="{{ path("commerce_validate") }}">{% if nvCommercants <= 0 %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Il n'y a pas de{% else %}<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Il y a <span class="badge">{{ nvCommercants }}</span>{% endif %} nouveaux commerçants</a>
+        </div>
+    </div>
+{% endblock %}
