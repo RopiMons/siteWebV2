@@ -38,6 +38,11 @@ class InscriptionController extends Controller
                 $form->add("submit", "submit");
             }
         }
+        
+        /*
+         * Ajout de l'addresse
+         */
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
