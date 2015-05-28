@@ -30,7 +30,7 @@ class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixture
         $tab = array(
             // type, inscription, obligatoire, validateur
             0 => array("Mail",1,1,"Email"),
-            1 => array("Télephone",1,1,"Telephone"),
+            1 => array("Télephone",1,1,"type: integer"),
              
              );
         
