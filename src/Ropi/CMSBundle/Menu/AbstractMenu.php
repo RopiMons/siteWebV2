@@ -35,7 +35,7 @@ use Symfony\Component\Intl\Exception\NotImplementedException;
         if($securityContext->getToken() != null)
         $this->role = $securityContext->getToken()->getUser()->getRoles();
         else{ $this->role = array();}
-        
+         
     }
 
     abstract protected function tableau() ;
