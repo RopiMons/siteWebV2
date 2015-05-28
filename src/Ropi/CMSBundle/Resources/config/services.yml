@@ -1,7 +1,7 @@
 services:
     ropicms.menu_builder:
         class: Ropi\CMSBundle\Menu\Builder
-        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager"]
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.context"]
         
     ropicms.main_menu: 
         class: Knp\Menu\MenuItem

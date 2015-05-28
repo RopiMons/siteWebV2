@@ -34,7 +34,8 @@ class PersonneType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\IdentiteBundle\Entity\Personne'
+            'data_class' => 'Ropi\IdentiteBundle\Entity\Personne',
+             'cascade_validation' => true
         ));
     }
 

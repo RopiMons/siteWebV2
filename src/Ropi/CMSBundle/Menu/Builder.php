@@ -12,8 +12,10 @@ namespace Ropi\CMSBundle\Menu;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Ropi\CMSBundle\Entity\PositionnableInterface;
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\Security\Core\SecurityContext;
 
-class Builder {
+class Builder extends ContainerAware {
 
     /**
      * @param FactoryInterface $factory
@@ -24,10 +26,14 @@ class Builder {
       } */
     private $factory;
     private $em;
+    private $role;
 
-    public function __construct(FactoryInterface $factory, EntityManager $em) {
+    public function __construct(FactoryInterface $factory, EntityManager $em, SecurityContext $securityContext) {
         $this->factory = $factory;
         $this->em = $em;
+        $this->role = $securityContext->getToken()->getUser()->getRoles();
+        
+        
     }
 
     private function tab() {
@@ -56,7 +62,8 @@ class Builder {
                     
                     if($unique){
                         $tab[$page->getTitreMenu()] = $contenu;
-                    }else{
+                    }
+                    else{
                         $temp[$page->getTitreMenu()] = $contenu;
                     }
                 }
@@ -107,7 +114,9 @@ class Builder {
     }
 
     public function createBreadcrumbMenu() {
-
+        dump($this->factory);
+        //$secu = $this->container->get('security.context');
+        //dump($secu);
         $tab = $this->tab();
 
 
