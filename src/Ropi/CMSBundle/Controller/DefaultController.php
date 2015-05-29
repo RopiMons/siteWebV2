@@ -5,7 +5,7 @@ namespace Ropi\CMSBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-//use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\CMSBundle\Form\PageStatiqueForm;
 use Ropi\CMSBundle\Entity\PageStatique;
@@ -16,7 +16,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/create/static", name="CMS_static_create")
-     * Secure(roles="ROLE_CMS_CREATE")
+     * @Secure(roles={"ROLE_CMS_CREATE","ROLE_ADMIN"})
      * @Template()
      */
     public function createStatiqueAction(Request $request) {
@@ -153,6 +153,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/my/cms/pages", name="CMS_pages")
      * @Template()
+     * @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
     public function listAction() {
         $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie");
@@ -238,14 +239,16 @@ class DefaultController extends Controller {
         $ok = false;
 
         if ($type == "page") {
-            $class = "Ropi\CMSBundle\Entity\PageStatique";
+            $class = "Ropi\CMSBundle\Entity\Page";
         } else {
             $class = "Ropi\CMSBundle\Entity\Categorie";
         }
 
         $repo = $this->getDoctrine()->getRepository($class);
         $element1 = $repo->findOneBy(array('id' => $id));
-
+        
+        dump($element1);
+        die();
 
         if ($element1) {
 
