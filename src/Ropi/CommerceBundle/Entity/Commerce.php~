@@ -81,7 +81,7 @@ class Commerce
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="commerces", cascade="remove") 
+     * ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="commerces", cascade="remove") 
      */
     private $etiquettes;
     
@@ -328,5 +328,38 @@ class Commerce
     public function getPersonnes()
     {
         return $this->personnes;
+    }
+
+    /**
+     * Add etiquettes
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes
+     * @return Commerce
+     */
+    public function addEtiquette(\Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes)
+    {
+        $this->etiquettes[] = $etiquettes;
+
+        return $this;
+    }
+
+    /**
+     * Remove etiquettes
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes
+     */
+    public function removeEtiquette(\Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes)
+    {
+        $this->etiquettes->removeElement($etiquettes);
+    }
+
+    /**
+     * Get etiquettes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEtiquettes()
+    {
+        return $this->etiquettes;
     }
 }

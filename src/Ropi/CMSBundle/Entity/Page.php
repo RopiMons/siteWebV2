@@ -81,12 +81,11 @@ abstract class Page implements PositionnableInterface {
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="pages")
      */
     private $categorie;
+    
     /**
      *
-     * @var type 
-     * @ORM\ManyToMany (targetEntity="Ropi\AuthenticationBundle\Entity\Permission")
+     * @ORM\ManyToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Permission")
      */
-    
     private $permission/*s*/;
     
     
