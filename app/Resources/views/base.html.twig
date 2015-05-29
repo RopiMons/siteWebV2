@@ -15,8 +15,14 @@
         {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        
+            <!-- Include all JavaScripts, compiled by Assetic -->
+                   <script src="{{ asset('js/jquery.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
     </head>
-    <body>
+        
+
+    <body >
         <div class="container">
             <header class="row"> <!-- Logo & slogan -->
                 {% block header %}
@@ -138,9 +144,7 @@
         </div>        
         {% block javascripts %}
             <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-            <script src="{{ asset('js/jquery.js') }}"></script>
-            <!-- Include all JavaScripts, compiled by Assetic -->
-            <script src="{{ asset('js/bootstrap.js') }}"></script>
+     
         {% endblock %}
     </div>
 </body>
