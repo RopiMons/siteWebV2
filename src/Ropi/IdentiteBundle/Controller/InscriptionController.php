@@ -11,6 +11,7 @@ use Ropi\IdentiteBundle\Form\PersonneType;
 use Ropi\IdentiteBundle\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\IdentiteBundle\Entity\Adresse;
+use Ropi\AuthenticationBundle\Entity\KeyValidation;
 
 
 class InscriptionController extends Controller
@@ -44,12 +45,12 @@ class InscriptionController extends Controller
          * Ajout de l'addresse
          */
         $adresse = new Adresse();
-        $adresse->setTypeAdresse(new \Ropi\IdentiteBundle\Entity\TypeAdresse());
+        //$adresse->setTypeAdresse(new \Ropi\IdentiteBundle\Entity\TypeAdresse());
         $user->addAdress($adresse);
         
         $form->add('adresses','collection' ,array("type"=>new \Ropi\IdentiteBundle\Form\AdresseType()));
         
-         $form->add("submit", "submit");
+        $form->add("Enregistrer", "submit");
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -60,9 +61,31 @@ class InscriptionController extends Controller
             $em->persist($user);
 
             $em->flush();
+            $this->MailValidation($user);
         }
         return  Array(
                     "form" => $form->createView(),
         );
+    }
+    private function MailValidation(Personne $personne){
+        
+        $converter = $this->get('css_to_inline_email_converter');
+        $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array('login' => $personne->getIdentifiantWeb()->getUsername(), 'url' => "home"));
+        $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css'));
+        
+        $body = $converter->generateStyledHTML();
+         foreach ($personne->getContacts() as $contact) {
+             dump($contact->getTypeContact()->getType());
+            if ($contact->getTypeContact()->getType() === "Mail") {
+                $message = \Swift_Message::newInstance()
+                        ->setSubject("Inscription au Ropi")
+                        ->setFrom("adrien.huygens@gmail.com")
+                        ->setTo($contact->getValeur())
+                        ->setBody($body)
+                ;
+              
+                $this->get('mailer')->send($message);
+            }
+    }
     }
 }

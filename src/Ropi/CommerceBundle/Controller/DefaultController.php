@@ -17,7 +17,7 @@ class DefaultController extends Controller {
     private $route = "admin_home"; //Route de redirection par défaut après une action
 
     /**
-     * @Route("/my/commerce/new")
+     * @Route("/my/commerce/new",name="commerce_new")
      * @Template()
      */
 

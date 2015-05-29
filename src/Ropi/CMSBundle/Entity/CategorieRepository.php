@@ -31,13 +31,13 @@ class CategorieRepository extends EntityRepository {
 
         $qb = $this->createQueryBuilder("c");
 
-        $qb->select(array('c', 'p'))
-        ->innerJoin('c.pages', "p")
-        ->where('c.isActive = :true')
-        ->andWhere('p.isActive = :true')
-        ->andWhere('p.publicationDate <= :date')
-        ->andWhere($qb->expr()->isNull('p.permission'))
-        ->orderBy('p.position')
+        $qb->select(array('c', 'p','perm'))
+                ->innerJoin('c.pages', "p")
+                ->leftJoin("p.permissions", "perm")
+                ->where('c.isActive = :true')
+                ->andWhere('p.isActive = :true')
+                ->andWhere('p.publicationDate <= :date')
+                ->orderBy('p.position')
                 ->setParameter('true', TRUE, \Doctrine\DBAL\Types\Type::BOOLEAN)
                 ->setParameter('date', new \DateTime(), \Doctrine\DBAL\Types\Type::DATETIME)
         ;

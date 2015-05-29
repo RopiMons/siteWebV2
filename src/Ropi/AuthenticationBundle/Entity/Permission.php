@@ -55,6 +55,11 @@ class Permission
      * @ORM\ManyToMany(targetEntity="IdentifiantWeb", mappedBy="permission")
      */
     private $identifiantWeb;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Ropi\CMSBundle\Entity\Page", mappedBy="permissions")
+     */
+    private $pages;
 
    
     /**
@@ -212,5 +217,38 @@ class Permission
     }
     public function __toString() {
         return $this->nom;
+    }
+
+    /**
+     * Add pages
+     *
+     * @param \Ropi\CMSBundle\Entity\Page $pages
+     * @return Permission
+     */
+    public function addPage(\Ropi\CMSBundle\Entity\Page $pages)
+    {
+        $this->pages[] = $pages;
+
+        return $this;
+    }
+
+    /**
+     * Remove pages
+     *
+     * @param \Ropi\CMSBundle\Entity\Page $pages
+     */
+    public function removePage(\Ropi\CMSBundle\Entity\Page $pages)
+    {
+        $this->pages->removeElement($pages);
+    }
+
+    /**
+     * Get pages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPages()
+    {
+        return $this->pages;
     }
 }

@@ -25,6 +25,8 @@ class AppKernel extends Kernel {
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new \RobertoTru\ToInlineStyleEmailBundle\RobertoTruToInlineStyleEmailBundle(),
+
             new Ropi\TestBundle\RopiTestBundle(),
             new Ropi\CommerceBundle\RopiCommerceBundle(),
             new Ropi\IdentiteBundle\RopiIdentiteBundle(),
