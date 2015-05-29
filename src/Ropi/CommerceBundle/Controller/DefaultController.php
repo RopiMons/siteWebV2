@@ -17,6 +17,7 @@ class DefaultController extends Controller {
     private $route = "admin_home"; //Route de redirection par défaut après une action
 
     /**
+     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT"})
      * @Route("/my/commerce/new",name="commerce_new")
      * @Template()
      */
@@ -27,13 +28,17 @@ class DefaultController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            $repoAT = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeAdresse");
+            $repoAT->findOneBy(array('valeur'=>'Adresse du commerce'));
 
             $commerce = $form->getData();
-            //$commerce->addPersonne($this->getUser()->getPersonne());
+            $commerce->addPersonne($this->getUser()->getPersonne());
             $adresses = $commerce->getAdresses();
 
             foreach ($adresses as $adresse) {
                 $adresse->setCommerce($commerce);
+                $adresse->setTypeAdresse($repoAT);
             }
 
 
@@ -74,7 +79,10 @@ class DefaultController extends Controller {
             $commercant = $repo->findOneBy(array('id' => $id));
 
             if ($commercant) {
+                
                 $commercant->setValide(true);
+                  
+            
                 $this->getDoctrine()->getManager()->flush();
             }
 

@@ -4,7 +4,6 @@ namespace Ropi\AuthenticationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Ropi\AuthenticationBundle\Entity\KeyValidation;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
@@ -13,7 +12,7 @@ class AuthenticateController extends Controller
 {
     
     /**
-     * @Route("/login")
+     * @Route("/login", name="login")
      * 
      */
    public function loginAction() {

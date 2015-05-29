@@ -28,7 +28,9 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, C
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            0 => array("Admin","Je suis un groupe Admin"),
+            0 => array("Admin","Ensemble d'autorisations permettant les fonctions administrateurs",$this->getReference("PERM_ROLE_ADMIN")),
+            1 => array("Commercant","CRUD des commerces propres",$this->getReference("PERM_ROLE_COMMERCANT")),
+            2 => array("UtilisateurAuthentifié","Définis un utilisateur identifié",$this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE")),
              
              );
         
@@ -36,7 +38,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, C
             $role = new Role();
             $role->setNom($element[0]);
             $role->setDescription($element[1]);
-            $role->addPermission($this->getReference("PERM_ROLE_ADMIN"));
+            $role->addPermission($element[2]);
             $this->setReference("ROLE_".$element[0], $role);
             $manager->persist($role);
         }

@@ -13,14 +13,15 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Ropi\IdentiteBundle\Entity\Personne;
 
 /**
- * Description of LoadPermissionData
+ * Description of LoadPersonneData
  *
- * @author Adrien Huygens <Adrien.huygens@jsb.be>
+ * @author Laurent Cardon <laurent.cardon@ropi.be>
  */
-class LoadTypeAdresseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -29,17 +30,20 @@ class LoadTypeAdresseData extends AbstractFixture implements OrderedFixtureInter
         
         $tab = array(
            
-            0 => array("Domicile",1),
-            1 => array("Kot",1),
-            2 => array("Adresse du commerce",0)
+            0 => array("Cardon","Laurent",new \DateTime("01-01-1988"), new \DateTime())
              
              );
         
         foreach($tab as $element){
-            $type = new \Ropi\IdentiteBundle\Entity\TypeAdresse();
-            $type->setValeur($element[0]);
-            $type->setObligatoire($element[1]);
-            $manager->persist($type);
+            $personne = new Personne();
+            $personne->setNom($element[0]);
+            $personne->setPrenom($element[1]);
+            $personne->setDateNaissance($element[2]);
+            $personne->setCreeLe($element[3]);
+            
+            $this->setReference('lolo', $personne);
+            
+            $manager->persist($personne);
         }
         
         $manager->flush();
