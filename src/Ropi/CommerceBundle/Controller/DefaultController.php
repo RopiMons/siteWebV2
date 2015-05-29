@@ -154,6 +154,7 @@ class DefaultController extends Controller {
      * @Route("/my/commerce/{proprety}/{id}/{route}", requirements={"id": "\d+"}, name="commerce_change")
      * @Secure(roles={"ROLE_ADMIN"})
      * 
+     * Attention, très dangeureux d'ouvrir vers l'extérieure ... La généricité ...
      */
     public function changeProprety($proprety, $id, $route = null) {
         $repo = $this->getDoctrine()->getRepository('Ropi\CommerceBundle\Entity\Commerce');
@@ -187,6 +188,44 @@ class DefaultController extends Controller {
         }
 
         return $this->redirect($route);
+    }
+
+    /**
+     * 
+     * @Route("/commerces", name="commerces")
+     * @Route("/commerce/{nom}", name="commerce_view")
+     * 
+     * @Template()
+     * 
+     */
+    public function commercesAction($nom = null) {
+        $repo = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce");
+
+        if (isset($nom)) {
+
+            $commerce = $repo->findOneBy(array(
+                'nom' => $nom,
+                'visible' => true,
+                'valide' => true
+            ));
+
+            if ($commerce) {
+                return $this->render("RopiCommerceBundle:Default:commerceView.html.twig",array(
+                    'commerce'=>$commerce,
+                ));
+            }else{
+                $this->addFlash("danger", "Ce commerce n'existe pas ou n'est pas activé");
+            }
+        } 
+            
+            $commerces = $repo->findBy(array(
+                'visible'=>true,
+                'valide'=>true
+            ));
+            
+            return array('commerces'=>$commerces);
+            
+        
     }
 
 }
