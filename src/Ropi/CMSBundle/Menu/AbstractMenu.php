@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 
- Abstract class AbstractMenu extends ContainerAware {
+Abstract class AbstractMenu extends ContainerAware {
 
     /**
      * @param FactoryInterface $factory
@@ -27,18 +27,19 @@ use Symfony\Component\Intl\Exception\NotImplementedException;
       } */
     protected $factory;
     protected $em;
-    protected $role;
+    protected $permissions;
 
     public function __construct(FactoryInterface $factory, EntityManager $em, SecurityContext $securityContext) {
         $this->factory = $factory;
         $this->em = $em;
-        if($securityContext->getToken() != null)
-        $this->role = $securityContext->getToken()->getUser()->getRoles();
-        else{ $this->role = array();}
-         
+        if ($securityContext->getToken() != null) {
+            $this->permissions = $securityContext->getToken()->getUser()->getRoles();
+        } else {
+            $this->permissions = array();
+        }
     }
 
-    abstract protected function tableau() ;
+    abstract protected function tableau();
 
     protected function gen($key, $valeur, $menu, $sous_menu = false, $compteur = 0) {
         if (!$sous_menu) {
@@ -78,7 +79,7 @@ use Symfony\Component\Intl\Exception\NotImplementedException;
     }
 
     public function createBreadcrumbMenu() {
-       
+
         //$secu = $this->container->get('security.context');
         //dump($secu);
         $tab = $this->tableau();

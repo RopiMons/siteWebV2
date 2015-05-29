@@ -1,6 +1,9 @@
 {% extends '::baseAdmin.html.twig' %}
 
 {% block content %}
+
+    {% set classStatique = 'Ropi\\CMSBundle\\Entity\\PageStatique' %}
+
     <h1>Gestion des pages disponibles</h1>
     {% set sizeCategorie = categories|length %}
     {% for categorie in categories %}
@@ -28,7 +31,12 @@
             {% endif %}
             {% for page in categorie.pages %}
                 <tr>
-                    <td>{{ page.titreMenu }}</td>
+                    <td>
+                        {% if page is not instanceof(classStatique) %}
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  
+                        {% endif %}
+                        {{ page.titreMenu }}
+                    </td>
                     <td>
                         <a href="{{ path("CMS_page_inverse", {'id': page.id }) }}">
                             {% if page.isActive %}
@@ -36,7 +44,7 @@
                                 {% if date(page.publicationDate) <= date() %}
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 {% else %}
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Sera publiée le {{ page.publicationDate|date('d/m/Y')}}
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Sera publiée le {{ page.publicationDate|date('d/m/Y')}}
                                 {% endif %}
                             {% else %}
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -54,15 +62,19 @@
                             <a href="{{ path('CMS_pages_down', { 'id': page.id }) }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
                             {% else %} 
                             <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-
                         {% endif %}
                         {% if date(page.publicationDate) <= date() and page.isActive %}
-                            <a href="{{ path("cms_page",{'categorie': categorie.nom ,'titreMenu': page.titreMenu }) }}" target="_blank" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true" value="Test"></span></a>
+                            <a href="{% if page.parametres %}{{ path(page.route, page.parametres) }}{% else %}{{ path(page.route) }}{% endif %}" target="_blank" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true" value="Test"></span></a>
                             {% else %}
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         {% endif %}
-                        <a href="{{ path("CMS_static_update", {'id': page.id}) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                        <a href="{{ path("CMS_page_remove", {'id': page.id}) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        {% if page is instanceof(classStatique) %}
+                            <a href="{{ path("CMS_static_update", {'id': page.id}) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            <a href="{{ path("CMS_page_remove", {'id': page.id}) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        {% else %}
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

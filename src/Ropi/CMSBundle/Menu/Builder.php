@@ -12,7 +12,6 @@ namespace Ropi\CMSBundle\Menu;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Ropi\CMSBundle\Entity\PositionnableInterface;
-
 use Symfony\Component\Security\Core\SecurityContext;
 use Ropi\CMSBundle\Menu\AbstractMenu;
 
@@ -25,42 +24,36 @@ class Builder extends AbstractMenu {
       {
       $this->factory = $factory;
       } */
-   
-  protected function tableau() {
-        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages();
+
+    protected function tableau() {
+        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages($this->permissions);
 
         usort($listeCategories, function($a, $b) {
             return $this->comparePosition($a, $b);
         });
-
+        
+        
         $tab = array();
         foreach ($listeCategories as $categorie) {
             $pages = $categorie->getPages();
             $temp = array();
 
             $unique = count($pages) == 1;
-            
-                foreach ($pages as $page) {
-                                        
-                    $contenu = array(
-                        'route' => 'cms_page',
-                        'routeParameters' => array(
-                            'categorie' => $categorie->getNom(),
-                            'titreMenu' => $page->getTitreMenu()
-                        )
-                    );
-                    
-                    if($unique){
-                        $tab[$page->getTitreMenu()] = $contenu;
-                    }
-                    else{
-                        $temp[$page->getTitreMenu()] = $contenu;
-                    }
-                }
 
-                if(!$unique)
-                    $tab[$categorie->getNom()] = $temp;
-            
+            foreach ($pages as $page) {
+
+                $contenu = $page->getURIArray();
+
+                if ($unique) {
+                    $tab[$page->getTitreMenu()] = $contenu;
+                } else {
+                    $temp[$page->getTitreMenu()] = $contenu;
+                }
+            }
+
+            if (!$unique) {
+                $tab[$categorie->getNom()] = $temp;
+            }
         }
 
         return $tab;

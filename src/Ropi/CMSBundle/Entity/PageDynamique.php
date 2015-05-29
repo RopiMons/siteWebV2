@@ -42,9 +42,14 @@ class PageDynamique extends Page
     {
         return $this->route;
     }
+    
+    public function getParametres() {
+        return null;
+    }
+    
 
-    public function getURL() {
-        return "";
+    public function getURIArray() {
+        return array('route'=>$this->getRoute());
     }
 
 }

@@ -27,7 +27,7 @@ class LoadPageDynamiqueData extends AbstractFixture implements OrderedFixtureInt
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array(1, "Nos commerçants", true, new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_3"), "commerces" ),
+            array(2, "Nos commerçants", true, new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_3"), "commerces" ),
                 );
 
         foreach ($tab as $element) {

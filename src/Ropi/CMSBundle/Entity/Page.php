@@ -216,8 +216,10 @@ abstract class Page implements PositionnableInterface {
     public function getPublicationDate() {
         return $this->publicationDate;
     }
-
-    abstract function getURL();
+    
+    abstract function getRoute();
+    abstract function getParametres();
+    abstract function getURIArray();
 
     /**
      * @ORM\PrePersist()
