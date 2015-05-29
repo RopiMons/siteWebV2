@@ -26,7 +26,7 @@ class AdresseType extends AbstractType
                 'label' => 'Complément d\'adresse',
                 'required' => false
             ))
-            ->add('typeAdresse',new TypeAdresseType())
+            ->add('typeAdresse',null)
             ->add('ville', new VilleType(), array(
                 'cascade_validation' => true
             ))

@@ -1,0 +1,16 @@
+{% extends '::email.html.twig' %}
+
+{% block content %}
+    <h1>Inscription sur le site du Ropi</h1>
+    <p>Bonjour Tu bien t'inscrire sur le site du Ropi </p>
+    <p>Pour te connecter à ton compte tu dois commencer par valider ton inscription en cliquant sur le lien suivant:</p>
+    <h2>Tes identifiants de connection</h2>
+    <p>Pour rappel, voici tes identifiants de connection : <br />
+        Ton login :  {{ login }} <br />
+        Ton Mot de passe: ****** (celui-que tu as écrit)
+    </p>
+    <p>Pour te connecter à ton compte tu dois commencer par valider ton inscription en cliquant sur le lien suivant:</p>
+    <p> {{ path(url)}}</p>
+    <p>A très bientôt sur www.ropi.be</p>
+    <p>L'équipe du Ropi</p>
+{% endblock %}

@@ -91,4 +91,7 @@ class TypeAdresse
     {
         return $this->obligatoire;
     }
+    public function __toString() {
+        return $this->valeur;
+    }
 }
