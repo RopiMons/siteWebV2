@@ -20,87 +20,91 @@
         <div class="container">
             <header class="row"> <!-- Logo & slogan -->
                 {% block header %}
-                <div class="col-xs-12">
-                    <div class="col-sm-5">
-                        
-                        <img id="logo" class="col-sm-12" src="/img/ropi_logo.png" alt="logo du ropi"/>
-                        <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
-                    </div>
-                    <div class="col-sm-4"></p>
-                        </p></div>
-                    <div class="col-sm-3">
-                    </div>
-                </div>	
+                    <div class="col-xs-12">
+                        <div class="col-sm-5">
+
+                            <img id="logo" class="col-sm-12" src="/img/ropi_logo.png" alt="logo du ropi"/>
+                            <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
+                        </div>
+                        <div class="col-sm-4"></p>
+                            </p></div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>	
                 {% endblock %}
             </header>
 
-            
-        
-        {% block menu %}
-        </nav> <nav class="navbar navbar-default row ">
-            <div class="col-sm-3 col-lg-3 col-md-3"> </div>
 
-            <div class="container-fluid"> 
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
 
-                    </button>
+            {% block menu %}
+            </nav> <nav class="navbar navbar-default row ">
+                <div class="col-sm-3 col-lg-3 col-md-3"> </div>
 
-                    <a class="navbar-brand men" href="{{ path('home') }}">Ropi</a> 
+                <div class="container-fluid"> 
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
 
+                        </button>
+
+                        <a class="navbar-brand men" href="{{ path('home') }}">Ropi</a> 
+
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+
+                        {#{ np_menu_render('breadcrumb',{'currentAsLink':false}) }#}
+
+                        {#{ knp_menu_render('RopiCMSBundle:Builder:createBreadcrumbMenu') }#}
+                        {{ knp_menu_render('main') }}
+
+
+
+                    </div><!--/.nav-collapse -->
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
 
-                    {#{ np_menu_render('breadcrumb',{'currentAsLink':false}) }#}
-
-                    {#{ knp_menu_render('RopiCMSBundle:Builder:createBreadcrumbMenu') }#}
-                    {{ knp_menu_render('main') }}
+            </nav>
 
 
+        {% endblock %}
 
-                </div><!--/.nav-collapse -->
+        {% for flashMessage in app.session.flashbag.get('info') %}
+            <div class="alert alert-info" role="alert">
+                {{ flashMessage }}
             </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('danger') %}
+            <div class="alert alert-danger" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
 
-        </nav>
+        <section class="col-sm-12 row" id="section">
+            <aside class="hidden-xs col-sm-3" id="aside-left"> {% block left %}
 
+                <ul>
+                    <li><img class="billets" src="/img/face_billet1.png" onmouseover="this.src = '/img/dos_billet1.png'" onmouseout="this.src = '/img/face_billet1.png'" alt=""/></li>
+                    <li><img class="billets" src="/img/face_billet2.png" onmouseover="this.src = '/img/dos_billet2.png'" onmouseout="this.src = '/img/face_billet2.png'" alt=""/></li>
+                    <li><img class="billets" src="/img/face_billet3.png" onmouseover="this.src = '/img/dos_billet3.png'" onmouseout="this.src = '/img/face_billet3.png'" alt=""/></li>
+                    <li><img class="billets" src="/img/face_billet4.png" onmouseover="this.src = '/img/dos_billet4.png'" onmouseout="this.src = '/img/face_billet4.png'" alt=""/></li>
+                </ul> {% endblock %}</aside>
+            <div id="background_article" class="col-sm-6"> 
+                <!-- Text Area-->
 
-    {% endblock %}
-    
-    {% for flashMessage in app.session.flashbag.get('info') %}
-                <div class="alert alert-info" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-success" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('danger') %}
-                <div class="alert alert-danger" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            
-    <section class="col-sm-12 row" id="section">
-        <aside class="hidden-xs col-sm-3" id="aside-left"> {% block left %}
-            
-            <ul>
-					<li><img class="billets" src="/img/face_billet1.png" onmouseover="this.src='/img/dos_billet1.png'" onmouseout="this.src='/img/face_billet1.png'" alt=""/></li>
-					<li><img class="billets" src="/img/face_billet2.png" onmouseover="this.src='/img/dos_billet2.png'" onmouseout="this.src='/img/face_billet2.png'" alt=""/></li>
-					<li><img class="billets" src="/img/face_billet3.png" onmouseover="this.src='/img/dos_billet3.png'" onmouseout="this.src='/img/face_billet3.png'" alt=""/></li>
-					<li><img class="billets" src="/img/face_billet4.png" onmouseover="this.src='/img/dos_billet4.png'" onmouseout="this.src='/img/face_billet4.png'" alt=""/></li>
-				</ul> {% endblock %}</aside>
-        <div id="background_article" class="col-sm-6"> 
-            <!-- Text Area-->
+                <article class="col-sm-12">
+                    <div class="content" id="content">
+                        {% block content %} plan
 
-           <article class="col-sm-12"> {% block content %} plan
-
-               {% endblock %}</article>
+                        {% endblock %}
+                    </div>	
+                </article>
 
             </div>                  
             <div class="col-sm-3"> {% block right %}
@@ -108,35 +112,36 @@
                 <!-- Google Map -->
                 <div class="col-md-12"></div>
 
-            {% endblock %}</div> 
+                {% endblock %}</div> 
 
-</section>
-	<footer class="row"> <!-- Link & contact -->
-			<div class="col-sm-9">
-				<nav id="nav-foot">
-                                    {% block footNav %}
-					<ul>
-                                            
-						<li> <a href="#">Accueil</a></li>
-						<li> <a href="mailto:info@ropi.be">Contact</a></li>
-						<li> <a href="#top">Haut de page</a></li>
-					</ul>
-                                        {% endblock %}
-				</nav>			
-			</div> 
-			<div class="col-sm-3" id="copyright">
-        {% block footCopyright %} <p>2015 Copyright©ropi.be</p>{% endblock %}
-       
+            </section>
+            <footer class="col-sm-12 row"> <!-- Link & contact -->
+                <div class="col-sm-12 foot">
+                <div class="col-sm-9">
+                    <nav id="nav-foot">
+                        {% block footNav %}
+                            <ul>
+
+                                <li> <a href="#">Accueil</a></li>
+                                <li> <a href="mailto:info@ropi.be">Contact</a></li>
+                                <li> <a href="#top">Haut de page</a></li>
+                            </ul>
+                        {% endblock %}
+                    </nav>			
+                </div> 
+                <div class="col-sm-3" id="copyright">
+                    {% block footCopyright %} <p>2015 Copyright©ropi.be</p>{% endblock %}
+
+                </div>
+                </div>
+            </footer>
+        </div>        
+        {% block javascripts %}
+            <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+            <script src="{{ asset('js/jquery.js') }}"></script>
+            <!-- Include all JavaScripts, compiled by Assetic -->
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% endblock %}
     </div>
-
-</footer>
- </div>        
-{% block javascripts %}
-    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <!-- Include all JavaScripts, compiled by Assetic -->
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-{% endblock %}
-</div>
 </body>
 </html>
