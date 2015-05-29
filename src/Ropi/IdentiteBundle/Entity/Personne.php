@@ -64,7 +64,21 @@ class Personne
      * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist"})
      */
     private $contacts;
-
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"remove"})
+     */
+    private $commerces;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne")
+     */
+    private $identifiantWeb;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove"})
+     */
+    private $adresses;
 
     /**
      * Get id
@@ -207,5 +221,94 @@ class Personne
     public function getContacts()
     {
         return $this->contacts;
+    }
+
+    /**
+     * Add commerces
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
+     * @return Personne
+     */
+    public function addCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerces)
+    {
+        $this->commerces[] = $commerces;
+
+        return $this;
+    }
+
+    /**
+     * Remove commerces
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
+     */
+    public function removeCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerces)
+    {
+        $this->commerces->removeElement($commerces);
+    }
+
+    /**
+     * Get commerces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommerces()
+    {
+        return $this->commerces;
+    }
+
+    /**
+     * Set identifiantWeb
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\IdentifiantWeb $identifiantWeb
+     * @return Personne
+     */
+    public function setIdentifiantWeb(\Ropi\AuthenticationBundle\Entity\IdentifiantWeb $identifiantWeb = null)
+    {
+        $this->identifiantWeb = $identifiantWeb;
+
+        return $this;
+    }
+
+    /**
+     * Get identifiantWeb
+     *
+     * @return \Ropi\AuthenticationBundle\Entity\IdentifiantWeb 
+     */
+    public function getIdentifiantWeb()
+    {
+        return $this->identifiantWeb;
+    }
+
+    /**
+     * Add adresses
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresses
+     * @return Personne
+     */
+    public function addAdress(\Ropi\IdentiteBundle\Entity\Adresse $adresses)
+    {
+        $this->adresses[] = $adresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove adresses
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresses
+     */
+    public function removeAdress(\Ropi\IdentiteBundle\Entity\Adresse $adresses)
+    {
+        $this->adresses->removeElement($adresses);
+    }
+
+    /**
+     * Get adresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdresses()
+    {
+        return $this->adresses;
     }
 }

@@ -23,11 +23,7 @@ class DefaultController extends Controller {
     public function indexAction(Request $request) {
         //$user = new IdentifiantWeb();
         $user = new \Ropi\IdentiteBundle\Entity\Personne();
-        $contact1 = new Contact();
-        $type1 = new TypeMoyenContact();
-        $type1->setType("coucou");
-        $contact1->setTypeContact($type1);
-        $user->addContact($contact1);
+       
         $type = new \Ropi\IdentiteBundle\Form\PersonneType();
         $form = $this->createForm($type, $user);
         $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");

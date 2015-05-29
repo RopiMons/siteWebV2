@@ -22,13 +22,14 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Ropi\CMSBundle\RopiCMSBundle(),
-            //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            //new JMS\AopBundle\JMSAopBundle(),
-            //new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
 
             new Ropi\TestBundle\RopiTestBundle(),
             new Ropi\CommerceBundle\RopiCommerceBundle(),
             new Ropi\IdentiteBundle\RopiIdentiteBundle(),
+            new Ropi\ParametresBundle\RopiParametresBundle(),
         );
 
 

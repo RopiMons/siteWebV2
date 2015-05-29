@@ -92,6 +92,11 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     private $permission;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="identifiantWeb")
+     */
+    private $personne;
+    
    
 
     /**
@@ -376,5 +381,28 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
 
     public function __toString() {
         return $this->username;
+    }
+
+    /**
+     * Set personne
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personne
+     * @return IdentifiantWeb
+     */
+    public function setPersonne(\Ropi\IdentiteBundle\Entity\Personne $personne = null)
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
+
+    /**
+     * Get personne
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Personne 
+     */
+    public function getPersonne()
+    {
+        return $this->personne;
     }
 }

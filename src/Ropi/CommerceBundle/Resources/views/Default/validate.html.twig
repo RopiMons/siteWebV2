@@ -1,0 +1,27 @@
+{% extends '::baseAdmin.html.twig' %}
+
+{% block content %}
+    <h1>Commerces à valider</h1>
+    {% if commerces|length > 0 %}
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Nom du commerce</th>
+                    <th>Actions possibles</th>
+                </tr>
+            </thead>
+            {% for commerce in commerces %}
+                <tr>
+                    <td>{{ commerce.nom }}</td>
+                    <td>
+                        <a href="{{ path('commerce_remove', {'id': commerce.id}) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a> 
+                        <a href="{{ path('commerce_update', {'id': commerce.id, 'route': 'commerce_validate'}) }}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a> 
+                        <a href="{{ path('commerce_validate', {'id': commerce.id}) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Il n'y a pas de commerce à valider pour l'instant ...</p>
+    {% endif %}
+{% endblock %}

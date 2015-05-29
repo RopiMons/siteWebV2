@@ -51,11 +51,20 @@ class Adresse
     private $typeAdresse;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Ville")
+     * @ORM\ManyToOne(targetEntity="Ville", cascade={"persist"})
      * @Assert\NotBlank()
      */
     private $ville;
-
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses", cascade={"persist"})
+     */
+    private $commerce;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Personne",inversedBy="adresses", cascade={"persist"})
+     */
+    private $personnes;
     /**
      * Get id
      *
@@ -179,5 +188,68 @@ class Adresse
     public function getVille()
     {
         return $this->ville;
+    }
+
+    /**
+     * Set commerce
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Commerce $commerce
+     * @return Adresse
+     */
+    public function setCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerce = null)
+    {
+        $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * Get commerce
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Commerce 
+     */
+    public function getCommerce()
+    {
+        return $this->commerce;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->personnes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     * @return Adresse
+     */
+    public function addPersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes[] = $personnes;
+
+        return $this;
+    }
+
+    /**
+     * Remove personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     */
+    public function removePersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes->removeElement($personnes);
+    }
+
+    /**
+     * Get personnes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPersonnes()
+    {
+        return $this->personnes;
     }
 }

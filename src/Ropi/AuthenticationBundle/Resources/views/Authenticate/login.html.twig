@@ -8,4 +8,5 @@
         <div class="alert alert-warning" role="alert">{{ error.message }}</div>
     {% endif %}
     {{ include('RopiAuthenticationBundle:Authenticate:loginForm.html.twig', {'last_username': last_username}) }}
+    <a href="{{path('ropi_inscription')}}" title="Inscription"> Inscription </a>
 {% endblock %}

@@ -1,0 +1,78 @@
+<?php
+
+namespace Ropi\CommerceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Commerce_etiquette
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Commerce_etiquette
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Commerce", inversedBy="id")
+     */
+    
+    private $commerces;
+    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Etiquette", inversedBy="id")
+     */
+    
+    private $etiquettes;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="certification", type="boolean")
+     */
+    private $certification;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set certification
+     *
+     * @param boolean $certification
+     * @return Commerce_etiquette
+     */
+    public function setCertification($certification)
+    {
+        $this->certification = $certification;
+
+        return $this;
+    }
+
+    /**
+     * Get certification
+     *
+     * @return boolean 
+     */
+    public function getCertification()
+    {
+        return $this->certification;
+    }
+}

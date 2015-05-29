@@ -3,6 +3,7 @@
 namespace Ropi\IdentiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ville
@@ -25,6 +26,7 @@ class Ville
      * @var string
      *
      * @ORM\Column(name="codePostal", type="string", length=15)
+     * @Assert\Length(min="4", max="15")
      */
     private $codePostal;
 
@@ -32,6 +34,7 @@ class Ville
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $ville;
 
