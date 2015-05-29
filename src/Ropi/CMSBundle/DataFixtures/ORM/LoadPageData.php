@@ -58,23 +58,6 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <h3>&nbsp;</h3>
 <p>&nbsp;</p>
 <p>&nbsp;</p>"),
-            array(1, "Accueil", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "<p>&nbsp;</p>
-<p><img src=\"../../../../../source/ROPI_Depliant_illustration_notext.png\" alt=\"Sch&eacute;ma circulation du\" width=\"836\" height=\"528\" />&nbsp;</p>
-<p><em>[todo: int&eacute;grer le javascript - text mouse over]</em></p>
-<p>&nbsp;</p>
-<p><strong>Retrouvez toutes les info d\'utilisation du Ropi:&nbsp;<a href=\"../../../../../page/RopiPratique.php\">Le Ropi, en pratique</a></strong></p>
-<p>&nbsp;</p>
-<h1><strong>Les derni&egrave;res nouvelles</strong></h1>
-<p>Ici blabla</p>
-<p>&nbsp;</p>
-<p>----------------------</p>
-<p>&nbsp;</p>
-<p>Plus de Babla</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>----------------------</p>
-<p>&nbsp;</p>
-<p>Encore du blabla</p>"),
             array(1, "En pratique", 1, new DateTime("2015-05-28T23:41:04+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Le Ropi, la monnaie compl&eacute;mentaire de Mons et ses environs</h1>
 <h2><br />Le Ropi ne remplace pas l\'Euro, il le compl&eacute;mente!</h2>
 <p>Il circule en parall&egrave;le &agrave; l\'euro, et par facilit&eacute;, il partage la m&ecirc;me &eacute;chelle de valeur, &agrave; savoir</p>

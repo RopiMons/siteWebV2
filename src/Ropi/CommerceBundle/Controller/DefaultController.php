@@ -30,7 +30,7 @@ class DefaultController extends Controller {
             $em = $this->getDoctrine()->getManager();
             
             $repoAT = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeAdresse");
-            $repoAT->findOneBy(array('valeur'=>'Adresse du commerce'));
+            $at = $repoAT->findOneBy(array('valeur'=>'Adresse du commerce'));
 
             $commerce = $form->getData();
             $commerce->addPersonne($this->getUser()->getPersonne());
@@ -38,12 +38,15 @@ class DefaultController extends Controller {
 
             foreach ($adresses as $adresse) {
                 $adresse->setCommerce($commerce);
-                $adresse->setTypeAdresse($repoAT);
+                $adresse->setTypeAdresse($at);
             }
 
 
             $em->persist($commerce);
             $em->flush();
+            
+            $this->addFlash('success', 'Votre commerce nous a bien été proposé. Vous serez recontacté dès que possible');
+            return $this->redirect($this->generateUrl("Ropi_ok"));
         }
 
         return array(
