@@ -3,13 +3,17 @@
 namespace Ropi\CommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Commerce
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\CommerceRepository")
+ * 
  * @ORM\HasLifecycleCallbacks()
+ * 
+ * @UniqueEntity(fields={"nom"}, message="Un commerce a déjà ce nom")
  */
 class Commerce
 {
