@@ -28,7 +28,7 @@ class IdentifiantWebType extends AbstractType
             //->add('actif')
             ->add('roles',null,array())
             ->add('permission')
-            ->add("submit","submit")
+            //->add("submit","submit")
             
               
         ;

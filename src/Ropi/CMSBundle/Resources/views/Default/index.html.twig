@@ -1,15 +1,25 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1>Je suis la page d'accueil de ce magnifique site à en devenir</h1>
-    <h2>Fonction authentifiées</h2>
-    <p>
-        Peut-être souhaites-tu te <a href="{{ path("Ropi_ok") }}">connecter</a> ?
-    </p>
-    <h2>Pages CMS</h2>
-    <ul>
-        {% for page in pages %}
-            <li><a href="{{ path('cms_page', {'categorie': page.categorie.nom ,'titreMenu': page.titreMenu}) }}">{{ page.titreMenu }}</a> (Catégorie : {{ page.categorie.nom }})</li>
-        {% endfor %}
-    </ul>
+    
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10779328-2']);
+    _gaq.push(['_trackPageview']);
+</script>
+
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/jquery_004.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/ga.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/jquery_002.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/jquery_003.js"></script>
+
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/simplemodal-wrapper.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/jquery.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/outsharked-menu.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/imagemapster-site.js"></script>
+<script type="text/javascript" src="ImageMapsterRopi_fichiers/demos.js"></script>
+
 {% endblock %}
