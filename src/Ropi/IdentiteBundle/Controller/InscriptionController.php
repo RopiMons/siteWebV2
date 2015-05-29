@@ -54,6 +54,9 @@ class InscriptionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
+         $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
+         $cle = new KeyValidation($emCle,$user->getIdentifiantWeb());
+            $em->persist($cle);
             $em->persist($user);
 
             $em->flush();
