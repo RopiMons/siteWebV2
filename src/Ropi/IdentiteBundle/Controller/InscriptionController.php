@@ -16,7 +16,7 @@ use Ropi\IdentiteBundle\Entity\Adresse;
 class InscriptionController extends Controller
 {
     /**
-     * @Route("/inscription")
+     * @Route("/inscription", name="ropi_inscription")
      * @Template()
      */
     public function inscriptionAction(Request $request)
