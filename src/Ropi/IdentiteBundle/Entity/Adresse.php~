@@ -60,7 +60,11 @@ class Adresse
      * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses", cascade={"persist"})
      */
     private $commerce;
-
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Personne",inversedBy="adresses", cascade={"persist"})
+     */
+    private $personnes;
     /**
      * Get id
      *
@@ -207,5 +211,45 @@ class Adresse
     public function getCommerce()
     {
         return $this->commerce;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->personnes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     * @return Adresse
+     */
+    public function addPersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes[] = $personnes;
+
+        return $this;
+    }
+
+    /**
+     * Remove personnes
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Personne $personnes
+     */
+    public function removePersonne(\Ropi\IdentiteBundle\Entity\Personne $personnes)
+    {
+        $this->personnes->removeElement($personnes);
+    }
+
+    /**
+     * Get personnes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPersonnes()
+    {
+        return $this->personnes;
     }
 }

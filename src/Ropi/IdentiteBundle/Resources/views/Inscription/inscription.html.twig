@@ -4,6 +4,7 @@
 
 
 {% block content %}
+    <h1 class="souligné"> Inscription sur le site: </h1>
     {{ form_start(form) }}
     {{ form_errors(form) }}
     
@@ -16,6 +17,16 @@
         {{ form_errors(contact) }}
         {{ form_widget(contact) }}
     {% endfor %}
-    {{ form_rest(form) }}
+    <h3>Adresse</h3>
+     {% for adresse in form.adresses %}  
+        {{  form_row(adresse.rue) }}
+         {{  form_row(adresse.numero) }}
+          {{  form_row( adresse.complement) }}
+           {{  form_row( adresse.typeAdresse.valeur) }}
+            {{  form_row( adresse.ville) }}
+        {{ form_errors(adresse) }}
+        {% endfor %}
+   
+   
 
 {% endblock %}

@@ -79,7 +79,12 @@ class Commerce
      */
     private $personnes;
 
-
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="commerces", cascade="remove") 
+     */
+    private $etiquettes;
+    
     /**
      * Get id
      *

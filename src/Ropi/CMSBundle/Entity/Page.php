@@ -81,7 +81,15 @@ abstract class Page implements PositionnableInterface {
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="pages")
      */
     private $categorie;
-
+    /**
+     *
+     * @var type 
+     * @ORM\ManyToMany (targetEntity="Ropi\AuthenticationBundle\Entity\Permission")
+     */
+    
+    private $permission/*s*/;
+    
+    
     /**
      * Get id
      *
@@ -260,5 +268,45 @@ abstract class Page implements PositionnableInterface {
      */
     public function onPreUpdate() {
         $this->lastUpdate = new \DateTime();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add permission
+     *
+     * @param \Ropi\CMSBundle\Entity\Permission $permission
+     * @return Page
+     */
+    public function addPermission(\Ropi\CMSBundle\Entity\Permission $permission)
+    {
+        $this->permission[] = $permission;
+
+        return $this;
+    }
+
+    /**
+     * Remove permission
+     *
+     * @param \Ropi\CMSBundle\Entity\Permission $permission
+     */
+    public function removePermission(\Ropi\CMSBundle\Entity\Permission $permission)
+    {
+        $this->permission->removeElement($permission);
+    }
+
+    /**
+     * Get permission
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPermission()
+    {
+        return $this->permission;
     }
 }

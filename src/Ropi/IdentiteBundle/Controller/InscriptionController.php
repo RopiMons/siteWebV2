@@ -10,12 +10,13 @@ use Ropi\IdentiteBundle\Entity\Personne;
 use Ropi\IdentiteBundle\Form\PersonneType;
 use Ropi\IdentiteBundle\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
+use Ropi\IdentiteBundle\Entity\Adresse;
 
 
 class InscriptionController extends Controller
 {
     /**
-     * @Route("/inscription")
+     * @Route("/inscription", name="ropi_inscription")
      * @Template()
      */
     public function inscriptionAction(Request $request)
@@ -35,13 +36,27 @@ class InscriptionController extends Controller
                 //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
                 dump($contact->getTypeContact());
                 $form->add('contacts', "collection", array('type' => new ContactType($contact->getTypeContact())));
-                $form->add("submit", "submit");
+               
             }
         }
+        
+        /*
+         * Ajout de l'addresse
+         */
+        $adresse = new Adresse();
+        $adresse->setTypeAdresse(new \Ropi\IdentiteBundle\Entity\TypeAdresse());
+        $user->addAdress($adresse);
+        
+        $form->add('adresses','collection' ,array("type"=>new \Ropi\IdentiteBundle\Form\AdresseType()));
+        
+         $form->add("submit", "submit");
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
+         $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
+         $cle = new KeyValidation($emCle,$user->getIdentifiantWeb());
+            $em->persist($cle);
             $em->persist($user);
 
             $em->flush();

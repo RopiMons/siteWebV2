@@ -21,6 +21,7 @@ class PersonneType extends AbstractType {
                 ->add('contacts', 'collection', array(
                     'type' => new ContactType(),
                 ))
+                
         //->add('creeLe')
         /* ->add('contacts', 'collection', array(
           'type' => new ContactType(),

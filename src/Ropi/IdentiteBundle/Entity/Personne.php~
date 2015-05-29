@@ -74,7 +74,11 @@ class Personne
      * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne")
      */
     private $identifiantWeb;
-
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove"})
+     */
+    private $adresses;
 
     /**
      * Get id
@@ -273,5 +277,38 @@ class Personne
     public function getIdentifiantWeb()
     {
         return $this->identifiantWeb;
+    }
+
+    /**
+     * Add adresses
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresses
+     * @return Personne
+     */
+    public function addAdress(\Ropi\IdentiteBundle\Entity\Adresse $adresses)
+    {
+        $this->adresses[] = $adresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove adresses
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresses
+     */
+    public function removeAdress(\Ropi\IdentiteBundle\Entity\Adresse $adresses)
+    {
+        $this->adresses->removeElement($adresses);
+    }
+
+    /**
+     * Get adresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdresses()
+    {
+        return $this->adresses;
     }
 }
