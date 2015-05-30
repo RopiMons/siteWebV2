@@ -11,8 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\PageStatiqueRepository")
  */
-class PageStatique extends Page
-{
+class PageStatique extends Page {
+    
+    private $route = "cms_page"; //Route vers les pages du CMS statique
+
     /**
      * @var string
      *
@@ -22,15 +24,13 @@ class PageStatique extends Page
      */
     private $contenu;
 
-
     /**
      * Set contenu
      *
      * @param string $contenu
      * @return PageStatique
      */
-    public function setContenu($contenu)
-    {
+    public function setContenu($contenu) {
         $this->contenu = $contenu;
 
         return $this;
@@ -42,13 +42,26 @@ class PageStatique extends Page
      * @return string 
      * 
      */
-    public function getContenu()
-    {
+    public function getContenu() {
         return $this->contenu;
     }
+    
+    public function getRoute(){
+        return $this->route;
+    }
+    
+    public function getParametres(){
+        return array(
+                'categorie' => $this->getCategorie()->getNom(),
+                'titreMenu' => $this->getTitreMenu()
+            );
+    }
 
-    public function getURL() {
-        return "";
+    public function getURIArray() {
+        return array(
+            'route' => $this->getRoute(),
+            'routeParameters' => $this->getParametres()
+        );
     }
 
 }

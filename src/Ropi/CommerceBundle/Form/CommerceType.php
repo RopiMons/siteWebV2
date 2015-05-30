@@ -5,7 +5,7 @@ namespace Ropi\CommerceBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ropi\IdentiteBundle\Form\AdresseType;
+use Ropi\IdentiteBundle\Form\AdresseCommerceType;
 
 class CommerceType extends AbstractType {
 
@@ -19,11 +19,15 @@ class CommerceType extends AbstractType {
                     'label' => 'Nom de votre commerce'
                 ))
                 ->add('description', null, array(
-                    'label' => 'Description de votre commerce'
+                    'label' => 'Description de votre commerce',
+                    //'attr' => array(
+                    //    'class' => 'tinymce',
+                    //    'data-theme' => 'advanced'
+                    //)
                 ))
                 ->add('adresses', 'collection', array(
                     'label' => 'Adresse de votre commerce',
-                    'type' => new AdresseType(),
+                    'type' => new AdresseCommerceType(),
                     'cascade_validation' => true
                 ))
                 ->add('visible', null, array(

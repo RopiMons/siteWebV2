@@ -252,4 +252,7 @@ class Adresse
     {
         return $this->personnes;
     }
+    public function __toString() {
+        return $this->rue;
+    }
 }

@@ -28,10 +28,10 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            0 => array("Adrien","abcde"),
-              1 => array("Fabian","@Bcde1"),
-              2 => array("Laurent5","admin"),
-              3 => array("Joelle","abcde"),
+            0 => array("Adrien","abcde",array($this->getReference("ROLE_Admin"),$this->getReference("ROLE_UtilisateurAuthentifié"))),
+              1 => array("Fabian","@Bcde1",array($this->getReference("ROLE_Admin"),$this->getReference("ROLE_UtilisateurAuthentifié"))),
+              2 => array("Laurent5","admin",array($this->getReference("ROLE_Admin"),$this->getReference("ROLE_Commercant"),$this->getReference("ROLE_UtilisateurAuthentifié")),$this->getReference('lolo')),
+              3 => array("Joelle","abcde",array($this->getReference("ROLE_Admin"),$this->getReference("ROLE_UtilisateurAuthentifié"))),
              );
         
         foreach($tab as $element){
@@ -45,7 +45,15 @@ class LoadIdentifiantWebData extends AbstractFixture implements OrderedFixtureIn
              $identifiant->setMotDePasse($encoder->encodePassword($element[1], $identifiant->getSalt()));
             //$this->setReference("PERM_".$element[0], $permission);
             $identifiant->setActif(true);
-            $identifiant->addRole($this->getReference("ROLE_Admin"));
+            foreach($element[2] as $role)
+            {
+                $identifiant->addRole($role);
+            }
+            
+            if(isset($element[3]))
+            {
+                $identifiant->setPersonne($element[3]);
+            }
             $manager->persist($identifiant);
         }
         

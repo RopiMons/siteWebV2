@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ropi\IdentiteBundle\Form\VilleType;
 
-class AdresseType extends AbstractType
+class AdresseCommerceType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,7 +26,7 @@ class AdresseType extends AbstractType
                 'label' => 'Complément d\'adresse',
                 'required' => false
             ))
-            ->add('typeAdresse',null)
+                
             ->add('ville', new VilleType(), array(
                 'cascade_validation' => true
             ))

@@ -104,6 +104,7 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    disable_delivery: true
 
 braincrafted_bootstrap:
     less_filter: lessphp

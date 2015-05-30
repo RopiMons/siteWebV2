@@ -22,11 +22,18 @@
         {{  form_row(adresse.rue) }}
          {{  form_row(adresse.numero) }}
           {{  form_row( adresse.complement) }}
-           {{  form_row( adresse.typeAdresse.valeur) }}
+           {{  form_row( adresse.typeAdresse) }}
             {{  form_row( adresse.ville) }}
+           
         {{ form_errors(adresse) }}
         {% endfor %}
-   
+        <h3>Identifiant de connexion:</h3>
+        {{form_row(form.identifiantWeb.username)}}
+        {{form_row(form.identifiantWeb.motDePasse)}}
+        
+        {{form_row(form._token)}}
+        {{form_row(form.Enregistrer)}}
+            
    
 
 {% endblock %}

@@ -21,3 +21,9 @@ services:
         factory_method: createBreadcrumbMenu
         tags:
             - { name: knp_menu.menu, alias: main2 }
+            
+            
+    cms.twig.cms_extension:
+        class: Ropi\CMSBundle\Twig\CMSExtension
+        tags:
+            - { name: twig.extension }

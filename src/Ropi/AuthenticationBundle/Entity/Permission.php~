@@ -55,6 +55,11 @@ class Permission
      * @ORM\ManyToMany(targetEntity="IdentifiantWeb", mappedBy="permission")
      */
     private $identifiantWeb;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Ropi\CMSBundle\Entity\Page", mappedBy="permissions")
+     */
+    private $pages;
 
    
     /**

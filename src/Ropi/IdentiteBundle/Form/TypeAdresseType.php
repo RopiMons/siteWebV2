@@ -15,8 +15,8 @@ class TypeAdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('valeur')
-            ->add('obligatoire')
+            ->add('valeur',null,array("label"=>"Type d'adresse"))
+           // ->add('obligatoire')
         ;
     }
     

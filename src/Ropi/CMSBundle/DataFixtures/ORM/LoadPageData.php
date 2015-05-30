@@ -58,23 +58,6 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <h3>&nbsp;</h3>
 <p>&nbsp;</p>
 <p>&nbsp;</p>"),
-            array(1, "Accueil", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "<p>&nbsp;</p>
-<p><img src=\"../../../../../source/ROPI_Depliant_illustration_notext.png\" alt=\"Sch&eacute;ma circulation du\" width=\"836\" height=\"528\" />&nbsp;</p>
-<p><em>[todo: int&eacute;grer le javascript - text mouse over]</em></p>
-<p>&nbsp;</p>
-<p><strong>Retrouvez toutes les info d\'utilisation du Ropi:&nbsp;<a href=\"../../../../../page/RopiPratique.php\">Le Ropi, en pratique</a></strong></p>
-<p>&nbsp;</p>
-<h1><strong>Les derni&egrave;res nouvelles</strong></h1>
-<p>Ici blabla</p>
-<p>&nbsp;</p>
-<p>----------------------</p>
-<p>&nbsp;</p>
-<p>Plus de Babla</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>----------------------</p>
-<p>&nbsp;</p>
-<p>Encore du blabla</p>"),
             array(1, "En pratique", 1, new DateTime("2015-05-28T23:41:04+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Le Ropi, la monnaie compl&eacute;mentaire de Mons et ses environs</h1>
 <h2><br />Le Ropi ne remplace pas l\'Euro, il le compl&eacute;mente!</h2>
 <p>Il circule en parall&egrave;le &agrave; l\'euro, et par facilit&eacute;, il partage la m&ecirc;me &eacute;chelle de valeur, &agrave; savoir</p>
@@ -132,39 +115,78 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../../../../../source/component_circulation.png\" alt=\"\" width=\"400\" /></p>
 <p style=\"text-align: center;\">Le fonctionnement du Ropi est d&eacute;taill&eacute; dans le <a href=\"../../../../../source/RopiROI.pdf\">R&egrave;glement d\'Ordre d\'Int&eacute;rieur</a>.</p>
 <p>&nbsp;</p>"),
-            array(2, "Adhérer à l'asbl", 1, new DateTime("2015-05-28T17:30:53+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l\'asbl</h1>
-<h2>Les membres, pour une gouvernance d&eacute;mocratique</h2>
-<p>L\'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront progressivement mis en place (ex: sondage via internet).</p>
-<p>En effet, nous consid&eacute;rons que la monnaie devrait &ecirc;tre un outil au service du citoyen, et non l\'inverse comme c\'est le cas avec les monnaies dominantes (l\'euro chez nous). Cet outil ne pourra v&eacute;ritablement assumer son r&ocirc;le de servitude que si le plus grand nombre de citoyens participe &agrave; sa politique dans le sens le plus noble du terme.</p>
-<h3>Les deux types de membre de l\'asbl Ropi</h3>
+            array(2, "Adhérer à l'asbl", 1, new DateTime("2015-05-29T18:09:36+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l\\\'asbl</h1>
+<h2>Pourquoi adh&eacute;rer?</h2>
+<h3>Les membres, pour une gouvernance d&eacute;mocratique</h3>
+<p>L\\\'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront progressivement mis en place (ex: sondage via internet).</p>
+<p>En effet, nous consid&eacute;rons que la monnaie devrait &ecirc;tre un outil au service du citoyen, et non l\\\'inverse comme c\\\'est le cas avec les monnaies dominantes (l\\\'euro chez nous). Cet outil ne pourra v&eacute;ritablement assumer son r&ocirc;le de servitude que si le plus grand nombre de citoyens participe &agrave; sa politique dans le sens le plus noble du terme.</p>
+<h3>Les deux types de membre de l\\\'asbl Ropi</h3>
 <ul>
-<li>les <strong>membres effectifs</strong>, qui s&rsquo;engagent &agrave; respecter les statuts et la charte de l&rsquo;association et le cas &eacute;ch&eacute;ant le r&egrave;glement d&rsquo;ordre int&eacute;rieur. Ils s\'engagent &eacute;galement &agrave; payer leur cotisation.</li>
-<li>les <strong>membres sympathisants</strong>, qui, sans se faire membre de l&rsquo;association, d&eacute;sirent marquer leur encouragement &agrave; la d&eacute;marche.</li>
+<li>les <strong>membres effectifs</strong>, qui disposent d\'une voix &agrave; l\'AG et participent donc pleinement &agrave; la vie d&eacute;mocratique de l\'asbl. Ils doivent &ecirc;tre en ordre de cotisation.</li>
+<li>les <strong>membres sympathisants</strong>, qui, sans se faire membre effectif de l&rsquo;association, d&eacute;sirent marquer leur encouragement &agrave; la d&eacute;marche.</li>
 </ul>
 <p>&nbsp;</p>
 <h3>Les <strong>membres effectifs</strong> se r&eacute;partissent en trois coll&egrave;ges</h3>
+<p>&nbsp;</p>
+<table style=\"height: 126px;\" width=\"576\">
+<tbody>
+<tr>
+<td>
+<p><img src=\"../../../../../source/component_commercant.png\" alt=\"\" width=\"50\" height=\"50\" /></p>
+<p><img src=\"../../../../../source/component_producteur.png\" alt=\"\" width=\"50\" height=\"50\" /></p>
+</td>
+<td>
+<p><strong>Le coll&egrave;ge des prestataires&nbsp;</strong></p>
+<p>C\'est &agrave; dire les commerces, producteurs, et tout prestataire de biens et services en g&eacute;n&eacute;ral.</p>
+<p>Il peut s\'agir de personnes physiques (ind&eacute;pendants) ou de personnes morales (soci&eacute;t&eacute;s).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style=\"height: 83px;\" width=\"572\">
+<tbody>
+<tr>
+<td>
+<p><img src=\"../../../../../source/component_citoyen.png\" alt=\"\" width=\"50\" height=\"50\" /></p>
+</td>
+<td>
+<p><strong>Le coll&egrave;ge des usagers individuels</strong></p>
+<p>C\'est &agrave; dire des personnes physiques, qui, &agrave; titre individuel, d&eacute;sirent utiliser des Ropi</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table>
+<tbody>
+<tr>
+<td><img src=\"../../../../../source/component_associations.png\" alt=\"\" width=\"50\" height=\"50\" /></td>
+<td>
+<p><strong>Le coll&egrave;ge des associations et institutions</strong></p>
+<p>C\'est &agrave; dire des personnes morales ou associations de fait, qui ne sont pas des soci&eacute;t&eacute;s commerciales.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3><strong>Avantages et devoirs des membres effectifs<br /></strong></h3>
+<p>La premi&egrave;re raison d\\\'adh&eacute;rer &agrave; l\\\'asbl est de <strong>disposer du droit de vote &agrave; l\\\'AG</strong> et ainsi d\\\'influencer le devenir du Ropi. Nous visons un syst&egrave;me de gouvernance le plus d&eacute;mocratique possible o&ugrave; chaque coll&egrave;ge dispose d\\\'un tiers du droit de vote &agrave; l\\\'AG. <strong>Faites entendre votre voix!</strong></p>
+<p>Si vous &ecirc;tes un <strong>prestataire</strong> ou une <strong>association</strong>, l\\\'adh&eacute;sion vous permettra</p>
 <ul>
-<li>le coll&egrave;ge des <strong>prestataires</strong>&nbsp; <img src=\"../../../../../source/component_commercant.png\" alt=\"\" width=\"50\" height=\"50\" /><img src=\"../../../../../source/component_producteur.png\" alt=\"\" width=\"50\" height=\"50\" /><br />(commerces, producteurs, tout prestataire de biens et services en g&eacute;n&eacute;ral)<br /><br /></li>
-<li>le coll&egrave;ge des <strong>usagers individuels&nbsp; </strong><img src=\"../../../../../source/component_citoyen.png\" alt=\"\" width=\"50\" height=\"50\" /><br /><br /></li>
-<li>le coll&egrave;ge des <strong>associations et institutions</strong>&nbsp; <img src=\"../../../../../source/component_associations.png\" alt=\"\" width=\"50\" height=\"50\" /><br /><br /></li>
+<li>de r&eacute;&eacute;changer vos Ropi contre des Euro (avec taxe de 5%). Certains prestataires &agrave; but non lucratif peuvent b&eacute;n&eacute;ficier d\\\'un taux de reconversion de 0% s\\\'ils en font la demande &agrave; l\\\'asbl et sur approbation de l\\\'AG.</li>
+<li>de b&eacute;n&eacute;ficier d\\\'une visibilit&eacute; sur la page d\\\'accueil du Ropi (bandeau d\\\'affichage du logo et page de pr&eacute;sentation)</li>
+<li>d\\\'&ecirc;tre r&eacute;f&eacute;renc&eacute; dans l\\\'annuaire du Ropi permettant une recherche par activit&eacute;, produits, localisation, ...</li>
+<li>de b&eacute;n&eacute;ficier des &eacute;ventuels b&eacute;n&eacute;fices de l\\\'asbl Ropi, affect&eacute;s &agrave; des pr&ecirc;ts &agrave; 0% ou &agrave; des subsides aux membres prestataires ou associatifs qui en font la demande et sur approbation de l\\\'AG.</li>
 </ul>
-<h2><strong>Avantages des membres effectifs<br /></strong></h2>
-<p>La premi&egrave;re raison d\'adh&eacute;rer &agrave; l\'asbl est de disposer du droit de vote &agrave; l\'AG et ainsi d\'influencer le devenir du Ropi. Nous visons un syst&egrave;me de gouvernance le plus d&eacute;mocratique possible o&ugrave; chaque coll&egrave;ge dispose d\'un tiers du droit de vote &agrave; l\'AG. <strong>Faites entendre votre voix!</strong></p>
-<p>Si vous &ecirc;tes un <strong>prestataire</strong> ou une <strong>association</strong>, l\'adh&eacute;sion vous permettra</p>
-<ul>
-<ul>
-<li>de r&eacute;&eacute;changer vos Ropi contre des Euro (avec taxe de 5%). Certains prestataires &agrave; but non lucratif peuvent b&eacute;n&eacute;ficier d\'un taux de reconversion de 0% s\'ils en font la demande &agrave; l\'asbl et sur approbation de l\'AG.</li>
-<li>de b&eacute;n&eacute;ficier d\'une visibilit&eacute; sur la page d\'accueil du Ropi (bandeau d\'affichage du logo et page de pr&eacute;sentation)</li>
-<li>d\'&ecirc;tre r&eacute;f&eacute;renc&eacute; dans l\'annuaire du Ropi permettant une recherche par activit&eacute;, produits, localisation, ...</li>
-<li>de b&eacute;n&eacute;ficier des &eacute;ventuels b&eacute;n&eacute;fices de l\'asbl Ropi, affect&eacute;s &agrave; des pr&ecirc;ts &agrave; 0% ou &agrave; des subsides aux membres prestataires ou associatifs qui en font la demande et sur approbation de l\'AG.</li>
-</ul>
-</ul>
+<p>En contrepartie de ces avantages, les membres effectifs s&rsquo;engagent &agrave; respecter les statuts, la charte de l&rsquo;association et le r&egrave;glement d&rsquo;ordre int&eacute;rieur. Ils s\\\'engagent &eacute;galement &agrave; payer une cotisation annuelle de 20 Euro ou 15 Ropi.</p>
 <h2>Comment adh&eacute;rer?</h2>
 <p>Pour devenir membre, enregistrez-vous via le&nbsp;<a href=\"../../../../../source/FormulaireAdhesion.php\">formulaire en ligne</a> ou en nous envoyant un email &agrave;&nbsp;<a href=\"mailto:info@ropi.be\">info@ropi.be</a>.</p>
-<p>Vous pouvez &eacute;galement vous rendre &agrave; un comptoir de change et y compl&eacute;ter un formulaire d\'inscription papier. Nous vous contacterons ensuite par couriel ou par la poste.</p>
-<p>Vous serez ensuite invit&eacute; &agrave; r&eacute;gler votre cotisation de 20 Euro (BEXX XXXX XXXX XXXX) ou de 15 Ropi (si inscription via un commer&ccedil;ant ou lors d\'&eacute;v&eacute;nements promotionnels, ou encore par votre compte Ropi en ligne, d&egrave;s que la version &eacute;lectronique sera pr&ecirc;te).</p>
+<p>Par d&eacute;faut, apr&egrave;s inscription en ligne, vous deviendrez <strong>membre sympathisant</strong> et recevrez notre newsletter.</p>
+<p>Vous recevrez ensuite un <strong>email vous invitant &agrave; devenir membre effectif</strong>, invitation que vous pouvez d&eacute;cliner en ignorant l\'email si cela ne vout int&eacute;resse pas.</p>
+<p>Vous pouvez &eacute;galement vous rendre &agrave; un comptoir de change et y compl&eacute;ter un formulaire d\\\'inscription papier. Nous vous contacterons ensuite par email ou par la poste.</p>
 <p>&nbsp;</p>"),
-            array(1, "Visuels", 1, new DateTime("2015-05-27T21:50:09+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
+            array(1, "Visuels", 1, new DateTime("2015-05-29T18:33:49+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
 <p>Sur cette page, vous trouverez tous nos visuels de communication (logo, d&eacute;pliant, autocollants, ...) que vous pouvez utiliser pour faire la promotion du Ropi.</p>
 <p>Vous pouvez les imprimez vous m&ecirc;me ou les commandez les via le <a href=\"../../../../../source/FormulaireVisuel.php\">formulaire de commande des visuels</a>.</p>
 <p>&nbsp;</p>
@@ -174,20 +196,22 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>&nbsp;</p>
 <h2>Le d&eacute;pliant (triptyque)</h2>
 <p>&nbsp;</p>
-<p>&nbsp;<img src=\"../../../../../source/ROPI_Depliant_recto.jpg\" alt=\"D&eacute;pliant triptyque Ropi recto\" width=\"300\" /></p>
-<p><img src=\"../../../../../source/ROPI_Depliant_verso.jpg\" alt=\"D&eacute;pliant triptyque Ropi verso\" width=\"300\" /></p>
+<p>&nbsp;<img src=\"../../../../../source/folder.jpg\" alt=\"D&eacute;pliant triptyque Ropi recto\" width=\"500\" /></p>
+<p>&nbsp;</p>
 <p><a title=\"D&eacute;plian Ropi tryptique\" href=\"../../../../../source/ROPI_Depliant.pdf\">[T&eacute;l&eacute;chargement pdf]</a></p>
 <p>&nbsp;</p>
-<h2>L\'autocollant &agrave; apposer en vitrine</h2>
-<p>&nbsp;<img src=\"../../../../../source/autocollant.png\" alt=\"Autocollant - accepte le Ropi\" width=\"200\" /></p>
+<h2>L\\\'autocollant &agrave; apposer en vitrine</h2>
+<p>&nbsp;<img src=\"../../../../../source/autocollant.jpg\" alt=\"Autocollant - accepte le Ropi\" width=\"500\" /></p>
 <p><a href=\"../../../../../source/autocollant.png\">[T&eacute;l&eacute;chargement pdf]</a></p>
 <p>&nbsp;</p>
 <h2>Les cartes de visites</h2>
 <p>&nbsp;Vous voulez <a href=\"../../../../../pages/aider.php\">devenir ambassadeur du Ropi</a>?</p>
-<p><img src=\"../../../../../source/Carte_visite_ROPI_specimen_recto.png\" alt=\"Carte de visite recto\" width=\"200\" /></p>
+<p><img src=\"../../../../../source/cartesvisites.jpg\" alt=\"Carte de visite recto\" width=\"500\" /></p>
 <p>&nbsp;</p>
-<p><img src=\"../../../../../source/Carte_visite_ROPI_specimen_verso.png\" alt=\"Carte de visite verso\" width=\"200\" /></p>
 <p>A commander sur mesure via le <a href=\"../../../../../source/FormulaireCommandeCom.php\">formulaire de commande</a>.</p>
+<p>&nbsp;</p>
+<h2>La Newsletter</h2>
+<p><img src=\"../../../../../source/newsletter.jpg\" alt=\"Carte de visite recto\" width=\"500\" /></p>
 <p>&nbsp;</p>
 <p>Retrouvez la gallerie compl&egrave;te des visuels sous ce <a href=\"https://www.behance.net/gallery/26077637/ROPI-Monnaie-alternative-de-la-ville-de-Mons\">lien</a>.</p>"),
             
@@ -270,7 +294,42 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>L\'asbl souhaite offrir un maximum de transparence sur ses activit&eacute;s. C\'est pourquoi les comptes rendus des r&eacute;unions du Conseil d\'Administration et de l\'Assembl&eacute;e G&eacute;n&eacute;rale sont publics.</p>
 <p>[Consulter les comptes rendus]</p>
 <h2>Comptabilit&eacute;</h2>
-<p>[Consultez les comptes annuels et les budgets pr&eacute;visionnels]</p>")
+<p>[Consultez les comptes annuels et les budgets pr&eacute;visionnels]</p>"),
+        array(4, "Email membre sympathisant", 0, new DateTime("2015-05-29T21:26:15+02:00"), new DateTime("2015-05-29T19:18:07+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<p>Objet: Ropi - confirmation d\'adh&eacute;sion membre sympathisant</p>
+<h1>Merci pour votre enregistrement!</h1>
+<p>Vous avez demand&eacute; &agrave; devenir<strong> membre sympathisant</strong> de l\'asbl Ropi.</p>
+<p>Pour confirmer votre demande et confirmer votre adresse email, il ne vous reste plus qu\'&agrave; cliquer sur le lien suivant:</p>
+<p><a href=\"zedzefzefz\">mdzlfherlkghelhglmrfjlmzkjflldezlmelmrlmekmlklm</a></p>
+<p>&nbsp;</p>
+<h2>Et ensuite?</h2>
+<p>Vous pouvez passer &agrave; l\'&eacute;tape sup&eacute;rieure et <strong>devenir membre effectif </strong>en vous connectant &agrave; votre&nbsp;<a href=\"erer\">espace membre</a> et cocher l\'option \"Membre effectif\". Nous vous inviterons alors &agrave; r&eacute;gler votre cotisation annuelle de 15 Ropi ou de 20 Euro (valide pendant 1 an &agrave; partir de la date de versement). Pour connaitre les avantages des membres effectifs, <a href=\"../../../../pages/todo.php\">consultez notre page web explicative</a>.</p>
+<h2>Comment utiliser des Ropi?</h2>
+<p>Retrouvez tous les commerces membres sur notre <a href=\"../../../../page/carte.php\">carte interactive</a> et&nbsp;<a href=\"../../../../pages/todo.php\">commandez des Ropi</a> en ligne sans attendre!</p>
+<p>&nbsp;</p>
+<p><strong>Toute l\'&eacute;quipe des b&eacute;n&eacute;voles du Ropi vous remercie pour votre confiance!</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>"),
+            array(5, "Email membre effectif", 0, new DateTime("2015-05-29T21:38:15+02:00"), new DateTime("2015-05-29T21:25:41+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<p>Objet: Ropi - confirmation d\'adh&eacute;sion membre effectif</p>
+<h1>Merci pour votre enregistrement!</h1>
+<p>Vous avez demand&eacute; &agrave; devenir<strong> membre effecitf</strong> de l\'asbl Ropi.</p>
+<p>Pour confirmer votre demande et confirmer votre adresse email, il ne vous reste plus qu\'&agrave; cliquer sur le lien suivant:</p>
+<p><a href=\"zedzefzefz\">mdzlfherlkghelhglmrfjlmzkjflldezlmelmrlmekmlklm</a></p>
+<p>Pour que votre adh&eacute;sion soit prise en compte nous vous inviterons alors &agrave; r&eacute;gler votre cotisation annuelle de 15 Ropi ou de 20 Euro (valide pendant 1 an &agrave; partir de la date de versement).</p>
+<ul>
+<li>Pour payer votre cotisation en Euro, versez end&eacute;ans les 30 jours, 20 Euro sur le compte BEXX XXXX XXXX XXXX avec en communication votre nom et pr&eacute;nom suivi de la mention \"cotisation\".</li>
+<li>Pour payer votre cotisation en Ropi,&nbsp;<a href=\"todo\">commandez en ligne</a> au minimum 20 Ropi end&eacute;ans les 30 jours. Vous recevrez ensuite le montant command&eacute; d&eacute;duit de 15 Ropi, &agrave; venir r&eacute;cup&eacute;rer au comptoir de votre choix ou &agrave; domicile selon le mode de livraison choisi.</li>
+</ul>
+<p>Pour connaitre les avantages des membres effectifs, <a href=\"../../../../pages/todo.php\">consultez notre page web explicative</a>.</p>
+<h2>Comment utiliser des Ropi?</h2>
+<p>Retrouvez tous les commerces membres sur notre <a href=\"../../../../page/carte.php\">carte interactive</a> et&nbsp;<a href=\"../../../../pages/todo.php\">commandez des Ropi</a> en ligne sans attendre!</p>
+<p>&nbsp;</p>
+<p><strong>Toute l\'&eacute;quipe des b&eacute;n&eacute;voles du Ropi vous remercie pour votre confiance!</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>")
         );
 
         foreach ($tab as $element) {

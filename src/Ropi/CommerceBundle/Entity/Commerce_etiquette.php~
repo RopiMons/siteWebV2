@@ -23,7 +23,7 @@ class Commerce_etiquette
     
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Commerce", inversedBy="id")
+     * ORM\ManyToOne(targetEntity="Commerce", inversedBy="id")
      */
     
     private $commerces;
@@ -38,7 +38,7 @@ class Commerce_etiquette
     /**
      * @var boolean
      *
-     * @ORM\Column(name="certification", type="boolean")
+     * ORM\Column(name="certification", type="boolean")
      */
     private $certification;
 
@@ -74,5 +74,51 @@ class Commerce_etiquette
     public function getCertification()
     {
         return $this->certification;
+    }
+
+    /**
+     * Set commerces
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
+     * @return Commerce_etiquette
+     */
+    public function setCommerces(\Ropi\CommerceBundle\Entity\Commerce $commerces = null)
+    {
+        $this->commerces = $commerces;
+
+        return $this;
+    }
+
+    /**
+     * Get commerces
+     *
+     * @return \Ropi\CommerceBundle\Entity\Commerce 
+     */
+    public function getCommerces()
+    {
+        return $this->commerces;
+    }
+
+    /**
+     * Set etiquettes
+     *
+     * @param \Ropi\CommerceBundle\Entity\Etiquette $etiquettes
+     * @return Commerce_etiquette
+     */
+    public function setEtiquettes(\Ropi\CommerceBundle\Entity\Etiquette $etiquettes = null)
+    {
+        $this->etiquettes = $etiquettes;
+
+        return $this;
+    }
+
+    /**
+     * Get etiquettes
+     *
+     * @return \Ropi\CommerceBundle\Entity\Etiquette 
+     */
+    public function getEtiquettes()
+    {
+        return $this->etiquettes;
     }
 }

@@ -22,6 +22,7 @@ class MenuAdmin extends AbstractMenu {
         $tab["Gestion CMS"]['Gestion des pages'] =  array('route' => 'CMS_pages');
         $tab["Administration"]["Accueil"] = array('route' => 'admin_home');
         $tab["Administration"]["Gestion des commerces"] = array('route' => 'admin_commerces');
+        $tab["Mon commerces"]["Créer un nouveau commerce"] = array('route'=>'commerce_new');
     
         return $tab;
 

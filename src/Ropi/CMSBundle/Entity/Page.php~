@@ -81,13 +81,12 @@ abstract class Page implements PositionnableInterface {
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="pages")
      */
     private $categorie;
+    
     /**
      *
-     * @var type 
-     * @ORM\ManyToMany (targetEntity="Ropi\AuthenticationBundle\Entity\Permission")
+     * @ORM\ManyToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Permission", inversedBy="pages")
      */
-    
-    private $permission/*s*/;
+    private $permissions;
     
     
     /**
@@ -224,8 +223,10 @@ abstract class Page implements PositionnableInterface {
     public function getPublicationDate() {
         return $this->publicationDate;
     }
-
-    abstract function getURL();
+    
+    abstract function getRoute();
+    abstract function getParametres();
+    abstract function getURIArray();
 
     /**
      * @ORM\PrePersist()
@@ -273,38 +274,5 @@ abstract class Page implements PositionnableInterface {
     public function __construct()
     {
         $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add permission
-     *
-     * @param \Ropi\CMSBundle\Entity\Permission $permission
-     * @return Page
-     */
-    public function addPermission(\Ropi\CMSBundle\Entity\Permission $permission)
-    {
-        $this->permission[] = $permission;
-
-        return $this;
-    }
-
-    /**
-     * Remove permission
-     *
-     * @param \Ropi\CMSBundle\Entity\Permission $permission
-     */
-    public function removePermission(\Ropi\CMSBundle\Entity\Permission $permission)
-    {
-        $this->permission->removeElement($permission);
-    }
-
-    /**
-     * Get permission
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPermission()
-    {
-        return $this->permission;
     }
 }

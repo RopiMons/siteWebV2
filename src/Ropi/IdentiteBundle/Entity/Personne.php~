@@ -76,7 +76,7 @@ class Personne
     private $identifiantWeb;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"persist","remove"})
      */
     private $adresses;
 

@@ -11,7 +11,7 @@ namespace RopiAuthentificationBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ropi\AuthenticationBundle\Entity\Role;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadTypeAdresseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -28,19 +28,18 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, C
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            0 => array("Admin","Ensemble d'autorisations permettant les fonctions administrateurs",$this->getReference("PERM_ROLE_ADMIN")),
-            1 => array("Commercant","CRUD des commerces propres",$this->getReference("PERM_ROLE_COMMERCANT")),
-            2 => array("UtilisateurAuthentifié","Définis un utilisateur identifié",$this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE")),
+           
+            0 => array("Domicile",1),
+            1 => array("Kot",1),
+            2 => array("Adresse du commerce",0)
              
              );
         
         foreach($tab as $element){
-            $role = new Role();
-            $role->setNom($element[0]);
-            $role->setDescription($element[1]);
-            $role->addPermission($element[2]);
-            $this->setReference("ROLE_".$element[0], $role);
-            $manager->persist($role);
+            $type = new \Ropi\IdentiteBundle\Entity\TypeAdresse();
+            $type->setValeur($element[0]);
+            $type->setObligatoire($element[1]);
+            $manager->persist($type);
         }
         
         $manager->flush();
@@ -51,7 +50,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, C
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 2; // the order in which fixtures will be loaded
+        return 1; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

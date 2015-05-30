@@ -3,6 +3,8 @@
 namespace Ropi\CommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Etiquette
@@ -25,6 +27,9 @@ class Etiquette
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50)
+     * @Assert\Length(min=3, minMessage="Vous devez avoir un nom d'utilisateur de min {{ limit }} caractères.",
+     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")  
+     * 
      */
     private $nom;
 
@@ -51,7 +56,7 @@ class Etiquette
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="etiquettes", cascade="remove") 
+     * ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="etiquettes", cascade="remove") 
      */
     private $commerces;
 
@@ -155,5 +160,45 @@ class Etiquette
     public function getCertification()
     {
         return $this->certification;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commerces = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add commerces
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces
+     * @return Etiquette
+     */
+    public function addCommerce(\Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces)
+    {
+        $this->commerces[] = $commerces;
+
+        return $this;
+    }
+
+    /**
+     * Remove commerces
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces
+     */
+    public function removeCommerce(\Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces)
+    {
+        $this->commerces->removeElement($commerces);
+    }
+
+    /**
+     * Get commerces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommerces()
+    {
+        return $this->commerces;
     }
 }

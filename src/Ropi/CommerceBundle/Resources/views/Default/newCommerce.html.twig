@@ -4,3 +4,7 @@
     <h1>Formulaire</h1>
     {{ form(form) }}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ tinymce_init({})}}
+{% endblock %}

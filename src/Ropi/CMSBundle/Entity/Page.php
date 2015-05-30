@@ -81,13 +81,12 @@ abstract class Page implements PositionnableInterface {
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="pages")
      */
     private $categorie;
+    
     /**
      *
-     * @var type 
-     * @ORM\ManyToMany (targetEntity="Ropi\AuthenticationBundle\Entity\Permission")
+     * @ORM\ManyToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Permission", inversedBy="pages")
      */
-    
-    private $permission/*s*/;
+    private $permissions;
     
     
     /**
@@ -224,8 +223,10 @@ abstract class Page implements PositionnableInterface {
     public function getPublicationDate() {
         return $this->publicationDate;
     }
-
-    abstract function getURL();
+    
+    abstract function getRoute();
+    abstract function getParametres();
+    abstract function getURIArray();
 
     /**
      * @ORM\PrePersist()
@@ -276,35 +277,35 @@ abstract class Page implements PositionnableInterface {
     }
 
     /**
-     * Add permission
+     * Add permissions
      *
-     * @param \Ropi\CMSBundle\Entity\Permission $permission
+     * @param \Ropi\AuthenticationBundle\Entity\Permission $permissions
      * @return Page
      */
-    public function addPermission(\Ropi\CMSBundle\Entity\Permission $permission)
+    public function addPermission(\Ropi\AuthenticationBundle\Entity\Permission $permissions)
     {
-        $this->permission[] = $permission;
+        $this->permissions[] = $permissions;
 
         return $this;
     }
 
     /**
-     * Remove permission
+     * Remove permissions
      *
-     * @param \Ropi\CMSBundle\Entity\Permission $permission
+     * @param \Ropi\AuthenticationBundle\Entity\Permission $permissions
      */
-    public function removePermission(\Ropi\CMSBundle\Entity\Permission $permission)
+    public function removePermission(\Ropi\AuthenticationBundle\Entity\Permission $permissions)
     {
-        $this->permission->removeElement($permission);
+        $this->permissions->removeElement($permissions);
     }
 
     /**
-     * Get permission
+     * Get permissions
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPermission()
+    public function getPermissions()
     {
-        return $this->permission;
+        return $this->permissions;
     }
 }

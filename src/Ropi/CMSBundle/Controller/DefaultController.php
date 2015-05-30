@@ -247,8 +247,7 @@ class DefaultController extends Controller {
         $repo = $this->getDoctrine()->getRepository($class);
         $element1 = $repo->findOneBy(array('id' => $id));
         
-        dump($element1);
-        die();
+        
 
         if ($element1) {
 
@@ -267,6 +266,7 @@ class DefaultController extends Controller {
             }
 
             $element2 = $repo->findOneBy($conditions);
+                        
             if ($element2) {
                 $element1->setPosition($newPosition);
                 $element2->setPosition($position);

@@ -15,12 +15,15 @@
                 <th>Action</th>
             </tr>
         </thead>
-    {% for commerce in commerces %}
-        <tr>
-            <td><a href="{{ path('commerce_update',{'id': commerce.id,'route': route}) }}">{{ commerce.nom }}</a></td>
-            <td>{{ commerce.createdAt|date('d/m/Y') }}</td>
-            <td>{{ commerce.updateAt|date('d/m/Y G:i') }}</td>
-            <td><a href="#">Laurent</a></td>
+        {% for commerce in commerces %}
+            <tr>
+                <td><a href="{{ path('commerce_update',{'id': commerce.id,'route': route}) }}">{{ commerce.nom }}</a></td>
+                <td>{{ commerce.createdAt|date('d/m/Y') }}</td>
+                <td>{{ commerce.updateAt|date('d/m/Y G:i') }}</td>
+                <td>{% for personne in commerce.personnes %}
+                    <a href="#">{{personne.prenom}} {{personne.nom}}</a>
+                {% endfor %}
+            </td>
             <td><a href="{{ path('commerce_change', {'id': commerce.id, 'proprety': 'visible' ,'route': route }) }}">{% if commerce.visible %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td></a>
             <td>
                 {% if commerce.visible %}<a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>{% else %}<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>{% endif %} 
@@ -30,6 +33,6 @@
                 <a href="{{ path('commerce_remove',{ 'id': commerce.id, 'route': route }) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             </td>
         </tr>
-    {% endfor %}
-    </table>
-{% endblock %}
+        {% endfor %}
+        </table>
+        {% endblock %}
