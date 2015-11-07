@@ -1,43 +1,33 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-10779328-2']);
-    _gaq.push(['_trackPageview']);
-</script>
 
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/jquery_004.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/ga.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/jquery_002.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/jquery_003.js"></script>
+    {% image '@RopiCMSBundle/Resources/public/img/ropi_map.png'  output="img/ropi_map.png" %}
+        <img id="ropi" src="{{ asset_url }}" style="width:836px;height:528px" usemap="#ropiMap" />
+    {% endimage %}
 
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/simplemodal-wrapper.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/jquery.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/outsharked-menu.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/imagemapster-site.js"></script>
-<script type="text/javascript" src="/ImageMapsterRopi_fichiers/demos.js"></script>
+    <map name="ropiMap">
+        <area shape="rect" data-name="equation,all" coords="30,74,316,183" href="Test" />
+    </map>
 
-    <map id="ropi-map" name="ropi-map">
-								<area shape="circ" data-name="commercants,all" coords="509,113,91" href="#">
-								<area shape="circ" data-name="producteurs,all" coords="725,171,88" href="#">
-								<area shape="circ" data-name="citoyens,all" coords="559,384,110" href="#">
-								<area shape="circ" data-name="comptoir,all" coords="278,355,85" href="#">
-								<area shape="circ" data-name="fonds,all" coords="76,397,84" href="#">
-								<area shape="circ" data-name="banques,all" coords="787,371,51" href="#">
-								<area shape="circ" data-name="autresprod,all" coords="758,477,57" href="#">
-								<area shape="rect" data-name="RopiEqEuro,all" coords="29,45,330,187" href="#">
-								<area shape="circ" data-name="circul,all" coords="600,212,39" href="#">
-							</map>
+    <div id="legende">
+        <h1 id="ropi-caption-header">Le Ropi, en pratique</h1>
+        <h3 id="ropi-caption-text">Le Ropi, la monnaie complémentaire à Mons et ses environs.</h3>
+    </div>
 
-							<div class="accordion" id="accordion">
-								<div>
-									<img id="ropi" src="/ImageMapsterRopi_fichiers/ropi_basic.png" usemap="#ropi-map" alt="ropi Demo"/>
-								</div>
-								<div id="legende">
-									<h1 id="ropi-caption-header">Le Ropi, en pratique</h1>
-									<h3 id="ropi-caption-text">Le Ropi, la monnaie complémentaire à Mons et ses environs.</h3>
-								</div>
-							</div>
+
+
 {% endblock %}
 
+{% block javascripts %}
+    {% javascripts '@RopiCMSBundle/Resources/public/js/init_map.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block headJavascripts %}
+    {{ parent() }}
+    {% javascripts '@RopiCMSBundle/Resources/public/js/jquery.imagemapster.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

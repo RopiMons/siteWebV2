@@ -8,6 +8,7 @@
 /nbproject/*
 /web/css/*
 /web/js/*
+/web/img/*
 /web/fonts/*
 /web/*.txt
 composer.lock
