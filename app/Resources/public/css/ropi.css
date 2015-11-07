@@ -22,7 +22,14 @@ and open the template in the editor.
     text-decoration: underline;
 }
 /* Police personalisée*/
+.center{
 
+	margin-left:35%;
+	margin-right: auto;
+	width: auto;
+
+
+}
 @font-face {
     font-family: 'Rupture';
     src: url('/font/rupture-webfont.eot');

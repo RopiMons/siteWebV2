@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadPaysData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -29,18 +29,19 @@ class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, 
         
         $tab = array(
            
-            0 => array("PizzaLand",7050,$this->getReference("BE")),
+            0 => array("Belgique","ooo","BE"),
 
              
              );
         
         foreach($tab as $element){
-            $type = new \Ropi\IdentiteBundle\Entity\Ville();
-            $type->setVille($element[0]);
-            $type->setCodePostal($element[1]);
-            $type->setPays($element[2]);
+            $type = new \Ropi\IdentiteBundle\Entity\Pays();
+            $type->setNom($element[0]);
+            $type->setRegex($element[1]);
+             $type->setShortNom($element[2]);
+
             $manager->persist($type);
-            $this->setReference($element[0],$type);
+            $this->setReference($element[2],$type);
         }
         
         $manager->flush();
@@ -51,7 +52,7 @@ class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, 
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 3; // the order in which fixtures will be loaded
+        return 1; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

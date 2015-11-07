@@ -7,13 +7,24 @@
     <h1 class="souligné"> Mon compte: </h1>
     Nom: {{ user.nom}}<br>
     Prenom: {{ user.prenom}}<br>
+    Date de naissance: {{ user.dateNaissance|date('d-m-Y') }}<br>
     {%  for contact in user.contacts %}
         {{ contact.typeContact.type }} :  {{ contact.valeur }}<br>
     {% endfor %}
-    {%  for adresse in user.adresses %}
-        {{ adresse.typeContact.type }} :  {{ contact.valeur }}<br>
+    <ul>
+    {%  for addresse in user.adresses %}
+        <li> {{ addresse.rue }},{{ addresse.numero }}. {{ addresse.ville.ville }} {{ addresse.ville.codePostal}} pays:{{ addresse.ville.pays.shortNom}} </li>
     {% endfor %}
-    {{ dump(user) }}
+    </ul>
+
+    Username: {{ user.identifiantWeb.username }}<br/>
+    Derniére Connection {{ user.identifiantWeb.lastConnection |date('d-m-Y H:m:s')}}<br>
+
+    <a href="Ropi_psw_change"> Changer le mot de passe</a>
+    <br>
+    <br>
+
+  <a href="http://www.google.be" alt="bouton modification compte"><button class="center"> modifier mon compte</button></a>
 
 
 

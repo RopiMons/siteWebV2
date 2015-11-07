@@ -275,4 +275,37 @@ abstract class Page implements PositionnableInterface {
     {
         $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Add permissions
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\Permission $permissions
+     * @return Page
+     */
+    public function addPermission(\Ropi\AuthenticationBundle\Entity\Permission $permissions)
+    {
+        $this->permissions[] = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * Remove permissions
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\Permission $permissions
+     */
+    public function removePermission(\Ropi\AuthenticationBundle\Entity\Permission $permissions)
+    {
+        $this->permissions->removeElement($permissions);
+    }
+
+    /**
+     * Get permissions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
 }
