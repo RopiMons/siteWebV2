@@ -40,6 +40,7 @@ class LoadTypeAdresseData extends AbstractFixture implements OrderedFixtureInter
             $type->setValeur($element[0]);
             $type->setObligatoire($element[1]);
             $manager->persist($type);
+            $this->setReference($element[0],$type);
         }
         
         $manager->flush();

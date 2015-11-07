@@ -71,7 +71,7 @@ class Personne
     private $commerces;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne")
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", inversedBy="personne")
      */
     private $identifiantWeb;
     

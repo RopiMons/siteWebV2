@@ -11,7 +11,7 @@ namespace RopiAuthentificationBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadAdresseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -28,18 +28,19 @@ class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixture
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            // type, inscription, obligatoire, validateur
-            0 => array("Mail",1,1,"Email"),
-            1 => array("Télephone",1,1,"type: integer"),
+           
+            0 => array("rue de la pizza",1,$this->getReference("PizzaLand"),$this->getReference("Domicile"),$this->getReference("loloP")),
+
              
              );
         
         foreach($tab as $element){
-            $type = new \Ropi\IdentiteBundle\Entity\TypeMoyenContact();
-            $type->setType($element[0]);
-            $type->setObligatoire($element[2]);
-            $type->setProposeInscription($element[1]);
-            $type->setValidateur($element[3]);
+            $type = new \Ropi\IdentiteBundle\Entity\Adresse();
+            $type->setRue($element[0]);
+            $type->setNumero($element[1]);
+            $type->setTypeAdresse($element[3]);
+            $type->setVille($element[2]);
+            $type->addPersonne($element[4]);
             $manager->persist($type);
             $this->setReference($element[0],$type);
         }
@@ -52,7 +53,7 @@ class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixture
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 1; // the order in which fixtures will be loaded
+        return 7; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

@@ -40,8 +40,8 @@ class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterfac
             $personne->setPrenom($element[1]);
             $personne->setDateNaissance($element[2]);
             $personne->setCreeLe($element[3]);
-            
-            $this->setReference('lolo', $personne);
+            $personne->setIdentifiantWeb($this->getReference('lolo'));
+           $this->setReference('loloP', $personne);
             
             $manager->persist($personne);
         }
@@ -54,7 +54,7 @@ class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterfac
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 1; // the order in which fixtures will be loaded
+        return 4; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

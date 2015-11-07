@@ -93,7 +93,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     private $permission;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="identifiantWeb")
+     * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", mappedBy="identifiantWeb")
      */
     private $personne;
     

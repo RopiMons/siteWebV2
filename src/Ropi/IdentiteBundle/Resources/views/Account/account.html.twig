@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Mon Compte {% endblock %}
+
+
+{% block content %}
+    <h1 class="souligné"> Mon compte: </h1>
+    Nom: {{ user.nom}}<br>
+    Prenom: {{ user.prenom}}<br>
+    {%  for contact in user.contacts %}
+        {{ contact.typeContact.type }} :  {{ contact.valeur }}<br>
+    {% endfor %}
+    {%  for adresse in user.adresses %}
+        {{ adresse.typeContact.type }} :  {{ contact.valeur }}<br>
+    {% endfor %}
+    {{ dump(user) }}
+
+
+
+{% endblock %}

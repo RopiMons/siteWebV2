@@ -11,7 +11,7 @@ namespace RopiAuthentificationBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -28,18 +28,17 @@ class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixture
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            // type, inscription, obligatoire, validateur
-            0 => array("Mail",1,1,"Email"),
-            1 => array("Télephone",1,1,"type: integer"),
+           
+            0 => array("PizzaLand",7050),
+
              
              );
         
         foreach($tab as $element){
-            $type = new \Ropi\IdentiteBundle\Entity\TypeMoyenContact();
-            $type->setType($element[0]);
-            $type->setObligatoire($element[2]);
-            $type->setProposeInscription($element[1]);
-            $type->setValidateur($element[3]);
+            $type = new \Ropi\IdentiteBundle\Entity\Ville();
+            $type->setVille($element[0]);
+            $type->setCodePostal($element[1]);
+
             $manager->persist($type);
             $this->setReference($element[0],$type);
         }

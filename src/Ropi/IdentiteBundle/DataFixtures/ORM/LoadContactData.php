@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadContactData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -29,19 +29,19 @@ class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixture
         
         $tab = array(
             // type, inscription, obligatoire, validateur
-            0 => array("Mail",1,1,"Email"),
-            1 => array("Télephone",1,1,"type: integer"),
+            0 => array("laurent.cardon@jsb.be",$this->getReference('Mail'),$this->getReference('loloP')),
+            1 => array("0499575856",$this->getReference('Télephone'),$this->getReference('loloP')),
              
              );
         
         foreach($tab as $element){
-            $type = new \Ropi\IdentiteBundle\Entity\TypeMoyenContact();
-            $type->setType($element[0]);
-            $type->setObligatoire($element[2]);
-            $type->setProposeInscription($element[1]);
-            $type->setValidateur($element[3]);
+            $type = new \Ropi\IdentiteBundle\Entity\Contact();
+            $type->setValeur($element[0]);
+            $type->setPersonne($element[2]);
+            $type->setTypeContact($element[1]);
+
             $manager->persist($type);
-            $this->setReference($element[0],$type);
+
         }
         
         $manager->flush();
@@ -52,7 +52,7 @@ class LoadTypeMoyenContactData extends AbstractFixture implements OrderedFixture
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 1; // the order in which fixtures will be loaded
+        return 5; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {
