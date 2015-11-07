@@ -41,7 +41,7 @@ class InscriptionController extends Controller
                 $contact->setPersonne($user);
                 $user->addContact($contact);
                 //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
-                dump($contact->getTypeContact());
+
                 $form->add('contacts', "collection", array('type' => new ContactType($contact->getTypeContact())));
                
             }
@@ -90,7 +90,7 @@ class InscriptionController extends Controller
         
         $body = $converter->generateStyledHTML();
          foreach ($personne->getContacts() as $contact) {
-             dump($contact->getTypeContact()->getType());
+
             if ($contact->getTypeContact()->getType() === "Mail") {
                 $message = \Swift_Message::newInstance()
                         ->setSubject("Inscription au Ropi")

@@ -183,4 +183,9 @@ class Pays
     {
         $this->ville->removeElement($ville);
     }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->nom;
+    }
 }
