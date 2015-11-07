@@ -57,4 +57,15 @@ class CategorieRepository extends EntityRepository {
         ;
     }
 
+    public function getLastCategoriePosition() {
+
+        $retour = $this->createQueryBuilder("cat")
+            ->select('count(cat.nom)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+        return intval($retour);
+    }
+
 }

@@ -5,18 +5,31 @@
     {% set classStatique = 'Ropi\\CMSBundle\\Entity\\PageStatique' %}
 
     <h1>Gestion des pages disponibles</h1>
+
+    <h2>
+        Actions d'administration possibles
+    </h2>
+    <p>
+
+        <a href ="{{ path("CMS_categorie_create") }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une catégorie</a>
+        <br /><a href ="{{ path("CMS_static_create") }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une page</a>
+
+    </p>
+    <h2>Structure du site </h2>
     {% set sizeCategorie = categories|length %}
     {% for categorie in categories %}
         {% set sizePage = categorie.pages|length %}
         <h2>
-            {{ categorie.nom|capitalize }}
+            <a href = "{{ path('CMS_categorie_update', {'id': categorie.id} ) }}" >{{ categorie.nom|capitalize }}</a>
             {% if loop.index != 1 %}
                 <a href="{{ path('CMS_categories_up', {'id': categorie.id} ) }}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
                 {% endif %}
                 {% if loop.index != sizeCategorie %}
                 <a href="{{ path('CMS_categories_down', {'id': categorie.id} ) }}"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
                 {% endif %}
+            <a href="{{ path('CMS_categorie_remove', {'id': categorie.id} ) }} "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
         </h2>
+
         {% if categorie.pages|length > 0 %}
             <table class="table table-responsive"> 
                 <thead>

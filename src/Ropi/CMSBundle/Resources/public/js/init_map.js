@@ -22,7 +22,7 @@ var inArea,
     },
     all_opts = {
         fillColor: 'ffffff',
-        fillOpacity: 0.6,
+        fillOpacity: 0.3,
         stroke: true,
         strokeWidth: 2,
         strokeColor: 'ffffff'

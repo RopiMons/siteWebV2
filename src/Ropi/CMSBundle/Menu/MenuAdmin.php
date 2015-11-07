@@ -17,9 +17,10 @@ class MenuAdmin extends AbstractMenu {
 
     protected function tableau() {
         $tab = array();
-        $tab["Home"] = array('route' => 'home');
-        $tab["Gestion CMS"]['Création de pages'] =  array('route' => 'CMS_static_create');
+        $tab["Home"] = array('route' => 'CMS_pages');
         $tab["Gestion CMS"]['Gestion des pages'] =  array('route' => 'CMS_pages');
+        $tab["Gestion CMS"]['Création de pages'] =  array('route' => 'CMS_static_create');
+        $tab["Gestion CMS"]["Création d'une catégorie"] =  array('route' => 'CMS_categorie_create');
         $tab["Administration"]["Accueil"] = array('route' => 'admin_home');
         $tab["Administration"]["Gestion des commerces"] = array('route' => 'admin_commerces');
         $tab["Mon commerces"]["Créer un nouveau commerce"] = array('route'=>'commerce_new');
