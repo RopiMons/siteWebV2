@@ -17,3 +17,4 @@ composer.lock
 /web/results.txt
 /app/bootstrap.php.cache
 /app/config/parameters.yml
+.idea/*
