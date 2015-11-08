@@ -68,14 +68,18 @@ class AuthenticateController extends Controller
            if(isset($validation) && $validation[0]->getIdentifiantWeb() === $id){
                 if($validation[0]->getValidation()->modify('+2 day') >= new \DateTime())
                {
+                   $ems2 = $this->getDoctrine() ->getRepository('RopiAuthenticationBundle:Permission');
+                   $permission = $ems2->findBy(array("nom"=>'ROLE_UTILISATEUR_ACTIVE'));
+
                    $id->setActif(true);
+                   $id->addPermission($permission);
                    $em = $this->getDoctrine()->getManager();
                     $em->persist($id);
                     $em->flush();
                     
                     $em->remove($validation[0]);
                     $em->flush();
-           
+
                         
                    $this->get("session")->getFlashBag(array(
                        'success'=>"Votre compte à bien été validé" ));

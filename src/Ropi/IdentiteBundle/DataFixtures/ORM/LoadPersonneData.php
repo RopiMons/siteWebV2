@@ -41,6 +41,7 @@ class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterfac
             $personne->setDateNaissance($element[2]);
             $personne->setCreeLe($element[3]);
             $personne->setIdentifiantWeb($this->getReference('lolo'));
+
            $this->setReference('loloP', $personne);
             
             $manager->persist($personne);

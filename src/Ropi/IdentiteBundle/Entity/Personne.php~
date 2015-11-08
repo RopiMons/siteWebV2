@@ -54,6 +54,13 @@ class Personne
     private $dateNaissance;
 
     /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creeLe", type="datetime")

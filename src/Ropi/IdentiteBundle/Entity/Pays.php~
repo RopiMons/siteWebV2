@@ -153,4 +153,39 @@ class Pays
     {
         return $this->ville;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ville = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ville
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Ville $ville
+     * @return Pays
+     */
+    public function addVille(\Ropi\IdentiteBundle\Entity\Ville $ville)
+    {
+        $this->ville[] = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Remove ville
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Ville $ville
+     */
+    public function removeVille(\Ropi\IdentiteBundle\Entity\Ville $ville)
+    {
+        $this->ville->removeElement($ville);
+    }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->nom;
+    }
 }

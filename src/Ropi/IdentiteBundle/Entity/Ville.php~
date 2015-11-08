@@ -109,28 +109,6 @@ class Ville
         $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add pays
-     *
-     * @param \Ropi\IdentiteBundle\Entity\Pays $pays
-     * @return Ville
-     */
-    public function addPays(\Ropi\IdentiteBundle\Entity\Pays $pays)
-    {
-        $this->pays[] = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Remove pays
-     *
-     * @param \Ropi\IdentiteBundle\Entity\Pays $pays
-     */
-    public function removePays(\Ropi\IdentiteBundle\Entity\Pays $pays)
-    {
-        $this->pays->removeElement($pays);
-    }
 
     /**
      * Get pays
@@ -140,5 +118,18 @@ class Ville
     public function getPays()
     {
         return $this->pays;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Pays $pays
+     * @return Ville
+     */
+    public function setPays(\Ropi\IdentiteBundle\Entity\Pays $pays = null)
+    {
+        $this->pays = $pays;
+
+        return $this;
     }
 }
