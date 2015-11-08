@@ -27,7 +27,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array(3, "L'équipe", 1, new DateTime("2015-05-27T23:34:52+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>L\'&eacute;quipe</h1>
+            array(4, "L'équipe", 1, new DateTime("2015-05-27T23:34:52+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>L\'&eacute;quipe</h1>
 <p>L\'asbl fonctionne actuellement avec 100% de b&eacute;n&eacute;voles, qu\'ils soient administrateurs, ambassadeurs ou aides ponctuelles tr&egrave;s pr&eacute;cieuses.</p>
 <p>&nbsp;</p>
 <h2>Les administrateurs</h2>
@@ -58,29 +58,29 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <h3>&nbsp;</h3>
 <p>&nbsp;</p>
 <p>&nbsp;</p>"),
-            array(1, "En pratique", 1, new DateTime("2015-05-28T23:41:04+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Le Ropi, la monnaie compl&eacute;mentaire de Mons et ses environs</h1>
-<h2><br />Le Ropi ne remplace pas l\'Euro, il le compl&eacute;mente!</h2>
-<p>Il circule en parall&egrave;le &agrave; l\'euro, et par facilit&eacute;, il partage la m&ecirc;me &eacute;chelle de valeur, &agrave; savoir</p>
+            array(1, "En pratique", 1, new DateTime("2015-11-08T02:39:30+01:00"), new DateTime("2015-11-08T02:37:41+01:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Le Ropi, la monnaie compl&eacute;mentaire de Mons et ses environs</h1>
+<h2><br />Le Ropi ne remplace pas l\\\'Euro, il le compl&eacute;mente!</h2>
+<p>Il circule en parall&egrave;le &agrave; l\\\'euro, et par facilit&eacute;, il partage la m&ecirc;me &eacute;chelle de valeur, &agrave; savoir</p>
 <p>&nbsp;</p>
 <p style=\"padding-left: 30px; text-align: center;\">&nbsp;<img src=\"../../../../../source/component_parite.png\" alt=\"1 Ropi = 1 Euro + &eacute;nergie positive!\" width=\"200\" height=\"76\" /></p>
 <p style=\"padding-left: 30px;\">&nbsp;</p>
 <h2>Mais alors pourquoi passer par le Ropi?</h2>
-<p>Sa sp&eacute;cificit&eacute; par rapport &agrave; l\'Euro est de <strong>n\'avoir court qu\'au sein d\'une r&eacute;gion limit&eacute;e</strong>, Mons-Borinage, et par cons&eacute;quent de favoriser l\'<strong>&eacute;conomie locale</strong> et les <strong>circuits de distribution courts</strong> (consultez <a href=\"../../../../../page/Documents/Documents fondateurs\">nos documents fondateurs</a>).</p>
+<p>Sa sp&eacute;cificit&eacute; par rapport &agrave; l\\\'Euro est de <strong>n\\\'avoir court qu\\\'au sein d\\\'une r&eacute;gion limit&eacute;e</strong>, Mons-Borinage, et par cons&eacute;quent de favoriser l\\\'<strong>&eacute;conomie locale</strong> et les <strong>circuits de distribution courts</strong> (consultez <a href=\"../../../../../page/Documents/Documents fondateurs\">nos documents fondateurs</a>).</p>
 <h2>&nbsp;</h2>
-<h2>Pour mieux comprendre son utilit&eacute; et son usage, suivons le chemin d\'un Ropi</h2>
+<h2>Pour mieux comprendre son utilit&eacute; et son usage, suivons le chemin d\\\'un Ropi</h2>
 <p>&nbsp;</p>
 <table>
 <tbody>
 <tr>
-<td><img src=\"../../../../../source/component_comptoir.png\" alt=\"Comptoir d\'&eacute;change\" width=\"50\" height=\"50\" /></td>
-<td><strong>Un citoyen consom\'acteur d&eacute;cide de se procurer des Ropi</strong></td>
+<td><img src=\"../../../../../source/component_comptoir.png\" alt=\"Comptoir d\\\'&eacute;change\" width=\"50\" height=\"50\" /></td>
+<td><strong>Un citoyen consom\\\'acteur d&eacute;cide de se procurer des Ropi</strong></td>
 </tr>
 </tbody>
 </table>
 <p>Il existe diff&eacute;rentes fa&ccedil;ons pour lui de <strong>se procurer des Ropi</strong></p>
 <p style=\"padding-left: 30px;\">Se rendre chez un <strong><a href=\"../../../../../source/cartecomptoir.php\">comptoir de change</a></strong>, et acheter des Ropi dans la limite de disponibilit&eacute; des stocks.</p>
 <p style=\"padding-left: 30px;\">Il est fortement conseill&eacute; de <strong>commander ses Ropi <a href=\"../../../../../source/FormulaireAchatRopi.php\">par internet</a></strong> (paiement par virement bancaire ou paypal), et de <strong>se les faire livrer au comptoir de change de son choix ou &agrave; domicile</strong> (livraison par un b&eacute;n&eacute;vole, le coursier montois ou par la poste).</p>
-<p style=\"padding-left: 30px;\">Se rendre chez un <a href=\"../../../../../source/cartecommerces.php\"><strong>commer&ccedil;ant</strong> <strong>acceptant des Ropi</strong></a>, et lui demander s\'il peut &eacute;changer des Ropi contre des Euro. Attention, cette m&eacute;thode n\'est pas infaillible car rien ne garantit que le commer&ccedil;ant aura des Ropi en stock.</p>
+<p style=\"padding-left: 30px;\">Se rendre chez un <a href=\"../../../../../source/cartecommerces.php\"><strong>commer&ccedil;ant</strong> <strong>acceptant des Ropi</strong></a>, et lui demander s\\\'il peut &eacute;changer des Ropi contre des Euro. Attention, cette m&eacute;thode n\\\'est pas infaillible car rien ne garantit que le commer&ccedil;ant aura des Ropi en stock.</p>
 <p>&nbsp;</p>
 <table>
 <tbody>
@@ -90,8 +90,8 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 </tr>
 </tbody>
 </table>
-<p style=\"padding-left: 30px;\">La <strong>liste des prestataires</strong> (commercants, artisants, agriculteurs, prestataires de services, ...) est consultable via <a href=\"../../../../../source/FormulaireRecherche.php\"><strong>la carte et l\'outils de recherche</strong> </a><strong><a href=\"../../../../../source/FormulaireRecherche.php\">des commerces</a></strong>.</p>
-<p style=\"padding-left: 30px;\">Le plus souvent, les commer&ccedil;ants arboreront aussi un <strong>autocollant en vitrine ou &agrave; l\'int&eacute;rieur du magasin</strong> indiquant qu\'ils acceptent le Ropi.</p>
+<p style=\"padding-left: 30px;\">La <strong>liste des prestataires</strong> (commercants, artisants, agriculteurs, prestataires de services, ...) est consultable via <a href=\"../../../../../source/FormulaireRecherche.php\"><strong>la carte et l\\\'outils de recherche</strong> </a><strong><a href=\"../../../../../source/FormulaireRecherche.php\">des commerces</a></strong>.</p>
+<p style=\"padding-left: 30px;\">Le plus souvent, les commer&ccedil;ants arboreront aussi un <strong>autocollant en vitrine ou &agrave; l\\\'int&eacute;rieur du magasin</strong> indiquant qu\\\'ils acceptent le Ropi.</p>
 <p style=\"text-align: right;\">&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../../../../../source/autocollant.png\" alt=\"autocollant\" width=\"100\" height=\"100\" /></p>
 <p style=\"text-align: right;\">&nbsp;</p>
 <table>
@@ -102,20 +102,20 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 </tr>
 </tbody>
 </table>
-<p style=\"padding-left: 30px;\"><strong>Reconvertir les Ropi contre des Euro</strong>, en s\'acquittant d\'une <strong>taxe de 5%</strong>. La reconversion n\'est possible que pour les membres prestataires, en contactant l\'asbl via <a href=\"mailto:support@ropi.be\">support@ropi.be</a> ou en compl&eacute;tant le <a href=\"../../../../../sources/formreconversion.php\">formulaire de reconversion</a>.</p>
-<p style=\"padding-left: 30px;\">Ou bien, et c\'est bien l&agrave; le but recherch&eacute;,</p>
-<p style=\"padding-left: 30px;\"><strong>poursuivre la spirale vertueuse de la relocalisation de l\'&eacute;conomie</strong>, en trouvant d\'autres prestataires et producteurs locaux qui acceptent le Ropi. C\'est facile gr&acirc;ce &agrave; l\'<a href=\"../../../../../source/FormulaireRecherche.php\">outils de recherche</a> des commer&ccedil;ants et producteurs.</p>
-<p style=\"padding-left: 30px;\">S\'il n\'existe pas de prestataire local ad&eacute;quat, les ambassadeurs se feront un plaisir de rechercher <strong>le maillon manquant</strong>. Contactez-nous via <a href=\"mailto:support@ropi.be\">support@ropi.be</a> ou compl&eacute;tez le <a href=\"../../../../../sources/formnouveauprestaire.php\">formulaire de proposition d\'un nouveau prestataire</a>.</p>
-<p style=\"padding-left: 30px;\">Vous l\'aurez compris, ce n\'est pas du tout le but poursuivi de reconvertir ses Ropi en Euro, et c\'est pour cela qu\'une taxe de reconversion de 5% est appliqu&eacute;e. Le but recherch&eacute; est au contraire d\'<strong>agrandir le r&eacute;seau des prestataires afin que le Ropi puisse circuler de prestataires en prestataires</strong> sans jamais rester bloqu&eacute; chez un prestataire qui ne touverait pas de fili&egrave;re d\'approvisionnement locale.</p>
+<p style=\"padding-left: 30px;\"><strong>Reconvertir les Ropi contre des Euro</strong>, en s\\\'acquittant d\\\'une <strong>taxe de 5%</strong>. La reconversion n\\\'est possible que pour les membres prestataires, en contactant l\\\'asbl via <a href=\"mailto:support@ropi.be\">support@ropi.be</a> ou en compl&eacute;tant le <a href=\"../../../../../sources/formreconversion.php\">formulaire de reconversion</a>.</p>
+<p style=\"padding-left: 30px;\">Ou bien, et c\\\'est bien l&agrave; le but recherch&eacute;,</p>
+<p style=\"padding-left: 30px;\"><strong>poursuivre la spirale vertueuse de la relocalisation de l\\\'&eacute;conomie</strong>, en trouvant d\\\'autres prestataires et producteurs locaux qui acceptent le Ropi. C\\\'est facile gr&acirc;ce &agrave; l\\\'<a href=\"../../../../../source/FormulaireRecherche.php\">outils de recherche</a> des commer&ccedil;ants et producteurs.</p>
+<p style=\"padding-left: 30px;\">S\\\'il n\\\'existe pas de prestataire local ad&eacute;quat, les ambassadeurs se feront un plaisir de rechercher <strong>le maillon manquant</strong>. Contactez-nous via <a href=\"mailto:support@ropi.be\">support@ropi.be</a> ou compl&eacute;tez le <a href=\"../../../../../sources/formnouveauprestaire.php\">formulaire de proposition d\\\'un nouveau prestataire</a>.</p>
+<p style=\"padding-left: 30px;\">Vous l\\\'aurez compris, ce n\\\'est pas du tout le but poursuivi de reconvertir ses Ropi en Euro, et c\\\'est pour cela qu\\\'une taxe de reconversion de 5% est appliqu&eacute;e. Le but recherch&eacute; est au contraire d\\\'<strong>agrandir le r&eacute;seau des prestataires afin que le Ropi puisse circuler de prestataires en prestataires</strong> sans jamais rester bloqu&eacute; chez un prestataire qui ne touverait pas de fili&egrave;re d\\\'approvisionnement locale.</p>
 <p>&nbsp;</p>
 <h2><strong>En conclusion</strong></h2>
-<p>Ce sont des <strong>consommateurs</strong>, engag&eacute;s pour le devenir de leur cit&eacute;, qui <strong>injectent des Ropi dans l\'&eacute;conomie locale</strong>, en achetant des Ropi et <strong>en s\'approvisionnant chez les prestataires locaux</strong> qui acceptent les Ropi.</p>
-<p>Ce sont des <strong>prestataires</strong>, engag&eacute;s pour le devenir de leur cit&eacute;, qui acceptent les Ropi, et font la d&eacute;marche de s\'approvisioner dans l\'&eacute;conomie locale, voir de <strong>trouver de nouvelles fili&egrave;res d\'approvisonnement</strong>.</p>
-<p><strong>Ce sont les consommateurs ET les prestataires, qui ENSEMBLE, avec l\'aide du Ropi comme vecteur d\'&eacute;change, contribuent ainsi &agrave; relocaliser et circulariser l\'&eacute;conomie.</strong></p>
+<p>Ce sont des <strong>consommateurs</strong>, engag&eacute;s pour le devenir de leur cit&eacute;, qui <strong>injectent des Ropi dans l\\\'&eacute;conomie locale</strong>, en achetant des Ropi et <strong>en s\\\'approvisionnant chez les prestataires locaux</strong> qui acceptent les Ropi.</p>
+<p>Ce sont des <strong>prestataires</strong>, engag&eacute;s pour le devenir de leur cit&eacute;, qui acceptent les Ropi, et font la d&eacute;marche de s\\\'approvisioner dans l\\\'&eacute;conomie locale, voir de <strong>trouver de nouvelles fili&egrave;res d\\\'approvisonnement</strong>.</p>
+<p><strong>Ce sont les consommateurs ET les prestataires, qui ENSEMBLE, avec l\\\'aide du Ropi comme vecteur d\\\'&eacute;change, contribuent ainsi &agrave; relocaliser et circulariser l\\\'&eacute;conomie.</strong></p>
 <p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../../../../../source/component_circulation.png\" alt=\"\" width=\"400\" /></p>
-<p style=\"text-align: center;\">Le fonctionnement du Ropi est d&eacute;taill&eacute; dans le <a href=\"../../../../../source/RopiROI.pdf\">R&egrave;glement d\'Ordre d\'Int&eacute;rieur</a>.</p>
+<p style=\"text-align: center;\">Le fonctionnement du Ropi est d&eacute;taill&eacute; dans le <a href=\"../../../../../source/RopiROI.pdf\">R&egrave;glement d\\\'Ordre d\\\'Int&eacute;rieur</a>.</p>
 <p>&nbsp;</p>"),
-            array(2, "Adhérer à l'asbl", 1, new DateTime("2015-05-29T18:09:36+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l\'asbl</h1>
+            array(3, "Adhérer à l'asbl", 1, new DateTime("2015-05-29T18:09:36+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l\'asbl</h1>
 <h2>Pourquoi adh&eacute;rer?</h2>
 <h3>Les membres, pour une gouvernance d&eacute;mocratique</h3>
 <p>L\'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront progressivement mis en place (ex: sondage via internet).</p>
@@ -214,32 +214,32 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p><img src=\"../../../../../source/newsletter.jpg\" alt=\"Carte de visite recto\" width=\"500\" /></p>
 <p>&nbsp;</p>
 <p>Retrouvez la gallerie compl&egrave;te des visuels sous ce <a href=\"https://www.behance.net/gallery/26077637/ROPI-Monnaie-alternative-de-la-ville-de-Mons\">lien</a>.</p>"),
-            
-            array(2, "Documents fondateurs", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les documents fondateurs</h1>
+
+            array(2, "Documents fondateurs", 1, new DateTime("2015-11-07T23:26:34+01:00"), new DateTime("2015-11-07T23:26:34+01:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les documents fondateurs</h1>
 <h2>Statuts</h2>
-<p>L\'association a pour objet, en dehors de tout but de lucre</p>
+<p>L\\\'association a pour objet, en dehors de tout but de lucre</p>
 <ul>
-<li>de promouvoir des activit&eacute;s visant &agrave; am&eacute;liorer l\'autonomie &eacute;conomique locale, et ce particuli&egrave;rement en assurant la cr&eacute;ation, la promotion et la gestion d\'une monnaie locale compl&eacute;mentaire &agrave; l\'euro: le Ropi. Cette monnaie circulera entre les citoyens, des artisans, des agriculteurs, des entreprises, des commerces, des associations, institutions souhaitant retrouver la ma&icirc;trise de l\'usage local des moyens d\'&eacute;change.</li>
-<li>d\'informer les citoyens sur les fondements et r&eacute;alit&eacute;s du syst&egrave;me mon&eacute;taire et &eacute;conomique en cours dans notre soci&eacute;t&eacute;, et des injustices qui en d&eacute;coulent.</li>
-<li>d\'agir en tant que groupe local du R&eacute;seau Financit&eacute;, afin de promouvoir une finance responsable et solidaire et de favoriser un autre rapport &agrave; l\'argent.</li>
+<li>de promouvoir des activit&eacute;s visant &agrave; am&eacute;liorer l\\\'autonomie &eacute;conomique locale, et ce particuli&egrave;rement en assurant la cr&eacute;ation, la promotion et la gestion d\\\'une monnaie locale compl&eacute;mentaire &agrave; l\\\'euro: le Ropi. Cette monnaie circulera entre les citoyens, des artisans, des agriculteurs, des entreprises, des commerces, des associations, institutions souhaitant retrouver la ma&icirc;trise de l\\\'usage local des moyens d\\\'&eacute;change.</li>
+<li>d\\\'informer les citoyens sur les fondements et r&eacute;alit&eacute;s du syst&egrave;me mon&eacute;taire et &eacute;conomique en cours dans notre soci&eacute;t&eacute;, et des injustices qui en d&eacute;coulent.</li>
+<li>d\\\'agir en tant que groupe local du R&eacute;seau Financit&eacute;, afin de promouvoir une finance responsable et solidaire et de favoriser un autre rapport &agrave; l\\\'argent.</li>
 </ul>
-<p>D&eacute;couvrez les&nbsp;<a href=\"http://www.ejustice.just.fgov.be/cgi_tsv/tsv_rech.pl?language=fr&amp;amp;btw=0506894878&amp;amp;liste\">statuts complets de l\'ASBL Ropi au moniteur</a>.</p>
+<p>D&eacute;couvrez les&nbsp;<a href=\"http://www.ejustice.just.fgov.be/cgi_tsv/tsv_rech.pl?language=fr&amp;amp;btw=0506894878&amp;amp;liste\">statuts complets de l\\\'ASBL Ropi au moniteur</a>.</p>
 <h2>&nbsp;</h2>
 <h2>La Charte</h2>
-<p>Emanant d\'actions men&eacute;es par des citoyens montois pour la promotion d\'une &eacute;conomie socialement et environnementalement soutenable, le projet vise &agrave; mettre en place une <strong>monnaie compl&eacute;mentaire &agrave; l\'euro</strong> dans la<strong> r&eacute;gion de Mons-Borinage</strong>.</p>
+<p>Emanant d\\\'actions men&eacute;es par des citoyens montois pour la promotion d\\\'une &eacute;conomie socialement et environnementalement soutenable, le projet vise &agrave; mettre en place une <strong>monnaie compl&eacute;mentaire &agrave; l\\\'euro</strong> dans la<strong> r&eacute;gion de Mons-Borinage</strong>.</p>
 <h3>Un triple objectif</h3>
 <ul>
-<li>Relocaliser l\'&eacute;conomie afin de se pr&eacute;parer aux d&eacute;fis environnementaux et &agrave; la fin du pr&eacute;trole bon march&eacute; (pic p&eacute;trolier).</li>
+<li>Relocaliser l\\\'&eacute;conomie afin de se pr&eacute;parer aux d&eacute;fis environnementaux et &agrave; la fin du pr&eacute;trole bon march&eacute; (pic p&eacute;trolier).</li>
 <li>remettre le citoyen au coeur des d&eacute;bats et prises de d&eacute;cisions, notamment &agrave; propos des questions financi&egrave;res, mon&eacute;taires et des processus de production.</li>
-<li>proposer une alternative &agrave; la monnaie dominante bas&eacute;e sur les revenus du capital et g&eacute;n&eacute;ratrice d\'in&eacute;galit&eacute;s sociales.</li>
+<li>proposer une alternative &agrave; la monnaie dominante bas&eacute;e sur les revenus du capital et g&eacute;n&eacute;ratrice d\\\'in&eacute;galit&eacute;s sociales.</li>
 </ul>
-<p>La monnaie compl&eacute;mentaire mise en place - le Ropi - entend r&eacute;aliser ces objectifs par le soutien qu\'elle apporte aux <strong>petites structures </strong>et <strong>commerces de proximit&eacute;</strong>, face &agrave; la grande distribution, les multinationales, et les franchises.</p>
+<p>La monnaie compl&eacute;mentaire mise en place - le Ropi - entend r&eacute;aliser ces objectifs par le soutien qu\\\'elle apporte aux <strong>petites structures </strong>et <strong>commerces de proximit&eacute;</strong>, face &agrave; la grande distribution, les multinationales, et les franchises.</p>
 <h3>Engagement</h3>
-<p>En tant que prestataire de biens de services (distributeurs, fournisseurs, transformateurs ou producteurs), nous adh&eacute;rons par cette charte au projet Ropi mis en place par l\'asbl Ropi.</p>
-<p>Nous nous engageons &agrave; <strong>promouvoir le Ropi</strong> et les <strong>valeurs &eacute;thiques</strong> qu\'il sous-tend</p>
+<p>En tant que prestataire de biens de services (distributeurs, fournisseurs, transformateurs ou producteurs), nous adh&eacute;rons par cette charte au projet Ropi mis en place par l\\\'asbl Ropi.</p>
+<p>Nous nous engageons &agrave; <strong>promouvoir le Ropi</strong> et les <strong>valeurs &eacute;thiques</strong> qu\\\'il sous-tend</p>
 <ul>
 <li>en acceptant le Ropi comme moyen de paiement.</li>
-<li>en sensibilisant les citoyens &agrave; ce nouveau moyen d\'&eacute;change porteur de valeurs.</li>
+<li>en sensibilisant les citoyens &agrave; ce nouveau moyen d\\\'&eacute;change porteur de valeurs.</li>
 </ul>
 <p>[<a href=\"../../../../../source/RopiCharte.pdf\">T&eacute;l&eacute;chargement pdf</a>]</p>
 <p>&nbsp;</p>
@@ -252,7 +252,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Les premiers sont les plus r&eacute;cemments inscrits comme membre</p>
 <h2>Recherche</h2>
 <p>(par commerce / produits / quartier)</p>"),
-            array(5, "Les billets", 1, new DateTime("2015-05-27T23:51:28+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Pr&eacute;sentation des billets</h1>
+            array(6, "Les billets", 1, new DateTime("2015-05-27T23:51:28+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Pr&eacute;sentation des billets</h1>
 <h2>L\'&eacute;dition 2015</h2>
 <p>En 2015, le Ropi se dote de nouveaux billets reprenant des monuments montois charg&eacute;s d\'histoire.</p>
 <p>Ces billets peuvent-&ecirc;tre command&eacute;s en ligne via ce&nbsp;<a href=\"../../../../../page/ForumulaireCommandeRopi.php\">formulaire</a> ou chez les commer&ccedil;ants membres (sous r&eacute;serve de disponibilit&eacute;).</p>
@@ -263,11 +263,11 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Cette &eacute;dition a &eacute;t&eacute; tir&eacute;e lors de la cr&eacute;ation du projet Ropi. Les &eacute;l&eacute;ments grapiques ont &eacute;t&eacute; d&eacute;termin&eacute;s sur base d\'un concours de dessin au sein de l\'&eacute;cole Le Nursing. Ces billets sont toujours valides aujourd\'hui mais ne sont plus mis en vente. Ils seront progressivement retir&eacute;s de la circulation.</p>
 <p><img src=\"../../../../../source/billets2011.jpg\" alt=\"Billets 2011\" width=\"300\" height=\"296\" /></p>
 <p>&nbsp;</p>"),
-            array(6, "La monnaie électronique", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>La monnaie &eacute;lectronique</h1>
+            array(7, "La monnaie électronique", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>La monnaie &eacute;lectronique</h1>
 <p>Une version &eacute;lectronique du Ropi sera bient&ocirc;t disponible, en plus de la version papier.</p>
 <p>Chaque membre de l\'asbl disposera d\'un (ou plusieurs) compte virtuel accessible par internet (Ropi banking). Ce compte pourra &ecirc;tre cr&eacute;dit&eacute; en Ropi par virement bancaire en Euro. Des op&eacute;rations de transfert entre les comptes pourront &ecirc;tre effectu&eacute;es par internet mais &eacute;galement par SMS sans aucun co&ucirc;t pour l\'utilisateur. Ce syst&egrave;me permettra notamment de faire des paiements chez le commer&ccedil;ants.</p>
 <p>&nbsp;</p>"),
-            array(4, "Nous aider", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Comment nous aider?</h1>
+            array(5, "Nous aider", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Comment nous aider?</h1>
 <h2>Devenir b&eacute;n&eacute;vole</h2>
 <p><br /> Une organisation comme le Ropi ne peut fonctionner sans ses nombreux b&eacute;n&eacute;voles, qui constituent la cheville ouvri&egrave;re de l\'asbl.</p>
 <p>Il existe de nombreux postes &agrave; renforcer ou &agrave; pourvoir au sein de l\'asbl Ropi, notamment:</p>
@@ -329,7 +329,25 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>")
+<p>&nbsp;</p>"),
+
+            array(2, "Ecouler ses Ropi", 1, new DateTime("2015-11-08T21:48:43+01:00"), new DateTime("2015-11-08T21:45:00+01:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Comment d&eacute;penser mes Ropi?</h1>
+<p>&nbsp;</p>
+<p>La vocation du Ropi est de circuler, c\'est &agrave; dire qu\'apr&egrave;s avoir &eacute;t&eacute; inject&eacute; dans le circuit, le Ropi doit continuer &agrave; circuler: de commer&ccedil;ants en producteurs et de producteurs en commer&ccedil;ants. Si un goulot d\'&eacute;tranglement se cr&eacute;e, c\'est &agrave; dire que des Ropi s\'accumulent dans le tirroir-caisse d\'un commer&ccedil;ant qui n\'arrive pas &agrave; les depenser, le syst&egrave;me ne remplira pas ses objectifs.</p>
+<p>Mais il existe <strong>pl&eacute;thore de possibilit&eacute;s pour faire circuler le Ropi</strong>. Nous invitons commer&ccedil;ants et produceurs &agrave; les utiliser sans mod&eacute;ration! Voyez plut&ocirc;t:</p>
+<ul>
+<li>Trouver des fournisseurs locaux et les payer en Ropi.</li>
+<li>Se rendre des services entre commer&ccedil;ants, pay&eacute;s en Ropi.</li>
+<li>Reprendre les ROPI de sa caisse (&eacute;change contre des euro) et les d&eacute;penser &agrave; titre personnel (loisirs, culture, achat dans les commerces locaux, ...).</li>
+<li>Echanger des ROPI &agrave; un usager (membre ou non) qui en fait la demande.</li>
+<li>Proposer &agrave; un usager (membre ou non) de lui rendre la monnaie en Ropi.</li>
+<li>Offrir des Ropi en guise de ristourne (= carte de fid&eacute;lit&eacute; mutualis&eacute;e).</li>
+<li>R&eacute;&eacute;quilibrer les caisses entre commer&ccedil;ants.</li>
+<li>Repas du midi, r&eacute;union d\'affaire</li>
+</ul>
+<p>Bref, il faut que ca bouge !</p>
+<p>En enfin, si malgr&eacute; tout &ccedil;a il n\'est pas possible d\'&eacute;couler tous ses Ropi, il reste la possibilit&eacute; de les &eacute;couler 5%.</p>
+<p>En dernier recours, le r&eacute;dimage &agrave; 0% est possible au dessus d\'un certain montant. En effet, un commer&ccedil;ant qui a du mal &agrave; &eacute;couler ses Ropi, peut le signaler &agrave; l\'asbl qui cherchera alors une solution en collaboration avec le commer&ccedil;ant pour &eacute;couler les Ropi. Si aucune solution n\'est trouv&eacute;e end&eacute;ans les deux semaines, le r&eacute;dim&acirc;ges &agrave; 0% est accept&eacute; (par tranche de 100&euro pour les asbl et 200&euro; pour les prestataires du secteur marchand).</p>")
         );
 
         foreach ($tab as $element) {
@@ -345,6 +363,9 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
             $page->setContenu(stripslashes($element[7]));
             $page->addPermission($this->getReference("PERM_ROLE_ANONYME"));
             $page->addPermission($this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"));
+            $page->addPermission($this->getReference("PERM_ROLE_ADMIN"));
+            $page->addPermission($this->getReference("PERM_ROLE_COMMERCANT"));
+            $page->addPermission($this->getReference("PERM_ROLE_CMS_CREATE"));
 
             $manager->persist($page);
         }
