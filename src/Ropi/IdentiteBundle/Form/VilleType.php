@@ -30,7 +30,8 @@ class VilleType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\IdentiteBundle\Entity\Ville'
+            'data_class' => 'Ropi\IdentiteBundle\Entity\Ville',
+            'cascade_validation' => true
         ));
     }
 
