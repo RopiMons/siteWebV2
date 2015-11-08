@@ -30,11 +30,13 @@
     <header class="row"> <!-- Logo & slogan -->
         {% block header %}
             <div class="col-xs-12">
-                <div class="col-sm-5">
 
-                    <img id="logo" class="col-sm-12" src="/img/ropi_logo.png" alt="logo du ropi"/>
+                <div class="col-sm-12 col-md-6">
+
+                    <a class="navbar-brand men" href="{{ path('home') }}"><img id="logo" class="col-sm-12" src="/img/ropi_logo.png" alt="logo du ropi"/></a>
                     <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
                 </div>
+
                 <div class="col-sm-4"></p>
                     </p></div>
                 <div class="col-sm-3">
@@ -59,7 +61,7 @@
 
                 </button>
 
-                <a class="navbar-brand men" href="{{ path('home') }}">Ropi</a>
+
 
             </div>
             <div id="navbar" class="navbar-collapse collapse">
