@@ -35,8 +35,10 @@ class ModificationController extends Controller
              $em= $this->getDoctrine()->getManager();
              $em->persist($user);
              $em->flush();
-             $this->get("session")->getFlashBag(array(
-                 'success'=>"Votre mot de passe à bien été modifié!" ));
+
+             $this->get("session")->getFlashBag()->add(
+                 'success',"Votre mot de passe à bien été modifié!" );
+
              return $this->redirect($this->generateUrl("home"));
          }
 
