@@ -18,11 +18,6 @@
         <area shape="circle" data-name="autreProducteurs,all" coords="798,502,59" href="#" />
     </map>
 
-    <div id="legende">
-        <h1 id="ropi-caption-header">Le Ropi, en pratique</h1>
-        <h3 id="ropi-caption-text">Le Ropi, la monnaie complémentaire à Mons et ses environs.</h3>
-    </div>
-
 {% endblock %}
 
 {% block javascripts %}
@@ -39,7 +34,14 @@
 {% endblock %}
 
 {% block rightColumn %}
-    <h2>Les commercants Ropi</h2>
-    {{ google_map(map) }}
+    <div id="carte">
+        <h2>Les commercants Ropi</h2>
+        {{ google_map(map) }}
+    </div>
+    <div id="legende">
+        <h1 id="ropi-caption-header">Le Ropi, en pratique</h1>
+        <h3 id="ropi-caption-text">Le Ropi, la monnaie complémentaire à Mons et ses environs.</h3>
+    </div>
+
 {% endblock %}
 

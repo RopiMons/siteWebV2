@@ -39,14 +39,13 @@ var inArea,
             inArea = true;
             $('#ropi-caption-header').text(captions[data.key][0]);
             $('#ropi-caption-text').text(captions[data.key][1]);
-        },
-        onClick: function (data) {
-            inArea = true;
-            $('#ropi-caption-header').text(captions[data.key][0]);
-            $('#ropi-caption-text').text(captions[data.key][1]);
+            $('#carte').hide();
+            $('#legende').show();
         },
         onMouseout: function (data) {
             inArea = false;
+            $('#carte').show();
+            $('#legende').hide();
         }
     };
 opts = $.extend({}, all_opts, initial_opts, single_opts);
@@ -70,3 +69,5 @@ map.mapster('unbind')
         map.mapster('set', false, 'all');
     }
 });
+
+$('legende').hide();
