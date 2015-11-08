@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            <!-- Bootstrap -->
-            <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
-            {% stylesheets '../app/Resources/public/css/admin.css' filter='cssrewrite' output='css/ropiAdmin.css' %}
-            
-            
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
-        {% endblock %}
-        <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
-        {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+        {% stylesheets '../app/Resources/public/css/admin.css' filter='cssrewrite' output='css/ropiAdmin.css' %}
 
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    
-    <body>
-       
-       
-             {% block header %}
-            <header class="row"> <!-- Logo & slogan -->
-                <div class="col-sm-12 col-lg-12 col-md-12">
-                    <div class="col-sm-12 col-lg-8 col-md-8">
-                        <h1> Administration </h1>
-                    </div>
-                    
-                     <div class="name col-sm-12 col-lg-3 col-md-3">
-                       
-                         {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                             
-                            Bonjour {{ app.user.username|capitalize }} !
-                             <br />
-                             <a href="{{ path('logout') }}"><button value="deconnexion">déconnexion</button></a>
-                              <a href="{{ path('home') }}"><button value="deconnexion">retour sur site</button></a>
-                        {%endif%}
-                    </div>
-                    
-                </div>	
-            </header>  {% endblock %}
- <div class="container">
-            {% for flashMessage in app.session.flashbag.get('info') %}
-                <div class="alert alert-info" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-success" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('danger') %}
-                <div class="alert alert-danger" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-        
-      
-        {% block menu %}
+
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    {% block javascripts %}
+        <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+        <script src="{{ asset('js/jquery.js') }}"></script>
+        <!-- Include all JavaScripts, compiled by Assetic -->
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+
+
+{% block header %}
+    <header class="row"> <!-- Logo & slogan -->
+        <div class="col-sm-12 col-lg-12 col-md-12">
+            <div class="col-sm-12 col-lg-8 col-md-8">
+                <h1> Administration </h1>
+            </div>
+
+            <div class="name col-sm-12 col-lg-3 col-md-3">
+
+                {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+
+                    Bonjour {{ app.user.username|capitalize }} !
+                    <br />
+                    <a href="{{ path('logout') }}"><button value="deconnexion">déconnexion</button></a>
+                    <a href="{{ path('home') }}"><button value="deconnexion">retour sur site</button></a>
+                {%endif%}
+            </div>
+
+        </div>
+    </header>  {% endblock %}
+<div class="container">
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="alert alert-info" role="alert">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('danger') %}
+        <div class="alert alert-danger" role="alert">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+
+    {% block menu %}
         <nav class="navbar navbar-default row ">
             <div class="col-sm-1 col-lg-1 col-md-1"> </div>
 
-            <div class="container-fluid"> 
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -74,7 +81,7 @@
 
                     </button>
 
-                    <a class="navbar-brand men" href="{{ path('home') }}">Ropi</a> 
+                    <a class="navbar-brand men" href="{{ path('home') }}">Ropi</a>
 
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
@@ -87,27 +94,21 @@
 
 
     {% endblock %}
-    
-            {% block content %}
 
-               {% endblock %}
+    {% block content %}
 
-           {% block right %}
-               
-            {% endblock %}
+    {% endblock %}
+
+    {% block right %}
+
+    {% endblock %}
 
 
-           {% block footNav %}{% endblock %}
-                        
-           <footer class="col-lg-12 col-md-12 col-sm-12">{% block footCopyright %} <p>2015 Copyright©ropi.be -- Administration</p>{% endblock %}</footer>
+    {% block footNav %}{% endblock %}
 
- </div>        
-{% block javascripts %}
-    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <!-- Include all JavaScripts, compiled by Assetic -->
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-{% endblock %}
+    <footer class="col-lg-12 col-md-12 col-sm-12">{% block footCopyright %} <p>2015 Copyright©ropi.be -- Administration</p>{% endblock %}</footer>
+
+</div>
 </div>
 </body>
 </html>

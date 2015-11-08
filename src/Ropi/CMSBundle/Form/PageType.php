@@ -38,6 +38,10 @@ class PageType extends AbstractType {
                     'format' => 'dd/MM/y HH:mm',
                     'years' => $years,
                 ))
+            ->add('permissions',null,array(
+                'expanded' => true,
+                'label' => 'Qui peux voir cette page ?'
+            ))
         ;
     }
 

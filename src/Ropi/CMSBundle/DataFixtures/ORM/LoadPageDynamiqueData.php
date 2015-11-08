@@ -27,10 +27,10 @@ class LoadPageDynamiqueData extends AbstractFixture implements OrderedFixtureInt
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array(2, "Nos commerçants", true, new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_3"), "commerces"),
-            array(1, "Accueil", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "home"),
-            array(1, "Se connecter", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "login"),
-            array(1, "S'inscrire", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "ropi_inscription"),
+            array(2, "Nos commerçants", true, new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_3"), "commerces", array($this->getReference("PERM_ROLE_ANONYME","PERM_ROLE_UTILISATEUR_ACTIVE"))),
+            array(1, "Accueil", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "home", array($this->getReference("PERM_ROLE_ANONYME","PERM_ROLE_UTILISATEUR_ACTIVE"))),
+            array(1, "Se connecter", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "login", array($this->getReference("PERM_ROLE_ANONYME"))),
+            array(1, "S'inscrire", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "ropi_inscription", array($this->getReference("PERM_ROLE_ANONYME"))),
 
         );
 
@@ -45,6 +45,10 @@ class LoadPageDynamiqueData extends AbstractFixture implements OrderedFixtureInt
             $page->setPublicationDate($element[5]);
             $page->setCategorie($element[6]);
             $page->setRoute($element[7]);
+
+            foreach($element[8] as $perm){
+                $page->addPermission($perm);
+            }
 
             $manager->persist($page);
         }

@@ -343,6 +343,8 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
             $page->setPublicationDate($element[5]);
             $page->setCategorie($element[6]);
             $page->setContenu($element[7]);
+            $page->addPermission($this->getReference("PERM_ROLE_ANONYME"));
+            $page->addPermission($this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"));
 
             $manager->persist($page);
         }
