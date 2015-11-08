@@ -115,12 +115,12 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../../../../../source/component_circulation.png\" alt=\"\" width=\"400\" /></p>
 <p style=\"text-align: center;\">Le fonctionnement du Ropi est d&eacute;taill&eacute; dans le <a href=\"../../../../../source/RopiROI.pdf\">R&egrave;glement d\'Ordre d\'Int&eacute;rieur</a>.</p>
 <p>&nbsp;</p>"),
-            array(2, "Adhérer à l'asbl", 1, new DateTime("2015-05-29T18:09:36+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l\\\'asbl</h1>
+            array(2, "Adhérer à l'asbl", 1, new DateTime("2015-05-29T18:09:36+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Adh&eacute;rer &agrave; l\'asbl</h1>
 <h2>Pourquoi adh&eacute;rer?</h2>
 <h3>Les membres, pour une gouvernance d&eacute;mocratique</h3>
-<p>L\\\'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront progressivement mis en place (ex: sondage via internet).</p>
-<p>En effet, nous consid&eacute;rons que la monnaie devrait &ecirc;tre un outil au service du citoyen, et non l\\\'inverse comme c\\\'est le cas avec les monnaies dominantes (l\\\'euro chez nous). Cet outil ne pourra v&eacute;ritablement assumer son r&ocirc;le de servitude que si le plus grand nombre de citoyens participe &agrave; sa politique dans le sens le plus noble du terme.</p>
-<h3>Les deux types de membre de l\\\'asbl Ropi</h3>
+<p>L\'asbl Ropi tend &agrave; appliquer une gouvernance la plus d&eacute;mocratique possible via son Assembl&eacute;e G&eacute;n&eacute;rale (AG) des citoyens et par des outils de d&eacute;mocratie directe et participative qui seront progressivement mis en place (ex: sondage via internet).</p>
+<p>En effet, nous consid&eacute;rons que la monnaie devrait &ecirc;tre un outil au service du citoyen, et non l\'inverse comme c\'est le cas avec les monnaies dominantes (l\'euro chez nous). Cet outil ne pourra v&eacute;ritablement assumer son r&ocirc;le de servitude que si le plus grand nombre de citoyens participe &agrave; sa politique dans le sens le plus noble du terme.</p>
+<h3>Les deux types de membre de l\'asbl Ropi</h3>
 <ul>
 <li>les <strong>membres effectifs</strong>, qui disposent d\'une voix &agrave; l\'AG et participent donc pleinement &agrave; la vie d&eacute;mocratique de l\'asbl. Ils doivent &ecirc;tre en ordre de cotisation.</li>
 <li>les <strong>membres sympathisants</strong>, qui, sans se faire membre effectif de l&rsquo;association, d&eacute;sirent marquer leur encouragement &agrave; la d&eacute;marche.</li>
@@ -171,20 +171,20 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 </table>
 <p>&nbsp;</p>
 <h3><strong>Avantages et devoirs des membres effectifs<br /></strong></h3>
-<p>La premi&egrave;re raison d\\\'adh&eacute;rer &agrave; l\\\'asbl est de <strong>disposer du droit de vote &agrave; l\\\'AG</strong> et ainsi d\\\'influencer le devenir du Ropi. Nous visons un syst&egrave;me de gouvernance le plus d&eacute;mocratique possible o&ugrave; chaque coll&egrave;ge dispose d\\\'un tiers du droit de vote &agrave; l\\\'AG. <strong>Faites entendre votre voix!</strong></p>
-<p>Si vous &ecirc;tes un <strong>prestataire</strong> ou une <strong>association</strong>, l\\\'adh&eacute;sion vous permettra</p>
+<p>La premi&egrave;re raison d\'adh&eacute;rer &agrave; l\'asbl est de <strong>disposer du droit de vote &agrave; l\'AG</strong> et ainsi d\'influencer le devenir du Ropi. Nous visons un syst&egrave;me de gouvernance le plus d&eacute;mocratique possible o&ugrave; chaque coll&egrave;ge dispose d\'un tiers du droit de vote &agrave; l\'AG. <strong>Faites entendre votre voix!</strong></p>
+<p>Si vous &ecirc;tes un <strong>prestataire</strong> ou une <strong>association</strong>, l\'adh&eacute;sion vous permettra</p>
 <ul>
-<li>de r&eacute;&eacute;changer vos Ropi contre des Euro (avec taxe de 5%). Certains prestataires &agrave; but non lucratif peuvent b&eacute;n&eacute;ficier d\\\'un taux de reconversion de 0% s\\\'ils en font la demande &agrave; l\\\'asbl et sur approbation de l\\\'AG.</li>
-<li>de b&eacute;n&eacute;ficier d\\\'une visibilit&eacute; sur la page d\\\'accueil du Ropi (bandeau d\\\'affichage du logo et page de pr&eacute;sentation)</li>
-<li>d\\\'&ecirc;tre r&eacute;f&eacute;renc&eacute; dans l\\\'annuaire du Ropi permettant une recherche par activit&eacute;, produits, localisation, ...</li>
-<li>de b&eacute;n&eacute;ficier des &eacute;ventuels b&eacute;n&eacute;fices de l\\\'asbl Ropi, affect&eacute;s &agrave; des pr&ecirc;ts &agrave; 0% ou &agrave; des subsides aux membres prestataires ou associatifs qui en font la demande et sur approbation de l\\\'AG.</li>
+<li>de r&eacute;&eacute;changer vos Ropi contre des Euro (avec taxe de 5%). Certains prestataires &agrave; but non lucratif peuvent b&eacute;n&eacute;ficier d\'un taux de reconversion de 0% s\'ils en font la demande &agrave; l\'asbl et sur approbation de l\'AG.</li>
+<li>de b&eacute;n&eacute;ficier d\'une visibilit&eacute; sur la page d\'accueil du Ropi (bandeau d\'affichage du logo et page de pr&eacute;sentation)</li>
+<li>d\'&ecirc;tre r&eacute;f&eacute;renc&eacute; dans l\'annuaire du Ropi permettant une recherche par activit&eacute;, produits, localisation, ...</li>
+<li>de b&eacute;n&eacute;ficier des &eacute;ventuels b&eacute;n&eacute;fices de l\'asbl Ropi, affect&eacute;s &agrave; des pr&ecirc;ts &agrave; 0% ou &agrave; des subsides aux membres prestataires ou associatifs qui en font la demande et sur approbation de l\'AG.</li>
 </ul>
-<p>En contrepartie de ces avantages, les membres effectifs s&rsquo;engagent &agrave; respecter les statuts, la charte de l&rsquo;association et le r&egrave;glement d&rsquo;ordre int&eacute;rieur. Ils s\\\'engagent &eacute;galement &agrave; payer une cotisation annuelle de 20 Euro ou 15 Ropi.</p>
+<p>En contrepartie de ces avantages, les membres effectifs s&rsquo;engagent &agrave; respecter les statuts, la charte de l&rsquo;association et le r&egrave;glement d&rsquo;ordre int&eacute;rieur. Ils s\'engagent &eacute;galement &agrave; payer une cotisation annuelle de 20 Euro ou 15 Ropi.</p>
 <h2>Comment adh&eacute;rer?</h2>
 <p>Pour devenir membre, enregistrez-vous via le&nbsp;<a href=\"../../../../../source/FormulaireAdhesion.php\">formulaire en ligne</a> ou en nous envoyant un email &agrave;&nbsp;<a href=\"mailto:info@ropi.be\">info@ropi.be</a>.</p>
 <p>Par d&eacute;faut, apr&egrave;s inscription en ligne, vous deviendrez <strong>membre sympathisant</strong> et recevrez notre newsletter.</p>
 <p>Vous recevrez ensuite un <strong>email vous invitant &agrave; devenir membre effectif</strong>, invitation que vous pouvez d&eacute;cliner en ignorant l\'email si cela ne vout int&eacute;resse pas.</p>
-<p>Vous pouvez &eacute;galement vous rendre &agrave; un comptoir de change et y compl&eacute;ter un formulaire d\\\'inscription papier. Nous vous contacterons ensuite par email ou par la poste.</p>
+<p>Vous pouvez &eacute;galement vous rendre &agrave; un comptoir de change et y compl&eacute;ter un formulaire d\'inscription papier. Nous vous contacterons ensuite par email ou par la poste.</p>
 <p>&nbsp;</p>"),
             array(1, "Visuels", 1, new DateTime("2015-05-29T18:33:49+02:00"), new DateTime("2015-05-29T15:00:35+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_4"), "<h1>Les visuels de communication</h1>
 <p>Sur cette page, vous trouverez tous nos visuels de communication (logo, d&eacute;pliant, autocollants, ...) que vous pouvez utiliser pour faire la promotion du Ropi.</p>
@@ -200,7 +200,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>&nbsp;</p>
 <p><a title=\"D&eacute;plian Ropi tryptique\" href=\"../../../../../source/ROPI_Depliant.pdf\">[T&eacute;l&eacute;chargement pdf]</a></p>
 <p>&nbsp;</p>
-<h2>L\\\'autocollant &agrave; apposer en vitrine</h2>
+<h2>L\'autocollant &agrave; apposer en vitrine</h2>
 <p>&nbsp;<img src=\"../../../../../source/autocollant.jpg\" alt=\"Autocollant - accepte le Ropi\" width=\"500\" /></p>
 <p><a href=\"../../../../../source/autocollant.png\">[T&eacute;l&eacute;chargement pdf]</a></p>
 <p>&nbsp;</p>
@@ -342,7 +342,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
             $page->setCreatedAt($element[4]);
             $page->setPublicationDate($element[5]);
             $page->setCategorie($element[6]);
-            $page->setContenu($element[7]);
+            $page->setContenu(stripslashes($element[7]));
             $page->addPermission($this->getReference("PERM_ROLE_ANONYME"));
             $page->addPermission($this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"));
 
