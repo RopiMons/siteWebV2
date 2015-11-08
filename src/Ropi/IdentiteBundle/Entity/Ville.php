@@ -4,6 +4,7 @@ namespace Ropi\IdentiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Ville
@@ -13,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Ville
 {
+
+
+
+
+
     /**
      * @var integer
      *
@@ -26,7 +32,7 @@ class Ville
      * @var string
      *
      * @ORM\Column(name="codePostal", type="string", length=15)
-     * @Assert\Length(min="4", max="15")
+     *
      */
     private $codePostal;
 
@@ -132,4 +138,11 @@ class Ville
 
         return $this;
     }
+
+
+
+
+
+
+
 }
