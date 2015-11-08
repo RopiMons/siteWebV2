@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class VilleType extends AbstractType
+class PaysType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,10 +17,6 @@ class VilleType extends AbstractType
         $builder
             ->add('codePostal')
             ->add('ville')
-            ->add('pays', 'entity', array(
-                'label' => 'Pays',
-                'class' => 'Ropi\IdentiteBundle\Entity\Pays',
-                ));
         ;
     }
     
