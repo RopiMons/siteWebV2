@@ -9,6 +9,7 @@
 namespace Ropi\CMSBundle\Map;
 
 
+use Ivory\GoogleMap\Events\Event;
 use Ivory\GoogleMap\Map;
 use Ivory\GoogleMap\MapTypeId;
 use Ivory\GoogleMap\Overlays\Animation;
@@ -49,12 +50,8 @@ class MapBuilder
             'disableDoubleClickZoom' => true,
         ));
 
-        $map->setStylesheetOption('width', '300px');
+        $map->setStylesheetOption('width', '100%');
         $map->setStylesheetOption('height', '300px');
-        $map->setStylesheetOptions(array(
-            'width'  => '300px',
-            'height' => '300px',
-        ));
 
         $map->setLanguage('fr');
 
