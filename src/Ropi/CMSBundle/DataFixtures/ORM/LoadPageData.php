@@ -80,7 +80,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>Il existe diff&eacute;rentes fa&ccedil;ons pour lui de <strong>se procurer des Ropi</strong></p>
 <p style=\"padding-left: 30px;\">Se rendre chez un <strong><a href=\"../../../../../source/cartecomptoir.php\">comptoir de change</a></strong>, et acheter des Ropi dans la limite de disponibilit&eacute; des stocks.</p>
 <p style=\"padding-left: 30px;\">Il est fortement conseill&eacute; de <strong>commander ses Ropi <a href=\"../../../../../source/FormulaireAchatRopi.php\">par internet</a></strong> (paiement par virement bancaire ou paypal), et de <strong>se les faire livrer au comptoir de change de son choix ou &agrave; domicile</strong> (livraison par un b&eacute;n&eacute;vole, le coursier montois ou par la poste).</p>
-<p style=\"padding-left: 30px;\">Se rendre chez un <a href=\"../../../../../source/cartecommerces.php\"><strong>commer&ccedil;ant</strong> <strong>acceptant des Ropi</strong></a>, et lui demander s\\\'il peut &eacute;changer des Ropi contre des Euro. Attention, cette m&eacute;thode n\\\'est pas infaillible car rien ne garantit que le commer&ccedil;ant aura des Ropi en stock.</p>
+<p style=\"padding-left: 30px;\">Se rendre chez un <a href=\"../../../../../source/cartecommerces.php\"><strong>commer&ccedil;ant</strong> <strong>acceptant des Ropi</strong></a>, et lui demander s\\\'il peut &eacute;changer des Euro contre des Ropi. Attention, cette m&eacute;thode n\\\'est pas infaillible car rien ne garantit que le commer&ccedil;ant aura des Ropi en stock.</p>
 <p>&nbsp;</p>
 <table>
 <tbody>
