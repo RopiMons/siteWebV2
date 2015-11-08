@@ -35,17 +35,22 @@ var inArea,
     initial_opts = {
         mapKey: 'data-name',
         isSelectable: false,
+
         onMouseover: function (data) {
             inArea = true;
             $('#ropi-caption-header').text(captions[data.key][0]);
             $('#ropi-caption-text').text(captions[data.key][1]);
-            $('#carte').hide();
-            $('#legende').show();
+            //$('#carte').hide();
+            var loading = document.getElementById ( "legende" ) ;
+
+            loading.style.visibility = "visible" ;
         },
         onMouseout: function (data) {
             inArea = false;
-            $('#carte').show();
-            $('#legende').hide();
+           // $('#carte').show();
+            var loading = document.getElementById ( "legende" ) ;
+
+            loading.style.visibility = "hidden" ;
         }
     };
 opts = $.extend({}, all_opts, initial_opts, single_opts);

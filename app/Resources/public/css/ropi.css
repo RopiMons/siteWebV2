@@ -54,6 +54,10 @@ body{
 	width: 100%; 
 }
 
+.text-justified{
+	text-align: justify;
+	text-justify:inter-word;
+}
 .container{
 	background-color: rgba(255, 255, 255,0.75);
 	width:100%;
@@ -135,12 +139,32 @@ form button{
  }
 
 #legende{
-	background-color: rgba(245, 245, 245,0.75);
+	position: absolute;
+	min-height: 360px;
+	top: 0px;
+	background-color: rgba(235, 225, 215,1);
 	padding:2.5%;
 	padding-top:1.5%;
 	border-radius:10px;
 	box-shadow: 1px 1px 5px grey inset;
-	margin-top:5%;
+	visibility: hidden;
+
+}
+#carte2{
+	position: absolute;
+	padding-top: 0px;
+	top: 0;
+
+}
+#carte{
+	position: relative;
+	display:block;
+	margin-top: 0px;
+
+}
+h2{
+
+	margin-top: inherit;
 }
 
 #ropi-caption-header{
