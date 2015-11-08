@@ -23,7 +23,9 @@ class InscriptionController extends Controller
     public function inscriptionAction(Request $request)
     {
        
-        $user = new Personne();       
+        $user = new Personne();
+
+
         $type = new PersonneType();
         $form = $this->createForm($type, $user);
         $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
@@ -41,7 +43,7 @@ class InscriptionController extends Controller
                 $contact->setPersonne($user);
                 $user->addContact($contact);
                 //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
-                dump($contact->getTypeContact());
+
                 $form->add('contacts', "collection", array('type' => new ContactType($contact->getTypeContact())));
                
             }
@@ -62,7 +64,11 @@ class InscriptionController extends Controller
      $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+
+
+
             $em = $this->getDoctrine()->getManager();
+
          $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
          $cle = new KeyValidation($emCle,$user->getIdentifiantWeb());
             
@@ -75,6 +81,10 @@ class InscriptionController extends Controller
 
             $em->flush();
             $this->MailValidation($user, $cle);
+
+            $this->get("session")->getFlashBag()->add(
+                'success',"Votre compte à bien crée, il faut maintenant validé votre addresse email!" );
+            return $this->redirect($this->generateUrl("home"));
         }
         return  Array(
                     "form" => $form->createView(),
@@ -90,7 +100,7 @@ class InscriptionController extends Controller
         
         $body = $converter->generateStyledHTML();
          foreach ($personne->getContacts() as $contact) {
-             dump($contact->getTypeContact()->getType());
+
             if ($contact->getTypeContact()->getType() === "Mail") {
                 $message = \Swift_Message::newInstance()
                         ->setSubject("Inscription au Ropi")

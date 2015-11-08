@@ -53,6 +53,8 @@ class Personne
      */
     private $dateNaissance;
 
+
+
     /**
      * @var \DateTime
      *
@@ -311,4 +313,6 @@ class Personne
     {
         return $this->adresses;
     }
+
+
 }

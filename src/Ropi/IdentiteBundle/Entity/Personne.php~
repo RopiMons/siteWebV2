@@ -54,6 +54,13 @@ class Personne
     private $dateNaissance;
 
     /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creeLe", type="datetime")
@@ -71,7 +78,7 @@ class Personne
     private $commerces;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne")
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", inversedBy="personne")
      */
     private $identifiantWeb;
     

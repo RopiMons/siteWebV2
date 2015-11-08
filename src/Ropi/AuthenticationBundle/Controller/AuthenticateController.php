@@ -63,32 +63,36 @@ class AuthenticateController extends Controller
            
             
             $em = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
-            $validation = $em->findBy(array("cle"=>$key));
+            $validation = $em->findOneBy(array("cle"=>$key));
             
-           if(isset($validation) && $validation[0]->getIdentifiantWeb() === $id){
+           if(isset($validation) && $validation->getIdentifiantWeb() === $id){
                 if($validation[0]->getValidation()->modify('+2 day') >= new \DateTime())
                {
+                   $ems2 = $this->getDoctrine() ->getRepository('RopiAuthenticationBundle:Permission');
+                   $permission = $ems2->findOneBy(array("permission"=>'ROLE_UTILISATEUR_ACTIVE'));
+
                    $id->setActif(true);
+                   $id->addPermission($permission);
                    $em = $this->getDoctrine()->getManager();
                     $em->persist($id);
                     $em->flush();
                     
                     $em->remove($validation[0]);
                     $em->flush();
-           
+
                         
-                   $this->get("session")->getFlashBag(array(
-                       'success'=>"Votre compte à bien été validé" ));
+                   $this->get("session")->getFlashBag()->add(
+                       'success',"Votre compte à bien été validé" );
                }
                else{
-                   $this->get("session")->getFlashBag(array(
-                       'danger'=>"Votre clé de validation n'est plus valide" ));
+                   $this->get("session")->getFlashBag()->add(
+                       'danger',"Votre clé de validation n'est plus valide" );
                }
                
            }
            else{
-               $this->get("session")->getFlashBag(array(
-                       'danger'=>"Votre clé de validation à déjà été utilisé ou n'existe pas" ));
+               $this->get("session")->getFlashBag()-> add(
+                       'danger',"Votre clé de validation à déjà été utilisé ou n'existe pas" );
                }
             }
         
@@ -98,7 +102,7 @@ class AuthenticateController extends Controller
           * il faut juste crée une vue notification et passer un tableau avec la vue et les parametre de la vue.
           */
         
-        return $this->redirect($this->generateUrl("home"));
+        return $this->redirect($this->generateUrl("login"));
     }
     
 

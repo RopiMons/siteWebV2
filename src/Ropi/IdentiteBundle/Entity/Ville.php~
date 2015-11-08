@@ -38,6 +38,13 @@ class Ville
      */
     private $ville;
 
+    /**
+     * @var pays
+     *
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Pays", inversedBy="ville")
+     *
+     */
+    private $pays;
 
     /**
      * Get id
@@ -93,5 +100,36 @@ class Ville
     public function getVille()
     {
         return $this->ville;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Get pays
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Pays $pays
+     * @return Ville
+     */
+    public function setPays(\Ropi\IdentiteBundle\Entity\Pays $pays = null)
+    {
+        $this->pays = $pays;
+
+        return $this;
     }
 }

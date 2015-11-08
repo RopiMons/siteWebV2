@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Ropi\CMSBundle\Entity\PositionnableInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Categorie
@@ -29,6 +30,8 @@ class Categorie implements PositionnableInterface {
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\NotBlank()
+     *
      */
     private $nom;
 

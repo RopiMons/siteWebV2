@@ -13,15 +13,14 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-
-use Ropi\IdentiteBundle\Entity\Personne;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Description of LoadPersonneData
+ * Description of LoadPermissionData
  *
- * @author Laurent Cardon <laurent.cardon@ropi.be>
+ * @author Adrien Huygens <Adrien.huygens@jsb.be>
  */
-class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadPaysData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * {@inheritDoc}
@@ -30,21 +29,19 @@ class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterfac
         
         $tab = array(
            
-            0 => array("Cardon","Laurent",new \DateTime("01-01-1988"), new \DateTime())
+            0 => array("Belgique","ooo","BE"),
+
              
              );
         
         foreach($tab as $element){
-            $personne = new Personne();
-            $personne->setNom($element[0]);
-            $personne->setPrenom($element[1]);
-            $personne->setDateNaissance($element[2]);
-            $personne->setCreeLe($element[3]);
-            $personne->setIdentifiantWeb($this->getReference('lolo'));
+            $type = new \Ropi\IdentiteBundle\Entity\Pays();
+            $type->setNom($element[0]);
+            $type->setRegex($element[1]);
+             $type->setShortNom($element[2]);
 
-           $this->setReference('loloP', $personne);
-            
-            $manager->persist($personne);
+            $manager->persist($type);
+            $this->setReference($element[2],$type);
         }
         
         $manager->flush();
@@ -55,7 +52,7 @@ class LoadPersonneData extends AbstractFixture implements OrderedFixtureInterfac
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 4; // the order in which fixtures will be loaded
+        return 1; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

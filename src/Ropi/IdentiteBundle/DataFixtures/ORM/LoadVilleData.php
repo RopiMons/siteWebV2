@@ -29,7 +29,7 @@ class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, 
         
         $tab = array(
            
-            0 => array("PizzaLand",7050),
+            0 => array("PizzaLand",7050,$this->getReference("BE")),
 
              
              );
@@ -38,7 +38,7 @@ class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, 
             $type = new \Ropi\IdentiteBundle\Entity\Ville();
             $type->setVille($element[0]);
             $type->setCodePostal($element[1]);
-
+            $type->setPays($element[2]);
             $manager->persist($type);
             $this->setReference($element[0],$type);
         }
@@ -51,7 +51,7 @@ class LoadVilleData extends AbstractFixture implements OrderedFixtureInterface, 
      * {@inheritDoc}
      */
     public function getOrder() {
-        return 1; // the order in which fixtures will be loaded
+        return 3; // the order in which fixtures will be loaded
     }
 
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {

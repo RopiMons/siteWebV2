@@ -1,0 +1,191 @@
+<?php
+
+namespace Ropi\IdentiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Pays
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Pays
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=50)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="regex", type="string", length=50)
+     */
+    private $regex;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="shortNom", type="string", length=10)
+     */
+    private $shortNom;
+
+
+    /**
+     * @var Ville
+     *
+     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Ville", mappedBy="pays")
+     *
+     */
+    private $ville;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Pays
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set regex
+     *
+     * @param string $regex
+     * @return Pays
+     */
+    public function setRegex($regex)
+    {
+        $this->regex = $regex;
+
+        return $this;
+    }
+
+    /**
+     * Get regex
+     *
+     * @return string 
+     */
+    public function getRegex()
+    {
+        return $this->regex;
+    }
+
+    /**
+     * Set shortNom
+     *
+     * @param string $shortNom
+     * @return Pays
+     */
+    public function setShortNom($shortNom)
+    {
+        $this->shortNom = $shortNom;
+
+        return $this;
+    }
+
+    /**
+     * Get shortNom
+     *
+     * @return string 
+     */
+    public function getShortNom()
+    {
+        return $this->shortNom;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Ville $ville
+     * @return Pays
+     */
+    public function setVille(\Ropi\IdentiteBundle\Entity\Ville $ville = null)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Ville 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ville = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ville
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Ville $ville
+     * @return Pays
+     */
+    public function addVille(\Ropi\IdentiteBundle\Entity\Ville $ville)
+    {
+        $this->ville[] = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Remove ville
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Ville $ville
+     */
+    public function removeVille(\Ropi\IdentiteBundle\Entity\Ville $ville)
+    {
+        $this->ville->removeElement($ville);
+    }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->nom;
+    }
+}
