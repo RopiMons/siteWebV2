@@ -78,11 +78,7 @@ class DefaultController extends Controller {
             try {
                 $page = $repo->getPageForCMS($categorie, $titreMenu);
 
-                if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
-                    //dump(array_intersect($this->getUser()->getRoles(),(array) $page->getPermissions()));
-                }elseif (in_array("ROLE_ANONYME",(array) $page->getPermissions()) && !$this->getUser()){
-                    dump("Ok anonyme");
-                }else{
+                if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && (!in_array("ROLE_ANONYME",(array) $page->getPermissions()) || $this->getUser())){
                     throw $this->createAccessDeniedException();
                 }
 
