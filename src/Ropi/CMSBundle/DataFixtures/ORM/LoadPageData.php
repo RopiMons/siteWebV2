@@ -244,14 +244,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface {
 <p>[<a href=\"../../../../../source/RopiCharte.pdf\">T&eacute;l&eacute;chargement pdf</a>]</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>"),
-            array(1, "Les commerces", 1, new DateTime("2015-05-26T20:54:06+02:00"), new DateTime("2015-05-26T20:54:06+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_3"), "<h1>Comment trouver les prestataires membres</h1>
-<h2>Cartographie</h2>
-<p>mapfaire.com/Ropi</p>
-<h2>Logo</h2>
-<p>slider avec logo/nom des prestataire.</p>
-<p>Les premiers sont les plus r&eacute;cemments inscrits comme membre</p>
-<h2>Recherche</h2>
-<p>(par commerce / produits / quartier)</p>"),
+
             array(6, "Les billets", 1, new DateTime("2015-05-27T23:51:28+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_2"), "<h1>Pr&eacute;sentation des billets</h1>
 <h2>L\'&eacute;dition 2015</h2>
 <p>En 2015, le Ropi se dote de nouveaux billets reprenant des monuments montois charg&eacute;s d\'histoire.</p>
