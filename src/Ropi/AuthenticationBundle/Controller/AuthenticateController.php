@@ -69,8 +69,8 @@ class AuthenticateController extends Controller
                 if($validation[0]->getValidation()->modify('+2 day') >= new \DateTime())
                {
                    $ems2 = $this->getDoctrine() ->getRepository('RopiAuthenticationBundle:Permission');
-                   $permission = $ems2->findBy(array("nom"=>'ROLE_UTILISATEUR_ACTIVE'));
-
+                   $permission = $ems2->findOneBy(array("permission"=>'ROLE_UTILISATEUR_ACTIVE'));
+                   
                    $id->setActif(true);
                    $id->addPermission($permission);
                    $em = $this->getDoctrine()->getManager();
