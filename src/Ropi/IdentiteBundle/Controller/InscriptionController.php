@@ -81,9 +81,13 @@ class InscriptionController extends Controller
 
             $em->flush();
             $this->MailValidation($user, $cle);
-
+            $validationMail = true;
             $this->get("session")->getFlashBag()->add(
                 'success',"Votre compte à bien crée, il faut maintenant validé votre addresse email!" );
+            if ($validationMail) {
+                $this->get("session")->getFlashBag()->add(
+                    'info', "L'option est temporeraiment désactivé, connexion impossible, merci de votre compréhension!");
+            }
             return $this->redirect($this->generateUrl("home"));
         }
         return  Array(
