@@ -3,7 +3,7 @@
 {% block content %}
 
     {% image '@RopiCMSBundle/Resources/public/img/ropi_map.png'  output="img/ropi_map.png" %}
-        <img class ="img100" id="ropi" src="{{ asset_url }}" usemap="#ropiMap" />
+        <img class ="img100" id="ropi" src="{{ asset_url }}" style="width:100%;" usemap="#ropiMap" />
     {% endimage %}
 
     <map name="ropiMap">
@@ -21,14 +21,17 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts '@RopiCMSBundle/Resources/public/js/init_map.js' %}
+    {% javascripts '@RopiCMSBundle/Resources/public/js/init_map.js'
+    %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
 {% block headJavascripts %}
     {{ parent() }}
-    {% javascripts '@RopiCMSBundle/Resources/public/js/jquery.imagemapster.js' %}
+    {% javascripts '@RopiCMSBundle/Resources/public/js/jquery.imagemapster.js'
+                   '@RopiCMSBundle/Resources/public/js/map_resize.js'
+    %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
