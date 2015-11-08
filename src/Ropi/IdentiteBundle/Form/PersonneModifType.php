@@ -17,7 +17,7 @@ class PersonneModifType extends AbstractType {
         $builder
                 ->add('nom')
                 ->add('prenom')
-                ->add('dateNaissance')
+                ->add('dateNaissance',"birthday")
                 ->add('contacts', 'collection', array(
                     'type' => new ContactType(),
                 ))
