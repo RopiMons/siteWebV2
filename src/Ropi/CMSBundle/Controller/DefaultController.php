@@ -63,7 +63,7 @@ class DefaultController extends Controller {
         $nomFichier = "page_" . $ps->getId() . ".txt";
         $fp = fopen($nomFichier, "w+");
         fseek($fp, 0);
-        $texte = 'array(' . $ps->getPosition() . ', "' . $ps->getTitreMenu() . '", ' . $ps->getIsActive() . ', new DateTime("' . $ps->getLastUpdate()->format(DATE_W3C) . '"), new DateTime("' . $ps->getCreatedAt()->format(DATE_W3C) . '"), new DateTime("' . $ps->getPublicationDate()->format(DATE_W3C) . '"), $this->getReference("CAT_' . $ps->getCategorie()->getPosition() . '"), "' . addt($ps->getContenu()) . '")';
+        $texte = 'array(' . $ps->getPosition() . ', "' . $ps->getTitreMenu() . '", ' . $ps->getIsActive() . ', new DateTime("' . $ps->getLastUpdate()->format(DATE_W3C) . '"), new DateTime("' . $ps->getCreatedAt()->format(DATE_W3C) . '"), new DateTime("' . $ps->getPublicationDate()->format(DATE_W3C) . '"), $this->getReference("CAT_' . $ps->getCategorie()->getPosition() . '"), "' . addslashes($ps->getContenu()) . '")';
         fputs($fp, $texte);
         fclose($fp);
     }
