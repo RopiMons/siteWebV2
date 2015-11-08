@@ -43,7 +43,8 @@
         "knplabs/knp-menu-bundle": "~2",
         "knplabs/knp-paginator-bundle": "dev-master",
         "jms/security-extra-bundle": "dev-master",
-        "stfalcon/tinymce-bundle": "dev-master"
+        "stfalcon/tinymce-bundle": "dev-master",
+        "egeloen/google-map-bundle": "~2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

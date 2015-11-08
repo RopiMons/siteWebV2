@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use PhpOption\Tests\Repository;
 use Proxies\__CG__\Ropi\CMSBundle\Entity\Categorie;
 use Ropi\CMSBundle\Form\CategorieType;
+use Ropi\CMSBundle\Map\MapBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -93,8 +94,11 @@ class DefaultController extends Controller {
     }
 
     private function indexAction() {
+        $mapBuilder = new MapBuilder();
+
         return $this->render('RopiCMSBundle:Default:index.html.twig', array(
                     'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
+                    'map' => $mapBuilder->getMap()
         ));
     }
 

@@ -31,6 +31,8 @@ class AppKernel extends Kernel {
             new Ropi\CommerceBundle\RopiCommerceBundle(),
             new Ropi\IdentiteBundle\RopiIdentiteBundle(),
             new Ropi\ParametresBundle\RopiParametresBundle(),
+
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
         );
 
 

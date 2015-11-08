@@ -7,8 +7,9 @@
 /web/bundles/
 /nbproject/*
 /web/css/*
+/web/img/ropi_map_ropi_map_1.png
+/web/img/ropi_map.png
 /web/js/*
-/web/img/*
 /web/fonts/*
 /web/*.txt
 composer.lock

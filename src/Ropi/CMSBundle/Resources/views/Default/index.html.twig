@@ -37,3 +37,9 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
+
+{% block rightColumn %}
+    <h2>Les commercants Ropi</h2>
+    {{ google_map(map) }}
+{% endblock %}
+
