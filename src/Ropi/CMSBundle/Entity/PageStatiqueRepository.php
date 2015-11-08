@@ -3,6 +3,7 @@
 namespace Ropi\CMSBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * PageStatiqueRepository
@@ -14,8 +15,9 @@ class PageStatiqueRepository extends EntityRepository {
 
     public function getPageForCMS($categorieNom, $pageTitreMenu) {
         return $this->createQueryBuilder("p")
-                        ->select(array("p", "c"))
+                        ->select(array("p", "c", "perm"))
                         ->join("p.categorie", "c")
+                        ->join("p.permissions",'perm')
                         ->where("p.isActive = :true")
                         ->andWhere("p.publicationDate <= :dateNow ")
                         ->andWhere('p.titreMenu = :titreMenu')

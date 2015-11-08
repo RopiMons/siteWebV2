@@ -26,8 +26,8 @@ class Builder extends AbstractMenu {
       } */
 
     protected function tableau() {
-        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages($this->permissions);
 
+        $listeCategories = $this->em->getRepository('RopiCMSBundle:Categorie')->loadPages($this->permissions);
         usort($listeCategories, function($a, $b) {
             return $this->comparePosition($a, $b);
         });

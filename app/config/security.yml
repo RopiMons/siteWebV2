@@ -8,6 +8,7 @@ security:
    
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
+        ROLE_USER: IS_AUTHENTICATED_ANONYMOUSLY
 
     
     firewalls:
@@ -15,13 +16,13 @@ security:
             
         auth_area:
             
-            pattern: ^/(login_check|my|logout)
+            pattern: ^/
             form_login:
                 check_path:  /login_check
             logout:
                 path:   /logout
                 target: login
-            #anonymous: ~
+            anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
 
@@ -31,3 +32,5 @@ security:
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/my/cms/*, roles: ROLE_ADMIN }
+        - { path: ^/(login_check|my|logout), roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

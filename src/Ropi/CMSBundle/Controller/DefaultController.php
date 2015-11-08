@@ -47,7 +47,7 @@ class DefaultController extends Controller {
             $this->ecrireResultat($page);
 
             $this->get('session')->getFlashBag()->add(
-                    'success', 'La page a bien été créée !'
+                'success', 'La page a bien été créée !'
             );
 
             return $this->redirect($this->generateUrl("CMS_static_create"));
@@ -77,13 +77,23 @@ class DefaultController extends Controller {
             $repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique');
             try {
                 $page = $repo->getPageForCMS($categorie, $titreMenu);
+
+                if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
+                    //dump(array_intersect($this->getUser()->getRoles(),(array) $page->getPermissions()));
+                }elseif (in_array("ROLE_ANONYME",(array) $page->getPermissions()) && !$this->getUser()){
+                    dump("Ok anonyme");
+                }else{
+                    throw $this->createAccessDeniedException();
+                }
+
+
             } catch (NoResultException $ex) {
                 $page = null;
             }
 
             if ($page) {
                 return $this->render('RopiCMSBundle:Default:cmsStatique.html.twig', array(
-                            'page' => $page,
+                    'page' => $page,
                 ));
             } else {
                 throw $this->createNotFoundException("Cette page n'a pas été trouvée");
@@ -97,8 +107,8 @@ class DefaultController extends Controller {
         $mapBuilder = new MapBuilder();
 
         return $this->render('RopiCMSBundle:Default:index.html.twig', array(
-                    'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
-                    'map' => $mapBuilder->getMap()
+            'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
+            'map' => $mapBuilder->getMap()
         ));
     }
 
@@ -124,7 +134,7 @@ class DefaultController extends Controller {
                     if($chg) {
                         $catRepo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie");
                         $page->setPosition($catRepo->getLastPosition($page->getCategorie()->getId()) + 1);
-                        }
+                    }
 
                     $this->ecrireResultat($page);
                     $em->persist($page);
@@ -136,14 +146,14 @@ class DefaultController extends Controller {
                     }
 
                     $this->get('session')->getFlashBag()->add(
-                            'success', 'Modification réalisée avec succès !'
+                        'success', 'Modification réalisée avec succès !'
                     );
                     return $this->redirect($this->generateUrl("CMS_pages"));
                 }
 
                 return $this->render('RopiCMSBundle:Default:createStatique.html.twig', array(
-                            'titre' => 'Modification de la page',
-                            'form' => $form->createView()
+                    'titre' => 'Modification de la page',
+                    'form' => $form->createView()
                 ));
             } else {
                 return $this->redirect($this->generateUrl("CMS_static_update"));
@@ -152,8 +162,8 @@ class DefaultController extends Controller {
             $pages = $repo->findAll();
 
             return $this->render("RopiCMSBundle:Default:listeA.html.twig", array(
-                        'liste' => $pages,
-                        'titre' => "Sélection de la page à modifier",
+                'liste' => $pages,
+                'titre' => "Sélection de la page à modifier",
             ));
         }
     }
@@ -177,6 +187,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/page/remove/{id}", requirements={"id" = "\d+"}, name="CMS_page_remove")
+     *     @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
     public function removePage($id) {
         $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page")->find($id);
@@ -188,6 +199,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/categorie/remove/{id}", requirements={"id" = "\d+"}, name="CMS_categorie_remove")
+     *     @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
     public function removeCategorie($id) {
         $categorie = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie")->find($id);
@@ -236,7 +248,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/page/active/{id}", requirements={"id" = "\d+"}, name="CMS_page_inverse" )
-     *
+     * @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
     public function inversedActive($id) {
         $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique")->findOneBy(array('id' => $id));
@@ -256,6 +268,8 @@ class DefaultController extends Controller {
      *
      * @Route("/my/cms/categorie/up/{id}", requirements={"id" = "\d+"}, defaults={"sens" = -1, "type"="categorie"}, name="CMS_categories_up")
      * @Route("/my/cms/categorie/down/{id}", requirements={"id" = "\d+"}, defaults={"sens" = 1, "type"="categorie"}, name="CMS_categories_down")
+     *
+     * @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
     public function moveAction($id, $sens, $type) {
 
@@ -358,6 +372,28 @@ class DefaultController extends Controller {
             'titre' => "Ajout d'une catégorie",
             'form' => $form->createView()
         );
+    }
+
+    /**
+     * @Route("/my/cms/permissions/change/{idPage}/{permissionNom}", requirements={"idPage" = "\d+"}, name="CMS_perm_change")
+     * @Secure(roles={"ROLE_CMS_CREATE","ROLE_ADMIN"})
+     */
+    public function inverseDroit($permissionNom, $idPage){
+        $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page")->find($idPage);
+        $permission = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneBy(array('permission' => $permissionNom));
+
+        if($page && $permission){
+            if($page->hasPermission($permission)){
+                $page->removePermission($permission);
+            }else{
+                $page->addPermission($permission);
+            }
+            $this->getDoctrine()->getManager()->flush();
+        }else{
+            throw $this->createNotFoundException();
+        }
+
+        return $this->redirectToRoute('CMS_pages');
     }
 
 }

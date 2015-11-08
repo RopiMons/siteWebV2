@@ -26,7 +26,7 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
     public function load(ObjectManager $manager) {
         
         $tab = array(
-            0 => array("ROLE_CMS_CREATE","Créer une page avec le CMS","Autorise la personne qui possède cette autorisation à créer une nouvelle page dans le système de CMS"),
+            0 => array("ROLE_CMS_CREATE","Editeur CMS","Autorise la personne qui possède cette autorisation à créer une nouvelle page dans le système de CMS"),
             1 => array("ROLE_ADMIN","Administrateur","Donne l'access total à l'administration"), 
             2 => array("ROLE_COMMERCANT","Commercant enregistré", "Permet de réaliser le CRUD sur les commerces propres"),
             3 => array("ROLE_UTILISATEUR_ACTIVE","Utilisateur activé","Permet de distingué un utilisateur authentifié"),

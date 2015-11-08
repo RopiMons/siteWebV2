@@ -41,6 +41,26 @@ class CategorieRepository extends EntityRepository {
                 ->setParameter('true', TRUE, \Doctrine\DBAL\Types\Type::BOOLEAN)
                 ->setParameter('date', new \DateTime(), \Doctrine\DBAL\Types\Type::DATETIME)
         ;
+
+        $first = true;
+        $chaine = "";
+
+        foreach($permissions as $key => $perm){
+
+
+
+            if($key){
+                $chaine = $chaine." OR ";
+            }
+
+            $chaine = $chaine."perm.permission = :perm".$key;
+
+            $qb->setParameter('perm'.$key,$perm);
+
+        }
+
+        $qb->andWhere($chaine);
+
         return $qb
                         ->getQuery()
                         ->execute()

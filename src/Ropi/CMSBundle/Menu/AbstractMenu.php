@@ -32,10 +32,10 @@ Abstract class AbstractMenu extends ContainerAware {
     public function __construct(FactoryInterface $factory, EntityManager $em, SecurityContext $securityContext) {
         $this->factory = $factory;
         $this->em = $em;
-        if ($securityContext->getToken() != null) {
+        if ($securityContext->isGranted("IS_AUTHENTICATED_FULLY")) {
             $this->permissions = $securityContext->getToken()->getUser()->getRoles();
         } else {
-            $this->permissions = array();
+            $this->permissions = array("ROLE_ANONYME");
         }
     }
 
