@@ -1,6 +1,3 @@
-/src/Ropi/CMSBundle/DataFixtures/ORM/LoadPageDynamiqueData.php
-/src/Ropi/CMSBundle/DataFixtures/ORM/LoadPageData.php
-/src/Ropi/CMSBundle/DataFixtures/ORM/LoadCategorieData.php
 /app/logs/*
 !app/logs/.gitkeep
 /app/phpunit.xml
