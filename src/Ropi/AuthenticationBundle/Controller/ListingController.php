@@ -9,16 +9,16 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
 
-class ModificationController extends Controller
+class ListingController extends Controller
 {
     
 
     
     /**
-     * @Route("/my/account/pwd",name="Ropi_change_pwd")
+     * @Route("/my/account/psw",name="Ropi_change_pwsd")
      * 
      */
-     public function changePSW(Request $request) {
+     public function chasngePSW(Request $request) {
 
          $user = $this->container->get('security.context')->getToken()->getUser();
         $form = $this->createForm(new changePWDType(),$user );

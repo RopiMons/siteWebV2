@@ -33,7 +33,7 @@ class AccountController extends Controller
 
 
     /**
-     * @Route("/my/account/modification/", name="ropi_account")
+     * @Route("/my/account/modification/", name="Ropi_account_modification")
      * @Template()
      */
 public function modifAccountAction(Request $request){
