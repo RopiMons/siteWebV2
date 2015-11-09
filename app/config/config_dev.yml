@@ -53,3 +53,6 @@ assetic:
 #           default:
 #                metadata_cache_driver: apc
 #                query_cache_driver: apc
+
+swiftmailer:
+    disable_delivery: false

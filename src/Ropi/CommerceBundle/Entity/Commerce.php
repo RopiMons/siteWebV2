@@ -4,16 +4,21 @@ namespace Ropi\CommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * Commerce
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\CommerceRepository")
- * 
+ *
  * @ORM\HasLifecycleCallbacks()
- * 
+ *
  * @UniqueEntity(fields={"nom"}, message="Un commerce a déjà ce nom")
+ *
+ * @Vich\Uploadable
  */
 class Commerce
 {
@@ -23,7 +28,7 @@ class Commerce
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
+     *
      */
     private $id;
 
@@ -40,14 +45,14 @@ class Commerce
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="valide", type="boolean")
      */
     private $valide;
-    
+
     /**
      * @var string
      *
@@ -68,12 +73,12 @@ class Commerce
      * @ORM\Column(name="updateAt", type="datetime")
      */
     private $updateAt;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
      */
     private $adresses;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commerces")
      */
@@ -81,14 +86,30 @@ class Commerce
 
     /**
      *
-     * ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="commerces", cascade="remove") 
+     * ORM\OneToMany(targetEntity="Etiquette", mappedBy="commerces", cascade="remove")
      */
     private $etiquettes;
-    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255)
+     */
+    private $logo;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo")
+     *
+     * @var File
+     */
+    private $imageFile;
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -111,7 +132,7 @@ class Commerce
     /**
      * Get nom
      *
-     * @return string 
+     * @return string
      */
     public function getNom()
     {
@@ -134,7 +155,7 @@ class Commerce
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -157,7 +178,7 @@ class Commerce
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -180,13 +201,13 @@ class Commerce
     /**
      * Get updateAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateAt()
     {
         return $this->updateAt;
     }
-    
+
     /**
      * @ORM\PrePersist
      */
@@ -194,16 +215,16 @@ class Commerce
         $now = new \DateTime();
         $this->createdAt = $now;
         $this->updateAt = $now;
-        
+
         if(!isset($this->valide)){
             $this->valide = false;
         }
-        
+
         if(!isset($this->visible)){
             $this->visible = false;
         }
     }
-    
+
     /**
      * @ORM\PreUpdate
      */
@@ -244,7 +265,7 @@ class Commerce
     /**
      * Get adresses
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAdresses()
     {
@@ -267,7 +288,7 @@ class Commerce
     /**
      * Get valide
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValide()
     {
@@ -290,7 +311,7 @@ class Commerce
     /**
      * Get visible
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVisible()
     {
@@ -323,7 +344,7 @@ class Commerce
     /**
      * Get personnes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPersonnes()
     {
@@ -333,10 +354,10 @@ class Commerce
     /**
      * Add etiquettes
      *
-     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes
+     * @param \Ropi\CommerceBundle\Entity\Etiquette $etiquettes
      * @return Commerce
      */
-    public function addEtiquette(\Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes)
+    public function addEtiquette(\Ropi\CommerceBundle\Entity\Etiquette $etiquettes)
     {
         $this->etiquettes[] = $etiquettes;
 
@@ -346,9 +367,9 @@ class Commerce
     /**
      * Remove etiquettes
      *
-     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes
+     * @param \Ropi\CommerceBundle\Entity\Etiquette $etiquettes
      */
-    public function removeEtiquette(\Ropi\CommerceBundle\Entity\Commerce_etiquette $etiquettes)
+    public function removeEtiquette(\Ropi\CommerceBundle\Entity\Etiquette $etiquettes)
     {
         $this->etiquettes->removeElement($etiquettes);
     }
@@ -356,10 +377,69 @@ class Commerce
     /**
      * Get etiquettes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEtiquettes()
     {
         return $this->etiquettes;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+    }
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     * @return Commerce
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string 
+     */
+    public function getLogo()
+    {
+        return $this->logo;
     }
 }

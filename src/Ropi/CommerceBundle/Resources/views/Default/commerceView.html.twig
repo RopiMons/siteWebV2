@@ -2,5 +2,6 @@
 
 {% block content %}
     <h1>{{ commerce.nom }}</h1>
+    <img class="col-sm-12 logo" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" />
     {{ commerce.description|raw }}
 {% endblock %}

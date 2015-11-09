@@ -13,7 +13,7 @@
         </thead>
         {% for commerce in commerces %}
             <tr>
-                <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}">Logo</a></td>
+                <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}"><img class="col-sm-12 logo" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" /></a></td>
                 <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}">{{ commerce.nom }}</a></td>
                 <td>
                     {% for adresse in commerce.adresses %}

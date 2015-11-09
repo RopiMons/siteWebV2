@@ -53,12 +53,7 @@ class Personne
      */
     private $dateNaissance;
 
-    /**
-     * @var \boolean
-     *
-     * @ORM\Column(name="actif", type="boolean")
-     */
-    private $actif;
+
 
     /**
      * @var \DateTime
@@ -318,4 +313,6 @@ class Personne
     {
         return $this->adresses;
     }
+
+
 }

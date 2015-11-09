@@ -15,29 +15,35 @@ class CommerceType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('nom', null, array(
-                    'label' => 'Nom de votre commerce'
-                ))
-                ->add('description', null, array(
-                    'label' => 'Description de votre commerce',
-                    //'attr' => array(
-                    //    'class' => 'tinymce',
-                    //    'data-theme' => 'advanced'
-                    //)
-                ))
-                ->add('adresses', 'collection', array(
-                    'label' => 'Adresse de votre commerce',
-                    'type' => new AdresseCommerceType(),
-                    'cascade_validation' => true
-                ))
-                /*->add('visible', null, array(
-                    'label' => 'Publier les informations sur le site ',
-                    'required' => false,
-                    'data' => true
-                ))*/
+            ->add('nom', null, array(
+                'label' => 'Nom de votre commerce'
+            ))
+            ->add('description', null, array(
+                'label' => 'Description de votre commerce',
+                //'attr' => array(
+                //    'class' => 'tinymce',
+                //    'data-theme' => 'advanced'
+                //)
+            ))
+            ->add('imageFile', 'vich_image', array(
+                'required'      => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_link' => true, // not mandatory, default is true
 
-        //->add('createdAt')
-        //->add('updateAt')
+            ))
+            ->add('adresses', 'collection', array(
+                'label' => 'Adresse de votre commerce',
+                'type' => new AdresseCommerceType(),
+                'cascade_validation' => true
+            ))
+            /*->add('visible', null, array(
+                'label' => 'Publier les informations sur le site ',
+                'required' => false,
+                'data' => true
+            ))*/
+
+            //->add('createdAt')
+            //->add('updateAt')
         ;
     }
 

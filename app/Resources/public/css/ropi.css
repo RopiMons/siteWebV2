@@ -57,6 +57,11 @@ body{
 	width: 100%; 
 }
 
+.logo {
+	width : 90%;
+	text-align: center;
+}
+
 .text-justified{
 	text-align: justify;
 	text-justify:inter-word;
