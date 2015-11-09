@@ -27,11 +27,15 @@ class LoadPageDynamiqueData extends AbstractFixture implements OrderedFixtureInt
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array(1, "Nos commerçants", true, new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_3"), "commerces", array($this->getReference("PERM_ROLE_ANONYME","PERM_ROLE_UTILISATEUR_ACTIVE"))),
-            array(1, "Accueil", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "home", array($this->getReference("PERM_ROLE_ANONYME","PERM_ROLE_UTILISATEUR_ACTIVE"))),
+            array(1, "Nos commerçants", true, new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-05-26 13:48:41"), new \DateTime("2015-01-01 00:00:00"), $this->getReference("CAT_3"), "commerces", array($this->getReference("PERM_ROLE_ANONYME"),$this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"),$this->getReference("PERM_ROLE_CMS_CREATE"))),
+            array(1, "Accueil", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_1"), "home", array($this->getReference("PERM_ROLE_ANONYME"),$this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"),$this->getReference("PERM_ROLE_CMS_CREATE"))),
             array(1, "Se connecter", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "login", array($this->getReference("PERM_ROLE_ANONYME"))),
             array(2, "S'inscrire", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "ropi_inscription", array($this->getReference("PERM_ROLE_ANONYME"))),
-
+            array(3, "Ajouter mon commerce", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "commerce_new", array($this->getReference("PERM_ROLE_COMMERCANT"),$this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"))),
+            array(4, "Me déconnecter", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_5"), "logout", array($this->getReference("PERM_ROLE_ADMIN"),$this->getReference("PERM_ROLE_CMS_CREATE"),$this->getReference("PERM_ROLE_COMMERCANT"),$this->getReference("PERM_ROLE_UTILISATEUR_ACTIVE"))),
+            array(1, "Zone CMS", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_6"), "CMS_pages", array($this->getReference("PERM_ROLE_ADMIN"),$this->getReference("PERM_ROLE_CMS_CREATE"))),
+            array(2, "Zone Admin", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_6"), "admin_home", array($this->getReference("PERM_ROLE_ADMIN"))),
+            array(3, "Zone Admin commerces", 1, new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-05-27T20:39:18+02:00"), new DateTime("2015-01-01T00:00:00+01:00"), $this->getReference("CAT_6"), "admin_commerces", array($this->getReference("PERM_ROLE_ADMIN")))
         );
 
         foreach ($tab as $element) {

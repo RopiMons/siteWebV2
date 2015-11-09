@@ -30,11 +30,11 @@ class CommerceType extends AbstractType {
                     'type' => new AdresseCommerceType(),
                     'cascade_validation' => true
                 ))
-                ->add('visible', null, array(
+                /*->add('visible', null, array(
                     'label' => 'Publier les informations sur le site ',
                     'required' => false,
                     'data' => true
-                ))
+                ))*/
 
         //->add('createdAt')
         //->add('updateAt')

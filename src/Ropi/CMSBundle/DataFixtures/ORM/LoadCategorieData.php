@@ -30,7 +30,8 @@ class LoadCategorieData extends AbstractFixture implements OrderedFixtureInterfa
             array(2,"Ropi",true),
             array(3,"Commerces",true), //Monopage
             array(4,"Documents",true),
-            array(5,"Mon espace Ropi",true)
+            array(5,"Mon espace Ropi",true),
+            array(6,"Zones d'administration",true)
         );
         
         foreach($tab as $element){
