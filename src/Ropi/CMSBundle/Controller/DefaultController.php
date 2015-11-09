@@ -98,8 +98,16 @@ class DefaultController extends Controller {
     }
 
     private function verifAutorisation(Page $page){
-        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && (!in_array("ROLE_ANONYME",(array) $page->getPermissions()) || $this->getUser())){
-            throw $this->createAccessDeniedException();
+
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && !$page->hasPermissionString("ROLE_ANONYME")){
+            //Si on est ici c'est que la page n'est pas publique
+
+
+            if(!$this->getUser() || !$page->hasPermissionsString($this->getUser()->getRoles())){
+                throw $this->createAccessDeniedException();
+            }
+
+
         }
     }
 
