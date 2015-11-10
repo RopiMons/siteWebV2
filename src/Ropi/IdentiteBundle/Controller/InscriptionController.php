@@ -84,8 +84,8 @@ class InscriptionController extends Controller
 
             $this->get("session")->getFlashBag()->add(
                 'success',"Votre compte à bien crée, il faut maintenant validé votre addresse email!" );
-            
-          //  return $this->redirect($this->generateUrl("home"));
+
+          return  $this->redirect($this->generateUrl("home"));
         }
         return  Array(
                     "form" => $form->createView(),
