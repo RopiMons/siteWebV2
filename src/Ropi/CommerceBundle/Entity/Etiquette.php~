@@ -6,14 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
+
 /**
  * Etiquette
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\EtiquetteRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\EtiquetteRepository") *
  */
 class Etiquette
 {
+
     /**
      * @var integer
      *
@@ -23,13 +25,14 @@ class Etiquette
      */
     private $id;
 
+
     /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50)
      * @Assert\Length(min=3, minMessage="Vous devez avoir un nom d'utilisateur de min {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")  
-     * 
+     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
+     *
      */
     private $nom;
 
@@ -56,14 +59,14 @@ class Etiquette
 
     /**
      *
-     * ORM\OneToMany(targetEntity="Commerce_etiquette", mappedBy="etiquettes", cascade="remove") 
+     * ORM\ManyToOne(targetEntity="Commerce", inversedBy="etiquettes")
      */
     private $commerces;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,7 +89,7 @@ class Etiquette
     /**
      * Get nom
      *
-     * @return string 
+     * @return string
      */
     public function getNom()
     {
@@ -109,7 +112,7 @@ class Etiquette
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -132,7 +135,7 @@ class Etiquette
     /**
      * Get logo
      *
-     * @return string 
+     * @return string
      */
     public function getLogo()
     {
@@ -155,7 +158,7 @@ class Etiquette
     /**
      * Get certification
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCertification()
     {
@@ -172,10 +175,10 @@ class Etiquette
     /**
      * Add commerces
      *
-     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces
-     * @return Etiquette
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
+     * @return Commerce
      */
-    public function addCommerce(\Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces)
+    public function addCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerces)
     {
         $this->commerces[] = $commerces;
 
@@ -185,9 +188,9 @@ class Etiquette
     /**
      * Remove commerces
      *
-     * @param \Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
      */
-    public function removeCommerce(\Ropi\CommerceBundle\Entity\Commerce_etiquette $commerces)
+    public function removeCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerces)
     {
         $this->commerces->removeElement($commerces);
     }
@@ -195,10 +198,11 @@ class Etiquette
     /**
      * Get commerces
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCommerces()
     {
         return $this->commerces;
     }
+
 }

@@ -69,7 +69,7 @@ class AuthenticateController extends Controller
             $validation = $em->findOneBy(array("cle"=>$key));
             
            if(isset($validation) && $validation->getIdentifiantWeb() === $id){
-                if($validation[0]->getValidation()->modify('+2 day') >= new \DateTime())
+                if($validation->getValidation()->modify('+2 day') >= new \DateTime())
                {
                    $ems2 = $this->getDoctrine() ->getRepository('RopiAuthenticationBundle:Permission');
                    $permission = $ems2->findOneBy(array("permission"=>'ROLE_UTILISATEUR_ACTIVE'));
@@ -80,7 +80,7 @@ class AuthenticateController extends Controller
                     $em->persist($id);
                     $em->flush();
                     
-                    $em->remove($validation[0]);
+                    $em->remove($validation);
                     $em->flush();
 
                         

@@ -2,6 +2,7 @@
 
 namespace Ropi\IdentiteBundle\Form;
 
+use Ropi\IdentiteBundle\Entity\TypeAdresseRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,7 +27,14 @@ class AdresseType extends AbstractType
                 'label' => 'Complément d\'adresse',
                 'required' => false
             ))
-            ->add('typeAdresse',null)
+            ->add('typeAdresse','entity', array(
+                'class' => 'RopiIdentiteBundle:TypeAdresse',
+                'query_builder' => function(TypeAdresseRepository $er) {
+                    return $er->createQueryBuilder('T')->where("T.obligatoire = 1");
+
+                },
+            )
+            )
             ->add('ville', new VilleType(), array(
                 'cascade_validation' => true
             ))

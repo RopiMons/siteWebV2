@@ -5,6 +5,7 @@ namespace Ropi\CMSBundle\Controller;
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use PhpOption\Tests\Repository;
 use Proxies\__CG__\Ropi\CMSBundle\Entity\Categorie;
+use Ropi\CMSBundle\Entity\Page;
 use Ropi\CMSBundle\Form\CategorieType;
 use Ropi\CMSBundle\Map\MapBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -77,11 +78,7 @@ class DefaultController extends Controller {
             $repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique');
             try {
                 $page = $repo->getPageForCMS($categorie, $titreMenu);
-
-                if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && (!in_array("ROLE_ANONYME",(array) $page->getPermissions()) || $this->getUser())){
-                    throw $this->createAccessDeniedException();
-                }
-
+                $this->verifAutorisation($page);
 
             } catch (NoResultException $ex) {
                 $page = null;
@@ -95,7 +92,22 @@ class DefaultController extends Controller {
                 throw $this->createNotFoundException("Cette page n'a pas été trouvée");
             }
         } else {
+            $this->verifAutorisation($repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageDynamique')->findOneBy(array('titreMenu'=>'Accueil')));
             return $this->indexAction();
+        }
+    }
+
+    private function verifAutorisation(Page $page){
+
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && !$page->hasPermissionString("ROLE_ANONYME")){
+            //Si on est ici c'est que la page n'est pas publique
+
+
+            if(!$this->getUser() || !$page->hasPermissionsString($this->getUser()->getRoles())){
+                throw $this->createAccessDeniedException();
+            }
+
+
         }
     }
 

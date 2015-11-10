@@ -313,4 +313,35 @@ abstract class Page implements PositionnableInterface {
     public function hasPermission(Permission $permission){
         return $this->getPermissions()->contains($permission);
     }
+
+    public function hasPermissions($tab){
+        foreach($tab as $element){
+            if($this->getPermissions()->contains($element)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasPermissionString ($permission){
+        $trouve = false;
+        foreach ( $this->getPermissions() as $perm) {
+            if($perm->getPermission() == $permission){
+                $trouve = true;
+                break;
+            }
+        }
+        return $trouve;
+    }
+
+    public function hasPermissionsString ($tab){
+        $trouve = false;
+        foreach($tab as $el){
+            if($this->hasPermission($el)){
+                $trouve = true;
+                break;
+            }
+        }
+        return $trouve;
+    }
 }

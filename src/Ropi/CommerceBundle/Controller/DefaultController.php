@@ -34,6 +34,7 @@ class DefaultController extends Controller {
 
             $commerce = $form->getData();
             $commerce->addPersonne($this->getUser()->getPersonne());
+            $commerce->setVisible(false);
             $adresses = $commerce->getAdresses();
 
             foreach ($adresses as $adresse) {

@@ -27,7 +27,7 @@ class AdresseCommerceType extends AbstractType
                 'required' => false
             ))
                 
-            ->add('ville', new VilleType(), array(
+            ->add('ville', new VilleCommerceType(), array(
                 'cascade_validation' => true
             ))
         ;

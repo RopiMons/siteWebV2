@@ -20,3 +20,4 @@ composer.lock
 /app/bootstrap.php.cache
 /app/config/parameters.yml
 /.idea/
+/web/images

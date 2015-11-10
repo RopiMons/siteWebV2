@@ -79,29 +79,26 @@ class InscriptionController extends Controller
          $em->persist($cle);
             $em->persist($user);
 
-            $em->flush();
+           $em->flush();
             $this->MailValidation($user, $cle);
-            $validationMail = true;
+
             $this->get("session")->getFlashBag()->add(
                 'success',"Votre compte à bien crée, il faut maintenant validé votre addresse email!" );
-            if ($validationMail) {
-                $this->get("session")->getFlashBag()->add(
-                    'info', "L'option est temporeraiment désactivé, connexion impossible, merci de votre compréhension!");
-            }
-            return $this->redirect($this->generateUrl("home"));
+
+          return  $this->redirect($this->generateUrl("home"));
         }
         return  Array(
                     "form" => $form->createView(),
         );
     }
     private function MailValidation(Personne $personne, KeyValidation $cle){
-        
 
-        $converter = $this->get('css_to_inline_email_converter');
+
+       $converter = $this->get('css_to_inline_email_converter');
         $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array('login' => $personne->getIdentifiantWeb()->getUsername(),
                         'id' =>$personne->getIdentifiantWeb()->getId(),'cle'=>$cle->getCle()));
-        $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css'));
-        
+        $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css')); //$personne->getIdentifiantWeb()->getId()
+
         $body = $converter->generateStyledHTML();
          foreach ($personne->getContacts() as $contact) {
 
@@ -110,9 +107,12 @@ class InscriptionController extends Controller
                         ->setSubject("Inscription au Ropi")
                         ->setFrom("info@ropi.be")
                         ->setTo($contact->getValeur())
-                        ->setBody($body)
+                    ->setContentType('text/html')
+                        ->setBody($body);
+
+
                 ;
-              
+
                 $this->get('mailer')->send($message);
             }
     }

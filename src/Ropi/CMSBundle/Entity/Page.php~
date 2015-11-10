@@ -3,6 +3,7 @@
 namespace Ropi\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ropi\AuthenticationBundle\Entity\Permission;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Ropi\CMSBundle\Entity\PositionnableInterface;
@@ -307,5 +308,9 @@ abstract class Page implements PositionnableInterface {
     public function getPermissions()
     {
         return $this->permissions;
+    }
+
+    public function hasPermission(Permission $permission){
+        return $this->getPermissions()->contains($permission);
     }
 }
