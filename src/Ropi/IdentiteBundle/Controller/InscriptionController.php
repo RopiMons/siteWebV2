@@ -79,7 +79,7 @@ class InscriptionController extends Controller
          $em->persist($cle);
             $em->persist($user);
 
-           // $em->flush();
+           $em->flush();
             $this->MailValidation($user, $cle);
             $validationMail = true;
             $this->get("session")->getFlashBag()->add(
@@ -99,9 +99,9 @@ class InscriptionController extends Controller
 
        $converter = $this->get('css_to_inline_email_converter');
         $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array('login' => $personne->getIdentifiantWeb()->getUsername(),
-                        'id' =>11,'cle'=>$cle->getCle()));
+                        'id' =>$personne->getIdentifiantWeb()->getId(),'cle'=>$cle->getCle()));
         $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css')); //$personne->getIdentifiantWeb()->getId()
-        dump($converter);
+
         $body = $converter->generateStyledHTML();
          foreach ($personne->getContacts() as $contact) {
 
