@@ -15,7 +15,7 @@ class ModificationController extends Controller
 
     
     /**
-     * @Route("/my/account/psw",name="Ropi_change_pwd")
+     * @Route("/my/account/pwd",name="Ropi_change_pwd")
      * 
      */
      public function changePSW(Request $request) {

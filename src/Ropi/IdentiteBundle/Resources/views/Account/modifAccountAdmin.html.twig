@@ -1,0 +1,7 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}Modification de l'utilisateur {% endblock %}
+
+{% block content %}
+ {{ include('RopiIdentiteBundle:Account:modifAccountForm.html.twig', {'titre': "Modification de l'utilisateur"}) }}
+{% endblock %}

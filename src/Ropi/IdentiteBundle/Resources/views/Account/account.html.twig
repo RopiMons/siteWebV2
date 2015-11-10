@@ -20,11 +20,11 @@
     Username: {{ user.identifiantWeb.username }}<br/>
     Derniére Connection {{ user.identifiantWeb.lastConnection |date('d-m-Y H:m:s')}}<br>
 
-    <a href="Ropi_change_pwd"> Changer le mot de passe</a>
+    <a href="{{ path("Ropi_change_pwd") }}"> Changer le mot de passe</a>
     <br>
     <br>
 
-  <a href="http://www.google.be" alt="bouton modification compte"><button class="center"> modifier mon compte</button></a>
+  <a href="{{ path("Ropi_account_modification") }}" alt="bouton modification compte"><button class="center"> modifier mon compte</button></a>
 
 
 
