@@ -53,6 +53,12 @@ class Personne
      */
     private $dateNaissance;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Ropi\CommandeBundle\Entity\Commande", mappedBy="client")
+     */
+
+    private $commandes;
+
 
 
     /**
@@ -315,4 +321,37 @@ class Personne
     }
 
 
+
+    /**
+     * Add commandes
+     *
+     * @param \Ropi\CommandeBundle\Entity\Commande $commandes
+     * @return Personne
+     */
+    public function addCommande(\Ropi\CommandeBundle\Entity\Commande $commandes)
+    {
+        $this->commandes[] = $commandes;
+
+        return $this;
+    }
+
+    /**
+     * Remove commandes
+     *
+     * @param \Ropi\CommandeBundle\Entity\Commande $commandes
+     */
+    public function removeCommande(\Ropi\CommandeBundle\Entity\Commande $commandes)
+    {
+        $this->commandes->removeElement($commandes);
+    }
+
+    /**
+     * Get commandes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
+    }
 }

@@ -33,6 +33,7 @@ class AppKernel extends Kernel {
             new Ropi\ParametresBundle\RopiParametresBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new Ropi\CommandeBundle\RopiCommandeBundle(),
         );
 
 

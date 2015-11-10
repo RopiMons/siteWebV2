@@ -7,7 +7,10 @@ security:
             entity: { class:  RopiAuthenticationBundle:IdentifiantWeb }
    
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+        ROLE_ADMIN: ROLE_CMS_CREATE
+        ROLE_CMS_CREATE : ROLE_UTILISATEUR_ACTIVE
+        ROLE_COMMERCANT : ROLE_USER
+        ROLE_UTILISATEUR_ACTIVE : ROLE_USER:
         ROLE_USER: IS_AUTHENTICATED_ANONYMOUSLY
 
     

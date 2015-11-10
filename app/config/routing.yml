@@ -1,3 +1,8 @@
+ropi_commande:
+    resource: "@RopiCommandeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 ropi_parametres:
     resource: "@RopiParametresBundle/Controller/"
     type:     annotation
