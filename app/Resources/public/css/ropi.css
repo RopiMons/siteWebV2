@@ -62,6 +62,11 @@ body{
 	text-align: center;
 }
 
+.article {
+	width : 100%;
+	text-align: center;
+}
+
 .text-justified{
 	text-align: justify;
 	text-justify:inter-word;

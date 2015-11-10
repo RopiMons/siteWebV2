@@ -134,4 +134,13 @@ class ArticleCommande
     {
         return $this->commande;
     }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context){
+        if($this->getQuantite()>$this->getArticle()->getStock()){
+            $context->buildViolation("Il n'y a plus assez de cette coupure en stock")->atPath('quantite')->addViolation();
+        }
+    }
 }

@@ -26,13 +26,13 @@
             <tbody>
             {% for formac in form.articlesQuantite %}
                 <tr>
-                    <td>{{ formac.article.vars.value.image }}</td>
-                    <td>
+                    <td width="40%"><img class="col-sm-8 img100" src="{{ vich_uploader_asset(formac.article.vars.data, 'imageFile') }}" alt="{{ formac.article.vars.value.nom }}" /></td>
+                    <td style="vertical-align: middle">
                         {{ form_widget(formac.quantite) }}
                         {{ form_errors(formac.quantite) }}
                     </td>
-                    <td><p>{{ formac.article.vars.value.nom |capitalize }}</p></td>
-                    <td>{{ formac.article.vars.value.prix }} €</td>
+                    <td style="vertical-align: middle"><p>{{ formac.article.vars.value.nom |capitalize }}</p></td>
+                    <td style="vertical-align: middle">{{ formac.article.vars.value.prix }} €</td>
                 </tr>
 
             {% endfor %}
