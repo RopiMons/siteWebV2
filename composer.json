@@ -45,7 +45,8 @@
         "jms/security-extra-bundle": "dev-master",
         "stfalcon/tinymce-bundle": "dev-master",
         "egeloen/google-map-bundle": "~2.1",
-        "vich/uploader-bundle" : "*"
+        "vich/uploader-bundle" : "*",
+        "friendsofsymfony/jsrouting-bundle": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

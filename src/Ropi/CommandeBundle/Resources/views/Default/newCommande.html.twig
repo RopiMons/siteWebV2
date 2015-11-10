@@ -3,5 +3,62 @@
 {% block content %}
     <h1>Commande de Ropi en ligne</h1>
     <p>Pour commander des ropis en ligne vous devez d'abord être inscrit comme membre de l'asbl (lien vers le formulaire de demande d'adhésion). Si vous êtes déjà membre, vous pouvez commander des Ropi en complétant le formulaire ci-dessous</p>
-    {{ form(form) }}
+    {{ form_start(form) }}
+
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-danger" role="alert">Votre commande contient des erreures<br />{{ form_errors(form) }}</div>
+    {% endif %}
+
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">Liste des billets disponibles</div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Quantité</th>
+                <th>Articles</th>
+                <th>Prix</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for formac in form.articlesQuantite %}
+                <tr>
+                    <td>{{ formac.article.vars.value.image }}</td>
+                    <td>
+                        {{ form_widget(formac.quantite) }}
+                        {{ form_errors(formac.quantite) }}
+                    </td>
+                    <td><p>{{ formac.article.vars.value.nom |capitalize }}</p></td>
+                    <td>{{ formac.article.vars.value.prix }} €</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="modeDeLivraison">
+        {{ form_row(form.modeDeLivraison) }}
+    </div>
+    <div id="result"></div>
+    {{ form_row(form.modeDePaiement) }}
+    {{ form_row(form.adresseDeLivraison) }}
+
+    {{ form_row(form._token) }}
+
+    {{ form_row(form.send) }}
+
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    {% javascripts '@RopiCommandeBundle/Resources/public/js/formCommande.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

@@ -3,6 +3,9 @@
 namespace Ropi\CommandeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 
 /**
  * ArticleCommande
@@ -18,6 +21,7 @@ class ArticleCommande
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
 
@@ -25,6 +29,17 @@ class ArticleCommande
      * @var float
      *
      * @ORM\Column(name="quantite", type="float")
+     *
+     * @Assert\Type(
+     *     type="integer",
+     *     message="{{ value }} n'est pas une valeure entière"
+     * )
+     *
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "La quantité doit-etre un entier possitif"
+     * )
+     *
      */
     private $quantite;
 
@@ -44,7 +59,7 @@ class ArticleCommande
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -67,7 +82,7 @@ class ArticleCommande
     /**
      * Get quantite
      *
-     * @return float 
+     * @return float
      */
     public function getQuantite()
     {
@@ -90,7 +105,7 @@ class ArticleCommande
     /**
      * Get article
      *
-     * @return \Ropi\CommandeBundle\Entity\Article 
+     * @return \Ropi\CommandeBundle\Entity\Article
      */
     public function getArticle()
     {
@@ -113,7 +128,7 @@ class ArticleCommande
     /**
      * Get commande
      *
-     * @return \Ropi\CommandeBundle\Entity\Commande 
+     * @return \Ropi\CommandeBundle\Entity\Commande
      */
     public function getCommande()
     {

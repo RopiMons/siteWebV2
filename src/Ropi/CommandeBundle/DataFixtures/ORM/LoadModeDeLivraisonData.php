@@ -18,17 +18,20 @@ class LoadModeDeLivraisonData extends AbstractFixture implements OrderedFixtureI
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array("nom","description","frais","image")
+            array("Poste (Belgique)","La commande sera livrée par la poste avec accusé de réception et garantie en cas de perte. Partout en Belgique.",10,"image"),
+            array("Le coursier montois","La commande sera livrée par un coursier montois. Ce mode de livraison couvre les entités 7xxxx",4,"image"),
+            array("Livreur de l'asbl","La commande sera livrée par un livreur de l'asbl Ropi. Ce mode de livraison est limitée à 7000 Mons",2,"image"),
+            array("Dépôt chez un commerçant","La commande sera livrée chez un commerçant membre de l'asbl ropi (au choix)",0,"image")
         );
 
         foreach($tab as $element){
             $mode = new ModeDeLivraison();
 
-            $mode->setNom($tab[0]);
-            $mode->setImage($tab[3]);
-            $mode->setDescription($tab[1]);
+            $mode->setNom($element[0]);
+            $mode->setImage($element[3]);
+            $mode->setDescription($element[1]);
             $mode->setActif(true);
-            $mode->setFrais($tab[2]);
+            $mode->setFrais($element[2]);
             $mode->setRedirection("test");
 
             $manager->persist($mode);

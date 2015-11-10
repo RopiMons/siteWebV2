@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommandeType extends AbstractType
+class ArticleCommandeType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,12 @@ class CommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('createdAt')
-            //->add('updateAt')
-            ->add('client')
-            ->add('statut')
+            ->add('quantite')
+            ->add('article','text',array(
+                'data_class' => "Ropi\CommandeBundle\Entity\Article",
+                'disabled' => true,
+            ))
+            //->add('commande')
         ;
     }
     
@@ -28,8 +30,7 @@ class CommandeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\CommandeBundle\Entity\Commande',
-            'cascade_validation' => true,
+            'data_class' => 'Ropi\CommandeBundle\Entity\ArticleCommande',
         ));
     }
 
@@ -38,6 +39,6 @@ class CommandeType extends AbstractType
      */
     public function getName()
     {
-        return 'ropi_commandebundle_commande';
+        return 'ropi_commandebundle_articlecommande';
     }
 }

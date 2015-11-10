@@ -18,17 +18,20 @@ class LoadModeDePaiementData extends AbstractFixture implements OrderedFixtureIn
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array("nom","description","frais","image")
+            array("Virement","Paiement par virement bancaire via votre organisme financier (munisez vous de votre digipass ou autre système demandé par votre organisme financier)",0,"image"),
+            array("Paypal","Paiement par Paypal auquel vous devez être préalablement enregistré.","*3.5+0.35","image"),
+            array("Ropi électronique","Paiement en ropis par le système Ropi Banking",0,"image"),
+            array("Cash","Paiement en espèce (ropis ou euros) à donner au livreur. N'est possible que si la livraison est effectuée par un livreur de l'asbl.",2,"image")
         );
 
         foreach($tab as $element){
             $mode = new ModeDePaiement();
 
-            $mode->setNom($tab[0]);
-            $mode->setImage($tab[3]);
-            $mode->setDescription($tab[1]);
+            $mode->setNom($element[0]);
+            $mode->setImage($element[3]);
+            $mode->setDescription($element[1]);
             $mode->setActif(true);
-            $mode->setFrais($tab[2]);
+            $mode->setFrais($element[2]);
             $mode->setRedirection("test");
 
             $manager->persist($mode);

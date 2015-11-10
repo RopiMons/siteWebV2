@@ -22,20 +22,21 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array("billet de 0.5 Ropi","Il s'aggit d'une coupure de 0.5 R", 0.5, 1000),
-            array("billet de 1 Ropi","Il s'aggit d'une coupure de 1 R", 1, 1000),
-            array("billet de 5 Ropi","Il s'aggit d'une coupure de 5 R", 5, 1000),
-            array("billet de 10 Ropi","Il s'aggit d'une coupure de 5 R", 10, 1000),
+            array("billet de 0.5 Ropi","Il s'aggit d'une coupure de 0.5 R", "0.5", "1000"),
+            array("billet de 1 Ropi","Il s'aggit d'une coupure de 1 R", "1", "1000"),
+            array("billet de 5 Ropi","Il s'aggit d'une coupure de 5 R", "5", "1000"),
+            array("billet de 10 Ropi","Il s'aggit d'une coupure de 5 R", "10", "1000"),
         );
 
         foreach($tab as $element){
             $article = new Article();
 
-            $article->setDescription($tab[1]);
+            $article->setDescription($element[1]);
             $article->setImage("test");
-            $article->setNom($tab[0]);
-            $article->setPrix($tab[2]);
-            $article->setStock($tab[3]);
+            $article->setNom($element[0]);
+            $article->setPrix($element[2]);
+            $article->setStock($element[3]);
+            $article->setActif(true);
 
             $manager->persist($article);
         }

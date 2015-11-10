@@ -20,9 +20,18 @@ class CommandeClientType extends CommandeType
         $builder
             ->remove("statut")
             ->remove("client")
-            ->add("articlesQuantite")
-            ->add("modeDePaiement")
-            ->add("modeDeLivraison")
+            ->add("articlesQuantite",'collection',array(
+                'type' => new ArticleCommandeType(),
+            ))
+            ->add("modeDePaiement",null,array(
+                'expanded' => true,
+            ))
+            ->add("modeDeLivraison",null,array(
+                'expanded' => true,
+            ))
+            ->add("adresseDeLivraison",null,array(
+                'expanded' => true,
+            ))
         ;
 
     }

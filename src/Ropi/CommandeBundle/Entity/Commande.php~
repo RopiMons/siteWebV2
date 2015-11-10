@@ -3,6 +3,7 @@
 namespace Ropi\CommandeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Commande
@@ -38,11 +39,14 @@ class Commande
 
     /**
      * @ORM\OneToMany(targetEntity="ArticleCommande", mappedBy="commande")
+     *
+     * @Assert\NotBlank()
      */
 
     private $articlesQuantite;
 
     /**
+     *
      * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commande")
      */
 
@@ -62,15 +66,27 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="ModeDePaiement", inversedBy="commandes")
+     *
+     * @Assert\NotBlank()
      */
 
     private $modeDePaiement;
 
     /**
      * @ORM\ManyToOne(targetEntity="ModeDeLivraison", inversedBy="commandes")
+     *
+     * @Assert\NotBlank()
      */
 
     private $modeDeLivraison;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Adresse")
+     *
+     * @Assert\NotBlank()
+     */
+
+    private $adresseDeLivraison;
 
 
     /**
@@ -259,5 +275,74 @@ class Commande
     public function onUpdate()
     {
         $this->setUpdateAt(new \DateTime());
+    }
+
+    /**
+     * Set modeDePaiement
+     *
+     * @param \Ropi\CommandeBundle\Entity\ModeDePaiement $modeDePaiement
+     * @return Commande
+     */
+    public function setModeDePaiement(\Ropi\CommandeBundle\Entity\ModeDePaiement $modeDePaiement = null)
+    {
+        $this->modeDePaiement = $modeDePaiement;
+
+        return $this;
+    }
+
+    /**
+     * Get modeDePaiement
+     *
+     * @return \Ropi\CommandeBundle\Entity\ModeDePaiement 
+     */
+    public function getModeDePaiement()
+    {
+        return $this->modeDePaiement;
+    }
+
+    /**
+     * Set modeDeLivraison
+     *
+     * @param \Ropi\CommandeBundle\Entity\ModeDeLivraison $modeDeLivraison
+     * @return Commande
+     */
+    public function setModeDeLivraison(\Ropi\CommandeBundle\Entity\ModeDeLivraison $modeDeLivraison = null)
+    {
+        $this->modeDeLivraison = $modeDeLivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get modeDeLivraison
+     *
+     * @return \Ropi\CommandeBundle\Entity\ModeDeLivraison 
+     */
+    public function getModeDeLivraison()
+    {
+        return $this->modeDeLivraison;
+    }
+
+    /**
+     * Set adresseDeLivraison
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresseDeLivraison
+     * @return Commande
+     */
+    public function setAdresseDeLivraison(\Ropi\IdentiteBundle\Entity\Adresse $adresseDeLivraison = null)
+    {
+        $this->adresseDeLivraison = $adresseDeLivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get adresseDeLivraison
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Adresse 
+     */
+    public function getAdresseDeLivraison()
+    {
+        return $this->adresseDeLivraison;
     }
 }

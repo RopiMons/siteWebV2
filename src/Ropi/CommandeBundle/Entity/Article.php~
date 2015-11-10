@@ -38,6 +38,13 @@ class Article
     /**
      * @var string
      *
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;

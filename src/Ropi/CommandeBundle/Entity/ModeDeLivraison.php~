@@ -25,4 +25,44 @@ class ModeDeLivraison extends Mode
      */
 
     private $commandes;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commandes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add commandes
+     *
+     * @param \Ropi\CommandeBundle\Entity\Commande $commandes
+     * @return ModeDeLivraison
+     */
+    public function addCommande(\Ropi\CommandeBundle\Entity\Commande $commandes)
+    {
+        $this->commandes[] = $commandes;
+
+        return $this;
+    }
+
+    /**
+     * Remove commandes
+     *
+     * @param \Ropi\CommandeBundle\Entity\Commande $commandes
+     */
+    public function removeCommande(\Ropi\CommandeBundle\Entity\Commande $commandes)
+    {
+        $this->commandes->removeElement($commandes);
+    }
+
+    /**
+     * Get commandes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
+    }
 }

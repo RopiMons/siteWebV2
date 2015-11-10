@@ -3,6 +3,8 @@
 namespace Ropi\CommandeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Commande
@@ -37,13 +39,16 @@ class Commande
     private $updateAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="ArticleCommande", mappedBy="commande")
+     * @ORM\OneToMany(targetEntity="ArticleCommande", mappedBy="commande", cascade={"all"})
+     *
+     * @Assert\Valid()
      */
 
     private $articlesQuantite;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commande")
+     *
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes")
      */
 
     private $client;
@@ -62,15 +67,27 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="ModeDePaiement", inversedBy="commandes")
+     *
+     * @Assert\NotBlank()
      */
 
     private $modeDePaiement;
 
     /**
      * @ORM\ManyToOne(targetEntity="ModeDeLivraison", inversedBy="commandes")
+     *
+     * @Assert\NotBlank()
      */
 
     private $modeDeLivraison;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Adresse")
+     *
+     * @Assert\NotBlank()
+     */
+
+    private $adresseDeLivraison;
 
 
     /**
@@ -252,13 +269,27 @@ class Commande
     public function onPrePersit(){
         $dt = new \DateTime();
         $this->setCreatedAt($dt);
-        $this->setUpdateAt($dt);
+        $this->routine($dt);
     }
 
     /* @ORM\PreUpdate */
     public function onUpdate()
     {
-        $this->setUpdateAt(new \DateTime());
+        $this->routine();
+    }
+
+    private function routine($dt = null){
+        if(!$dt){
+            $dt = new \DateTime();
+        }
+
+        $this->setUpdateAt($dt);
+
+        foreach($this->getArticlesQuantite() as $ac){
+            if($ac->getQuantite() <= 0){
+                $this->removeArticlesQuantite($ac);
+            }
+        }
     }
 
     /**
@@ -305,5 +336,47 @@ class Commande
     public function getModeDeLivraison()
     {
         return $this->modeDeLivraison;
+    }
+
+    /**
+     * Set adresseDeLivraison
+     *
+     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresseDeLivraison
+     * @return Commande
+     */
+    public function setAdresseDeLivraison(\Ropi\IdentiteBundle\Entity\Adresse $adresseDeLivraison = null)
+    {
+        $this->adresseDeLivraison = $adresseDeLivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get adresseDeLivraison
+     *
+     * @return \Ropi\IdentiteBundle\Entity\Adresse 
+     */
+    public function getAdresseDeLivraison()
+    {
+        return $this->adresseDeLivraison;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $sommeDArticle = false;
+        foreach($this->getArticlesQuantite() as $ac){
+            //$this->get('validator')->validate($ac);
+            if($ac->getQuantite()>0){
+                $sommeDArticle = true;
+                break;
+            }
+        }
+
+        if(!$sommeDArticle){
+            $context->buildViolation('Votre commande ne contient aucun article')->atPath('articlesQuantite')->addViolation();
+        }
     }
 }

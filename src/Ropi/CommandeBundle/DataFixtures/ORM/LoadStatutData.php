@@ -22,17 +22,22 @@ class LoadStatutData extends AbstractFixture implements OrderedFixtureInterface 
     public function load(ObjectManager $manager) {
 
         $tab = array(
-            array("nom","description","Delais","Notifier Client","Notifier Admin"),
+            array("En cours d'édition","Quand l'utilisateur clique sur le bouton d'édition du formulaire","null",false,false),
+            array("Demande envoyée","Quand l'utilisateur clique sur le bouton VALIDER du formulaire",10,true,true),
+            array("Paiement reçu","Quand la réception du paiement a été validée (vérification du mouvement sur le compte, notification paypal?)",3,true,true),
+            array("Ordre d'envoi effectué","Quand l'admin a demandé au livreur (bénévole, poste, coursier privé) d'effectuer sa mission de livraison",7,true,false),
+            array("Ropi reçu","Lors de la livraison, signature de l'AR par le client ","null",true,false),
+            array("Cloture","Quand le livreur notifie l'admin de la livraison en lui rendant la Cc de l'Ar","null",false,true),
         );
 
         foreach($tab as $element){
             $statut = new Statut();
 
-            $statut->setDescription($tab[1]);
-            $statut->setNom($tab[0]);
-            $statut->setDelay($tab[2]);
-            $statut->setNotifierAdmin($tab[3]);
-            $statut->setNotifierClient($tab[4]);
+            $statut->setDescription($element[1]);
+            $statut->setNom($element[0]);
+            $statut->setDelay($element[2]);
+            $statut->setNotifierAdmin($element[3]);
+            $statut->setNotifierClient($element[4]);
 
 
             $manager->persist($statut);

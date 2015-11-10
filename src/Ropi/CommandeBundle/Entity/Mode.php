@@ -215,4 +215,9 @@ class Mode
     {
         return $this->actif;
     }
+
+    public function __toString()
+    {
+        return $this->getNom()." (".$this->getFrais()."€)";
+    }
 }

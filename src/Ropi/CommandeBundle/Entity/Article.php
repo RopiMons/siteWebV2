@@ -38,6 +38,13 @@ class Article
     /**
      * @var string
      *
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -226,5 +233,33 @@ class Article
     public function getCommandesQuantite()
     {
         return $this->commandesQuantite;
+    }
+
+    /**
+     * Set actif
+     *
+     * @param boolean $actif
+     * @return Article
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * Get actif
+     *
+     * @return boolean 
+     */
+    public function getActif()
+    {
+        return $this->actif;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom()." - ".$this->getPrix()."€";
     }
 }

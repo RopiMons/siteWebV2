@@ -39,7 +39,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ RopiCMSBundle ]
+    bundles:        [ RopiCMSBundle, RopiCommandeBundle ]
     #java: /usr/bin/java
     filters:
         lessphp:

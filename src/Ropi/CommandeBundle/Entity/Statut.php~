@@ -52,7 +52,7 @@ class Statut
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="delay", type="datetime")
+     * @ORM\Column(name="delay", type="string", length=255)
      */
     private $delay;
 
