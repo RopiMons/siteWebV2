@@ -4,6 +4,7 @@ namespace Ropi\IdentiteBundle\Controller;
 
 use JMS\SecurityExtraBundle\Security\Util\String;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\IdentiteBundle\Form\PersonneModifAdminType;
 use Ropi\IdentiteBundle\Form\PersonneModifType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,7 +44,7 @@ class AccountController extends Controller
 public function modifAccountAction(Request $request){
     $user = $this->container->get('security.context')->getToken()->getUser();
 
-    return $this->modifuser($request,$user->getPersonne(),"Votre compte à bien été modifié!","home");
+    return $this->modifuser($request,$user->getPersonne(),"Votre compte à bien été modifié!","home",new PersonneModifType(),"success");
 
 }
     /**
@@ -53,15 +54,15 @@ public function modifAccountAction(Request $request){
      */
     public function  modifUserAction(Request $request, Personne $user){
 
-            return $this->modifuser($request, $user, "Le compte à bien été modifié!", "home");
+            return $this->modifuser($request, $user, "Le compte à bien été modifié!", "home",new PersonneModifAdminType());
 
     }
 
 
 
-    private function modifuser(Request $request, Personne $personne, $message, $cheminRetour,$typeMessage= "success"){
+    private function modifuser(Request $request, Personne $personne, $message, $cheminRetour,$type,$typeMessage= "success"){
 
-        $type = new PersonneModifType();
+
         $form = $this->createForm($type, $personne);
 
         if(!is_string($message) || !is_string($cheminRetour)){
