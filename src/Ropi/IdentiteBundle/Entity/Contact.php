@@ -5,13 +5,20 @@ namespace Ropi\IdentiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Contact
  *
  * @ORM\Table()
  * @ORM\Entity
- *  @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\ContactRepository")
+ * @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\ContactRepository")
+ * @UniqueEntity(
+ *     fields = {"valeur"},
+ *     repositoryMethod = "findUniqueEmail",
+ *     message = "Cette adresse email est déjà enregistrée dans notre système"
+ * )
+ *
  */
 class Contact 
 {

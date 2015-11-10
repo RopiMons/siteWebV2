@@ -12,6 +12,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContactRepository extends EntityRepository
 {
-    
-    
+
+
+    public function findUniqueEmail(array $criteria){
+
+        $valeur =  $criteria["valeur"];
+
+        $rep = $this
+            ->createQueryBuilder('c')
+            ->select(array('c','tc'))
+            ->join('c.typeContact','tc')
+            ->where('c.valeur = :valeur')
+            ->andWhere('tc.type = :nom')
+            ->setParameter('valeur', $valeur)
+            ->setParameter('nom', "Mail")
+            ->getQuery()
+            ->execute()
+            ;
+
+        dump($rep);
+
+        return $rep;
+
+    }
+
+
+
 }
