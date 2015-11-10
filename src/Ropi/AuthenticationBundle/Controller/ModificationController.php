@@ -21,23 +21,41 @@ class ModificationController extends Controller
      public function changePSW(Request $request) {
 
          $user = $this->container->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new changePWDType(),$user );
+        $user2 =new IdentifiantWeb();
+        $form = $this->createForm(new changePWDType(),$user2);
          $form->add("Changer le mot de passe","submit");
 
          $form->handleRequest($request);
 
-         if($form->isValid() && $form->isSubmitted()){
-             $factory = $this->get('security.encoder_factory');
-             $encorder = $factory->getEncoder($user);
+         if($request->getMethod() == 'POST') {
 
-             $user->setMotDePasse($encorder->encodePassword($user->getMotDePasse(),$user->getSalt()));
+             $old_pwd = $user2->getOldPassword();
+             $new_pwd =$user2->getMotDePasse();
 
-             $em= $this->getDoctrine()->getManager();
-             $em->persist($user);
-             $em->flush();
 
-             $this->get("session")->getFlashBag()->add(
-                 'success',"Votre mot de passe à bien été modifié!" );
+
+             $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+             $old_pwd_encoded = $encoder->encodePassword($old_pwd, $user->getSalt());
+
+
+             if($user->getMotDePasse() != $old_pwd_encoded) {
+                 $this->get("session")->getFlashBag()->add(
+
+                     'danger',"Votre ancien mot de passe est mauvais!" );
+                 return $this->redirect($this->generateUrl("Ropi_change_pwd"));
+             } else {
+                 $new_pwd_encoded = $encoder->encodePassword($new_pwd, $user->getSalt());
+                 $user->setMotDePasse($new_pwd_encoded);
+                 $manager = $this->getDoctrine()->getManager();
+                 $manager->persist($user);
+
+                 $manager->flush();
+                 $this->get("session")->getFlashBag()->add(
+                     'succes',"Mot de passe changé avec succes" );
+             }
+
+
+
 
              return $this->redirect($this->generateUrl("home"));
          }

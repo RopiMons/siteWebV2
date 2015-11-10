@@ -5,6 +5,8 @@ namespace Ropi\AuthenticationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -40,7 +42,13 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @Assert\Regex(pattern="/\W/", match = false ,message="La chaine ne peux pas avoir que des Chiffres et des lettres")
      */
     private $username;
-    
+
+    /**
+     * SecurityAssert\UserPassword(
+     *     message = "Wrong value for your current password"
+     * )
+     */
+    protected $oldPassword;
     /**
      * @var string
      *
@@ -328,6 +336,12 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
 
     public function eraseCredentials() {
         
+    }
+    public function getOldPassword(){
+        return $this->oldPassword;
+    }
+    public function setOldPassword($oldPassword){
+        $this->oldPassword = $oldPassword;
     }
 
     public function getPassword() {

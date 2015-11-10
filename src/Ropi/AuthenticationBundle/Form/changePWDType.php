@@ -16,7 +16,9 @@ class changePWDType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
      {
 
-         $builder->add('motDePasse', 'repeated', array(
+         $builder
+             ->add('oldPassword','password',array('label'=>"Ancien mot de passe"))
+             ->add('motDePasse', 'repeated', array(
              'type' => 'password',
              'first_options' => array('label' => 'mot de passe:'),
              'second_options' => array('label' => 'Confirmation:'),
