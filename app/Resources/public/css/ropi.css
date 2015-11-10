@@ -44,7 +44,7 @@ and open the template in the editor.
 .margin5{
 	margin-left:10px ;
 }
-.marginBottom20{
+.content{
 	margin-bottom: 20px;
 }
 /* Background */
@@ -160,9 +160,7 @@ form button{
 }
 #carte2{
 	
-	padding-top: 0px;
-	top: 0;
-
+	margin-top: 10px;
 }
 #carte{
 
@@ -170,6 +168,7 @@ form button{
 	display:block;
 	margin-top: 0px;
 	min-height: 370px;
+	margin-bottom: 20px;
 
 }
 h2{

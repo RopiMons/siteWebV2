@@ -31,6 +31,7 @@ class DefaultController extends Controller {
         $form = $this->createForm(new PageStatiqueForm());
         $form->add('Créer la page', 'submit');
 
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -133,7 +134,10 @@ class DefaultController extends Controller {
                 $oldCategorie = $page->getCategorie();
                 $form = $this->createForm(new PageStatiqueForm(), $page);
                 $form->add('Modifier', 'submit');
+
                 $form->handleRequest($request);
+
+
                 if ($form->isSubmitted() && $form->isValid()) {
 
                     $page = $form->getData();
