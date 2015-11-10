@@ -69,17 +69,17 @@ class Personne
     private $creeLe;
     
     /** 
-     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"remove"})
      */
     private $contacts;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"persist","remove"})
      */
     private $commerces;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", inversedBy="personne")
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", inversedBy="personne" , cascade={"remove"})
      */
     private $identifiantWeb;
     

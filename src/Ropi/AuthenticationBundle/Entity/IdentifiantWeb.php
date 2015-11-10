@@ -104,6 +104,12 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", mappedBy="identifiantWeb")
      */
     private $personne;
+
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="KeyValidation",mappedBy="IdentifiantWeb", cascade={"remove","persist"})
+     */
+    private $key;
     
    
 

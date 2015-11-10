@@ -16,7 +16,7 @@ class ListingController extends Controller
 
     
     /**
-     * @Route("/admin/user/listing", name="Ropi_change_pwsd")
+     * @Route("/admin/user/listing", name="Ropi_admin_user_listing")
      * @Template()
      */
      public function listingUserAction(Request $request) {

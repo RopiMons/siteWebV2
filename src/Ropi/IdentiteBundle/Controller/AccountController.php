@@ -4,10 +4,12 @@ namespace Ropi\IdentiteBundle\Controller;
 
 use JMS\SecurityExtraBundle\Security\Util\String;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\IdentiteBundle\Form\PersonneModifAdminType;
 use Ropi\IdentiteBundle\Form\PersonneModifType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ropi\IdentiteBundle\Entity\Contact;
 use Ropi\IdentiteBundle\Entity\Personne;
 use Ropi\IdentiteBundle\Form\PersonneType;
@@ -36,12 +38,13 @@ class AccountController extends Controller
 
     /**
      * @Route("/my/account/modification/", name="Ropi_account_modification")
+     * @Secure(roles={"ROLE_ADMIN"})
      * @Template()
      */
 public function modifAccountAction(Request $request){
     $user = $this->container->get('security.context')->getToken()->getUser();
 
-    return $this->modifuser($request,$user->getPersonne(),"Votre compte à bien été modifié!","home");
+    return $this->modifuser($request,$user->getPersonne(),"Votre compte à bien été modifié!","home",new PersonneModifType(),"success");
 
 }
     /**
@@ -51,15 +54,15 @@ public function modifAccountAction(Request $request){
      */
     public function  modifUserAction(Request $request, Personne $user){
 
-            return $this->modifuser($request, $user, "Le compte à bien été modifié!", "home");
+            return $this->modifuser($request, $user, "Le compte à bien été modifié!", "home",new PersonneModifAdminType());
 
     }
 
 
 
-    private function modifuser(Request $request, Personne $personne, $message, $cheminRetour,$typeMessage= "success"){
+    private function modifuser(Request $request, Personne $personne, $message, $cheminRetour,$type,$typeMessage= "success"){
 
-        $type = new PersonneModifType();
+
         $form = $this->createForm($type, $personne);
 
         if(!is_string($message) || !is_string($cheminRetour)){
@@ -87,6 +90,34 @@ public function modifAccountAction(Request $request){
         return  Array(
             "form" => $form->createView(),"user"=>$personne->getIdentifiantWeb()
         );
+    }
+
+    /**
+     * @route("/admin/user/{personne}/delete",name="Ropi_admin_user_delete")
+     * @Secure(roles={"ROLE_ADMIN"})
+     * @param Request $request
+     * @param Personne $personne
+     */
+    public function DeleteUserAction(Request $request, Personne $personne){
+
+        $this->remove($personne);
+
+        return $this->redirectToRoute("Ropi_admin_user_listing");
+    }
+
+    private function remove($objet){
+
+        if ($objet) {
+
+            $this->getDoctrine()->getManager()->remove($objet);
+            $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add(
+                'success', 'Suppression effectuée :-)'
+            );
+
+        } else {
+            throw $this->createNotFoundException();
+        }
     }
 
 

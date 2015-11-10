@@ -3,5 +3,7 @@
 {% block title %}Modification de l'utilisateur {% endblock %}
 
 {% block content %}
- {{ include('RopiIdentiteBundle:Account:modifAccountForm.html.twig', {'titre': "Modification de l'utilisateur"}) }}
+ {{ include('RopiIdentiteBundle:Account:modifAccountForm.html.twig', {'titre': "Modification de l'utilisateur","admin":1}) }}
+
+
 {% endblock %}

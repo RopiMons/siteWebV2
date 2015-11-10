@@ -12,6 +12,12 @@
         {% if user %}
     login: {{ user.username }}<br>
     <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
+
+        {% if admin  and admin == 1%}
+        
+        {{ form_row(form.identifiantWeb.roles) }}
+            {{ form_row(form.identifiantWeb.permission) }}
+        {% endif %}
     {% else %}
         <div class="alert alert-danger" role="alert">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -21,6 +27,7 @@
         </div>
 
         {% endif %}
+
     </p>
     <h2>contact:</h2>
     {% for contact in form.contacts %}
