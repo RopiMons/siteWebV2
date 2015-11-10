@@ -110,7 +110,7 @@ class InscriptionController extends Controller
                         ->setSubject("Inscription au Ropi")
                         ->setFrom("info@ropi.be")
                         ->setTo($contact->getValeur())
-                        ->setBody("coucou");
+                        ->setBody($body);
 
                 ;
 
