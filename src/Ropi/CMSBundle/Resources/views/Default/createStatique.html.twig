@@ -1,8 +1,10 @@
 {% extends '::baseAdmin.html.twig' %}
 
 {% block content %}
+
     <h1>{{ titre }}</h1>
     {{ form(form) }}
+<a href="{{ path("CMS_pages")}}"><button class="btn btn-danger">Cancel</button> </a>
 {% endblock %}
 
 {% block javascripts %}
