@@ -2,11 +2,14 @@
 
 namespace Ropi\AuthenticationBundle\Controller;
 
+use Ropi\AuthenticationBundle\Form\IdentifiantWebType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\IdentiteBundle\Entity\Personne;
 
 class AuthenticateController extends Controller
 {
@@ -104,6 +107,49 @@ class AuthenticateController extends Controller
         
         return $this->redirect($this->generateUrl("login"));
     }
-    
+
+    /**
+     * @route("/admin/user/{personne}/IdentifiantWeb/",name="Ropi_admin_add_identifiantWeb")
+     * @Template()
+     * @param Request $request
+     * @param Personne $personne
+     */
+    public function addIdentifiantWebAction(request $request, Personne $personne){
+
+        if ($personne->getIdentifiantWeb() != null) throw $this->createAccessDeniedException("Vous ne pouvez pas crée un identifiant pour cette utilisateur, il en a déjà");
+
+        $user = new IdentifiantWeb();
+        $user->setPersonne($personne);
+        $user->setActif(True);
+
+
+        $type = new IdentifiantWebType();
+        $form = $this->createForm($type, $user);
+        $form->add("Enregistrer","submit");
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+
+
+            $em = $this->getDoctrine()->getManager();
+
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user->getIdentifiantWeb());
+            $user->getIdentifiantWeb()->setMotDePasse($encoder->encodePassword($user->getIdentifiantWeb()->getMotDePasse(), $user->getIdentifiantWeb()->getSalt()));
+
+
+            $em->persist($user);
+
+            $em->flush();
+
+
+            $this->get("session")->getFlashBag()->add(
+                'success',"L'identifiant à bien été crée!" );
+
+            return $this->redirect($this->generateUrl("admin_home"));
+        }
+        return array("form"=>$form->createView());
+    }
 
 }

@@ -1,46 +1,8 @@
+
+
 {% extends "::base.html.twig" %}
 
-{% block title %}Modification du profil {% endblock %}
-
-
+{% block title %}Modification de votre profil {% endblock %}
 {% block content %}
-    <h1 class="souligné"> Modification de votre profil </h1>
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.dateNaissance) }}
-
-    <h2 class="souligné">Identifiant web:</h2>
-    <p class="margin5">
-    login: {{ user.username }}<br>
-    <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
-
-    </p>
-    <h2>contact:</h2>
-    {% for contact in form.contacts %}
-        {{ form_label(contact, contact.vars.value.typeContact.type) }}
-        {{ form_errors(contact) }}
-        {{ form_widget(contact) }}
-    {% endfor %}
-    <h3>Adresse</h3>
-    {% for adresse in form.adresses %}
-        {{  form_row(adresse.rue) }}
-        {{  form_row(adresse.numero) }}
-        {{  form_row( adresse.complement) }}
-        {{  form_row( adresse.typeAdresse) }}
-        {{  form_row( adresse.ville) }}
-
-        {{ form_errors(adresse) }}
-    {% endfor %}
-
-
-
-
-    {{form_row(form._token)}}
-    {{form_row(form.Enregistrer)}}
-
-
-
+ {{ include('RopiIdentiteBundle:Account:modifAccountForm.html.twig', {'titre': "Modification de votre profil"}) }}
 {% endblock %}

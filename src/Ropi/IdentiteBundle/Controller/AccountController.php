@@ -2,6 +2,8 @@
 
 namespace Ropi\IdentiteBundle\Controller;
 
+use JMS\SecurityExtraBundle\Security\Util\String;
+use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
 use Ropi\IdentiteBundle\Form\PersonneModifType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -38,30 +40,52 @@ class AccountController extends Controller
      */
 public function modifAccountAction(Request $request){
     $user = $this->container->get('security.context')->getToken()->getUser();
-    $personne = $user->getPersonne();
-    $type = new PersonneModifType();
-    $form = $this->createForm($type, $personne);
 
+    return $this->modifuser($request,$user->getPersonne(),"Votre compte à bien été modifié!","home");
 
-    $form->add("Enregistrer","submit");
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-
-        $em = $this->getDoctrine()->getManager();
-
-
-
-        $em->persist($personne);
-
-        $em->flush();
-        //$this->MailValidation($user, $cle);
-        $this->get("session")->getFlashBag(array(
-            'success'=>"Votre compte à bien été modifié!" ));
-        return $this->redirect($this->generateUrl("home"));
-    }
-    return  Array(
-        "form" => $form->createView(),"user"=>$user
-    );
 }
+    /**
+     * @Route("/admin/user/{user}/modification/", name="Ropi_admin_user_modification")
+
+     * @Template("RopiIdentiteBundle:Account:modifAccountAdmin.html.twig")
+     */
+    public function  modifUserAction(Request $request, Personne $user){
+
+            return $this->modifuser($request, $user, "Le compte à bien été modifié!", "home");
+
+    }
+
+
+
+    private function modifuser(Request $request, Personne $personne, $message, $cheminRetour,$typeMessage= "success"){
+
+        $type = new PersonneModifType();
+        $form = $this->createForm($type, $personne);
+
+        if(!is_string($message) || !is_string($cheminRetour)){
+
+            throw $this->createAccessDeniedException("Une erreur c'est produite!");
+        }
+
+        $form->add("Enregistrer","submit");
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+
+
+            $em->persist($personne);
+
+            $em->flush();
+            //$this->MailValidation($user, $cle);
+            $this->get("session")->getFlashBag(array(
+                $typeMessage=>$message));
+            return $this->redirect($this->generateUrl($cheminRetour));
+        }
+        return  Array(
+            "form" => $form->createView(),"user"=>$personne->getIdentifiantWeb()
+        );
+    }
 }
