@@ -127,8 +127,10 @@ class Contact
     
      /**
      * @Assert\Callback
+     *
      */
     public function validate(ExecutionContextInterface $context) {
+
         $mdc = $this->typeContact;
        
         switch ($mdc->getValidateur()) {

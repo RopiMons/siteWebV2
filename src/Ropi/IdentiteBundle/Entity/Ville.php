@@ -137,11 +137,19 @@ class Ville
         $this->pays = $pays;
 
         return $this;
+            }
+
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context){
+        $regex = $this->getPays()->getRegex();
+
+        if(!preg_match($regex,$this->getCodePostal())){
+            $context->buildViolation("Le format du code postal, ne correspond pas au pays ".$this->getPays())->atPath("codePostal")->addViolation();
+        }
     }
-
-
-
-
 
 
 

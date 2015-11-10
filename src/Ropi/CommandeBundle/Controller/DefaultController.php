@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
 
 class DefaultController extends Controller
 {
@@ -43,6 +44,45 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $manager = $this->getDoctrine()->getManager();
+
+            $manager->persist($commande);
+            $commande = $form->getData();
+
+            $statut = $manager->getRepository("Ropi\CommandeBundle\Entity\Statut")->findOneBy(array('ordre'=>1));
+
+            if(!$statut){
+                throw new AccessException();
+            }
+
+            $commande->setClient($this->getUser()->getPersonne());
+            $commande->setStatut($statut);
+
+            $mailClient = $this->getUser()->getPersonne()->getEmail();
+
+            if(isset($mailClient)) {
+                $messageClient = \Swift_Message::newInstance()
+                    ->setSubject("Votre commande de Ropi")
+                    ->setFrom("info@ropi.be")
+                    ->setTo($mailClient)
+                    ->setBody($this->renderView("RopiCommandeBundle:Default:email.newCommande.html.twig",array('commande'=>$commande)),'text/html');
+
+                /*$messageAdmin = \Swift_Message::newInstance()
+                    ->setSubject("[Ropi.Be] Nouvelle commande de Ropi")
+                    ->setFrom("info@ropi.be")
+                    ->setTo("info@ropi.be")
+                    ->setBody(,'text/html');
+
+                $this->get('mailer')->send($messageAdmin);*/
+                $this->get('mailer')->send($messageClient);
+
+                $this->addFlash("success","Votre commande a été enregistrée. Une confirmation vous a été envoyée à l'adresse ".$mailClient.". Merci !");
+
+                $manager->flush();
+
+            } else {
+                $this->addFlash("danger","Aucune adresse email n'est associée à votre compte, impossible de passer la commande. Merci de prendre contact avec nous.");
+            }
 
         }
 

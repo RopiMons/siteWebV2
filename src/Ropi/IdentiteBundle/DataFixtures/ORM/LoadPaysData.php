@@ -29,8 +29,8 @@ class LoadPaysData extends AbstractFixture implements OrderedFixtureInterface, C
         
         $tab = array(
            
-            0 => array("Belgique","ooo","BE"),
-
+            0 => array("Belgique","/^[1-9]\d\d\d$/","BE"),
+            1 => array("France","/^[1-9]\d\d\d\d$/","FR")
              
              );
         

@@ -1,0 +1,9 @@
+{% extends '::email.html.twig' %}
+
+{% block content %}
+    <h1>Votre commande sur Ropi.be</h1>
+    <p>Nous avons bien enregistré votre commande de Ropi sur notre site Internet</p>
+    <p>Si vous n'avez pas choisis un moyen de paiement en ligne, nous vous demandons de bien vouloir procèder dès que possible au paiement. Dans tous les cas nous vous notifions à la réception de votre paiement</p>
+    <h2>Récapitulatif de votre commande</h2>
+    <p>Solde : {{ commande.prix }} €</p>
+{% endblock %}

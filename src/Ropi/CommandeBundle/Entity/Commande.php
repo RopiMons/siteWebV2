@@ -265,14 +265,14 @@ class Commande
         return $this->paiements;
     }
 
-    /* @ORM\PrePersist */
+    /** @ORM\PrePersist */
     public function onPrePersit(){
         $dt = new \DateTime();
         $this->setCreatedAt($dt);
         $this->routine($dt);
     }
 
-    /* @ORM\PreUpdate */
+    /** @ORM\PreUpdate */
     public function onUpdate()
     {
         $this->routine();
@@ -368,7 +368,6 @@ class Commande
     {
         $sommeDArticle = false;
         foreach($this->getArticlesQuantite() as $ac){
-            //$this->get('validator')->validate($ac);
             if($ac->getQuantite()>0){
                 $sommeDArticle = true;
                 break;
@@ -378,5 +377,18 @@ class Commande
         if(!$sommeDArticle){
             $context->buildViolation('Votre commande ne contient aucun article')->atPath('articlesQuantite')->addViolation();
         }
+    }
+
+    public function getPrix(){
+        $solde = 0;
+
+        foreach($this->getArticlesQuantite() as $ac){
+            $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
+        }
+
+        $solde += $this->getModeDeLivraison()->getFrais();
+        $solde += $this->getModeDePaiement()->getFrais();
+
+        return $solde;
     }
 }

@@ -62,6 +62,13 @@ class Statut
 
     private $commandes;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ordre", type="integer")
+     */
+    private $ordre;
+
 
     /**
      * Get id
@@ -226,5 +233,28 @@ class Statut
     public function getCommandes()
     {
         return $this->commandes;
+    }
+
+    /**
+     * Set ordre
+     *
+     * @param integer $ordre
+     * @return Statut
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return integer 
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
     }
 }

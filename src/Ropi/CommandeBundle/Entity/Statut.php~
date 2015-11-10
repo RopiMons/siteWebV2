@@ -62,6 +62,13 @@ class Statut
 
     private $commandes;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ordre", type="integer")
+     */
+    private $ordre;
+
 
     /**
      * Get id

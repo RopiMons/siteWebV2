@@ -85,6 +85,8 @@ class Personne
     
     /**
      * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"persist","remove"})
+     *
+     * @Assert\Valid
      */
     private $adresses;
 
@@ -353,5 +355,18 @@ class Personne
     public function getCommandes()
     {
         return $this->commandes;
+    }
+
+    public function getEmail(){
+
+        foreach($this->getContacts() as $contact){
+            if($contact->getTypeContact()->getValidateur()=="Email"){
+                $mail = $contact->getValeur();
+            }
+        }
+
+        if(isset($mail)){
+            return $mail;
+        }
     }
 }
