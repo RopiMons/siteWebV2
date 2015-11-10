@@ -6,7 +6,11 @@
 {% block content %}
     <h1 class="souligné"> Inscription sur le site: </h1>
     {{ form_start(form) }}
-    {{ form_errors(form) }}
+
+    {% if form.vars.errors | length > 0 %}
+        <div class="alert alert-danger" role="alert">{{ form_errors(form) }}</div>
+    {% endif %}
+
     
     {{ form_row(form.nom) }}
     {{ form_row(form.prenom) }}
