@@ -14,9 +14,10 @@
     <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
 
         {% if admin  and admin == 1%}
-        
+
         {{ form_row(form.identifiantWeb.roles) }}
             {{ form_row(form.identifiantWeb.permission) }}
+            {{ form_row(form.identifiantWeb.actif) }}
         {% endif %}
     {% else %}
         <div class="alert alert-danger" role="alert">

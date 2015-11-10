@@ -25,7 +25,7 @@ class IdentifiantWebType extends AbstractType
             //->add('salt')
             //->add('lastConnection')
             //->add('createAt')
-            //->add('actif')
+            ->add('actif',null,array("label"=>"Utilisateur Actif ?"))
             ->add('roles',null,array())
             ->add('permission')
             //->add("submit","submit")
