@@ -81,7 +81,7 @@ class InscriptionController extends Controller
 
            $em->flush();
             $this->MailValidation($user, $cle);
-            $validationMail = false;
+            $validationMail = true;
             $this->get("session")->getFlashBag()->add(
                 'success',"Votre compte à bien crée, il faut maintenant validé votre addresse email!" );
             if ($validationMail) {
@@ -97,12 +97,12 @@ class InscriptionController extends Controller
     private function MailValidation(Personne $personne, KeyValidation $cle){
 
 
-     /*  $converter = $this->get('css_to_inline_email_converter');
+       $converter = $this->get('css_to_inline_email_converter');
         $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array('login' => $personne->getIdentifiantWeb()->getUsername(),
                         'id' =>$personne->getIdentifiantWeb()->getId(),'cle'=>$cle->getCle()));
         $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css')); //$personne->getIdentifiantWeb()->getId()
 
-        $body = $converter->generateStyledHTML();*/
+        $body = $converter->generateStyledHTML();
          foreach ($personne->getContacts() as $contact) {
 
             if ($contact->getTypeContact()->getType() === "Mail") {
@@ -111,8 +111,7 @@ class InscriptionController extends Controller
                         ->setFrom("info@ropi.be")
                         ->setTo($contact->getValeur())
                     ->setContentType('text/html')
-                        ->setBody($this->renderView("RopiIdentiteBundle:Inscription:mail_inscription.html.twig", array('login' => $personne->getIdentifiantWeb()->getUsername(),
-                            'id' =>$personne->getIdentifiantWeb()->getId(),'cle'=>$cle->getCle()),'text/html'));
+                        ->setBody($body);
 
 
                 ;
