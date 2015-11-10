@@ -111,8 +111,7 @@ class InscriptionController extends Controller
                         ->setFrom("info@ropi.be")
                         ->setTo($contact->getValeur())
                     ->setContentType('text/html')
-                        ->setBody($this->renderView("RopiIdentiteBundle:Inscription:mail_inscription.html.twig", array('login' => $personne->getIdentifiantWeb()->getUsername(),
-                            'id' =>$personne->getIdentifiantWeb()->getId(),'cle'=>$cle->getCle()),'text/html'));
+                        ->setBody($body);
 
 
                 ;
