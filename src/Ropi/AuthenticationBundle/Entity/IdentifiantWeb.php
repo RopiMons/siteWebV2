@@ -2,13 +2,16 @@
 
 namespace Ropi\AuthenticationBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Ropi\IdentiteBundle\Entity\Personne;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * IdentifiantWeb
@@ -22,6 +25,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields="username", message="Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre")
  */
 class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableInterface {
+
+
 
     /**
      * @var integer
@@ -91,7 +96,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @var type 
      * @ORM\ManyToMany(targetEntity="Role" ,inversedBy="identifiantWeb")
      */
-    private $roles;
+    private $role;
 
     /**
      *
@@ -101,7 +106,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     private $permission;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", mappedBy="identifiantWeb")
+     * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="identifiantWeb", cascade={"persist"})
      */
     private $personne;
 
@@ -253,7 +258,8 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     public function __construct() {
         $this->salt = md5(uniqid(null, true));
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->personne = new Personne();
+        $this->role= new \Doctrine\Common\Collections\ArrayCollection();
         $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -264,7 +270,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      * @return IdentifiantWeb
      */
     public function addRole(\Ropi\AuthenticationBundle\Entity\Role $roles) {
-        $this->roles[] = $roles;
+        $this->role[] = $roles;
 
         return $this;
     }
@@ -274,9 +280,16 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      *
      * @param \Ropi\AuthenticationBundle\Entity\Role $roles
      */
-    public function removeRole(\Ropi\AuthenticationBundle\Entity\Role $roles) {
-        
-        $this->roles->removeElement($roles);
+    public function removeRole( $role) {
+
+        $tab = new ArrayCollection();
+
+        foreach ($this->role as $roles) {
+
+            if ($role !== $roles->getRoles())
+                $tab[] = $role;
+        }
+        $this->role = $tab;
     }
 
     /**
@@ -289,7 +302,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
       
         //return $this->roles->toArray();
         $tab = array();
-        foreach($this->roles as $perm){
+        foreach($this->role as $perm){
            foreach($perm->getPermission() as $val){
                if (!in_array($val->getPermission(), $tab)){
                    $tab[] = $val->getPermission();
@@ -304,7 +317,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
         }
        
         return $tab;
-        
+
         
         
         //return array('ROLE_ADMIN',);
@@ -426,26 +439,10 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
         return $this->personne;
     }
 
-    /**
-     * Set key
-     *
-     * @param \Ropi\AuthenticationBundle\Entity\KeyValidation $key
-     * @return IdentifiantWeb
-     */
-    public function setKey(\Ropi\AuthenticationBundle\Entity\KeyValidation $key = null)
-    {
-        $this->key = $key;
-
-        return $this;
+    public function getRole(){
+        return $this->role;
     }
-
-    /**
-     * Get key
-     *
-     * @return \Ropi\AuthenticationBundle\Entity\KeyValidation 
-     */
-    public function getKey()
-    {
-        return $this->key;
+    public function setRole ($role){
+        $this->role = $role;
     }
 }

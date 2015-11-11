@@ -3,20 +3,21 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.dateNaissance) }}
+    {{ form_row(form.Personne.nom) }}
+    {{ form_row(form.Personne.prenom) }}
+    {{ form_row(form.Personne.dateNaissance) }}
 
     <h2 class="souligné">Identifiant web:</h2>
     <p class="margin5">
         {% if user %}
-    login: {{ user.username }}<br>
+    login: {{ form_row(form.username) }}<br>
     <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
 
-        {% if admin  and admin == 1%}
-        
-        {{ form_row(form.identifiantWeb.roles) }}
-            {{ form_row(form.identifiantWeb.permission) }}
+        {% if  admin is defined  and admin == 1%}
+
+            {{ form_row(form.role) }}
+            {{ form_row(form.permission) }}
+            {{ form_row(form.actif) }}
         {% endif %}
     {% else %}
         <div class="alert alert-danger" role="alert">
@@ -30,13 +31,13 @@
 
     </p>
     <h2>contact:</h2>
-    {% for contact in form.contacts %}
+    {% for contact in form.Personne.contacts %}
         {{ form_label(contact, contact.vars.value.typeContact.type) }}
         {{ form_errors(contact) }}
         {{ form_widget(contact) }}
     {% endfor %}
     <h3>Adresse</h3>
-    {% for adresse in form.adresses %}
+    {% for adresse in form.Personne.adresses %}
         {{  form_row(adresse.rue) }}
         {{  form_row(adresse.numero) }}
         {{  form_row( adresse.complement) }}

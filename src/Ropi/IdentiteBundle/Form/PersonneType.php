@@ -21,7 +21,10 @@ class PersonneType extends AbstractType {
                 ->add('contacts', 'collection', array(
                     'type' => new ContactType(),
                 ))
-                ->add('identifiantWeb', new \Ropi\AuthenticationBundle\Form\IdentifiantWebType())
+        ->add('adresses', 'collection', array(
+            'type' => new AdresseType(),
+        ))
+               // ->add('identifiantWeb', new \Ropi\AuthenticationBundle\Form\IdentifiantWebType())
                 
         //->add('creeLe')
         /* ->add('contacts', 'collection', array(

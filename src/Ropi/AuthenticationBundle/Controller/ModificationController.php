@@ -5,6 +5,7 @@ namespace Ropi\AuthenticationBundle\Controller;
 use Ropi\AuthenticationBundle\Form\changePWDType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;

@@ -15,15 +15,14 @@ class PersonneModifType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('nom')
-                ->add('prenom')
-                ->add('dateNaissance',"birthday")
-                ->add('contacts', 'collection', array(
-                    'type' => new ContactType(),
-                ))
-                ->add("adresses",'collection',array("type" => new AdresseType()))
-                
-        //->add('creeLe')
+           // ->add('username',null,array("label"=>"nom d'utilisateur"))
+
+
+            ->add('Personne', new \Ropi\IdentiteBundle\Form\PersonneType())
+
+
+
+            //->add('creeLe')
         /* ->add('contacts', 'collection', array(
           'type' => new ContactType(),
           'allow_add' => true,
@@ -36,7 +35,7 @@ class PersonneModifType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\IdentiteBundle\Entity\Personne',
+            'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
              'cascade_validation' => true
         ));
     }

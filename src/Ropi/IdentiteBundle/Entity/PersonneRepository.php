@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonneRepository extends EntityRepository
 {
+    public function loadById($id){
+        $q = $this
+            ->createQueryBuilder('p')
+            ->select(array('p','i','r','pe'))
+            ->leftJoin('p.identifiantWeb','i')
+             ->leftJoin('i.roles','r')
+            ->leftJoin('i.permission','pe')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+
+
+
+        try {
+            // La méthode Query::getSingleResult() lance une exception
+            // s'il n'y a pas d'entrée correspondante aux critères
+            $user = $q->getSingleResult();
+        } catch (NoResultException $e) {
+            throw new UsernameNotFoundException(sprintf('L\'utilisateur "%s" n\'a pas été trouvé ou n\'est pas actif.'), 0, $e);
+        }
+
+        return $user;
+
+    }
+
 }

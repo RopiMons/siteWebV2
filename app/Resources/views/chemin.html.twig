@@ -1,0 +1,25 @@
+<h3 class="souligné">
+    {% for key,i in app.request.pathInfo |split('/') %}
+
+        {% set i2 = "" %}
+        {% for valeur in i|capitalize|split('%20') %}
+            {% if valeur != "" %}
+
+                {%  set i2 = i2 ~ " "~  valeur %}
+        {% endif %}
+        {% endfor %}
+        {% if i == " " or i == "" and key == 1 %}
+            Accueil
+        {% elseif i == " " or i == "" and app.request.pathInfo |split('/')|length > 1 %}
+        {% elseif i == "page" or i == "Page" %}
+
+
+        {% elseif  i =="app.php" %}
+        {% elseif app.request.pathInfo |split('/')|length -1 == key %}
+            {{ i2 }}
+        {% else %}
+            {{ i2 }}&nbsp;>>&nbsp;
+
+        {% endif %}
+    {% endfor %}
+</h3>

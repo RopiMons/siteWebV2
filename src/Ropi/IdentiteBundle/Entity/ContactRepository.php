@@ -30,7 +30,6 @@ class ContactRepository extends EntityRepository
             ->execute()
             ;
 
-        dump($rep);
 
         return $rep;
 
