@@ -40,12 +40,26 @@
         </table>
     </div>
 
-    <div id="modeDeLivraison">
-        {{ form_row(form.modeDeLivraison) }}
-    </div>
+    <h2>Lieu de livraison</h2>
+    <p>Veuillez choisir l'endroit où vous souhaitez être livré</p>
+    <p>Vous pouvez etre livré à domicile, moyennant des frais. Il est égallement possible d'etre livré dans un commerce participant, sans frais.</p>
+
+    <table>
+        <tbody>
+        <tr style="text-align: center; vertical-align: middle   ">
+            <td width="50%"><div class="jumbotron" id="commercant"><h2>Chez un COMMERCANT</h2><p>Sans frais</p></div></td>
+            <td width="50%"><div class="jumbotron" id="moi"><h2>Chez MOI</moi></h2><p>Moyennant participation</p></div></td>
+        </tr>
+        </tbody>
+    </table>
+
     <div id="result"></div>
-    {{ form_row(form.modeDePaiement) }}
-    {{ form_row(form.adresseDeLivraison) }}
+    <br /><br />
+    <div id="result2"></div>
+    <br /><br />
+    {#<h2>Mode de paiement</h2>
+    <p>Vous pouvez selectionner le moyen de paiement de votre choix, par confort, nous vous proposons égallement des moyens de paiement en ligne mais nous vous demandons de prendre en charge les frais y afférents</p>
+    {{ form_row(form.modeDePaiement) }} #}
 
     {{ form_row(form._token) }}
 
@@ -59,6 +73,6 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     {% javascripts '@RopiCommandeBundle/Resources/public/js/formCommande.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

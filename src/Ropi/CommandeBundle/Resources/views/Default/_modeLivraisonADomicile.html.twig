@@ -1,0 +1,12 @@
+{% if modes | length <= 0 %}
+    <p>Nous n'avons malheureusement pas pu trouver de mode de livraison pour votre code postal. N'hésitez pas à nous contacter</p>
+{% else %}
+
+    <p>Voici les modes de livraisons que nous pouvons vous proposer au vue de votre code postal</p>
+
+    {% for mode in modes %}
+        <input type="radio" value="{{ mode.id }}" name="ropi_commandebundle_commande[modeDeLivraison]" \> <label>{{ mode.nom }} - {{ mode.frais }} €</label>
+        <br />
+    {% endfor %}
+{% endif %}
+

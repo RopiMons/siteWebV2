@@ -1,0 +1,20 @@
+<h2>Veuillez choisir le commerçant chez lequel vous souhaitez retirer vos Ropi</h2>
+
+<p>Vous recevrez un mail lorsque vos ropi seront pret chez le commercant, merci de ne pas vous y rendre avant.</p>
+
+{% if commerces | length <= 0 %}
+    <p>Nous n'avons malheureusement pas encore de commerçants partenaires. Merci de choisir la livraison à domiciel</p>
+{% else %}
+    <label>Choix du commerce </label>
+    <select name="ropi_commandebundle_commande[adresseDeLivraison]">
+        {% for commerce in commerces %}
+            {% set adresse = commerce.commerceImplentationAdresse %}
+            {% if adresse is defined  %}
+                    <option value="{{ adresse.id }}">{{ commerce.nom | capitalize }} - {{ adresse.rue }} {{ adresse.complement }}, {{ adresse.numero }} - {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <input type="hidden" name = "ropi_commandebundle_commande[modeDeLivraison]" value="{{ modeDeLivraison.id }}" \>
+
+{% endif %}

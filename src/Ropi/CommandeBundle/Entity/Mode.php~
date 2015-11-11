@@ -46,12 +46,6 @@ class Mode
      */
     private $description;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="redirection", type="string", length=255)
-     */
-    private $redirection;
 
     /**
      * @var string
@@ -147,28 +141,6 @@ class Mode
         return $this->description;
     }
 
-    /**
-     * Set redirection
-     *
-     * @param string $redirection
-     * @return Mode
-     */
-    public function setRedirection($redirection)
-    {
-        $this->redirection = $redirection;
-
-        return $this;
-    }
-
-    /**
-     * Get redirection
-     *
-     * @return string 
-     */
-    public function getRedirection()
-    {
-        return $this->redirection;
-    }
 
     /**
      * Set image

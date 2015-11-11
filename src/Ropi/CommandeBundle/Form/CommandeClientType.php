@@ -9,7 +9,10 @@
 namespace Ropi\CommandeBundle\Form;
 
 
+use Ropi\CommandeBundle\Entity\ModeDeLivraisonRepository;
+use Ropi\CommandeBundle\Entity\ModeDePaiementRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CommandeClientType extends CommandeType
 {
@@ -23,16 +26,29 @@ class CommandeClientType extends CommandeType
             ->add("articlesQuantite",'collection',array(
                 'type' => new ArticleCommandeType(),
             ))
-            ->add("modeDePaiement",null,array(
+            /*->add("modeDePaiement",null,array(
                 'expanded' => true,
-            ))
-            ->add("modeDeLivraison",null,array(
-                'expanded' => true,
-            ))
-            ->add("adresseDeLivraison",null,array(
-                'expanded' => true,
-            ))
+                'query_builder' => function(ModeDePaiementRepository $repository){
+                    return $repository->createQueryBuilder('c')->where('c.actif = true');
+                }
+            ))*/
+
+                /* ATTENTION !! Ces deux ci ne sont jamais utilisé */
+            ->add("modeDeLivraison")
+                ->add("adresseDeLivraison")
         ;
 
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+
+        $resolver->setDefaults(array(
+            'allow_extra_fields' => true,
+            'data_class' => 'Ropi\CommandeBundle\Entity\Commande',
+        ));
     }
 }

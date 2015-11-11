@@ -5,6 +5,7 @@ namespace Ropi\CommandeBundle\Controller;
 use Ropi\CommandeBundle\Entity\ArticleCommande;
 use Ropi\CommandeBundle\Entity\Commande;
 use Ropi\CommandeBundle\Form\CommandeClientType;
+use Ropi\CommandeBundle\Form\CommandePaiementType;
 use Ropi\CommandeBundle\Form\CommandeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -58,35 +59,11 @@ class DefaultController extends Controller
             $commande->setClient($this->getUser()->getPersonne());
             $commande->setStatut($statut);
 
-            $mailClient = $this->getUser()->getPersonne()->getEmail();
+            $manager->flush();
 
-            if(isset($mailClient)) {
-                $messageClient = \Swift_Message::newInstance()
-                    ->setSubject("Votre commande de Ropi")
-                    ->setFrom("info@ropi.be")
-                    ->setTo($mailClient)
-                    ->setBody($this->renderView("RopiCommandeBundle:Default:email.newCommande.html.twig",array('commande'=>$commande)),'text/html');
-
-                /*$messageAdmin = \Swift_Message::newInstance()
-                    ->setSubject("[Ropi.Be] Nouvelle commande de Ropi")
-                    ->setFrom("info@ropi.be")
-                    ->setTo("info@ropi.be")
-                    ->setBody(,'text/html');
-
-                $this->get('mailer')->send($messageAdmin);*/
-                $this->get('mailer')->send($messageClient);
-
-                $this->addFlash("success","Votre commande a été enregistrée. Une confirmation vous a été envoyée à l'adresse ".$mailClient.". Merci !");
-
-                $manager->flush();
-
-            } else {
-                $this->addFlash("danger","Aucune adresse email n'est associée à votre compte, impossible de passer la commande. Merci de prendre contact avec nous.");
-            }
+            return $this->redirectToRoute("commande_new_paiement",array('idCommande' => $commande->getId()));
 
         }
-
-        dump((string) $form->getErrors(true));
 
         return array(
             'form' => $form->createView(),
@@ -94,21 +71,137 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/my/commande/livraison/{idLivraison}", requirements= { "idLivraison" = "\d+"}, name="commande_ajax_livraison", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     * @Route("/my/commande/new/paiement/{idCommande}", name="commande_new_paiement", requirements={ "idCommande" = "\d+" } )
+     * @Template()
      * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
      */
-    public function livraisonManagement($idLivraison){
+    public function addMoyenDePaiementAction($idCommande, Request $request){
 
-        $livraison = $this->getDoctrine()->getRepository("Ropi\CommandeBundle\Entity\ModeDeLivraison")->find($idLivraison);
+        $manager = $this->getDoctrine()->getManager();
 
-        if($livraison){
+        $commande = $manager->getRepository("Ropi\CommandeBundle\Entity\Commande")->find($idCommande);
 
-            return new JsonResponse($livraison->getFrais()." €");
+        if($commande && $commande->getClient() == $this->getUser()->getPersonne() && $commande->getStatut()->getOrdre() == 1){
+
+            $lolo = $request->get('moyenDePaiement');
+
+                if($lolo && ($mdp = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDePaiement")->find($lolo)) && ($newStatut = $manager->getRepository("Ropi\CommandeBundle\Entity\Statut")->findOneBy(array('ordre'=>2)))){
+
+                    $commande->setModeDePaiement($mdp);
+                    $commande->setStatut($newStatut);
+
+                    $manager->flush();
+
+                    $this->sendMails($commande);
+
+                    if($mdp->getRedirection() != null){
+                        //A implémenter
+                    }else{
+                        return $this->render('RopiCommandeBundle:Default:confirmationCommande.html.twig',array('commande'=>$commande));
+                    }
+
+                }
+
+                $mdp = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDePaiement")->findBy(array(
+                    'actif' => true
+                ));
+
+                $tab = array();
+                $montant = $commande->getPrix();
+
+                foreach($mdp as $mode){
+                    $mode->setMontant($montant);
+                    $tab[] = $mode;
+                }
+
+                return array(
+                    'commande'=> $commande,
+                    'mdp' => $tab
+                );
+
+
+
 
 
         }else{
-            return new JsonResponse();
+            throw $this->createAccessDeniedException();
         }
+    }
+
+    private function sendMails(Commande $commande){
+
+        $mailClient = \Swift_Message::newInstance()
+            ->addTo($commande->getClient()->getEmail())
+            ->addFrom("info@ropi.be")
+            ->setSubject("Votre commande en ligne")
+            ->setBody($this->renderView("RopiCommandeBundle:Default:email.newCommande.html.twig",array('commande'=>$commande)),'text/html')
+            ;
+
+        $mailAdmin  = \Swift_Message::newInstance()
+            ->addTo("info@ropi.be")
+            ->addFrom("info@ropi.be")
+            ->setSubject("[Ropi.Be] Nouvelle commande")
+            ->setBody($this->renderView("RopiCommandeBundle:Default:email.admin.newCommande.html.twig",array('commande'=>$commande)),'text/html')
+        ;
+
+        $this->get('mailer')->send($mailClient);
+        $this->get('mailer')->send($mailAdmin);
+
+
+    }
+
+
+    /**
+     * @Route("/my/commande/livraison/{choixLivraison}", name="commande_ajax_livraison", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
+     */
+    public function livraisonManagement($choixLivraison){
+
+        $manager = $this->getDoctrine()->getManager();
+
+        switch($choixLivraison){
+            case "commercant" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonCommerçant.html.twig',array('commerces' => $manager->getRepository("Ropi\CommerceBundle\Entity\Commerce")->findBy(array('depot'=>true,'visible'=>true,'valide'=>true)),'modeDeLivraison' => $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDeLivraison")->findOneBy(array('nom'=>'Dépôt chez un commerçant')))));
+            case "moi" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonADomicile.html.twig',array('adresses' => $this->getUser()->getPersonne()->getAdresses())));
+            default : $test = null;
+        }
+
+
+    }
+
+    /**
+     * @Route("/my/commande/livraison/adresse/{idAdresse}", requirements = { "idAdresse" = "\d+" }, name="commande_ajax_modeDeLivraison", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
+     */
+    public function livraisonAdresse($idAdresse){
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $adresse = $manager->getRepository("Ropi\IdentiteBundle\Entity\Adresse")->getAdresse($idAdresse, $this->getUser()->getPersonne());
+
+        if($adresse){
+            $codePostal = intval($adresse->getVille()->getCodePostal());
+
+            $modes = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDeLivraison")->findBy(array(
+                'aDomicile' => true,
+                'actif' => true,
+            ));
+
+            $tab = array();
+
+            foreach($modes as $mode){
+                if(preg_match($mode->getRegleCP(),$codePostal)){
+                    $tab[] = $mode;
+                }
+            }
+
+            return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_modeLivraisonADomicile.html.twig',array('modes'=>$tab)));
+
+
+        }
+
+        return new JsonResponse();
+
+
     }
 
 }

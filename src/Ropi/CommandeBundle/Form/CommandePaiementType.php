@@ -2,11 +2,12 @@
 
 namespace Ropi\CommandeBundle\Form;
 
+use Ropi\CommandeBundle\Entity\ModeDePaiementRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommandeType extends AbstractType
+class CommandePaiementType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +16,9 @@ class CommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('createdAt')
-            //->add('updateAt')
-            ->add('client')
-            ->add('statut')
+            ->add('modeDePaiement',null, array(
+                'required' => true,
+            ))
         ;
     }
     
@@ -29,8 +29,6 @@ class CommandeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\CommandeBundle\Entity\Commande',
-            'cascade_validation' => true,
-
         ));
     }
 

@@ -1,0 +1,13 @@
+{% extends '::email.html.twig' %}
+
+{% block content %}
+    <h1>Cool Raoul !</h1>
+    <p>Une nouvelle commande de Ropi est arrivée. En voici le détail :</p>
+    <ul>
+        <li>{{ commande.client.nom }} {{ commande.client.prenom }}</li>
+    </ul>
+    {{ include('RopiCommandeBundle:Default:_recapCommande.html.twig', {"commande" : commande}) }}
+    {{ include( 'RopiCommandeBundle:Default:_' ~ commande.modeDePaiement.confirmation ~ '.html.twig', {"commande" : commande}) }}
+    <p>Nous restons disponible</p>
+    <p>L'équipe Ropi</p>
+{% endblock %}

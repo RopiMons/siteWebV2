@@ -1,0 +1,19 @@
+<h2>Veuillez l'adresse à laquelle vous souhaitez recevoir vos Ropi</h2>
+
+<p>Vous recevrez un mail lorsque vos ropi auront été transmis au transporteur</p>
+
+{% if adresses | length <= 0 %}
+    <p>Nous n'avons malheureusement pas d'adresse dans votre dossier. Merci d'en rajouter</p>
+{% else %}
+    <div class="form-group">
+    <div id =ropi_commandebundle_commande_adresseDeLivraison>
+    <label>Sélection de votre adresse </label>
+    <select name="ropi_commandebundle_commande[adresseDeLivraison]" id="adresse">
+        {% for adresse in adresses %}
+            <option value="{{ adresse.id }}">{{ adresse.rue}} {{ adresse.complement }}, {{ adresse.numero }} - {{ adresse.ville.codePostal }} {{ adresse.ville.ville }} {{ adresse.ville.pays.nom }}</option>
+        {% endfor %}
+    </select>
+    </div>
+    </div>
+{% endif %}
+

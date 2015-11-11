@@ -52,7 +52,7 @@ class Adresse
     
     /**
      * @ORM\ManyToOne(targetEntity="Ville", cascade={"persist"})
-     * @Assert\NotBlank()
+     * @Assert\Valid
      */
     private $ville;
     

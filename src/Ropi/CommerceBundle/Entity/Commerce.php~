@@ -107,6 +107,15 @@ class Commerce
     private $imageFile;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="depot", type="boolean")
+     *
+     */
+    
+    private $depot;
+
+    /**
      * Get id
      *
      * @return integer
@@ -441,5 +450,36 @@ class Commerce
     public function getLogo()
     {
         return $this->logo;
+    }
+
+    /**
+     * Set depot
+     *
+     * @param boolean $depot
+     * @return Commerce
+     */
+    public function setDepot($depot)
+    {
+        $this->depot = $depot;
+
+        return $this;
+    }
+
+    /**
+     * Get depot
+     *
+     * @return boolean 
+     */
+    public function getDepot()
+    {
+        return $this->depot;
+    }
+
+    public function getCommerceImplentationAdresse(){
+        foreach($this->getAdresses() as $adresse){
+            if($adresse->getTypeAdresse()->getValeur() == "Adresse du commerce"){
+                return $adresse;
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@ class ArticleCommande
      *
      * @Assert\Type(
      *     type="integer",
-     *     message="{{ value }} n'est pas une valeure entière"
+     *     message="{{ value }} n'est pas une valeur entière"
      * )
      *
      * @Assert\GreaterThanOrEqual(

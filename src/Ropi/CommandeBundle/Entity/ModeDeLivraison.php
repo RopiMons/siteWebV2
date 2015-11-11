@@ -25,6 +25,22 @@ class ModeDeLivraison extends Mode
      */
 
     private $commandes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="regleCp", type="string", length=255)
+     */
+    private $regleCP;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="aDomicile", type="boolean")
+     */
+    private $aDomicile;
+
+
     /**
      * Constructor
      */
@@ -64,5 +80,51 @@ class ModeDeLivraison extends Mode
     public function getCommandes()
     {
         return $this->commandes;
+    }
+
+    /**
+     * Set regleCP
+     *
+     * @param string $regleCP
+     * @return ModeDeLivraison
+     */
+    public function setRegleCP($regleCP)
+    {
+        $this->regleCP = $regleCP;
+
+        return $this;
+    }
+
+    /**
+     * Get regleCP
+     *
+     * @return string 
+     */
+    public function getRegleCP()
+    {
+        return $this->regleCP;
+    }
+
+    /**
+     * Set aDomicile
+     *
+     * @param boolean $aDomicile
+     * @return ModeDeLivraison
+     */
+    public function setADomicile($aDomicile)
+    {
+        $this->aDomicile = $aDomicile;
+
+        return $this;
+    }
+
+    /**
+     * Get aDomicile
+     *
+     * @return boolean 
+     */
+    public function getADomicile()
+    {
+        return $this->aDomicile;
     }
 }

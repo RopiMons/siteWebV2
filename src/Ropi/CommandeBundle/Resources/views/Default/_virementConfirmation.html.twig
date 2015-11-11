@@ -1,0 +1,18 @@
+<h2>Paiement par virement bancaire</h2>
+<p>Afin de finaliser votre commande, merci de réaliser le virement bancaire suivant :</p>
+<p>
+    <ul>
+    <li>
+        Fonds de garantie du Ropi ASBL : BE29 5230 4710 2164
+    </li>
+    <li>
+        Ropi ASBL - Rue de Ghlin, 24 à 7012 Mons
+    </li>
+    <li>
+        Montant : {{ commande.prix }} €
+    </li>
+    <li>
+        Communication : "Commande numéro : {{ commande.id }} au nom de {{ commande.client.nom |capitalize }} {{ commande.client.prenom |capitalize  }}"
+    </li>
+</ul>
+</p>

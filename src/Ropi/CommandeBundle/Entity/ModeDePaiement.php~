@@ -20,11 +20,29 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ModeDePaiement extends Mode
 {
+
+    private $montant;
+
     /**
      * @ORM\OneToMany(targetEntity="Commande", mappedBy="modeDePaiement")
      */
 
     private $commandes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="redirection", type="string", length=255)
+     */
+    private $redirection;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmation", type="string", length=255)
+     */
+    private $confirmation;
+
     /**
      * Constructor
      */
@@ -59,10 +77,71 @@ class ModeDePaiement extends Mode
     /**
      * Get commandes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCommandes()
     {
         return $this->commandes;
+    }
+
+    /**
+     * Set redirection
+     *
+     * @param string $redirection
+     * @return ModeDePaiement
+     */
+    public function setRedirection($redirection)
+    {
+        $this->redirection = $redirection;
+
+        return $this;
+    }
+
+    /**
+     * Get redirection
+     *
+     * @return string
+     */
+    public function getRedirection()
+    {
+        return $this->redirection;
+    }
+
+    public function getComputeFrais(){
+        if(is_integer($this->getFrais())){
+            return $this->getFrais();
+        }else{
+            return $this->calc(str_replace("X",$this->montant,$this->getFrais()));
+        }
+    }
+
+    function setMontant($montant)
+    {
+        $this->montant = $montant;
+
+    }
+
+    private function calc($equation)
+    {
+        // Remove whitespaces
+        $equation = preg_replace('/\s+/', '', $equation);
+
+        $number = '((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?|pi|π)'; // What is a number
+
+        $functions = '(?:sinh?|cosh?|tanh?|acosh?|asinh?|atanh?|exp|log(10)?|deg2rad|rad2deg
+|sqrt|pow|abs|intval|ceil|floor|round|(mt_)?rand|gmp_fact)'; // Allowed PHP functions
+        $operators = '[\/*\^\+-,]'; // Allowed math operators
+        $regexp = '/^([+-]?('.$number.'|'.$functions.'\s*\((?1)+\)|\((?1)+\))(?:'.$operators.'(?1))?)+$/'; // Final regexp, heavily using recursive patterns
+
+        if (preg_match($regexp, $equation))
+        {
+            $equation = preg_replace('!pi|π!', 'pi()', $equation); // Replace pi with pi function
+            eval('$result = '.$equation.';');
+        }
+        else
+        {
+            $result = false;
+        }
+        return round($result,2,PHP_ROUND_HALF_UP);
     }
 }

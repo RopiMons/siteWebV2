@@ -68,7 +68,6 @@ class Commande
     /**
      * @ORM\ManyToOne(targetEntity="ModeDePaiement", inversedBy="commandes")
      *
-     * @Assert\NotBlank()
      */
 
     private $modeDePaiement;
@@ -77,6 +76,7 @@ class Commande
      * @ORM\ManyToOne(targetEntity="ModeDeLivraison", inversedBy="commandes")
      *
      * @Assert\NotBlank()
+     *
      */
 
     private $modeDeLivraison;
@@ -85,6 +85,7 @@ class Commande
      * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Adresse")
      *
      * @Assert\NotBlank()
+     *
      */
 
     private $adresseDeLivraison;
@@ -386,8 +387,11 @@ class Commande
             $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
         }
 
-        $solde += $this->getModeDeLivraison()->getFrais();
-        $solde += $this->getModeDePaiement()->getFrais();
+        if($this->getModeDeLivraison())
+            $solde += $this->getModeDeLivraison()->getFrais();
+
+        if($this->getModeDePaiement())
+            $solde += $this->getModeDePaiement()->getComputeFrais($solde);
 
         return $solde;
     }

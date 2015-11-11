@@ -425,4 +425,27 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     {
         return $this->personne;
     }
+
+    /**
+     * Set key
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\KeyValidation $key
+     * @return IdentifiantWeb
+     */
+    public function setKey(\Ropi\AuthenticationBundle\Entity\KeyValidation $key = null)
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    /**
+     * Get key
+     *
+     * @return \Ropi\AuthenticationBundle\Entity\KeyValidation 
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
 }
