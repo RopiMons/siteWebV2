@@ -112,7 +112,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="KeyValidation",mappedBy="IdentifiantWeb", cascade={"remove","persist"})
+     * @ORM\OneToOne(targetEntity="KeyValidation", mappedBy="identifiantWeb", cascade={"remove","persist"})
      */
     private $key;
     
