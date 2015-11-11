@@ -35,7 +35,7 @@ class KeyValidation
     private $validation;
     /**
      *
-     * @ORM\OneToOne(targetEntity="IdentifiantWeb", cascade={"persist","remove"})
+     * @ORM\OneToOne(targetEntity="IdentifiantWeb",inversedBy="key", cascade={"persist","remove"})
      */
     
     private $IdentifiantWeb;

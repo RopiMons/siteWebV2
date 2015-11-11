@@ -3,6 +3,7 @@
 namespace Ropi\AuthenticationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Role
@@ -38,7 +39,7 @@ class Role implements  \Serializable
      /**
      *
      * @var IdentifiantWeb
-     * @ORM\ManyToMany(targetEntity="IdentifiantWeb", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="IdentifiantWeb", mappedBy="role")
      */
     private $identifiantWeb;
     
@@ -191,7 +192,9 @@ class Role implements  \Serializable
                 ) = unserialize($serialized);
     }
 
+
     public function __toString(){
         return $this->nom;
     }
+
 }

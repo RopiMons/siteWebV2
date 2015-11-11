@@ -5,6 +5,7 @@
 
 {% block content %}
     <h1 class="souligné"> Inscription sur le site: </h1>
+
     {{ form_start(form) }}
 
     {% if form.vars.errors | length > 0 %}
@@ -12,17 +13,17 @@
     {% endif %}
 
     
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.dateNaissance) }}
+    {{ form_row(form.Personne.nom) }}
+    {{ form_row(form.Personne.prenom) }}
+    {{ form_row(form.Personne.dateNaissance) }}
 
-    {% for contact in form.contacts %}
+    {% for contact in form.Personne.contacts %}
         {{ form_label(contact, contact.vars.value.typeContact.type) }}
         {{ form_errors(contact) }}
         {{ form_widget(contact) }}
     {% endfor %}
     <h3>Adresse</h3>
-     {% for adresse in form.adresses %}  
+     {% for adresse in form.Personne.adresses %}
         {{  form_row(adresse.rue) }}
          {{  form_row(adresse.numero) }}
           {{  form_row( adresse.complement) }}
@@ -32,12 +33,12 @@
         {{ form_errors(adresse) }}
         {% endfor %}
         <h3>Identifiant de connexion:</h3>
-        {{form_row(form.identifiantWeb.username)}}
-        {{form_row(form.identifiantWeb.motDePasse)}}
+        {{form_row(form.username)}}
+        {{form_row(form.motDePasse)}}
         
         {{form_row(form._token)}}
         {{form_row(form.Enregistrer)}}
             
-   
+
 
 {% endblock %}

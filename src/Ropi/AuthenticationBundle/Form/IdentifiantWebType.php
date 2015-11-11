@@ -2,6 +2,7 @@
 
 namespace Ropi\AuthenticationBundle\Form;
 
+use Ropi\IdentiteBundle\Form\PersonneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -25,8 +26,9 @@ class IdentifiantWebType extends AbstractType
             //->add('salt')
             //->add('lastConnection')
             //->add('createAt')
+            ->add('Personne', new \Ropi\IdentiteBundle\Form\PersonneType())
             ->add('actif',null,array("label"=>"Utilisateur Actif ?"))
-            ->add('roles',null,array())
+            ->add('role')
             ->add('permission')
             //->add("submit","submit")
             

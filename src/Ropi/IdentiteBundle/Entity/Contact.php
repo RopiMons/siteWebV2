@@ -50,7 +50,10 @@ class Contact
      */
      private $personne;
      
-    
+    public function __toString()
+    {
+       return $this->valeur;
+    }
 
 
     /**

@@ -6,6 +6,7 @@ use Ropi\AuthenticationBundle\Form\IdentifiantWebType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
@@ -16,9 +17,12 @@ class AuthenticateController extends Controller
     
     /**
      * @Route("/login", name="login")
-     * 
+     *
      */
    public function loginAction() {
+       if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
+           return $this->redirect($this->generateUrl("Ropi_ok"));
+       }
         $request = $this->getRequest();
         $session = $request->getSession();
         // get the login error if there is one
@@ -37,7 +41,7 @@ class AuthenticateController extends Controller
     }
     /**
      * @Route("/my",name="Ropi_ok")
-     * 
+     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
      public function okAction() {
         
@@ -58,7 +62,7 @@ class AuthenticateController extends Controller
     
     /**
      * @Route("/confirmation/{id}/{key}",name="Ropi_Key")
-     * 
+     *
      */
      public function testKeyAction(Request $request,$key,IdentifiantWeb $id) {
         
@@ -111,6 +115,7 @@ class AuthenticateController extends Controller
     /**
      * @route("/admin/user/{personne}/IdentifiantWeb/",name="Ropi_admin_add_identifiantWeb")
      * @Template()
+     * @Secure(roles={"ROLE_ADMIN"})
      * @param Request $request
      * @param Personne $personne
      */

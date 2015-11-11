@@ -18,7 +18,7 @@ class IdentifiantWebRepository extends EntityRepository  implements UserProvider
           $q = $this
                 ->createQueryBuilder('i')
                 ->select(array('i','p','r'))
-                ->leftJoin('i.roles','r')
+                ->leftJoin('i.role','r')
                 ->leftJoin('i.permission','p')
                 ->where('i.username = :login')
                 ->setParameter('login', $username)
@@ -36,9 +36,10 @@ class IdentifiantWebRepository extends EntityRepository  implements UserProvider
     public function loadById($id){
         $q = $this
                 ->createQueryBuilder('i')
-               // ->select(array('i','p','r'))
-                //->leftJoin('i.personne','p')
-               // ->leftJoin('p.roles','r')
+               ->select(array('i','p','r','pe'))
+               ->leftJoin('i.personne','p')
+                ->leftJoin('i.role','r')
+            ->leftJoin('i.permission','pe')
                 ->where('i.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery();

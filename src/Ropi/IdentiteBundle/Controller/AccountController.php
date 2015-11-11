@@ -25,6 +25,7 @@ class AccountController extends Controller
     /**
      * @Route("/my/account/", name="ropi_account")
      * @Template()
+     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
      */
     public function accountAction(Request $request)
     {
@@ -38,48 +39,50 @@ class AccountController extends Controller
 
     /**
      * @Route("/my/account/modification/", name="Ropi_account_modification")
-     * @Secure(roles={"ROLE_ADMIN"})
+
      * @Template()
      */
 public function modifAccountAction(Request $request){
     $user = $this->container->get('security.context')->getToken()->getUser();
 
-    return $this->modifuser($request,$user->getPersonne(),"Votre compte à bien été modifié!","home",new PersonneModifType(),"success");
+    return $this->modifuser($request,$user,"Votre compte à bien été modifié!","home",new PersonneModifType(),"success");
 
 }
     /**
      * @Route("/admin/user/{user}/modification/", name="Ropi_admin_user_modification")
-
+     * @Secure(roles={"ROLE_ADMIN"})
      * @Template("RopiIdentiteBundle:Account:modifAccountAdmin.html.twig")
      */
     public function  modifUserAction(Request $request, Personne $user){
 
-            return $this->modifuser($request, $user, "Le compte à bien été modifié!", "home",new PersonneModifAdminType());
+       // $users = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\IdentifiantWeb")->loadById($user->getIdentifiantWeb()->getId());
+
+
+            return $this->modifuser($request, $user->getIdentifiantWeb(), "Le compte à bien été modifié!", "Ropi_admin_user_listing",new PersonneModifAdminType());
 
     }
 
 
 
-    private function modifuser(Request $request, Personne $personne, $message, $cheminRetour,$type,$typeMessage= "success"){
+    private function modifuser(Request $request, IdentifiantWeb $user, $message, $cheminRetour,$type,$typeMessage= "success"){
 
 
-        $form = $this->createForm($type, $personne);
 
         if(!is_string($message) || !is_string($cheminRetour)){
 
             throw $this->createAccessDeniedException("Une erreur c'est produite!");
         }
-
+        $form = $this->createForm($type, $user);
         $form->add("Enregistrer","submit");
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ( $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
 
 
-
-            $em->persist($personne);
+            $em->persist($user);
 
             $em->flush();
             //$this->MailValidation($user, $cle);
@@ -88,7 +91,7 @@ public function modifAccountAction(Request $request){
             return $this->redirect($this->generateUrl($cheminRetour));
         }
         return  Array(
-            "form" => $form->createView(),"user"=>$personne->getIdentifiantWeb()
+            "form" => $form->createView(),"user"=>$user
         );
     }
 

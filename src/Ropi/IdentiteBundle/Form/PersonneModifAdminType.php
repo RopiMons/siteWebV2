@@ -15,14 +15,13 @@ class PersonneModifAdminType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('nom')
-                ->add('prenom')
-                ->add('dateNaissance',"birthday")
-            ->add('identifiantWeb', new \Ropi\AuthenticationBundle\Form\IdentifiantWebType())
-                ->add('contacts', 'collection', array(
-                    'type' => new ContactType(),
-                ))
-                ->add("adresses",'collection',array("type" => new AdresseType()))
+            ->add('username',null,array("label"=>"nom d'utilisateur"))
+
+            ->add('actif',null,array("label"=>"Utilisateur Actif ?"))
+            ->add('role')
+            ->add('permission')
+            ->add('Personne', new \Ropi\IdentiteBundle\Form\PersonneType())
+
                 
         //->add('creeLe')
         /* ->add('contacts', 'collection', array(
@@ -37,7 +36,7 @@ class PersonneModifAdminType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\IdentiteBundle\Entity\Personne',
+            'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
              'cascade_validation' => true
         ));
     }

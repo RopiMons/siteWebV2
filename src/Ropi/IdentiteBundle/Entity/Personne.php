@@ -69,7 +69,7 @@ class Personne
     private $creeLe;
     
     /** 
-     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist","remove"})
      */
     private $contacts;
     
@@ -79,7 +79,7 @@ class Personne
     private $commerces;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", inversedBy="personne" , cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"remove"})
      */
     private $identifiantWeb;
     
@@ -368,5 +368,9 @@ class Personne
         if(isset($mail)){
             return $mail;
         }
+    }
+    public function __toString()
+    {
+     return $this->nom;
     }
 }
