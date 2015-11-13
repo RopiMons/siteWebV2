@@ -75,15 +75,21 @@ class InscriptionController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-         $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
-         $cle = new KeyValidation($emCle,$users);
+
             
          $factory = $this->get('security.encoder_factory');
          $encoder = $factory->getEncoder($users);
           $users->setMotDePasse($encoder->encodePassword($users->getMotDePasse(), $users->getSalt()));
-         
-         $em->persist($cle);
+            $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
             $em->persist($users);
+            $em->flush();
+            dump($users);
+            $cle = new KeyValidation($users->getSalt());
+            $cle->setIdentifiantWeb($users->getId());
+           // $users->setKey($cle);
+
+            $em->persist($cle);
+
 
            $em->flush();
             $this->MailValidation($users, $cle);
@@ -121,6 +127,7 @@ class InscriptionController extends Controller
 
                 $this->get('mailer')->send($message);
             }
+             dump($personne);
     }
     }
 }

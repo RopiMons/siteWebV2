@@ -110,11 +110,6 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     private $personne;
 
-    /**
-     *
-     * @ORM\OneToOne(targetEntity="KeyValidation", mappedBy="identifiantWeb", cascade={"remove","persist"})
-     */
-    private $key;
     
    
 
@@ -445,4 +440,5 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     public function setRole ($role){
         $this->role = $role;
     }
+
 }

@@ -20,12 +20,9 @@ class KeyValidation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cle", type="string", length=255)
-     */
+    * @ORM\Column(name="cle", type="string", length=255)
+    */
     private $cle;
     /**
      * @var string
@@ -35,13 +32,16 @@ class KeyValidation
     private $validation;
 
     /**
+     * @var string
      *
-     * @ORM\OneToOne(targetEntity="IdentifiantWeb",inversedBy="key", cascade={"persist","remove"})
-     *
-     */
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_identifiantWeb", type="integer")
+     */
     
-    private $identifiantWeb;
+    private $id_identifiantWeb;
 
     /**
      * Get id
@@ -82,9 +82,9 @@ class KeyValidation
      * @param \Ropi\AuthenticationBundle\Entity\IdentifiantWeb $identifiantWeb
      * @return KeyValidation
      */
-    public function setIdentifiantWeb(\Ropi\AuthenticationBundle\Entity\IdentifiantWeb $identifiantWeb = null)
+    public function setIdentifiantWeb($identifiantWeb = null)
     {
-        $this->IdentifiantWeb = $identifiantWeb;
+        $this->id_identifiantWeb = $identifiantWeb;
 
         return $this;
     }
@@ -96,7 +96,7 @@ class KeyValidation
      */
     public function getIdentifiantWeb()
     {
-        return $this->IdentifiantWeb;
+        return $this->id_identifiantWeb;
     }
 
     /**
@@ -121,15 +121,16 @@ class KeyValidation
     {
         return $this->validation;
     }
-    public function __construct(\Doctrine\ORM\EntityRepository $em, $user) {
+    public function __construct($salt) {
         $cleString ="";
-        $this->setIdentifiantWeb($user);
+        //$this->setIdentifiantWeb($user);
+
         $this->validation = new \DateTime();
-        do{
-              $cleString = md5(uniqid(null, true).$user->getSalt());
-             $validation = $em->findBy(array("cle"=>$cleString));
+
+              $cleString = md5(uniqid(null, true).$salt);
+
             
-            }while (!isset($validation) && count($validation) <=0);
+
           
             $this->cle = $cleString;
     }
