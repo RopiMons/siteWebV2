@@ -83,7 +83,7 @@ class InscriptionController extends Controller
             $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
             $em->persist($users);
             $em->flush();
-            dump($users);
+
             $cle = new KeyValidation($users->getSalt());
             $cle->setIdentifiantWeb($users->getId());
            // $users->setKey($cle);
@@ -127,7 +127,7 @@ class InscriptionController extends Controller
 
                 $this->get('mailer')->send($message);
             }
-             dump($personne);
+
     }
     }
 }
