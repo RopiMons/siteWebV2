@@ -26,7 +26,6 @@ class ListingController extends Controller
          $repoUser= $this->getDoctrine()->getRepository("Ropi\identiteBundle\Entity\Personne");
          $users = $repoUser->findAll();
 
-    dump($users);
 
         return array("users"=>$users);
     }
