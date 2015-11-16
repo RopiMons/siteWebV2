@@ -56,8 +56,14 @@ class DefaultController extends Controller
                 throw new AccessException();
             }
 
-            $commande->setClient($this->getUser()->getPersonne());
+
             $commande->setStatut($statut);
+            $commande->setClient($this->getUser()->getPersonne());
+
+
+            $manager->flush();
+
+            $commande->calcRefCommande();
 
             $manager->flush();
 

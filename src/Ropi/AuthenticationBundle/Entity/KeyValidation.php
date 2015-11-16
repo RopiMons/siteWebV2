@@ -135,4 +135,27 @@ class KeyValidation
             $this->cle = $cleString;
     }
     
+
+    /**
+     * Set id_identifiantWeb
+     *
+     * @param integer $idIdentifiantWeb
+     * @return KeyValidation
+     */
+    public function setIdIdentifiantWeb($idIdentifiantWeb)
+    {
+        $this->id_identifiantWeb = $idIdentifiantWeb;
+
+        return $this;
+    }
+
+    /**
+     * Get id_identifiantWeb
+     *
+     * @return integer 
+     */
+    public function getIdIdentifiantWeb()
+    {
+        return $this->id_identifiantWeb;
+    }
 }

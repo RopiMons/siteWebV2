@@ -144,4 +144,27 @@ class ModeDePaiement extends Mode
         }
         return round($result,2,PHP_ROUND_HALF_UP);
     }
+
+    /**
+     * Set confirmation
+     *
+     * @param string $confirmation
+     * @return ModeDePaiement
+     */
+    public function setConfirmation($confirmation)
+    {
+        $this->confirmation = $confirmation;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmation
+     *
+     * @return string 
+     */
+    public function getConfirmation()
+    {
+        return $this->confirmation;
+    }
 }

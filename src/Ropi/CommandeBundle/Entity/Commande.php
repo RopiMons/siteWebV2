@@ -25,6 +25,17 @@ class Commande
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="refCommande", type="string")
+     *
+     */
+
+    private $refCommande;
+
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdAt", type="datetime")
@@ -271,6 +282,8 @@ class Commande
         $dt = new \DateTime();
         $this->setCreatedAt($dt);
         $this->routine($dt);
+
+        $this->setRefCommande(0);
     }
 
     /** @ORM\PreUpdate */
@@ -394,5 +407,59 @@ class Commande
             $solde += $this->getModeDePaiement()->getComputeFrais($solde);
 
         return $solde;
+    }
+
+    public function calcRefCommande(){
+        $annee = date('Y');
+        $id = $this->getId();
+
+        $chaine = $annee.$id;
+
+        $boucle = 6 - ceil(log10($id));
+
+        while($boucle){
+
+            $chaine = substr_replace($chaine,"0",4,0);
+            $boucle -= 1;
+        }
+        $modulo = (int)$chaine % 97;
+
+        if(ceil(log10($modulo))==1){
+            $modulo = substr_replace($modulo,"0",0,0);
+        }
+
+        $chaine = substr_replace($chaine,$modulo,10,0);
+
+        $this->setRefCommande($chaine);
+
+    }
+
+    /**
+     * Set refCommande
+     *
+     * @param string $refCommande
+     * @return Commande
+     */
+    public function setRefCommande($refCommande)
+    {
+        $this->refCommande = $refCommande;
+
+        return $this;
+    }
+
+    /**
+     * Get refCommande
+     *
+     * @return string 
+     */
+    public function getRefCommande()
+    {
+        return $this->refCommande;
+    }
+
+    public function getComStructure(){
+        $communication = $this->getRefCommande();
+
+        return "+++".substr($communication,0,3)."/".substr($communication,3,4)."/".substr($communication,7,5)."+++";
     }
 }
