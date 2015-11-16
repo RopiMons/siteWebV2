@@ -1,7 +1,9 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1>{{ commerce.nom }}</h1>
-    <img class="col-sm-12 logo" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" />
+    <div id="global">
+        <div id="gauche"><img id="logoCommerce" class="col-sm-12" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" /></div>
+        <div id="droite"><h1>{{ commerce.nom }}</h1></div>
+    </div>
     {{ commerce.description|raw }}
 {% endblock %}

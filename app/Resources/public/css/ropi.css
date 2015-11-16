@@ -54,12 +54,34 @@ body{
 }
 
 .img100 {
-	width: 100%; 
+	width: 100%;
 }
 
-.logo {
-	width : 90%;
+#global #gauche {
+	float: left;
+	max-width: 15%;
+}
+
+#global #droite {
+	padding-left: 15%;
 	text-align: center;
+}
+
+#logoCommerce {
+	max-width: 100%;
+	height: auto;
+}
+
+.logoCommerceView{
+	max-height: 80px;
+	width: auto;
+}
+
+
+.logo {
+	text-align: center;
+	width: 90%;
+	height: auto;
 }
 
 .article {
@@ -80,6 +102,15 @@ body{
 #logo{
 	min-width:150px;
 	max-width:300px;
+}
+
+#Global #gauche {
+	float: left;
+	with : 30%;
+}
+
+#Global #droite {
+	padding-left: 60%;
 }
 
 #slogan{
