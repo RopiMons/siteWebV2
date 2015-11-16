@@ -4,6 +4,7 @@ namespace Ropi\CommerceBundle\Controller;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ropi\CommerceBundle\Entity\Commerce;
+use Ropi\CommerceBundle\Form\CommerceAdminType;
 use Ropi\CommerceBundle\Form\CommerceType;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -56,14 +57,20 @@ class DefaultController extends Controller {
         );
     }
 
-    private function createCommercantForm(Request $request, Commerce $commerce = null) {
+    private function createCommercantForm(Request $request, Commerce $commerce = null, $admin = false) {
         if (!$commerce) {
+
             $adresse = new Adresse();
             $commerce = new Commerce();
             $commerce->addAdress($adresse);
         }
 
-        $form = $this->createForm(new CommerceType(), $commerce);
+        if($admin && $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            $form = $this->createForm(new CommerceAdminType(), $commerce);
+        }else{
+            $form = $this->createForm(new CommerceType(), $commerce);
+        }
+
         $form->add("Ajouter un commerce", "submit");
 
         $form->handleRequest($request);
@@ -108,7 +115,7 @@ class DefaultController extends Controller {
         $commerce = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce")->find($id);
 
         if ($commerce) {
-            $form = $this->createCommercantForm($request, $commerce);
+            $form = $this->createCommercantForm($request, $commerce, true);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
