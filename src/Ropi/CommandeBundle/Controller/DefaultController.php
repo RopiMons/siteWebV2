@@ -7,6 +7,8 @@ use Ropi\CommandeBundle\Entity\Commande;
 use Ropi\CommandeBundle\Form\CommandeClientType;
 use Ropi\CommandeBundle\Form\CommandePaiementType;
 use Ropi\CommandeBundle\Form\CommandeType;
+use Ropi\IdentiteBundle\Entity\Adresse;
+use Ropi\IdentiteBundle\Form\AdresseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -208,6 +210,43 @@ class DefaultController extends Controller
         return new JsonResponse();
 
 
+    }
+
+    /**
+     * @Route("my/commande/livraison/adresse/add", name="commande_ajax_addAdresse", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     */
+    public function addAdresse(Request $request){
+        $adresse = new Adresse();
+        $adresse->addPersonne($this->getUser()->getPersonne());
+
+        $form = $this->createForm(new AdresseType(), $adresse);
+
+        $form->add('Ajouter cette adresse','submit');
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $data = $form->getData();
+
+            $manager = $this->getDoctrine()->getManager();
+
+            $manager->persist($data);
+            $manager->flush();
+
+            return $this->getMyAdresses();
+
+        }
+        return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_addAdresse.html.twig',array('form'=>$form->createView())));
+    }
+
+    /**
+     * @Route("my/commande/livraison/adresses/my", name="commande_ajax_myAdresses", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     */
+    public function getMyAdresses(){
+        $adresses = $this->getDoctrine()->getManager()->getRepository("Ropi\IdentiteBundle\Entity\Adresse")->getAdresses($this->getUser()->getPersonne());
+
+        return new JsonResponse($this->renderView("RopiCommandeBundle:Default:_myAdressesChoices.html.twig",array('adresses'=>$adresses)));
     }
 
 }

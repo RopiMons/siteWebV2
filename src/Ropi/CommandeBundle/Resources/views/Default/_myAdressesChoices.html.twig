@@ -1,0 +1,34 @@
+{% if adresses | length <= 0 %}
+<p xmlns="http://www.w3.org/1999/html">Nous n'avons malheureusement pas d'adresse dans votre dossier. Merci d'en rajouter une</p>
+{% else %}
+    <div class="form-group">
+        <div id =ropi_commandebundle_commande_adresseDeLivraison>
+            <label>Sélection de votre adresse </label>
+            <br>
+            {% for adresse in adresses %}
+                <input type="radio" name="ropi_commandebundle_commande[adresseDeLivraison]" value="{{ adresse.id }}" {% if loop.index == 1 %}checked{% endif %}> {{ adresse.rue}} {{ adresse.complement }}, {{ adresse.numero }} - {{ adresse.ville.codePostal }} {{ adresse.ville.ville }} ({{ adresse.ville.pays.nom }})
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+<script type="text/javascript">
+
+    function adresseChange(){
+        $.ajax({
+            url: Routing.generate("commande_ajax_modeDeLivraison", { idAdresse : $('input[name="ropi_commandebundle_commande[adresseDeLivraison]"]:checked').val() }),
+            type: 'GET',
+            dataType : 'json',
+
+            success: function(code_html, statut){
+                $("#result2").html(code_html);
+            }
+        });
+
+    }
+
+    $('input[name="ropi_commandebundle_commande[adresseDeLivraison]"]').change(adresseChange);
+    $('input[name="ropi_commandebundle_commande[adresseDeLivraison]"]').change();
+    
+</script>

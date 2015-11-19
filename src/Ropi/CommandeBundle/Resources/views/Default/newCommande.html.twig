@@ -57,9 +57,6 @@
     <br /><br />
     <div id="result2"></div>
     <br /><br />
-    {#<h2>Mode de paiement</h2>
-    <p>Vous pouvez selectionner le moyen de paiement de votre choix, par confort, nous vous proposons égallement des moyens de paiement en ligne mais nous vous demandons de prendre en charge les frais y afférents</p>
-    {{ form_row(form.modeDePaiement) }} #}
 
     {{ form_row(form._token) }}
 
@@ -75,4 +72,10 @@
     {% javascripts '@RopiCommandeBundle/Resources/public/js/formCommande.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+{% endblock %}
+
+{% block headJavascripts %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 {% endblock %}

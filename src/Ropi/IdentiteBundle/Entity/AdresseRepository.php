@@ -26,4 +26,17 @@ class AdresseRepository extends EntityRepository
             ;
 
     }
+
+    public function getAdresses(Personne $personne){
+
+        return $this->createQueryBuilder('a')
+            ->select(array('a'))
+            ->join("a.personnes", 'p')
+            ->where("p.id = :personneId")
+            ->setParameter('personneId',$personne->getId())
+            ->getQuery()
+            ->execute()
+            ;
+
+    }
 }
