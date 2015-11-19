@@ -7,11 +7,13 @@ use PhpOption\Tests\Repository;
 use Proxies\__CG__\Ropi\CMSBundle\Entity\Categorie;
 use Ropi\CMSBundle\Entity\Page;
 use Ropi\CMSBundle\Form\CategorieType;
+use Ropi\CMSBundle\Form\PageDynamiqueType;
 use Ropi\CMSBundle\Map\MapBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\CMSBundle\Form\PageStatiqueForm;
 use Ropi\CMSBundle\Entity\PageStatique;
@@ -61,13 +63,17 @@ class DefaultController extends Controller {
         );
     }
 
-    private function ecrireResultat(PageStatique $ps) {
-        $nomFichier = "page_" . $ps->getId() . ".txt";
-        $fp = fopen($nomFichier, "w+");
-        fseek($fp, 0);
-        $texte = 'array(' . $ps->getPosition() . ', "' . $ps->getTitreMenu() . '", ' . $ps->getIsActive() . ', new DateTime("' . $ps->getLastUpdate()->format(DATE_W3C) . '"), new DateTime("' . $ps->getCreatedAt()->format(DATE_W3C) . '"), new DateTime("' . $ps->getPublicationDate()->format(DATE_W3C) . '"), $this->getReference("CAT_' . $ps->getCategorie()->getPosition() . '"), "' . addslashes($ps->getContenu()) . '")';
-        fputs($fp, $texte);
-        fclose($fp);
+    private function ecrireResultat(Page $ps) {
+
+        if(get_class($ps) == "Ropi\CMSBundle\Entity\PageStatique") {
+
+            $nomFichier = "page_" . $ps->getId() . ".txt";
+            $fp = fopen($nomFichier, "w+");
+            fseek($fp, 0);
+            $texte = 'array(' . $ps->getPosition() . ', "' . $ps->getTitreMenu() . '", ' . $ps->getIsActive() . ', new DateTime("' . $ps->getLastUpdate()->format(DATE_W3C) . '"), new DateTime("' . $ps->getCreatedAt()->format(DATE_W3C) . '"), new DateTime("' . $ps->getPublicationDate()->format(DATE_W3C) . '"), $this->getReference("CAT_' . $ps->getCategorie()->getPosition() . '"), "' . addslashes($ps->getContenu()) . '")';
+            fputs($fp, $texte);
+            fclose($fp);
+        }
     }
 
     /**
@@ -122,17 +128,37 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/my/cms/update/static/{id}", requirements={"id" = "\d+"}, defaults={"id" = 0}, name="CMS_static_update")
+     * @Route("/my/cms/update/static/{id}", requirements={"id" = "\d+"}, defaults={"id" = 0}, name="CMS_update")
      */
+
     public function updatePageAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique");
+        $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page");
+
+
+
         if ($id > 0) {
 
             $page = $repo->findOneBy(array('id' => $id));
+
             if ($page) {
+
+                if(get_class($page) == "Ropi\CMSBundle\Entity\PageStatique"){
+
+                    $newForm = new PageStatiqueForm();
+                    $nomTwig = "createStatique";
+
+                }elseif (get_class($page) == "Ropi\CMSBundle\Entity\PageDynamique"){
+
+                    $newForm = new PageDynamiqueType();
+                    $nomTwig = "createStatique";
+
+                }else{
+                    throw new AccessDeniedException();
+                }
+
                 $oldCategorie = $page->getCategorie();
-                $form = $this->createForm(new PageStatiqueForm(), $page);
+                $form = $this->createForm($newForm, $page);
                 $form->add('Modifier', 'submit');
 
                 $form->handleRequest($request);
@@ -163,12 +189,12 @@ class DefaultController extends Controller {
                     return $this->redirect($this->generateUrl("CMS_pages"));
                 }
 
-                return $this->render('RopiCMSBundle:Default:createStatique.html.twig', array(
+                return $this->render('RopiCMSBundle:Default:'.$nomTwig.'.html.twig', array(
                     'titre' => 'Modification de la page',
                     'form' => $form->createView()
                 ));
             } else {
-                return $this->redirect($this->generateUrl("CMS_static_update"));
+                return $this->redirect($this->generateUrl("CMS_update"));
             }
         } else {
             $pages = $repo->findAll();
