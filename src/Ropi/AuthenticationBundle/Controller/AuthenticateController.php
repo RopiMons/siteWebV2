@@ -73,8 +73,7 @@ class AuthenticateController extends Controller
             $validation = $em->findOneBy(array("id_identifiantWeb"=>$id->getId()));
 
            if(isset($validation) && $validation->getCle() == $key){
-               dump(isset($validation));
-               dump($validation->getCle() == $key);
+
                 if($validation->getValidation()->modify('+2 day') >= new \DateTime())
                {
                    $ems2 = $this->getDoctrine() ->getRepository('RopiAuthenticationBundle:Permission');
