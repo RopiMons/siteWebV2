@@ -10,11 +10,11 @@
     <h2 class="souligné">Identifiant web:</h2>
     <p class="margin5">
         {% if user %}
-    login: {{ form_row(form.username) }}<br>
+        {{ form_row(form.username) }}<br>
     <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
 
-        {% if  admin is defined  and admin == 1%}
 
+        {% if  admin is defined  and admin == 1%}
             {{ form_row(form.role) }}
             {{ form_row(form.permission) }}
             {{ form_row(form.actif) }}

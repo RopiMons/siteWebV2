@@ -15,7 +15,7 @@ class PersonneModifType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-           // ->add('username',null,array("label"=>"nom d'utilisateur"))
+           ->add('username',null,array("label"=>"nom d'utilisateur"))
 
 
             ->add('Personne', new \Ropi\IdentiteBundle\Form\PersonneType())

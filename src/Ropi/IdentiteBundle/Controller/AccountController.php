@@ -70,7 +70,7 @@ public function modifAccountAction(Request $request){
 
         if(!is_string($message) || !is_string($cheminRetour)){
 
-            throw $this->createAccessDeniedException("Une erreur c'est produite!");
+            throw $this->createAccessDeniedException("Une erreur s'est produite!");
         }
         $form = $this->createForm($type, $user);
         $form->add("Enregistrer","submit");
