@@ -4,6 +4,7 @@ namespace Ropi\IdentiteBundle\Controller;
 
 use JMS\SecurityExtraBundle\Security\Util\String;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\IdentiteBundle\Form\AdresseType;
 use Ropi\IdentiteBundle\Form\PersonneModifAdminType;
 use Ropi\IdentiteBundle\Form\PersonneModifType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -123,5 +124,66 @@ public function modifAccountAction(Request $request){
         }
     }
 
+    /**
+     * @route("/my/adresse/nouvelle",name="Ropi_adress_add")
+     *  @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     * @Template
+     */
+    public function AjoutAdresseAction(Request $request){
+        $user = $this->container->get('security.context')->getToken()->getUser()->getPersonne();
+        $Newaddesse = new Adresse();
+        return $this->Adresse($request, $Newaddesse, $user);
+
+    }
+
+    /**
+     * @route("/my/adresse/modification/{adresse}",name="Ropi_adress_modif")
+     *  @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     * @Template("RopiIdentiteBundle:Account:AjoutAdresse.html.twig")
+     */
+    public function ModificationAdresseAction(Request $request,Adresse $adresse){
+
+
+        return $this->Adresse($request, $adresse);
+
+    }
+    private function Adresse(Request $request, $Newaddesse, $user = null){
+        $form = $this->createForm(new AdresseType(), $Newaddesse);
+        $form->add("Enregistrer","submit");
+        $form->handleRequest($request);
+
+
+        if ( $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+                if(isset($user)) {
+                    $Newaddesse->addPersonne($user);
+                }
+            //$user->addAdress($Newaddesse);
+            $em->persist($Newaddesse);
+
+            $em->flush();
+            //$this->MailValidation($user, $cle);
+            $this->get("session")->getFlashBag(array(
+                "succes"=>"Une nouvelle adresse à été rajouté"));
+            return $this->redirect($this->generateUrl("Ropi_account_modification"));
+        }
+        return  Array(
+            "form" => $form->createView(),"user"=>$user
+        );
+    }
+
+
+
+    /**
+     * @route("/my/adresse/{adresse}/delete",name="Ropi_adress_del")
+     *  @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     *
+     */
+    public function DeleteAdresseAction(Request $request, Adresse $adresse){
+        $this->remove($adresse);
+
+        return $this->redirectToRoute("Ropi_account_modification");
+    }
 
 }

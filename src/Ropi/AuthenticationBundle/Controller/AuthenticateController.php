@@ -64,15 +64,16 @@ class AuthenticateController extends Controller
      * @Route("/confirmation/{id}/{key}",name="Ropi_Key")
      *
      */
-     public function testKeyAction(Request $request,$key,IdentifiantWeb $id) {
+     public function testKeyAction(Request $request,IdentifiantWeb $id,$key) {
         
         if ($key != null && $id != null){
            
             
             $em = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
-            $validation = $em->findOneBy(array("cle"=>$key));
-            
-           if(isset($validation) && $validation->getIdentifiantWeb() === $id){
+            $validation = $em->findOneBy(array("id_identifiantWeb"=>$id->getId()));
+
+           if(isset($validation) && $validation->getCle() == $key){
+
                 if($validation->getValidation()->modify('+2 day') >= new \DateTime())
                {
                    $ems2 = $this->getDoctrine() ->getRepository('RopiAuthenticationBundle:Permission');
@@ -92,6 +93,9 @@ class AuthenticateController extends Controller
                        'success',"Votre compte à bien été validé" );
                }
                else{
+                   $this->getDoctrine()->getManager()->remove($validation);
+                   $this->getDoctrine()->getManager()->flush();
+
                    $this->get("session")->getFlashBag()->add(
                        'danger',"Votre clé de validation n'est plus valide" );
                }
@@ -99,7 +103,7 @@ class AuthenticateController extends Controller
            }
            else{
                $this->get("session")->getFlashBag()-> add(
-                       'danger',"Votre clé de validation à déjà été utilisé ou n'existe pas" );
+                       'danger',"Votre clé de validation à déjà été utilisé ou à expiré" );
                }
             }
         

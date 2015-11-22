@@ -1,56 +1,81 @@
 
-    <h1 class="souligné"> {{ titre }} </h1>
-    {{ form_start(form) }}
+<h1 class="souligné"> {{ titre }} </h1>
+{{ form_start(form) }}
     {{ form_errors(form) }}
 
     {{ form_row(form.Personne.nom) }}
     {{ form_row(form.Personne.prenom) }}
     {{ form_row(form.Personne.dateNaissance) }}
 
-    <h2 class="souligné">Identifiant web:</h2>
-    <p class="margin5">
-        {% if user %}
-        {{ form_row(form.username) }}<br>
+<h2 class="souligné">Identifiant web:</h2>
+<p class="margin5">
+    {% if user %}
+    Login : {{ user.username }}<br>
+    {% if  admin is defined  and admin == 1%}
+    login: {{ form_row(form.username) }}<br>
     <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
 
+    {% if  admin is defined  and admin == 1%}
+        {{ form_row(form.role) }}
+        {{ form_row(form.permission) }}
+        {{ form_row(form.actif) }}
 
-        {% if  admin is defined  and admin == 1%}
-            {{ form_row(form.role) }}
-            {{ form_row(form.permission) }}
-            {{ form_row(form.actif) }}
-        {% endif %}
     {% else %}
-        <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error:</span>
-          La personne ne possede pas de moyen de connexion! </br>
-         <a href="" alt="cree un login">Cree un identifiant de connexion pour l'utilisateur</a>
-        </div>
+        <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
+    {% endif %}
+    {% else %}
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        La personne ne possede pas de moyen de connexion! </br>
+        <a href="" alt="cree un login">Cree un identifiant de connexion pour l'utilisateur</a>
+    </div>
 
-        {% endif %}
+{% endif %}
 
-    </p>
-    <h2>contact:</h2>
-    {% for contact in form.Personne.contacts %}
-        {{ form_label(contact, contact.vars.value.typeContact.type) }}
-        {{ form_errors(contact) }}
-        {{ form_widget(contact) }}
-    {% endfor %}
-    <h3>Adresse</h3>
-    {% for adresse in form.Personne.adresses %}
-        {{  form_row(adresse.rue) }}
-        {{  form_row(adresse.numero) }}
-        {{  form_row( adresse.complement) }}
-        {{  form_row( adresse.typeAdresse) }}
-        {{  form_row( adresse.ville) }}
+</p>
+<h2>contact:</h2>
+{% for contact in form.Personne.contacts %}
+    {{ form_label(contact, contact.vars.value.typeContact.type) }}
+    {{ form_errors(contact) }}
+    {{ form_widget(contact) }}
+{% endfor %}
+     {% if user %}
+         <h3>Adresse</h3>
+         <div class="table-responsive">
 
-        {{ form_errors(adresse) }}
-    {% endfor %}
+             <table class="table table-striped">
+                 <thead>
+                 <tr>
 
+                     <th> Rue</th>
+                     <th> ville</th>
+                     <th> Pays</th>
 
+                     <th>Action</th>
+                 </tr>
+                 </thead>
+                 <tbody>
 
+                 {% for adresse in user.Personne.adresses %}
+                     <tr>
+                         <td>{{ adresse.rue }}, {{  adresse.numero}}</td>
+                         <td>{{ adresse.ville.codePostal}}  {{  adresse.Ville.ville}}</td>
+                         <td> {{ adresse.ville.pays.nom }}</td>
+                         <td><a href="{{ path("Ropi_adress_modif",{"adresse":adresse.id}) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                             <a href="{{ path("Ropi_adress_del",{"adresse":adresse.id}) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                         </td>
+                     </tr>
 
-    {{form_row(form._token)}}
+                 {% endfor %}
+                 </tbody>
+             </table>
+             <a href="{{ path("Ropi_adress_add") }}"> ajouter une adresse </a><br>
+         </div>
+     {% endif %}
+<br>
+
+{{form_row(form._token)}}
     {{form_row(form.Enregistrer)}}
 
 

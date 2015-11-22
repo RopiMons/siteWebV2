@@ -47,7 +47,7 @@ class Ville
     /**
      * @var pays
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Pays", inversedBy="ville")
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Pays", inversedBy="ville",cascade={"persist"})
      *
      */
     private $pays;
