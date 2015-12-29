@@ -13,9 +13,10 @@
     Login : {{ user.username }}<br>
     {% if  admin is defined  and admin == 1%}
     login: {{ form_row(form.username) }}<br>
+
     <a href="{{ path('Ropi_change_pwd') }}" alt ="">Modifier mon mot de passe</a>
 
-    {% if  admin is defined  and admin == 1%}
+
         {{ form_row(form.role) }}
         {{ form_row(form.permission) }}
         {{ form_row(form.actif) }}
@@ -34,6 +35,7 @@
 {% endif %}
 
 </p>
+
 <h2>contact:</h2>
 {% for contact in form.Personne.contacts %}
     {{ form_label(contact, contact.vars.value.typeContact.type) }}
