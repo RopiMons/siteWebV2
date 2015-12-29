@@ -12,7 +12,7 @@
         {% endif %}
     {% endfor %}
             {% for codes in code %}
-                {% for valeur in i2|capitalize|split(code) %}
+                {% for valeur in i2|capitalize|split(codes) %}
                 {% if valeur != "" %}
 
                     {%  set i3 = i3 ~ "'"~  valeur %}
