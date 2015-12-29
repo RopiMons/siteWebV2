@@ -7,15 +7,15 @@
     {% endfor %}
 </ul>
 <br \>
-<h4>Mode de livraison sélectionné </h4>
-<p>{{ commande.modeDeLivraison.nom }} ({{ commande.modeDeLivraison.frais }} €)</p>
+<h4>Mode de livraison sélectionné : </h4>
+<p>{{ commande.modeDeLivraison.nom }} (frais de livraison:{{ commande.modeDeLivraison.frais }} €)</p>
 <p>{{ commande.modeDeLivraison.description }}</p>
 <br \>
 <h4>Adresse de livraison</h4>
 {% set adresse = commande.adresseDeLivraison %}
 <p>{{ adresse.rue }} {{ adresse.complement }}, {{ adresse.numero }}
-    <br \>{{ adresse.ville.codePostal }}{{ adresse.ville.ville }}
+    <br \>{{ adresse.ville.codePostal }} {{ adresse.ville.ville }}
     <br \>{{ adresse.ville.pays.nom }}</p>
 <br \>
-<h4>Paiement</h4>
+<h4>Paiement :</h4>
 <p>Montant de votre commande : {{ commande.prix }} €</p>

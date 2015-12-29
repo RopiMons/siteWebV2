@@ -2,14 +2,14 @@
 
 {% block content %}
     <h1>Paiement</h1>
-    <p>Vous allez maintenant pouvoir sélectionner la manière dont vous souhaitez payer votre commande, au fur et à mesure du développement du site, des nouveaux moyens de paiements arriveront</p>
+    <p>Vous allez maintenant pouvoir sélectionner la manière dont vous souhaitez payer votre commande, au fur et à mesure du développement du site, de nouveaux moyens de paiements arriveront</p>
 
     {{ include("RopiCommandeBundle:Default:_recapCommande.html.twig", {"commande" : commande}) }}
 
     <form method="post">
         {% for mode in mdp  %}
 
-            <input type="radio" name="moyenDePaiement" value="{{ mode.id }}" {% if loop.index0 == 0 %}checked="checked"{% endif %}>{{ mode.nom }} (+ {{ mode.computeFrais }} €)<br \>
+            <input type="radio" name="moyenDePaiement" value="{{ mode.id }}" {% if loop.index0 == 0 %}checked="checked"{% endif %}>{{ mode.nom }} (frais supplémentaires + {{ mode.computeFrais }} €)<br \>
         {% endfor %}
         <br \>
 
