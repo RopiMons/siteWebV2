@@ -34,7 +34,8 @@ class AppKernel extends Kernel {
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Ropi\CommandeBundle\RopiCommandeBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
         );
 
 

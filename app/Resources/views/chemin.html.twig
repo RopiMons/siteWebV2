@@ -8,6 +8,25 @@
                 {%  set i2 = i2 ~ " "~  valeur %}
         {% endif %}
         {% endfor %}
+        {% for valeur in i|capitalize|split('%27') %}
+        {% if valeur != "" %}
+
+            {%  set i2 = i2 ~ "'"~  valeur %}
+        {% endif %}
+    {% endfor %}
+        {% for valeur in i|capitalize|split('%c3%a9') %}
+            {% if valeur != "" %}
+
+                {%  set i2 = i2 ~ "é"~  valeur %}
+            {% endif %}
+        {% endfor %}
+        {% for valeur in i|capitalize|split('%c3%a0') %}
+            {% if valeur != "" %}
+
+                {%  set i2 = i2 ~ "é"~  valeur %}
+            {% endif %}
+        {% endfor %}
+
         {% if i == " " or i == "" and key == 1 %}
             Accueil
         {% elseif i == " " or i == "" and app.request.pathInfo |split('/')|length > 1 %}

@@ -1,3 +1,8 @@
+ropi_analyse:
+    resource: "@RopiAnalyseBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 ropi_commande:
     resource: "@RopiCommandeBundle/Controller/"
     type:     annotation
