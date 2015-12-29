@@ -1,7 +1,7 @@
 <h3 class="souligné">
     {% for key,i in app.request.pathInfo |split('/') %}
 
-        {% set i2 = "" %}
+        {% set i2 = i %}
         {% set i3 = "" %}
         {% set code = {'%20':" ",'%27':"'", '%c3%a9':'é','%c3%a0' :"à"} %}
 
