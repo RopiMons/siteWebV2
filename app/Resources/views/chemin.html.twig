@@ -3,25 +3,24 @@
 
         {% set i2 = "" %}
         {% set i3 = "" %}
-        {% set code = ['%27'] %}
-        {% for valeur in i|capitalize|split('%20') %}
-        {% if valeur != "" %}
+        {% set code = {'%20':" ",'%27':"'", '%c3%a9':'é','%c3%a0' :"à"} %}
 
-            {%  set i2 = i2 ~ " "~  valeur %}
+            {% for key,codes in code %}
+                {% set nb = 0 %}
+                {% set i3 = "" %}
+                {% for valeur in i2|capitalize|split(key) %}
 
-        {% endif %}
-    {% endfor %}
-            {% for codes in code %}
-                {% for valeur in i2|capitalize|split(codes) %}
-                {% if valeur != "" %}
+                {% if valeur != "" and nb > 0 %}
 
-                    {%  set i3 = i3 ~ "'"~  valeur %}
-
+                    {%  set i3 = i3 ~codes~  valeur %}
+                {% else %}
+                    {%  set i3 = i3 ~  valeur %}
                 {% endif %}
+                    {% set nb = nb +1 %}
             {% endfor %}
-
+                {%  set i2 = i3 %}
         {% endfor %}
-        {%  set i2 = i3 %}
+
         {% if i == " " or i == "" and key == 1 %}
             Accueil
         {% elseif i == " " or i == "" and app.request.pathInfo |split('/')|length > 1 %}
