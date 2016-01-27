@@ -41,7 +41,10 @@
     {{ form_label(contact, contact.vars.value.typeContact.type) }}
     {{ form_errors(contact) }}
     {{ form_widget(contact) }}
+
 {% endfor %}
+{{form_row(form._token)}}
+{{form_row(form.Enregistrer)}}
      {% if user %}
          <h3>Adresse</h3>
          <div class="table-responsive">
@@ -77,8 +80,7 @@
      {% endif %}
 <br>
 
-{{form_row(form._token)}}
-    {{form_row(form.Enregistrer)}}
+
 
 
 

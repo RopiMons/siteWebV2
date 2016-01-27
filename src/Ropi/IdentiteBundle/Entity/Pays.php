@@ -46,7 +46,7 @@ class Pays
     /**
      * @var Ville
      *
-     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Ville", mappedBy="pays")
+     * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Ville", mappedBy="pays",cascade={"persist"} )
      *
      */
     private $ville;

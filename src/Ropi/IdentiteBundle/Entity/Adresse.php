@@ -58,6 +58,7 @@ class Adresse
     
     /**
      * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses", cascade={"persist"})
+     * @Assert\Valid
      */
     private $commerce;
     

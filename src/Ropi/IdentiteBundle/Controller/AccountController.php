@@ -59,6 +59,7 @@ public function modifAccountAction(Request $request){
        // $users = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\IdentifiantWeb")->loadById($user->getIdentifiantWeb()->getId());
 
 
+
             return $this->modifuser($request, $user->getIdentifiantWeb(), "Le compte à bien été modifié!", "Ropi_admin_user_listing",new PersonneModifAdminType());
 
     }
@@ -73,13 +74,15 @@ public function modifAccountAction(Request $request){
 
             throw $this->createAccessDeniedException("Une erreur s'est produite!");
         }
+
         $form = $this->createForm($type, $user);
         $form->add("Enregistrer","submit");
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
+        dump($user);
 
         if ( $form->isValid()) {
-
+            dump($user);
             $em = $this->getDoctrine()->getManager();
 
 
@@ -91,6 +94,7 @@ public function modifAccountAction(Request $request){
                 $typeMessage=>$message));
             return $this->redirect($this->generateUrl($cheminRetour));
         }
+
         return  Array(
             "form" => $form->createView(),"user"=>$user
         );
