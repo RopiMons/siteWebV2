@@ -15,7 +15,7 @@
                 "name": "jquery/jquery",
                 "version": "1.11.1",
                 "dist": {
-                    "url": "https://code.jquery.com/jquery-1.11.1.js",
+                    "url": "http://code.jquery.com/jquery-1.11.1.js",
                     "type": "file"
                 }
             }
