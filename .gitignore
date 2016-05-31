@@ -22,3 +22,4 @@ composer.lock
 /.idea/
 /web/images
 /var/*
+/web/uploads/*

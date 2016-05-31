@@ -17,7 +17,7 @@ class AlbumType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('uploadedFiles', new FileType(), array(
+            ->add('uploadedFiles', FileType::class, array(
                 'multiple' => true,
                 'data_class' => null,
             ));

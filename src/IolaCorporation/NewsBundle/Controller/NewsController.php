@@ -17,14 +17,14 @@ class NewsController extends Controller
 {
     public function indexAction()
     {
-      $news =  $this->getDoctrine()->getRepository('IolaCorporationNewsBundle:News')->findNewNews(1,0);
+        $news =  $this->getDoctrine()->getRepository(News::class)->findNewNews(1,0);
         return $this->render('IolaCorporationNewsBundle:Default:news.html.twig',array('news'=>$news));
     }
 
     public function detailAction(News $news)
     {
         if($news->getEnable()) {
-            $fiveNews =  $this->getDoctrine()->getRepository('IolaCorporationNewsBundle:News')->fiveNews($news->getId());
+            $fiveNews =  $this->getDoctrine()->getRepository(News::class)->fiveNews($news->getId());
             return $this->render('IolaCorporationNewsBundle:Default:newsdetail.html.twig', array('news' => $news,'fiveNews'=>$fiveNews));
         }
         else{
@@ -42,8 +42,8 @@ class NewsController extends Controller
        $min = $request->get('min');
         $max = $request->get('max');
         $code = 100;
-        $news =  $this->getDoctrine()->getRepository('IolaCorporationNewsBundle:News')->findNewNews($max,$min);
-       $count = $this->getDoctrine()->getRepository('IolaCorporationNewsBundle:News')->countNews();
+        $news =  $this->getDoctrine()->getRepository(News::class)->findNewNews($max,$min);
+       $count = $this->getDoctrine()->getRepository(News::class)->countNews();
 
         if($count <= $max+$min ) $code = 200;
 
@@ -58,9 +58,9 @@ class NewsController extends Controller
     public function uploadAction(Request $request){
 
         $document = new Album();
-        $form = $this->createForm(new AlbumType(),$document);
+        $form = $this->createForm(AlbumType::class,$document);
 
-            $form->add('save', new SubmitType(), array('label' => 'Create Task'));
+            $form->add('save', SubmitType::class, array('label' => 'Create Task'));
 
 
 
@@ -90,8 +90,8 @@ class NewsController extends Controller
 
         $document->getAlbum()->add($album);
         $album->getNews()->add($document);
-        $form = $this->createForm(new NewsType(),$document);
-        $form->add('save', new SubmitType(), array('label' => 'Create Task'));
+        $form = $this->createForm(NewsType::class,$document);
+        $form->add('save', SubmitType::class, array('label' => 'Create Task'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -124,8 +124,8 @@ class NewsController extends Controller
         $document = $news;
         dump($document);
 
-        $form = $this->createForm(new NewsType(),$document);
-        $form->add('save', new SubmitType(), array('label' => 'Create Task'));
+        $form = $this->createForm(NewsType::class,$document);
+        $form->add('save', SubmitType::class, array('label' => 'Create Task'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
