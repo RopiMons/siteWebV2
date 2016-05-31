@@ -1,0 +1,96 @@
+{% for new in news %}
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <h4>{{ new.titre }} <span class="pull-right"> {{ new.datePublication |date("d/m/Y")  }}</span> </h4>
+                </div>
+                <div class="panel-body panel-fond">
+                    <p>{{ new.news |slice(0, 100) |raw  }}</p>
+                    {% set nbi = 0 %}
+                    {% for album in new.album %}
+                        {% for image in album.files %}
+                            <div class="col-lg-3 col-sm-4 col-xs-6"><a title="{{ image.name  }}" href="#" onclick="myimages({{ nbi }},'carousel-example-generic{{ nb }}')" data-toggle="modal" data-target=".bs-example-modal-lg{{ nb }}"><img class="thumbnail img-responsive img-fixe2" src="/{{ album.stockage }}/{{ image.path }}"></a></div>
+                            {% set nbi = nbi +1 %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+
+                {% if new.album | length >= 1 %}
+
+                    <div class="modal fade bs-example-modal-lg{{ nb }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div id="carousel-example-generic{{ nb }}" class="car carousel slide" data-ride="carousel">
+
+                                    <ol class="carousel-indicators">
+                                        {% set nbimage = 0 %}
+                                        {% for album in new.album %}
+                                            {% for image in album.files %}
+                                                {% if nbimage == 0 %}
+                                                    <li data-target="#carousel-example-generic{{ nb }}" data-slide-to="0" ></li>
+                                                {% else %}
+                                                    <li data-target="#carousel-example-generic{{ nb }}" data-slide-to="{{ nbimage }}"></li>
+                                                {% endif %}
+                                                {% set nbimage = nbimage + 1 %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <li class="active" data-target="#carousel-example-generic{{ nb }}" data-slide-to="1"></li>
+                                    </ol>
+
+
+                                    <div class="carousel-inner"  role="listbox">
+                                        {% set nbimage = 0 %}
+                                        {% for album in new.album %}
+                                            {% for image in album.files %}
+                                                {% if nbimage == 0 %}
+                                                    <div class="item active" id="carousel-example-generic{{ nb }}-{{ nbimage }}">
+                                                        <img class="img-responsive" src="/{{ album.stockage }}/{{ image.path }}" alt="...">
+                                                        <div class="carousel-caption">
+                                                            {{ image.name }}
+                                                        </div>
+
+                                                    </div>
+                                                {% else %}
+                                                    <div class="item" id="carousel-example-generic{{ nb }}-{{ nbimage }}">
+                                                        <img class="img-responsive" src="/{{ album.stockage }}/{{ image.path }}" alt="...">
+                                                        <div class="carousel-caption">
+                                                            {{ image.name }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% set nbimage = nbimage + 1 %}
+                                            {% endfor %}
+                                        {% endfor %}
+
+                                        <a class="left carousel-control" role="button" href="#carousel-example-generic{{ nb }}" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="right carousel-control" role="button" href="#carousel-example-generic{{ nb }}" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="panel-footer panel-fond ">
+                    <div class="row">
+                        <div class="pull-right" style="margin-right: 10px;">
+                            <a href="{{ path('iola_corporation_news_detail',{'news':new.id }) }}" class="btn btn-default ">Plus d'information</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% set nb = nb+1 %}
+
+        {% endfor %}
+
+
+

@@ -35,6 +35,7 @@ class AppKernel extends Kernel {
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Ropi\CommandeBundle\RopiCommandeBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new IolaCorporation\NewsBundle\IolaCorporationNewsBundle(),
 
         );
 

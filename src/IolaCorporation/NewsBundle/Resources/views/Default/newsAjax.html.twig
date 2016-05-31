@@ -1,0 +1,9 @@
+{% for new in news %}
+
+       <li><a href="{{ path("iola_corporation_news_detail", {'news':new.id}) }}" >{{ new.titre }}</a></li>
+        {% set nb = nb+1 %}
+
+        {% endfor %}
+
+
+

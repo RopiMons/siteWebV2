@@ -1,0 +1,34 @@
+iola_corporation_news_homepage:
+    path:     /
+    defaults: { _controller: IolaCorporationNewsBundle:News:index }
+iola_corporation_news_detail:
+    path:      /news/{news}
+    defaults: { _controller: IolaCorporationNewsBundle:News:detail }
+    requirements:
+        news:  \d+
+
+iola_corporation_upload:
+    path:      /upload
+    defaults: { _controller: IolaCorporationNewsBundle:News:upload }
+
+iola_corporation_news_ajax_update:
+    path:     /news/update/
+    defaults: { _controller: IolaCorporationNewsBundle:News:loadNewsAjax }
+
+iola_corporation_news_add:
+    path:      /my/cms/news/add
+    defaults: { _controller: IolaCorporationNewsBundle:News:add }
+
+iola_corporation_news_show:
+    path:      /my/cms/news/show
+    defaults: { _controller: IolaCorporationNewsBundle:News:show }
+iola_corporation_news_edit:
+    path:      /my/cms/news/edit/{news}
+    defaults: { _controller: IolaCorporationNewsBundle:News:edit }
+    requirements:
+        news:  \d+
+iola_corporation_news_delete:
+    path:      /my/cms/news/delete/{news}
+    defaults: { _controller: IolaCorporationNewsBundle:News:delete }
+    requirements:
+        news:  \d+

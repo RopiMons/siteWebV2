@@ -169,6 +169,13 @@ ul:hover li img:not(:hover){
         padding-bottom: 10px;
         padding-top: 20px;
 }
+.background_left {
+	background-color: rgba(225,225,225,0.7);
+	box-shadow: 2px 2px 2px gray inset;
+	border-radius:20px;
+	padding-bottom: 10px;
+	padding-top: 20px;
+}
 
 form button{
     background-color:#f05028;

@@ -1,0 +1,132 @@
+
+
+
+
+
+<h1>Les dernières informations</h1>
+
+
+{% for new in news %}
+<div class="thumbnail">
+    <div id="carousel-example-generic1" class="car carousel slide" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+            {% set nbimage = 0 %}
+            {% for album in new.album %}
+                {% for image in album.files %}
+                    {% if nbimage == 0 %}
+                        <li  data-target="#carousel-example-generic1" data-slide-to="0" ></li>
+                    {% else %}
+                        <li data-target="#carousel-example-generic1" data-slide-to="{{ nbimage }}"></li>
+                    {% endif %}
+
+                    {% set nbimage = nbimage + 1 %}
+                {% endfor %}
+            {% endfor %}
+
+        </ol>
+
+
+        <div class="carousel-inner"  role="listbox">
+            {% set nbimage = 0 %}
+            {% for album in new.album %}
+                {% for image in album.files %}
+                    {% if nbimage == 0 %}
+                        <div class="item active">
+                            <img class="img-responsive" src="/{{ album.stockage }}/{{ image.path }}" alt="image">
+
+
+                        </div>
+                    {% else %}
+                        <div class="item">
+                            <img class="img-responsive" src="/{{ album.stockage }}/{{ image.path }}" alt="...">
+
+                        </div>
+                    {% endif %}
+                    {% set nbimage = nbimage + 1 %}
+                {% endfor %}
+            {% endfor %}
+            {% if nbimage > 1 %}
+                <a class="left carousel-control" role="button" href="#carousel-example-generic1" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" role="button" href="#carousel-example-generic1" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="caption">
+        <a href="{{ path("iola_corporation_news_detail", {'news':new.id}) }}"><h2>{{ new.titre }}</h2></a>
+        {% autoescape true %}
+        <p>{{ new.news |raw [:100]  }}</p>
+        {% endautoescape %}
+
+        <div id="ajax-start">
+        </div>
+        <ul id="ajax"></ul>
+
+        <div id="btn-ajax">
+        <p><div class="btn btn-primary" onclick="aButtonPressed(4)" role="button">Voir les autres news</div></p>
+        </div>
+        </div>
+</div>
+{% endfor %}
+
+
+
+
+
+    <script>
+
+        $(function() {
+
+
+            $('.car').carousel({
+                interval: 0 //changes the speed
+            })
+        });
+
+
+
+
+    </script>
+
+    <script>
+        var min = 1;
+        function aButtonPressed(max){
+
+            $.ajax({
+                type: "POST",
+                url: "{{path('iola_corporation_news_ajax_update')}}",
+                dataType: "json",
+                data: {"min": min, "max":max },
+
+                cache: false,
+                success:
+
+
+                        function(data){
+                            //data = JSON.parse(data1);
+
+                            if(data.code == 200 || data.code == 100 && data.success){//dummy check
+                                if (min == 1){document.getElementById('ajax-start').innerHTML = "<h4>Les autres news</h4>"; }
+                                document.getElementById('ajax').innerHTML += data.ajaxnews;
+                                if(data.code == 200 ){
+                                    document.getElementById('btn-ajax').innerHTML ="";
+                                }
+                                min += max;
+
+
+
+                            }
+
+                        }});
+        }
+
+       // $( document ).load(aButtonPressed(2));
+
+    </script>
