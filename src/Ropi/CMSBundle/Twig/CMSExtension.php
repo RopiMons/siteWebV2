@@ -13,25 +13,22 @@ namespace Ropi\CMSBundle\Twig;
  *
  * @author Laurent Cardon <laurent.cardon@ropi.be>
  */
-class CMSExtension extends \Twig_Extension {
-
-    public function getTests() {
-        return [
-            new \Twig_SimpleTest('instanceof', 'isInstanceof')
-        ];
+class CMSExtension extends \Twig_Extension
+{
+    public function getFunctions()
+    {
+        return array(
+            'class' => new \Twig_SimpleFunction('class', array($this, 'getClass'))
+        );
     }
 
-    /**
-     * @param $var
-     * @param $instance
-     * @return bool
-     */
-    public function isInstanceof($var, $instance) {
-        return get_class($var) === $instance;
+    public function getName()
+    {
+        return 'class_twig_extension';
     }
 
-    public function getName(){
-        return "instanceof";
+    public function getClass($object)
+    {
+        return (new \ReflectionClass($object))->getShortName();
     }
-
 }

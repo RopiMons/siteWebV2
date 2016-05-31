@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PageType extends AbstractType {
 
@@ -22,7 +22,7 @@ class PageType extends AbstractType {
                 //->add('position')
                 ->add('categorie', null, array(
                     'label' => 'Catégorie de la page',
-                    'property' => 'nom',
+                    'choice_label' => 'nom',
                     'required' => true
                 ))
                 ->add('titreMenu', null, array(

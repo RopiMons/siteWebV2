@@ -23,7 +23,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/create/static", name="CMS_static_create")
-     * @Security("has_role=('ROLE_CMS_CREATE') or has_role=('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_CMS_CREATE') or has_role('ROLE_ADMIN')")
      * @Template()
      */
     public function createStatiqueAction(Request $request) {
@@ -208,7 +208,7 @@ class DefaultController extends Controller {
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function listAction() {
-        $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie");
+        $repo = $this->getDoctrine()->getRepository(Categorie::class);
         $tab = $repo->getAllOrderedPage();
 
         usort($tab, function($a, $b) {
