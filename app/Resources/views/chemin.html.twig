@@ -1,4 +1,4 @@
-<h3 class="souligné">
+
     {% for key,i in app.request.pathInfo |split('/') %}
 
         {% set i2 = i %}
@@ -22,17 +22,16 @@
         {% endfor %}
 
         {% if i == " " or i == "" and key == 1 %}
-           
+
         {% elseif i == " " or i == "" and app.request.pathInfo |split('/')|length > 1 %}
         {% elseif i == "page" or i == "Page" %}
 
 
         {% elseif  i =="app.php" %}
         {% elseif app.request.pathInfo |split('/')|length -1 == key %}
-            {{ i2 }}
+            <span class="badge">{{ i2 }}</span>
         {% else %}
-            {{ i2 }}&nbsp;>>&nbsp;
+    <span class="badge">{{ i2 }}</span> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
 
         {% endif %}
     {% endfor %}
-</h3>
