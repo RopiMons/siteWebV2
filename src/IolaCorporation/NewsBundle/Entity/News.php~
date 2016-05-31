@@ -1,0 +1,337 @@
+<?php
+
+namespace IolaCorporation\NewsBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * News
+ *
+ * @ORM\Table(name="news")
+ * @ORM\Entity(repositoryClass="IolaCorporation\NewsBundle\Repository\NewsRepository")
+ */
+class News
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255)
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="news", type="text", nullable=true)
+     */
+    private $news;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="IolaCorporation\UserBundle\Entity\User")
+     */
+    private $user;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_ecriture", type="datetime")
+     */
+    private $dateEcriture;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_publication", type="datetime")
+     */
+    private $datePublication;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="enable", type="boolean")
+     */
+    private $enable;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="enabled_game", type="boolean")
+     */
+    private $enabledGame;
+
+    /**
+     * News constructor.
+     * @param \DateTime $datePublication
+     */
+
+    /**
+     *
+     *     **
+     * @var File
+     *
+     * @ORM\ManyToMany(targetEntity="Album", inversedBy="news", cascade={"persist"})
+     *
+     */
+    private $album;
+
+
+    public function __construct()
+    {
+        $this->datePublication = new \Datetime();
+
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     *
+     * @return News
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set news
+     *
+     * @param string $news
+     *
+     * @return News
+     */
+    public function setNews($news)
+    {
+        $this->news = $news;
+
+        return $this;
+    }
+
+    /**
+     * Get news
+     *
+     * @return string
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
+
+    /**
+     * Set ecrivain
+     *
+     * @param integer $ecrivain
+     *
+     * @return News
+     */
+    public function setEcrivain($ecrivain)
+    {
+        $this->ecrivain = $ecrivain;
+
+        return $this;
+    }
+
+    /**
+     * Get ecrivain
+     *
+     * @return int
+     */
+    public function getEcrivain()
+    {
+        return $this->ecrivain;
+    }
+
+    /**
+     * Set dateEcriture
+     *
+     * @param \DateTime $dateEcriture
+     *
+     * @return News
+     */
+    public function setDateEcriture($dateEcriture)
+    {
+        $this->dateEcriture = $dateEcriture;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEcriture
+     *
+     * @return \DateTime
+     */
+    public function getDateEcriture()
+    {
+        return $this->dateEcriture;
+    }
+
+    /**
+     * Set datePublication
+     *
+     * @param \DateTime $datePublication
+     *
+     * @return News
+     */
+    public function setDatePublication($datePublication)
+    {
+        $this->datePublication = $datePublication;
+
+        return $this;
+    }
+
+    /**
+     * Get datePublication
+     *
+     * @return \DateTime
+     */
+    public function getDatePublication()
+    {
+        return $this->datePublication;
+    }
+
+    /**
+     * Set enable
+     *
+     * @param boolean $enable
+     *
+     * @return News
+     */
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
+
+        return $this;
+    }
+
+    /**
+     * Get enable
+     *
+     * @return bool
+     */
+    public function getEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set enabledGame
+     *
+     * @param boolean $enabledGame
+     *
+     * @return News
+     */
+    public function setEnabledGame($enabledGame)
+    {
+        $this->enabledGame = $enabledGame;
+
+        return $this;
+    }
+
+    /**
+     * Get enabledGame
+     *
+     * @return bool
+     */
+    public function getEnabledGame()
+    {
+        return $this->enabledGame;
+    }
+
+    public function getAlbum(){
+        return $this->album;
+    }
+    public function setAlbum($album){
+        $this->album = $album;
+    }
+
+    function __toString()
+    {
+      return $this->titre;
+    }
+
+
+
+
+    /**
+     * Add album
+     *
+     * @param \IolaCorporation\NewsBundle\Entity\Album $album
+     *
+     * @return News
+     */
+    public function addAlbum(\IolaCorporation\NewsBundle\Entity\Album $album)
+    {
+        $this->album[] = $album;
+
+        return $this;
+    }
+
+    /**
+     * Remove album
+     *
+     * @param \IolaCorporation\NewsBundle\Entity\Album $album
+     */
+    public function removeAlbum(\IolaCorporation\NewsBundle\Entity\Album $album)
+    {
+        $this->album->removeElement($album);
+    }
+
+    /**
+     * Set user
+     *
+     * @param \IolaCorporation\UserBundle\Entity\User $user
+     *
+     * @return News
+     */
+    public function setUser(\IolaCorporation\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \IolaCorporation\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}
