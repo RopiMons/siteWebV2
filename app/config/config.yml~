@@ -110,7 +110,7 @@ swiftmailer:
     spool:     { type: memory }
 
 braincrafted_bootstrap:
-    #less_filter: lessphp
+    less_filter: lessphp
     output_dir:
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
