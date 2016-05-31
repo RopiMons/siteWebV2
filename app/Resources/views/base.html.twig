@@ -104,8 +104,8 @@
         </div>
     {% endfor %}
 
-    <section class="col-sm-12 row" id="section">
-        <aside class="hidden-xs col-sm-3" id="aside-left"> {% block left %}
+    <section class="col-md-12 row" id="section">
+        <aside class="hidden-sm hidden-xs col-md-3" id="aside-left"> {% block left %}
 
                 <ul>
                     <li><img class="billets img100" src="/img/face_billet1.jpg" onmouseover="this.src = '/img/dos_billet1.jpg'" onmouseout="this.src = '/img/face_billet1.jpg'" alt=""/></li>
@@ -113,10 +113,10 @@
                     <li><img class="billets img100" src="/img/face_billet3.jpg" onmouseover="this.src = '/img/dos_billet3.jpg'" onmouseout="this.src = '/img/face_billet3.jpg'" alt=""/></li>
                     <li><img class="billets img100" src="/img/face_billet4.jpg" onmouseover="this.src = '/img/dos_billet4.jpg'" onmouseout="this.src = '/img/face_billet4.jpg'" alt=""/></li>
                 </ul> {% endblock %}</aside>
-        <div id="background_article" class="col-sm-6">
+        <div id="background_article" class="col-md-6">
             <!-- Text Area-->
 
-            <article class="col-sm-12">
+            <article class="col-md-12">
                 <div class="content" id="content">
                         {% include ("chemin.html.twig") %}
                     {% block content %} plan
@@ -126,7 +126,7 @@
             </article>
 
         </div>
-        <div class="col-sm-3"> {% block right %}
+        <div class="col-md-3"> {% block right %}
 
                     {% block rightColumn %}
                     {% endblock %}

@@ -24,6 +24,8 @@ class MenuAdmin extends AbstractMenu {
         $tab["Administration"]["Accueil"] = array('route' => 'admin_home');
         $tab["Administration"]["Gestion des commerces"] = array('route' => 'admin_commerces');
         $tab["Mon commerces"]["Créer un nouveau commerce"] = array('route'=>'commerce_new');
+        $tab["News"]["Les news"] = array('route'=>'iola_corporation_news_show');
+        $tab["News"]["Ajouter"] = array('route'=>'iola_corporation_news_add');
     
         return $tab;
 

@@ -31,6 +31,7 @@ class AppKernel extends Kernel {
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Ropi\CommandeBundle\RopiCommandeBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new IolaCorporation\NewsBundle\IolaCorporationNewsBundle(),
 
         );
 

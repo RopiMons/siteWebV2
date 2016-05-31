@@ -33,3 +33,7 @@ ropi_authentication:
     resource: "@RopiAuthenticationBundle/Controller/"
 ropi_user:
     resource: "@RopiAuthenticationBundle/Resources/config/routing.yml"
+
+ropi_News:
+    resource: "@IolaCorporationNewsBundle/Resources/config/routing.yml"
+    prefix:   /
