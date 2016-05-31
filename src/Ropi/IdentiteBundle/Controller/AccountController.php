@@ -2,7 +2,6 @@
 
 namespace Ropi\IdentiteBundle\Controller;
 
-use JMS\SecurityExtraBundle\Security\Util\String;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
 use Ropi\IdentiteBundle\Form\AdresseType;
 use Ropi\IdentiteBundle\Form\PersonneModifAdminType;
@@ -10,14 +9,15 @@ use Ropi\IdentiteBundle\Form\PersonneModifType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ropi\IdentiteBundle\Entity\Contact;
 use Ropi\IdentiteBundle\Entity\Personne;
 use Ropi\IdentiteBundle\Form\PersonneType;
 use Ropi\IdentiteBundle\Form\ContactType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\AuthenticationBundle\Entity\KeyValidation;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 
@@ -26,12 +26,12 @@ class AccountController extends Controller
     /**
      * @Route("/my/account/", name="ropi_account")
      * @Template()
-     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     * @Security("has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT') or has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function accountAction(Request $request)
     {
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
 
         return array('user'=> $user->getPersonne()) ;
@@ -43,24 +43,26 @@ class AccountController extends Controller
 
      * @Template()
      */
-public function modifAccountAction(Request $request){
-    $user = $this->container->get('security.context')->getToken()->getUser();
+    public function modifAccountAction(Request $request){
+        $user = $this->getUser();
 
-    return $this->modifuser($request,$user,"Votre compte à bien été modifié!","home",new PersonneModifType(),"success");
+        return $this->modifuser($request,$user,"Votre compte à bien été modifié!","home",PersonneModifType::class,"success");
 
-}
+    }
+
+
     /**
      * @Route("/admin/user/{user}/modification/", name="Ropi_admin_user_modification")
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_ADMIN')")
      * @Template("RopiIdentiteBundle:Account:modifAccountAdmin.html.twig")
      */
     public function  modifUserAction(Request $request, Personne $user){
 
-       // $users = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\IdentifiantWeb")->loadById($user->getIdentifiantWeb()->getId());
+        // $users = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\IdentifiantWeb")->loadById($user->getIdentifiantWeb()->getId());
 
 
 
-            return $this->modifuser($request, $user->getIdentifiantWeb(), "Le compte à bien été modifié!", "Ropi_admin_user_listing",new PersonneModifAdminType());
+        return $this->modifuser($request, $user->getIdentifiantWeb(), "Le compte à bien été modifié!", "Ropi_admin_user_listing",PersonneModifAdminType::class);
 
     }
 
@@ -76,33 +78,37 @@ public function modifAccountAction(Request $request){
         }
 
         $form = $this->createForm($type, $user);
-        $form->add("Enregistrer","submit");
+        $form->add("Enregistrer",SubmitType::class);
 
         $form->handleRequest($request);
-        dump($user);
 
-        if ( $form->isValid()) {
-            dump($user);
+        if ( $form->isSubmitted() && $form->isValid() )
+        {
+
             $em = $this->getDoctrine()->getManager();
-
-
-            $em->persist($user);
+            $utilisateur = $form->getData();
+            $em->persist($utilisateur);
 
             $em->flush();
             //$this->MailValidation($user, $cle);
+
             $this->get("session")->getFlashBag(array(
                 $typeMessage=>$message));
-            return $this->redirect($this->generateUrl($cheminRetour));
+
+            $user = $utilisateur;
+            //return $this->redirect($this->generateUrl($cheminRetour));
+
         }
 
         return  Array(
-            "form" => $form->createView(),"user"=>$user
+            "form" => $form->createView(),
+            "user"=> $user
         );
     }
 
     /**
      * @route("/admin/user/{personne}/delete",name="Ropi_admin_user_delete")
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_ADMIN')")
      * @param Request $request
      * @param Personne $personne
      */
@@ -130,11 +136,11 @@ public function modifAccountAction(Request $request){
 
     /**
      * @route("/my/adresse/nouvelle",name="Ropi_adress_add")
-     *  @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     *  @Security( "has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT') or has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      * @Template
      */
     public function AjoutAdresseAction(Request $request){
-        $user = $this->container->get('security.context')->getToken()->getUser()->getPersonne();
+        $user = $this->getUser()->getPersonne();
         $Newaddesse = new Adresse();
         return $this->Adresse($request, $Newaddesse, $user);
 
@@ -142,27 +148,26 @@ public function modifAccountAction(Request $request){
 
     /**
      * @route("/my/adresse/modification/{adresse}",name="Ropi_adress_modif")
-     *  @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     *  @Security( "has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT') or has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      * @Template("RopiIdentiteBundle:Account:AjoutAdresse.html.twig")
      */
     public function ModificationAdresseAction(Request $request,Adresse $adresse){
 
 
         return $this->Adresse($request, $adresse);
-
     }
     private function Adresse(Request $request, $Newaddesse, $user = null){
-        $form = $this->createForm(new AdresseType(), $Newaddesse);
-        $form->add("Enregistrer","submit");
+        $form = $this->createForm(AdresseType::class, $Newaddesse);
+        $form->add("Enregistrer",SubmitType::class);
         $form->handleRequest($request);
 
 
         if ( $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-                if(isset($user)) {
-                    $Newaddesse->addPersonne($user);
-                }
+            if(isset($user)) {
+                $Newaddesse->addPersonne($user);
+            }
             //$user->addAdress($Newaddesse);
             $em->persist($Newaddesse);
 
@@ -181,11 +186,15 @@ public function modifAccountAction(Request $request){
 
     /**
      * @route("/my/adresse/{adresse}/delete",name="Ropi_adress_del")
-     *  @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT","ROLE_ADMIN","ROLE_CMS_CREATE"})
+     *  @Security( "has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT') or has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      *
      */
     public function DeleteAdresseAction(Request $request, Adresse $adresse){
-        $this->remove($adresse);
+        $adresse->setActif(false);
+        $this->getDoctrine()->getManager()->flush();
+        $this->get('session')->getFlashBag()->add(
+            'success', 'Suppression effectuée :-)'
+        );
 
         return $this->redirectToRoute("Ropi_account_modification");
     }

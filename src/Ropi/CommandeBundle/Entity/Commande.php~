@@ -424,9 +424,42 @@ class Commande
         }
         $modulo = (int)$chaine % 97;
 
-        $chaine = substr_replace($chaine,"0",10,0);
+        if(ceil(log10($modulo))==1){
+            $modulo = substr_replace($modulo,"0",0,0);
+        }
+
+        $chaine = substr_replace($chaine,$modulo,10,0);
 
         $this->setRefCommande($chaine);
 
+    }
+
+    /**
+     * Set refCommande
+     *
+     * @param string $refCommande
+     * @return Commande
+     */
+    public function setRefCommande($refCommande)
+    {
+        $this->refCommande = $refCommande;
+
+        return $this;
+    }
+
+    /**
+     * Get refCommande
+     *
+     * @return string 
+     */
+    public function getRefCommande()
+    {
+        return $this->refCommande;
+    }
+
+    public function getComStructure(){
+        $communication = $this->getRefCommande();
+
+        return "+++".substr($communication,0,3)."/".substr($communication,3,4)."/".substr($communication,7,5)."+++";
     }
 }

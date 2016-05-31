@@ -3,6 +3,8 @@
 namespace Ropi\CMSBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -26,14 +28,14 @@ class PageType extends AbstractType {
                 ->add('titreMenu', null, array(
                     'label' => 'Titre à afficher dans le menu',
                 ))
-                ->add('isActive', 'checkbox', array(
+                ->add('isActive', CheckboxType::class, array(
                     'label' => 'Est-ce que cette page peut-être publiée ?',
                     'data' => true,
                     'required' => false,
                 ))
                 //->add('lastUpdate')
                 //->add('createdAt')
-                ->add('publicationDate', 'datetime', array(
+                ->add('publicationDate', DateTimeType::class, array(
                     'label' => 'Postposer la publication de cette page à ',
                     'format' => 'dd/MM/y HH:mm',
                     'years' => $years,
@@ -48,17 +50,9 @@ class PageType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\CMSBundle\Entity\Page'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ropi_cmsbundle_page';
     }
 }

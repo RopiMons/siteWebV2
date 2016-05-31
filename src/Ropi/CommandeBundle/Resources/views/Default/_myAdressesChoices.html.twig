@@ -6,7 +6,7 @@
             <label>Sélection de votre adresse </label>
             <br>
             {% for adresse in adresses %}
-                <input type="radio" name="ropi_commandebundle_commande[adresseDeLivraison]" value="{{ adresse.id }}" {% if loop.index == 1 %}checked{% endif %}> {{ adresse.rue}} {{ adresse.complement }}, {{ adresse.numero }} - {{ adresse.ville.codePostal }} {{ adresse.ville.ville }} ({{ adresse.ville.pays.nom }})
+                <input type="radio" name="commande_client[adresseDeLivraison]" value="{{ adresse.id }}" {% if loop.index == 1 %}checked{% endif %}> {{ adresse.rue}} {{ adresse.complement }}, {{ adresse.numero }} - {{ adresse.ville.codePostal }} {{ adresse.ville.ville }} ({{ adresse.ville.pays.nom }})
                 <br>
             {% endfor %}
         </div>
@@ -17,7 +17,7 @@
 
     function adresseChange(){
         $.ajax({
-            url: Routing.generate("commande_ajax_modeDeLivraison", { idAdresse : $('input[name="ropi_commandebundle_commande[adresseDeLivraison]"]:checked').val() }),
+            url: Routing.generate("commande_ajax_modeDeLivraison", { idAdresse : $('input[name="commande_client[adresseDeLivraison]"]:checked').val() }),
             type: 'GET',
             dataType : 'json',
 
@@ -28,7 +28,7 @@
 
     }
 
-    $('input[name="ropi_commandebundle_commande[adresseDeLivraison]"]').change(adresseChange);
-    $('input[name="ropi_commandebundle_commande[adresseDeLivraison]"]').change();
+    $('input[name="commande_client[adresseDeLivraison]"]').change(adresseChange);
+    $('input[name="commande_client[adresseDeLivraison]"]').change();
     
 </script>

@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"livraison" = "ModeDeLivraison", "paiement" = "ModeDePaiement"})
  */
-class Mode
+abstract class Mode
 {
     /**
      * @var integer

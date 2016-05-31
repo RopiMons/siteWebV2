@@ -3,8 +3,9 @@
 namespace Ropi\AuthenticationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleType extends AbstractType
 {
@@ -19,25 +20,18 @@ class RoleType extends AbstractType
             ->add('description',null,array("read_only"=>true))
             ->add('identifiantWeb')
             ->add('permission')
-            ->add("submit","submit")
+            ->add("submit",SubmitType::class)
         ;
     }
     
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\AuthenticationBundle\Entity\Role'
         ));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ropi_authenticationbundle_role';
-    }
 }

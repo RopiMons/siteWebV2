@@ -19,8 +19,10 @@ class AdresseRepository extends EntityRepository
             ->join("a.personnes", 'p')
             ->where('a.id = :id')
             ->andWhere("p.id = :personneId")
+            ->andWhere("a.actif = :true")
             ->setParameter('id',$id)
             ->setParameter('personneId',$personne->getId())
+            ->setParameter('true',true)
             ->getQuery()
             ->getSingleResult()
             ;
@@ -33,7 +35,9 @@ class AdresseRepository extends EntityRepository
             ->select(array('a'))
             ->join("a.personnes", 'p')
             ->where("p.id = :personneId")
+            ->andWhere("a.actif = :true")
             ->setParameter('personneId',$personne->getId())
+            ->setParameter('true',true)
             ->getQuery()
             ->execute()
             ;

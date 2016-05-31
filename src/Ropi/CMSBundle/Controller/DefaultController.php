@@ -3,17 +3,16 @@
 namespace Ropi\CMSBundle\Controller;
 
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
-use PhpOption\Tests\Repository;
-use Proxies\__CG__\Ropi\CMSBundle\Entity\Categorie;
+use Ropi\CMSBundle\Entity\Categorie;
 use Ropi\CMSBundle\Entity\Page;
 use Ropi\CMSBundle\Form\CategorieType;
 use Ropi\CMSBundle\Form\PageDynamiqueType;
-use Ropi\CMSBundle\Map\MapBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\CMSBundle\Form\PageStatiqueForm;
 use Ropi\CMSBundle\Entity\PageStatique;
@@ -24,14 +23,14 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/create/static", name="CMS_static_create")
-     * @Secure(roles={"ROLE_CMS_CREATE","ROLE_ADMIN"})
+     * @Security("has_role=('ROLE_CMS_CREATE') or has_role=('ROLE_ADMIN')")
      * @Template()
      */
     public function createStatiqueAction(Request $request) {
 
 
-        $form = $this->createForm(new PageStatiqueForm());
-        $form->add('Créer la page', 'submit');
+        $form = $this->createForm(PageStatiqueForm::class);
+        $form->add('Créer la page', SubmitType::class);
 
 
         $form->handleRequest($request);
@@ -119,11 +118,8 @@ class DefaultController extends Controller {
     }
 
     private function indexAction() {
-        $mapBuilder = new MapBuilder();
-
         return $this->render('RopiCMSBundle:Default:index.html.twig', array(
-            'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
-            'map' => $mapBuilder->getMap()
+            'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll()
         ));
     }
 
@@ -145,12 +141,12 @@ class DefaultController extends Controller {
 
                 if(get_class($page) == "Ropi\CMSBundle\Entity\PageStatique"){
 
-                    $newForm = new PageStatiqueForm();
+                    $newForm = PageStatiqueForm::class;
                     $nomTwig = "createStatique";
 
                 }elseif (get_class($page) == "Ropi\CMSBundle\Entity\PageDynamique"){
 
-                    $newForm = new PageDynamiqueType();
+                    $newForm = PageDynamiqueType::class;
                     $nomTwig = "createStatique";
 
                 }else{
@@ -159,7 +155,7 @@ class DefaultController extends Controller {
 
                 $oldCategorie = $page->getCategorie();
                 $form = $this->createForm($newForm, $page);
-                $form->add('Modifier', 'submit');
+                $form->add('Modifier', SubmitType::class);
 
                 $form->handleRequest($request);
 
@@ -209,7 +205,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/my/cms/pages", name="CMS_pages")
      * @Template()
-     * @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function listAction() {
         $repo = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie");
@@ -225,7 +221,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/page/remove/{id}", requirements={"id" = "\d+"}, name="CMS_page_remove")
-     *     @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
+     *     @Security("has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function removePage($id) {
         $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page")->find($id);
@@ -237,7 +233,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/categorie/remove/{id}", requirements={"id" = "\d+"}, name="CMS_categorie_remove")
-     *     @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
+     *     @Security("has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function removeCategorie($id) {
         $categorie = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Categorie")->find($id);
@@ -286,7 +282,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/page/active/{id}", requirements={"id" = "\d+"}, name="CMS_page_inverse" )
-     * @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
+     * @Security( "has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function inversedActive($id) {
         $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\PageStatique")->findOneBy(array('id' => $id));
@@ -307,7 +303,7 @@ class DefaultController extends Controller {
      * @Route("/my/cms/categorie/up/{id}", requirements={"id" = "\d+"}, defaults={"sens" = -1, "type"="categorie"}, name="CMS_categories_up")
      * @Route("/my/cms/categorie/down/{id}", requirements={"id" = "\d+"}, defaults={"sens" = 1, "type"="categorie"}, name="CMS_categories_down")
      *
-     * @Secure(roles={"ROLE_ADMIN","ROLE_CMS_CREATE"})
+     * @Security( "has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
      */
     public function moveAction($id, $sens, $type) {
 
@@ -362,7 +358,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/my/cms/create/categorie", name="CMS_categorie_create")
      * @Route("/my/cms/update/categorie/{id}", name="CMS_categorie_update", requirements={"id" = "\d+"})
-     * @Secure(roles={"ROLE_CMS_CREATE","ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_CMS_CREATE') or has_role('ROLE_ADMIN')")
      * @Template()
      */
     public function categorieAction($id = null, Request $request) {
@@ -376,9 +372,9 @@ class DefaultController extends Controller {
             $categorie = new Categorie();
         }
 
-        $form = $this->createForm(new CategorieType() ,$categorie);
+        $form = $this->createForm(CategorieType::class ,$categorie);
 
-        $form->add("Enregistrer",'submit');
+        $form->add("Enregistrer", SubmitType::class);
 
         $form->handleRequest($request);
 
@@ -414,7 +410,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/cms/permissions/change/{idPage}/{permissionNom}", requirements={"idPage" = "\d+"}, name="CMS_perm_change")
-     * @Secure(roles={"ROLE_CMS_CREATE","ROLE_ADMIN"})
+     * @Security(" has_role('ROLE_CMS_CREATE') or has_role('ROLE_ADMIN')")
      */
     public function inverseDroit($permissionNom, $idPage){
         $page = $this->getDoctrine()->getRepository("Ropi\CMSBundle\Entity\Page")->find($idPage);

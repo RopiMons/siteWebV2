@@ -2,8 +2,9 @@
 
 namespace Ropi\CMSBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ropi\CMSBundle\Form\PageType;
 
 class PageStatiqueForm extends PageType {
@@ -16,7 +17,7 @@ class PageStatiqueForm extends PageType {
         parent::buildForm($builder, $options);
         
         $builder
-                ->add('contenu', 'textarea', array(
+                ->add('contenu', TextareaType::class, array(
                     'label' => 'Contenu de la page',
                     'attr' => array(
                         'class'=>'tinymce',
@@ -30,17 +31,11 @@ class PageStatiqueForm extends PageType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\CMSBundle\Entity\PageStatique'
         ));
     }
-
-    /**
-     * @return string
-     */
-    public function getName() {
-        return 'ropi_cmsbundle_pagestatique';
-    }
+    
 
 }

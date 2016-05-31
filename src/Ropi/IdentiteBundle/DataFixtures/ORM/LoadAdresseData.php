@@ -41,6 +41,7 @@ class LoadAdresseData extends AbstractFixture implements OrderedFixtureInterface
             $type->setTypeAdresse($element[3]);
             $type->setVille($element[2]);
             $type->addPersonne($element[4]);
+            $type->setActif(true);
             $manager->persist($type);
             $this->setReference($element[0],$type);
         }

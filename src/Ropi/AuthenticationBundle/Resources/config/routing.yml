@@ -1,6 +1,6 @@
 
 login_check:
-    pattern: /login_check
+    path: /login_check
 
 logout:
-    pattern:   /logout
+    path:   /logout

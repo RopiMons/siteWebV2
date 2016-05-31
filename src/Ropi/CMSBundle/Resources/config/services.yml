@@ -1,24 +1,22 @@
 services:
     ropicms.menu_builder:
         class: Ropi\CMSBundle\Menu\Builder
-        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.context"]
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.authorization_checker",  "@security.token_storage"]
         
     ropicms.main_menu: 
         class: Knp\Menu\MenuItem
-        factory_service: ropicms.menu_builder
-        factory_method: createBreadcrumbMenu
+        factory: ["@ropicms.menu_builder", createBreadcrumbMenu]
         tags:
             - { name: knp_menu.menu, alias: main }
             
     ropicms2.menu_builder:
         class: Ropi\CMSBundle\Menu\MenuAdmin
-        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.context"]
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.authorization_checker",  "@security.token_storage"]
         
         
     ropicms2.main_menu: 
         class: Knp\Menu\MenuItem
-        factory_service: ropicms2.menu_builder
-        factory_method: createBreadcrumbMenu
+        factory: ["@ropicms2.menu_builder", createBreadcrumbMenu]
         tags:
             - { name: knp_menu.menu, alias: main2 }
             

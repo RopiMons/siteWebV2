@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({"bool"="ParametreBool", "concret"="ParametreConcret"})
  * 
  */
-class Parametre
+abstract class Parametre
 {
     /**
      * @var integer

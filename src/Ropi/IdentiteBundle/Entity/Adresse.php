@@ -30,6 +30,12 @@ class Adresse
     private $rue;
 
     /**
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif = true;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=10)
@@ -255,5 +261,30 @@ class Adresse
     }
     public function __toString() {
         return $this->rue;
+    }
+
+    /**
+     * Set actif
+     *
+     * @param boolean $actif
+     *
+     * @return Adresse
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * Get actif
+     *
+     * @return boolean
+     */
+    public function getActif()
+    {
+
+        return $this->actif;
     }
 }

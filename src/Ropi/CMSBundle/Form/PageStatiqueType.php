@@ -4,7 +4,7 @@ namespace Ropi\CMSBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ropi\CMSBundle\Form\PageType;
 
 class PageStatiqueType extends AbstractType {
@@ -15,7 +15,7 @@ class PageStatiqueType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('page', new PageType(), array(
+                ->add('page', PageType::class, array(
                     'label' => 'Informations sur la page'
                 ))
                 ->add('titre', null, array(
@@ -31,17 +31,10 @@ class PageStatiqueType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\CMSBundle\Entity\PageStatique'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName() {
-        return 'ropi_cmsbundle_pagestatique';
     }
 
 }

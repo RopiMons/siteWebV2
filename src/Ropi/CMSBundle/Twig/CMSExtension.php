@@ -17,7 +17,7 @@ class CMSExtension extends \Twig_Extension {
 
     public function getTests() {
         return [
-            'instanceof' => new \Twig_Function_Method($this, 'isInstanceof')
+            new \Twig_SimpleTest('instanceof', 'isInstanceof')
         ];
     }
 
@@ -30,8 +30,8 @@ class CMSExtension extends \Twig_Extension {
         return get_class($var) === $instance;
     }
 
-    public function getName() {
-        return 'cms_extension';
+    public function getName(){
+        return "instanceof";
     }
 
 }

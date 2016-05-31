@@ -107,6 +107,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     
     /**
      * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="identifiantWeb", cascade={"persist"})
+     * @Assert\Valid
      */
     private $personne;
 

@@ -12,11 +12,13 @@ namespace Ropi\CMSBundle\Menu;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Ropi\CMSBundle\Entity\PositionnableInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Intl\Exception\NotImplementedException;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
-Abstract class AbstractMenu extends ContainerAware {
+Abstract class AbstractMenu  {
+
+    use ContainerAwareTrait;
 
     /**
      * @param FactoryInterface $factory
@@ -29,11 +31,11 @@ Abstract class AbstractMenu extends ContainerAware {
     protected $em;
     protected $permissions;
 
-    public function __construct(FactoryInterface $factory, EntityManager $em, SecurityContext $securityContext) {
+    public function __construct(FactoryInterface $factory, EntityManager $em, AuthorizationChecker $authorizationChecker, TokenStorage $tokenStorage) {
         $this->factory = $factory;
         $this->em = $em;
-        if ($securityContext->isGranted("IS_AUTHENTICATED_FULLY")) {
-            $this->permissions = $securityContext->getToken()->getUser()->getRoles();
+        if ($authorizationChecker->isGranted("IS_AUTHENTICATED_FULLY")) {
+            $this->permissions = $tokenStorage->getToken()->getUser()->getRoles();
         } else {
             $this->permissions = array("ROLE_ANONYME");
         }

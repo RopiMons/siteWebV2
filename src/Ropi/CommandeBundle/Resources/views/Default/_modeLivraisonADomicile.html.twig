@@ -5,7 +5,7 @@
     <p>Voici les modes de livraisons que nous pouvons vous proposer au vue de votre code postal</p>
 
     {% for mode in modes %}
-        <input type="radio" value="{{ mode.id }}" name="ropi_commandebundle_commande[modeDeLivraison]" \> <label>{{ mode.nom }} - {{ mode.frais }} €</label>
+        <input type="radio" value="{{ mode.id }}" name="commande_client[modeDeLivraison]" \> <label>{{ mode.nom }} - {{ mode.frais }} €</label>
         <br />
     {% endfor %}
 {% endif %}

@@ -3,9 +3,11 @@
 namespace Ropi\CommerceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ropi\IdentiteBundle\Form\AdresseCommerceType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CommerceType extends AbstractType {
 
@@ -25,16 +27,15 @@ class CommerceType extends AbstractType {
                 //    'data-theme' => 'advanced'
                 //)
             ))
-            ->add('imageFile', 'vich_image', array(
-                'required'      => false,
+            ->add('imageFile', VichImageType::class, array(
+                'required'      => true,
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
 
             ))
-            ->add('adresses', 'collection', array(
+            ->add('adresses', CollectionType::class, array(
                 'label' => 'Adresse de votre commerce',
-                'type' => new AdresseCommerceType(),
-                'cascade_validation' => true
+                'entry_type' => AdresseCommerceType::class
             ))
             /*->add('visible', null, array(
                 'label' => 'Publier les informations sur le site ',
@@ -50,17 +51,10 @@ class CommerceType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\CommerceBundle\Entity\Commerce'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName() {
-        return 'ropi_commercebundle_commerce';
     }
 
 }

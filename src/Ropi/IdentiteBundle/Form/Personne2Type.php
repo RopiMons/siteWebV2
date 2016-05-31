@@ -2,12 +2,14 @@
 
 namespace Ropi\IdentiteBundle\Form;
 
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ropi\IdentiteBundle\Form\ContactType;
 
-class PersonneModifAdminType extends AbstractType {
+class Personne2Type extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -15,19 +17,12 @@ class PersonneModifAdminType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('username',null,array("label"=>"nom d'utilisateur"))
-
-            ->add('actif',null,array("label"=>"Utilisateur Actif ?"))
-            ->add('role')
-            ->add('permission')
-            ->add('Personne', Personne2Type::class)
-
-                
-        //->add('creeLe')
-        /* ->add('contacts', 'collection', array(
-          'type' => new ContactType(),
-          'allow_add' => true,
-          )) */
+                ->add('nom')
+                ->add('prenom')
+                ->add('dateNaissance',BirthdayType::class)
+                ->add('contacts', CollectionType::class, array(
+                    'entry_type' => ContactType::class
+                ))
         ;
     }
 
@@ -36,7 +31,7 @@ class PersonneModifAdminType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
+            'data_class' => 'Ropi\IdentiteBundle\Entity\Personne',
              'cascade_validation' => true
         ));
     }

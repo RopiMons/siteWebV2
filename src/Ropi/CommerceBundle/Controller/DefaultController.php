@@ -2,7 +2,8 @@
 
 namespace Ropi\CommerceBundle\Controller;
 
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Ropi\IdentiteBundle\Entity\TypeAdresse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\CommerceBundle\Form\CommerceAdminType;
 use Ropi\CommerceBundle\Form\CommerceType;
@@ -10,6 +11,7 @@ use Ropi\IdentiteBundle\Entity\Adresse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
@@ -18,7 +20,7 @@ class DefaultController extends Controller {
     private $route = "admin_home"; //Route de redirection par défaut après une action
 
     /**
-     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE","ROLE_COMMERCANT"})
+     * @Security("has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT')")
      * @Route("/my/commerce/new",name="commerce_new")
      * @Template()
      */
@@ -61,17 +63,19 @@ class DefaultController extends Controller {
         if (!$commerce) {
 
             $adresse = new Adresse();
+            $type = $this->getDoctrine()->getRepository(TypeAdresse::class)->findOneBy(array('valeur'=>'Adresse du commerce'));
+            $adresse->setTypeAdresse($type);
             $commerce = new Commerce();
             $commerce->addAdress($adresse);
         }
 
         if($admin && $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
-            $form = $this->createForm(new CommerceAdminType(), $commerce);
+            $form = $this->createForm(CommerceAdminType::class, $commerce);
         }else{
-            $form = $this->createForm(new CommerceType(), $commerce);
+            $form = $this->createForm(CommerceType::class, $commerce);
         }
 
-        $form->add("Ajouter un commerce", "submit");
+        $form->add("Ajouter un commerce", SubmitType::class);
 
         $form->handleRequest($request);
 
@@ -79,7 +83,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security(" has_role('ROLE_ADMIN')")
      * 
      * @Route("/my/commerce/validate/{id}", requirements={"id": "\d+"}, defaults={"id": null}, name="commerce_validate")
      * @Template()
@@ -108,7 +112,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/commerce/update/{id}/{route}", requirements={"id": "\d+"}, defaults={"route": null}, name="commerce_update")
-     * @Secure("ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      * @Template()
      */
     public function updateAction(Request $request, $id, $route = null) {
@@ -135,7 +139,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_ADMIN')")
      * 
      * @Route("/my/commerce/remove/{id}/{route}", requirements={"id": "\d+"}, defaults={"route": null}, name="commerce_remove")
      * 
@@ -155,7 +159,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_ADMIN')")
      * @Route("/my/admin/commerces", name="admin_commerces")
      * @Template()
      */
@@ -172,7 +176,7 @@ class DefaultController extends Controller {
     /**
      * 
      * @Route("/my/commerce/{proprety}/{id}/{route}", requirements={"id": "\d+"}, name="commerce_change")
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_ADMIN')")
      * 
      * Attention, très dangeureux d'ouvrir vers l'extérieure ... La généricité ...
      */

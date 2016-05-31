@@ -8,9 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Ropi\IdentiteBundle\Entity\Contact;
-use Ropi\IdentiteBundle\Entity\Personne;
-use Ropi\IdentiteBundle\Form\PersonneType;
-use Ropi\IdentiteBundle\Form\ContactType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\AuthenticationBundle\Entity\KeyValidation;
@@ -29,8 +27,6 @@ class InscriptionController extends Controller
         }
         $users= new IdentifiantWeb();
         $user = $users->getPersonne();
-
-        $type = new IdentifiantWebType();
 
         $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
         $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
@@ -55,19 +51,19 @@ class InscriptionController extends Controller
         /*
          * Ajout de l'addresse
          */
-        
+
 
         if ($user->getAdresses() === null){
-        $adresse = new Adresse();
-        //$adresse->setTypeAdresse(new \Ropi\IdentiteBundle\Entity\TypeAdresse());
-        $user->addAdress($adresse);
-        
+            $adresse = new Adresse();
+            //$adresse->setTypeAdresse(new \Ropi\IdentiteBundle\Entity\TypeAdresse());
+            $user->addAdress($adresse);
+
 
         }
-        $form = $this->createForm($type, $users);
-       // $form->add("Enregistrer", "submit");
-        $form->add("Enregistrer","submit");
-     $form->handleRequest($request);
+        $form = $this->createForm(IdentifiantWebType::class, $users);
+        // $form->add("Enregistrer", "submit");
+        $form->add("Enregistrer",SubmitType::class);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
 
@@ -76,51 +72,51 @@ class InscriptionController extends Controller
             $em = $this->getDoctrine()->getManager();
 
 
-            
-         $factory = $this->get('security.encoder_factory');
-         $encoder = $factory->getEncoder($users);
-          $users->setMotDePasse($encoder->encodePassword($users->getMotDePasse(), $users->getSalt()));
+
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($users);
+            $users->setMotDePasse($encoder->encodePassword($users->getMotDePasse(), $users->getSalt()));
             $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
             $em->persist($users);
             $em->flush();
 
             $cle = new KeyValidation($users->getSalt());
             $cle->setIdentifiantWeb($users->getId());
-           // $users->setKey($cle);
+            // $users->setKey($cle);
 
             $em->persist($cle);
 
 
-           $em->flush();
+            $em->flush();
             $this->MailValidation($users, $cle);
 
             $this->get("session")->getFlashBag()->add(
                 'success',"Votre compte à bien crée, il faut maintenant validé votre addresse email!" );
 
-          return  $this->redirect($this->generateUrl("home"));
+            return  $this->redirect($this->generateUrl("home"));
         }
         return  Array(
-                    "form" => $form->createView(),
+            "form" => $form->createView(),
         );
     }
     private function MailValidation(IdentifiantWeb $personne, KeyValidation $cle){
 
 
-       $converter = $this->get('css_to_inline_email_converter');
+        $converter = $this->get('css_to_inline_email_converter');
         $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array('login' => $personne->getUsername(),
-                        'id' =>$personne->getId(),'cle'=>$cle->getCle()));
+            'id' =>$personne->getId(),'cle'=>$cle->getCle()));
         $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css')); //$personne->getIdentifiantWeb()->getId()
 
         $body = $converter->generateStyledHTML();
-         foreach ($personne->getPersonne()->getContacts() as $contact) {
+        foreach ($personne->getPersonne()->getContacts() as $contact) {
 
             if ($contact->getTypeContact()->getType() === "Mail") {
                 $message = \Swift_Message::newInstance()
-                        ->setSubject("Inscription au Ropi")
-                        ->setFrom("info@ropi.be")
-                        ->setTo($contact->getValeur())
+                    ->setSubject("Inscription au Ropi")
+                    ->setFrom("info@ropi.be")
+                    ->setTo($contact->getValeur())
                     ->setContentType('text/html')
-                        ->setBody($body);
+                    ->setBody($body);
 
 
                 ;
@@ -128,6 +124,6 @@ class InscriptionController extends Controller
                 $this->get('mailer')->send($message);
             }
 
-    }
+        }
     }
 }

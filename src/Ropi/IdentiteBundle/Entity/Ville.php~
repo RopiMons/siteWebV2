@@ -47,7 +47,8 @@ class Ville
     /**
      * @var pays
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Pays", inversedBy="ville")
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Pays", inversedBy="ville",cascade={"persist"})
+     * @Assert\Valid
      *
      */
     private $pays;
@@ -143,12 +144,16 @@ class Ville
     /**
      * @Assert\Callback
      */
-    public function validate(ExecutionContextInterface $context){
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (isset($this->pays)) {
+
         $regex = $this->getPays()->getRegex();
 
         if(!preg_match($regex,$this->getCodePostal())){
             $context->buildViolation("Le format du code postal, ne correspond pas au pays ".$this->getPays())->atPath("codePostal")->addViolation();
         }
+    }
     }
 
 

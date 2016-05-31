@@ -2,11 +2,14 @@
 
 namespace Ropi\TestBundle\Controller;
 
+use Ropi\IdentiteBundle\Form\PersonneType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
 use Ropi\AuthenticationBundle\Form\IdentifiantWebType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\Role;
 use Ropi\AuthenticationBundle\Form\RoleType;
@@ -23,9 +26,8 @@ class DefaultController extends Controller {
     public function indexAction(Request $request) {
         //$user = new IdentifiantWeb();
         $user = new \Ropi\IdentiteBundle\Entity\Personne();
-       
-        $type = new \Ropi\IdentiteBundle\Form\PersonneType();
-        $form = $this->createForm($type, $user);
+
+        $form = $this->createForm(PersonneType::class, $user);
         $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
         $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
 
@@ -37,8 +39,8 @@ class DefaultController extends Controller {
                 $user->addContact($contact);
                 //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
                 dump($contact->getTypeContact());
-                $form->add('contacts', "collection", array('type' => new ContactType($contact->getTypeContact())));
-                $form->add("submit", "submit");
+                $form->add('contacts', CollectionType::class, array('entry_type' => new ContactType($contact->getTypeContact())));
+                $form->add("submit", SubmitType::class);
             }
         }
 
@@ -78,7 +80,7 @@ class DefaultController extends Controller {
             $role = new Role();
         else
             $role = $id;
-        $form = $this->createForm(new RoleType(), $role);
+        $form = $this->createForm(RoleType::class, $role);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -108,7 +110,7 @@ class DefaultController extends Controller {
             $personne->addContact($temp);
         }
 
-        $form = $this->createForm(new \Ropi\IdentiteBundle\Form\PersonneType(), $personne);
+        $form = $this->createForm(PersonneType::class, $personne);
 
         return $this->render("RopiTestBundle:formulaire:form.html.twig", array(
                     'form' => $form->createView(),

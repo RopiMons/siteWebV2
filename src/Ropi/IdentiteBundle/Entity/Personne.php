@@ -3,6 +3,8 @@
 namespace Ropi\IdentiteBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -70,6 +72,7 @@ class Personne
     
     /** 
      * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist","remove"})
+     * @Assert\Valid
      */
     private $contacts;
     
@@ -80,12 +83,12 @@ class Personne
     
     /**
      * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"remove"})
+     * @Assert\Valid
      */
     private $identifiantWeb;
     
     /**
      * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"persist","remove"})
-     *
      * @Assert\Valid
      */
     private $adresses;
@@ -319,7 +322,15 @@ class Personne
      */
     public function getAdresses()
     {
-        return $this->adresses;
+        $retour = new ArrayCollection();
+
+        foreach ($this->adresses as $adresse){
+            if($adresse->getActif()){
+                $retour->add($adresse);
+            }
+        }
+
+        return $retour;
     }
 
 

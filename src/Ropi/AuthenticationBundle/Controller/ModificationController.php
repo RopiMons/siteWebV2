@@ -9,6 +9,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+USE Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ModificationController extends Controller
 {
@@ -21,10 +22,10 @@ class ModificationController extends Controller
      */
      public function changePSW(Request $request) {
 
-         $user = $this->container->get('security.context')->getToken()->getUser();
+         $user = $this->getUser();
         $user2 =new IdentifiantWeb();
-        $form = $this->createForm(new changePWDType(),$user2);
-         $form->add("Changer le mot de passe","submit");
+        $form = $this->createForm(changePWDType::class,$user2);
+         $form->add("Changer le mot de passe",SubmitType::class);
 
          $form->handleRequest($request);
 

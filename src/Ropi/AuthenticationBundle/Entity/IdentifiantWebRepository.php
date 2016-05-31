@@ -3,7 +3,8 @@
 namespace Ropi\AuthenticationBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+//use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
  * IdentifiantWebRepository
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  * repository methods below.
  */
 
-class IdentifiantWebRepository extends EntityRepository  implements UserProviderInterface
+class IdentifiantWebRepository extends EntityRepository  implements UserLoaderInterface
 {
     public function loadUserByUsername($username) {
           $q = $this

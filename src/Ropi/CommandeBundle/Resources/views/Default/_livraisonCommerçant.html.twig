@@ -3,10 +3,10 @@
 <p>Vous recevrez un mail lorsque vos ropi seront pret chez le commercant, merci de ne pas vous y rendre avant.</p>
 
 {% if commerces | length <= 0 %}
-    <p>Nous n'avons malheureusement pas encore de commerçants partenaires. Merci de choisir la livraison à domiciel</p>
+    <p>Nous n'avons malheureusement pas encore de commerçants partenaires. Merci de choisir la livraison à domicile</p>
 {% else %}
     <label>Choix du commerce </label>
-    <select name="ropi_commandebundle_commande[adresseDeLivraison]">
+    <select name="commande_client[adresseDeLivraison]">
         {% for commerce in commerces %}
             {% set adresse = commerce.commerceImplentationAdresse %}
             {% if adresse is defined  %}
@@ -15,6 +15,6 @@
         {% endfor %}
     </select>
 
-    <input type="hidden" name = "ropi_commandebundle_commande[modeDeLivraison]" value="{{ modeDeLivraison.id }}" \>
+    <input type="hidden" name = "commande_client[modeDeLivraison]" value="{{ modeDeLivraison.id }}" \>
 
 {% endif %}

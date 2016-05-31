@@ -30,6 +30,12 @@ class Adresse
     private $rue;
 
     /**
+     * @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif = true;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=10)
@@ -58,6 +64,7 @@ class Adresse
     
     /**
      * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="adresses", cascade={"persist"})
+     * @Assert\Valid
      */
     private $commerce;
     

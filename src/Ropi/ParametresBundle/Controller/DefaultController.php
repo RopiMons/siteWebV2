@@ -5,12 +5,12 @@ namespace Ropi\ParametresBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
     /**
-     * @Secure(roles={"ROLE_ADMIN"})
+     * @Security( "has_role('ROLE_ADMIN')")
      * 
      * @Route("/my/admin", name="admin_home")
      * @Template()

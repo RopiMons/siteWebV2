@@ -3,8 +3,10 @@
 namespace Ropi\AuthenticationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ropi\AuthenticationBundle\Entity\Role;
 
 class changePWDType extends AbstractType
@@ -17,9 +19,9 @@ class changePWDType extends AbstractType
      {
 
          $builder
-             ->add('oldPassword','password',array('label'=>"Ancien mot de passe"))
-             ->add('motDePasse', 'repeated', array(
-             'type' => 'password',
+             ->add('oldPassword',PasswordType::class,array('label'=>"Ancien mot de passe"))
+             ->add('motDePasse', RepeatedType::class, array(
+             'type' => PasswordType::class,
              'first_options' => array('label' => 'mot de passe:'),
              'second_options' => array('label' => 'Confirmation:'),
              'invalid_message' => 'les mots de pass ne sont pas les mêmes',
@@ -29,19 +31,12 @@ class changePWDType extends AbstractType
      /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
            
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName() {
-        return 'ropi_authenticationbundle_changePSW';
     }
 
 }

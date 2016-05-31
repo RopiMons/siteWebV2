@@ -4,8 +4,8 @@ namespace Ropi\IdentiteBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ropi\IdentiteBundle\Form\VilleType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class AdresseCommerceType extends AbstractType
 {
@@ -27,7 +27,7 @@ class AdresseCommerceType extends AbstractType
                 'required' => false
             ))
                 
-            ->add('ville', new VilleCommerceType(), array(
+            ->add('ville', VilleCommerceType::class, array(
                 'cascade_validation' => true
             ))
         ;
@@ -36,7 +36,7 @@ class AdresseCommerceType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\IdentiteBundle\Entity\Adresse',
@@ -44,11 +44,4 @@ class AdresseCommerceType extends AbstractType
         ));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ropi_identitebundle_adresse';
-    }
 }

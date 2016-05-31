@@ -2,10 +2,12 @@
 
 namespace Ropi\IdentiteBundle\Form;
 
+use Ropi\IdentiteBundle\Entity\TypeAdresse;
 use Ropi\IdentiteBundle\Entity\TypeAdresseRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ropi\IdentiteBundle\Form\VilleType;
 
 class AdresseType extends AbstractType
@@ -27,15 +29,15 @@ class AdresseType extends AbstractType
                 'label' => 'Complément d\'adresse',
                 'required' => false
             ))
-            ->add('typeAdresse','entity', array(
-                'class' => 'RopiIdentiteBundle:TypeAdresse',
+            ->add('typeAdresse',EntityType::class, array(
+                'class' => TypeAdresse::class,
                 'query_builder' => function(TypeAdresseRepository $er) {
                     return $er->createQueryBuilder('T')->where("T.obligatoire = 1");
 
                 },
             )
             )
-            ->add('ville', new VilleType(), array(
+            ->add('ville', VilleType::class, array(
                 'cascade_validation' => true
             ))
         ;
@@ -44,7 +46,7 @@ class AdresseType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\IdentiteBundle\Entity\Adresse',
@@ -52,11 +54,4 @@ class AdresseType extends AbstractType
         ));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ropi_identitebundle_adresse';
-    }
 }

@@ -21,3 +21,4 @@ composer.lock
 /app/config/parameters.yml
 /.idea/
 /web/images
+/var/*

@@ -4,9 +4,10 @@ namespace Ropi\AuthenticationBundle\Form;
 
 use Ropi\IdentiteBundle\Form\PersonneType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ropi\AuthenticationBundle\Entity\Role;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IdentifiantWebType extends AbstractType
 {
@@ -18,15 +19,15 @@ class IdentifiantWebType extends AbstractType
     {
         $builder
             ->add('username',null,array("label"=>"nom d'utilisateur"))
-            ->add('motDePasse','repeated',array(
-            'type' => 'password',
+            ->add('motDePasse',RepeatedType::class,array(
+            'type' => PasswordType::class,
             'first_options' => array('label' => 'mot de passe:'),
             'second_options' => array('label' => 'Confirmation:'),
-            'invalid_message' => 'les mots de pass ne sont pas les mêmes'))
+            'invalid_message' => 'les mots de passes ne sont pas identiques'))
             //->add('salt')
             //->add('lastConnection')
             //->add('createAt')
-            ->add('Personne', new \Ropi\IdentiteBundle\Form\PersonneType())
+            ->add('Personne', PersonneType::class)
             ->add('actif',null,array("label"=>"Utilisateur Actif ?"))
             ->add('role')
             ->add('permission')
@@ -39,7 +40,7 @@ class IdentifiantWebType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
@@ -47,11 +48,4 @@ class IdentifiantWebType extends AbstractType
         ));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ropi_authenticationbundle_identifiantweb';
-    }
 }

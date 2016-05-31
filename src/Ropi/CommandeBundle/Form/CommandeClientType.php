@@ -11,8 +11,9 @@ namespace Ropi\CommandeBundle\Form;
 
 use Ropi\CommandeBundle\Entity\ModeDeLivraisonRepository;
 use Ropi\CommandeBundle\Entity\ModeDePaiementRepository;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommandeClientType extends CommandeType
 {
@@ -23,8 +24,8 @@ class CommandeClientType extends CommandeType
         $builder
             ->remove("statut")
             ->remove("client")
-            ->add("articlesQuantite",'collection',array(
-                'type' => new ArticleCommandeType(),
+            ->add("articlesQuantite",CollectionType::class,array(
+                'entry_type' => ArticleCommandeType::class,
             ))
             /*->add("modeDePaiement",null,array(
                 'expanded' => true,
@@ -43,7 +44,7 @@ class CommandeClientType extends CommandeType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
 
         $resolver->setDefaults(array(

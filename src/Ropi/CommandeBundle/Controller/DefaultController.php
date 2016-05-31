@@ -12,9 +12,10 @@ use Ropi\IdentiteBundle\Form\AdresseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\OptionsResolver\Exception\AccessException;
 
 class DefaultController extends Controller
@@ -23,11 +24,10 @@ class DefaultController extends Controller
     /**
      * @Route("/my/commande/new", name="commande_new")
      * @Template()
-     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
+     * @Security( "has_role('ROLE_UTILISATEUR_ACTIVE')")
      */
     public function newCommandeAction(Request $request){
         $commande = new Commande();
-        $formType = new CommandeClientType();
 
         $articles = $this->getDoctrine()->getRepository("Ropi\CommandeBundle\Entity\Article")->findBy(array('actif'=>true));
 
@@ -40,9 +40,9 @@ class DefaultController extends Controller
             $commande->addArticlesQuantite($ac);
         }
 
-        $form = $this->createForm($formType,$commande);
+        $form = $this->createForm(CommandeClientType::class,$commande);
 
-        $form->add("send","submit",array('label'=>'Je commande mes Ropis'));
+        $form->add("send",SubmitType::class,array('label'=>'Je commande mes Ropis'));
 
         $form->handleRequest($request);
 
@@ -81,7 +81,7 @@ class DefaultController extends Controller
     /**
      * @Route("/my/commande/new/paiement/{idCommande}", name="commande_new_paiement", requirements={ "idCommande" = "\d+" } )
      * @Template()
-     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
+     * @Security( "has_role('ROLE_UTILISATEUR_ACTIVE')")
      */
     public function addMoyenDePaiementAction($idCommande, Request $request){
 
@@ -161,7 +161,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/my/commande/livraison/{choixLivraison}", name="commande_ajax_livraison", condition="request.isXmlHttpRequest()", options={"expose"=true})
-     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
+     * @Security( "has_role('ROLE_UTILISATEUR_ACTIVE')")
      */
     public function livraisonManagement($choixLivraison){
 
@@ -178,7 +178,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/my/commande/livraison/adresse/{idAdresse}", requirements = { "idAdresse" = "\d+" }, name="commande_ajax_modeDeLivraison", condition="request.isXmlHttpRequest()", options={"expose"=true})
-     * @Secure(roles={"ROLE_UTILISATEUR_ACTIVE"})
+     * @Security( "has_role('ROLE_UTILISATEUR_ACTIVE')")
      */
     public function livraisonAdresse($idAdresse){
 
@@ -219,9 +219,9 @@ class DefaultController extends Controller
         $adresse = new Adresse();
         $adresse->addPersonne($this->getUser()->getPersonne());
 
-        $form = $this->createForm(new AdresseType(), $adresse);
+        $form = $this->createForm(AdresseType::class, $adresse);
 
-        $form->add('Ajouter cette adresse','submit');
+        $form->add('Ajouter cette adresse',SubmitType::class);
 
         $form->handleRequest($request);
 

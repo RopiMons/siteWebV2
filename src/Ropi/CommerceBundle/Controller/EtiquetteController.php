@@ -20,7 +20,7 @@ class EtiquetteController extends Controller {
     public function newEtiquetteAction(Request $request) {
     
         $etiquette = new Etiquette();
-        $form = $this->createForm(new EtiquetteType() , $etiquette);
+        $form = $this->createForm(EtiquetteType::class , $etiquette);
         
         $form->handleRequest($request);
         if($form->isValid()){

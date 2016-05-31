@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 /**
@@ -76,6 +78,7 @@ class Commerce
 
     /**
      * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
+     * @Assert\Valid
      */
     private $adresses;
 
@@ -94,6 +97,7 @@ class Commerce
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=255)
+     *
      */
     private $logo;
 
@@ -101,6 +105,13 @@ class Commerce
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo")
+     *
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 400,
+     *     minHeight = 200,
+     *     maxHeight = 400
+     * )
      *
      * @var File
      */
