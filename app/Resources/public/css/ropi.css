@@ -45,6 +45,29 @@ and open the template in the editor.
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'SourceSansProRegular';
+    src: url('/font/SourceSansPro-Regular.eot');
+    src: url('/font/SourceSansPro-Regular.eot?#iefix') format('eot'),
+         url('/font/SourceSansPro-Regular.otf.woff') format('woff'),
+         url('/font/SourceSansPro-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SourceSansProSB';
+    src: url('/font/SourceSansPro-Semibold.eot');
+    src: url('/font/SourceSansPro-Semibold.eot?#iefix') format('eot'),
+         url('/font/SourceSansPro-Semibold.otf.woff') format('woff'),
+         url('/font/SourceSansPro-Semibold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 .margin5{
 	margin-left:10px ;
 }
