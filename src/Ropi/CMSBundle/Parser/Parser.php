@@ -31,16 +31,15 @@ class Parser
         /** &[xxxx] -> A remplacer par le parametre xxxx **/
 
         $regex = "/[*][[][[:alnum:]]+[]]/";
-        $results = Array();
+        if(preg_match_all($regex,$text,$results)) {
+            
+            array_unique($results);
 
-        preg_match_all($regex,$text,$results);
+            foreach ($results[0] as $result) {
 
-        array_unique($results);
+                $text = str_replace($result, $this->parametresRetour($result), $text);
 
-        foreach($results as $result){
-
-            $text = str_replace($result[0],$this->parametresRetour($result[0]),$text);
-
+            }
         }
 
         return $text;
