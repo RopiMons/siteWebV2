@@ -5,7 +5,7 @@
 {% block content %}    
    
      {% if error %}
-        <div class="alert alert-warning" role="alert">{{ error.message }}</div>
+        <div class="alert alert-warning" role="alert">{{ error.message |trans ({}, 'messages')  }}</div>
     {% endif %}
     {{ include('RopiAuthenticationBundle:Authenticate:loginForm.html.twig', {'last_username': last_username}) }}
     <a href="{{path('ropi_inscription')}}" title="Inscription"> Inscription </a>

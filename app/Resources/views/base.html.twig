@@ -33,7 +33,7 @@
 
                 <div class="col-sm-12 col-md-6">
 
-                    <a class="navbar-brand men" href="{{ path('home') }}"><img id="logo" class="col-sm-12 img100" src="/img/ropi_logo.png" alt="logo du ropi"/></a>
+                    <a class="navbar-brand men" href="{{ path('home') }}"><img id="logo" class=" img100" src="/img/ropi_logo.png" alt="logo du ropi"/></a>
                     <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
                 </div>
 
@@ -85,7 +85,7 @@
     <div class="alert alert-info" role="alert">
        Bonjour! bienvenue sur le site Beta du Ropi, nous sommes actuellement occupé à son développement et vous êtes sur une version qui est régulièrement mise à jour afin d'en corriger les erreurs.
         Nous vous remercions d'avance pour l'intérêt que vous y apporterez. Si vous découvrez un bug, vous pouvez nous le signaler sur <a href="http://facebook.com/RopiAsbl">facebook</a> ou sur <a href="https://github.com/RopiMons/siteWebV2/issues">Github Issues</a>
-        
+
     </div>
     {% for flashMessage in app.session.flashbag.get('info') %}
         <div class="alert alert-info" role="alert">
@@ -118,7 +118,8 @@
 
             <article class="col-md-12">
                 <div class="content" id="content">
-                        {% include ("chemin.html.twig") %}
+
+                    {% include ("chemin.html.twig") %}
                     {% block content %} plan
 
                     {% endblock %}
