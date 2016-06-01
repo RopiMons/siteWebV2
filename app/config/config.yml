@@ -199,29 +199,3 @@ vich_uploader:
                 inject_on_load:     false # should the file be deleted when the entity is removed
                 delete_on_update:   true #  should the file be deleted when a new file is uploaded
                 delete_on_remove:   true # should the file be injected into the uploadable entity when it is loaded from the data store. The object will be an instance of Symfony\Component\HttpFoundation\File\File
-vich_geographical:
-    db_driver: orm
-    query_service: vich_geographical.query_service.default
-    map_renderer: vich_geographical.map_renderer.google
-    icon_generator: vich_geographical.icon_generator.default
-
-    # jQuery aware google map renderer available
-    # map_renderer: vich_geographical.map_renderer.jquery_google
-
-    # Bing map renderer available
-    # map_renderer: vich_geographical.map_renderer.bing
-
-    # Leaflet map renderer available
-    # map_renderer: vich_geographical.map_renderer.leaflet
-
-    templating:
-        engine: twig # or php
-        info_window: VichGeographicalBundle:InfoWindow:default.html.twig
-
-    # if you specify the Leaflet map renderer then add your api key as follows
-    leaflet:
-        api_key: my_api_key
-
-    # if you specify the Bing map renderer then add your api key as follows
-    bing:
-        api_key: my_api_key

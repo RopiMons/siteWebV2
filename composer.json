@@ -52,8 +52,7 @@
         "knplabs/knp-paginator-bundle": "dev-master",
         "stfalcon/tinymce-bundle": "2.*",
         "vich/uploader-bundle" : "*",
-        "friendsofsymfony/jsrouting-bundle": "*",
-        "vich/geographical-bundle": "@dev"
+        "friendsofsymfony/jsrouting-bundle": "*"
 
     },
     "require-dev": {

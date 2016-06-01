@@ -1,0 +1,46 @@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMvwbcEOg_JwQHYPEbEwzaHld7wZxDxX4"></script>
+
+<script type="text/javascript">
+
+    function initialiser() {
+
+        var latlng = new google.maps.LatLng(50.454498, 3.950777);
+
+        var options = {
+
+            center: latlng,
+
+            zoom: 14,
+
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+
+        };
+
+        var carte = new google.maps.Map(document.getElementById("googleCarte"), options);
+
+
+
+        {% for marqueur in marqueurs %}
+
+            var infowindow_{{ loop.index }} = new google.maps.InfoWindow({
+                content: "<h1>{{ marqueur.nom }}</h1><a href='{{ path("commerce_view", { nom: marqueur.nom }) }}'>Plus d'infos ...</a>"
+            });
+
+            var marqueur_{{ loop.index }} = new google.maps.Marker({
+                position: new google.maps.LatLng({{ marqueur.lat }}, {{ marqueur.lon }}),
+                map: carte,
+                icon: {
+                    url: '/img/ropi_Rrouge.png',
+                    scaledSize: new google.maps.Size(25, 25)
+                }
+            });
+
+            marqueur_{{ loop.index }}.addListener('click', function() {
+                infowindow_{{ loop.index }}.open(carte, marqueur_{{ loop.index }});
+            });
+
+        {% endfor %}
+
+    }
+
+</script>

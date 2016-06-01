@@ -127,6 +127,16 @@ class Commerce
     private $depot;
 
     /**
+     * @ORM\Column(name="lat", type="float", nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(name="lon", type="float", nullable=true)
+     */
+    private $lon;
+
+    /**
      * Get id
      *
      * @return integer
@@ -493,4 +503,29 @@ class Commerce
             }
         }
     }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     *
+     * @return Commerce
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
 }

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <title>{% block title %}Ropi.be - Payez en argent comptant !{% endblock %}</title>
+
     {% block stylesheets %}
         <!-- Bootstrap -->
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
@@ -25,8 +27,8 @@
 </head>
 
 
-<body >
-<div class="container">
+<body onload="initialiser()">
+<div class="container" style="height: 100%">
     <header class="row"> <!-- Logo & slogan -->
         {% block header %}
             <div class="col-xs-12">
@@ -50,7 +52,7 @@
 
 
     {% block menu %}
-    </nav> <nav class="navbar navbar-default row ">
+        </nav> <nav class="navbar navbar-default row ">
         <div class="col-sm-3 col-lg-3 col-md-3"> </div>
 
         <div class="container-fluid">
@@ -81,9 +83,9 @@
     </nav>
 
 
-{% endblock %}
+    {% endblock %}
     <div class="alert alert-info" role="alert">
-       Bonjour! bienvenue sur le site Beta du Ropi, nous sommes actuellement occupé à son développement et vous êtes sur une version qui est régulièrement mise à jour afin d'en corriger les erreurs.
+        Bonjour! bienvenue sur le site Beta du Ropi, nous sommes actuellement occupé à son développement et vous êtes sur une version qui est régulièrement mise à jour afin d'en corriger les erreurs.
         Nous vous remercions d'avance pour l'intérêt que vous y apporterez. Si vous découvrez un bug, vous pouvez nous le signaler sur <a href="http://facebook.com/RopiAsbl">facebook</a> ou sur <a href="https://github.com/RopiMons/siteWebV2/issues">Github Issues</a>
 
     </div>
@@ -104,36 +106,50 @@
         </div>
     {% endfor %}
 
-    <section class="col-md-12 row" id="section">
-        <aside class="hidden-sm hidden-xs col-md-3" id="aside-left"> {% block left %}
+    <section class="col-md-12 row" id="section" style="height: 100%">
+
+        <aside class="hidden-sm hidden-xs col-md-3" id="aside-left" >
+
+            {% block left %}
 
                 <ul>
                     <li><img class="billets img100" src="/img/face_billet1.jpg" onmouseover="this.src = '/img/dos_billet1.jpg'" onmouseout="this.src = '/img/face_billet1.jpg'" alt=""/></li>
                     <li><img class="billets img100" src="/img/face_billet2.jpg" onmouseover="this.src = '/img/dos_billet2.jpg'" onmouseout="this.src = '/img/face_billet2.jpg'" alt=""/></li>
                     <li><img class="billets img100" src="/img/face_billet3.jpg" onmouseover="this.src = '/img/dos_billet3.jpg'" onmouseout="this.src = '/img/face_billet3.jpg'" alt=""/></li>
                     <li><img class="billets img100" src="/img/face_billet4.jpg" onmouseover="this.src = '/img/dos_billet4.jpg'" onmouseout="this.src = '/img/face_billet4.jpg'" alt=""/></li>
-                </ul> {% endblock %}</aside>
+                </ul>
+
+            {% endblock %}
+        </aside>
+
         <div id="background_article" class="col-md-6">
+
             <!-- Text Area-->
 
             <article class="col-md-12">
-                <div class="content" id="content">
+                <div class="content" id="content"  style="width: 100%">
 
                     {% include ("chemin.html.twig") %}
+
+
                     {% block content %} plan
 
                     {% endblock %}
+
                 </div>
             </article>
 
         </div>
-        <div class="col-md-3"> {% block right %}
 
-                    {% block rightColumn %}
-                    {% endblock %}
+        <div class="col-md-3" style="height: 100%">
+            {% block right %}
+
+                {% block rightColumn %}
+                {% endblock %}
                 <div class="col-md-12"></div>
 
-            {% endblock %}</div>
+            {% endblock %}
+        </div>
 
     </section>
     <footer class="col-sm-12 row"> <!-- Link & contact -->
@@ -156,7 +172,6 @@
             </div>
         </div>
     </footer>
-</div>
 </div>
 {% block javascripts %}
 

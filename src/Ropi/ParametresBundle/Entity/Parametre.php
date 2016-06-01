@@ -181,4 +181,60 @@ class Parametre
     {
         return $this->enfant;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->parent = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enfant = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add parent
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $parent
+     *
+     * @return Parametre
+     */
+    public function addParent(\Ropi\ParametresBundle\Entity\Parametre $parent)
+    {
+        $this->parent[] = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Remove parent
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $parent
+     */
+    public function removeParent(\Ropi\ParametresBundle\Entity\Parametre $parent)
+    {
+        $this->parent->removeElement($parent);
+    }
+
+    /**
+     * Add enfant
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $enfant
+     *
+     * @return Parametre
+     */
+    public function addEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
+    {
+        $this->enfant[] = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfant
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $enfant
+     */
+    public function removeEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
+    {
+        $this->enfant->removeElement($enfant);
+    }
 }
