@@ -31,8 +31,6 @@ class Parametres
 
         $parametre = $this->entityManager->getRepository(Parametre::class)->findOneBy(array('nom'=>$string));
 
-        return $parametre->getValeur();
-
         return ($parametre) ? $parametre->getValeur() : new NotFoundResourceException("Ce paramètres $string n'a pas été trouvé");
 
     }

@@ -20,7 +20,7 @@
         {{ form_row(form.Personne.dateNaissance) }}
 
         {{ form_widget(form.Personne.volonteMembre) }}
-        {{ form_label(form.Personne.volonteMembre, ["Je souhaite me faire membre effectif de l'ASBL Ropi - ", parametres.getValueOf("cotisationUsagerEuro"), "€ ou ", parametres.getValueOf("cotisationsUsagerRopi"), "R" ]|join)}}
+        {{ form_label(form.Personne.volonteMembre, ["Je souhaite me faire membre effectif de l'ASBL Ropi - ", parametres.getValueOf("cotisationUsagerEuro"), "€ ou ", parametres.getValueOf("cotisationUsagerRopi"), "R" ]|join)}}
         {{ form_errors(form.Personne.volonteMembre) }}
     </p>
     <br\>
