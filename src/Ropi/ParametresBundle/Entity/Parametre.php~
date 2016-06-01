@@ -3,20 +3,18 @@
 namespace Ropi\ParametresBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Parametre
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\ParametresBundle\Entity\ParametreRepository")
- * 
- * @ORM\MappedSuperclass
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"bool"="ParametreBool", "concret"="ParametreConcret"})
+ *
+ * @UniqueEntity(fields={"nom"}, message="Ce parametre existe déjà")
  * 
  */
-abstract class Parametre
+class Parametre
 {
     /**
      * @var integer
@@ -50,6 +48,36 @@ abstract class Parametre
      * @ORM\OneToOne(targetEntity="Parametre", mappedBy="parent")
      */
     private $enfant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur", type="string", length=255)
+     */
+    private $valeur;
+
+    /**
+     * Set valeur
+     *
+     * @param string $valeur
+     * @return ParametreConcret
+     */
+    public function setValeur($valeur)
+    {
+        $this->valeur = $valeur;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur
+     *
+     * @return string
+     */
+    public function getValeur()
+    {
+        return $this->valeur;
+    }
 
 
     /**

@@ -33,6 +33,7 @@ class AppKernel extends Kernel {
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new IolaCorporation\NewsBundle\IolaCorporationNewsBundle(),
 
+            new  Vich\GeographicalBundle\VichGeographicalBundle()
         );
 
 

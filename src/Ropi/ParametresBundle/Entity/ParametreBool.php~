@@ -9,7 +9,7 @@ use Ropi\ParametresBundle\Entity\Parametre;
  * ParametreBool
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\ParametresBundle\Entity\ParametreBool�Repository")
+ * @ORM\Entity(repositoryClass="Ropi\ParametresBundle\Entity\ParametreBoolRepository")
  */
 class ParametreBool extends Parametre
 {

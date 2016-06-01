@@ -18,12 +18,14 @@ class IdentifiantWebType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username',null,array("label"=>"nom d'utilisateur"))
+            ->add('username',null,array(
+                'label'=>'Nom d\'utilisateur'
+            ))
             ->add('motDePasse',RepeatedType::class,array(
             'type' => PasswordType::class,
-            'first_options' => array('label' => 'mot de passe:'),
-            'second_options' => array('label' => 'Confirmation:'),
-            'invalid_message' => 'les mots de passes ne sont pas identiques'))
+            'first_options' => array('label' => 'Mot de passe'),
+            'second_options' => array('label' => 'Confirmation du mot de passe'),
+            'invalid_message' => 'Les mots de passes ne sont pas identiques'))
             //->add('salt')
             //->add('lastConnection')
             //->add('createAt')
