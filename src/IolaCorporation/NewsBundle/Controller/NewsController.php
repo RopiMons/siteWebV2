@@ -69,8 +69,7 @@ class NewsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            dump($document);
-            die();
+           
             $em->persist($document);
 
             //$em->persist($file);
@@ -122,7 +121,7 @@ class NewsController extends Controller
     }
     public function editAction(Request $request, News $news){
         $document = $news;
-        dump($document);
+      
 
         $form = $this->createForm(NewsType::class,$document);
         $form->add('save', SubmitType::class, array('label' => 'Create Task'));
