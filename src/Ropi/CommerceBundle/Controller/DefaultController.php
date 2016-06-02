@@ -2,6 +2,7 @@
 
 namespace Ropi\CommerceBundle\Controller;
 
+use Ropi\IdentiteBundle\Entity\Personne;
 use Ropi\IdentiteBundle\Entity\TypeAdresse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Ropi\CommerceBundle\Entity\Commerce;
@@ -34,9 +35,11 @@ class DefaultController extends Controller {
             
             $repoAT = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeAdresse");
             $at = $repoAT->findOneBy(array('valeur'=>'Adresse du commerce'));
+            
+            $personne = $this->getUser()->getPersonne();
 
             $commerce = $form->getData();
-            $commerce->addPersonne($this->getUser()->getPersonne());
+            $commerce->addPersonne($personne);
             $commerce->setVisible(false);
             $commerce->setDepot(false);
 
@@ -51,6 +54,11 @@ class DefaultController extends Controller {
             $em->flush();
             
             $this->addFlash('success', 'Votre commerce nous a bien été proposé. Vous serez recontacté dès que possible');
+            
+            $this->sendMailValidationCommerce($personne->getContacts(), $commerce, $personne);
+            
+            
+            
             return $this->redirect($this->generateUrl("Ropi_ok"));
         }
 
@@ -235,6 +243,7 @@ class DefaultController extends Controller {
             ));
 
             if ($commerce) {
+                
                 return $this->render("RopiCommerceBundle:Default:commerceView.html.twig",array(
                     'commerce'=>$commerce,
                 ));
@@ -253,6 +262,22 @@ class DefaultController extends Controller {
             );
             
         
+    }
+    
+    public function sendMailValidationCommerce($adresseCommercant, Commerce $commerce, Personne $personne){
+        
+        $mailer = $this->get("ropi.cms.mailer");
+        
+        foreach ($adresseCommercant as $contact){
+            if($contact->getTypeContact()== "Mail"){
+                $mailer->sendMail("RopiCommerceBundle:Mail:_confirmationCommercant.html.twig",array('commerce'=>$commerce),$contact->getValeur(),"[Ropi.Be] confirmation de création de commerce");
+            }
+        }      
+        
+        $mailer->sendMail("RopiCommerceBundle:Mail:_notificationEquipe.html.twig",array('commerce'=>$commerce,'personne'=>$personne),"info@ropi.be","[Ropi.Be/admin] confirmation de création de commerce ");
+
+
+
     }
 
 }

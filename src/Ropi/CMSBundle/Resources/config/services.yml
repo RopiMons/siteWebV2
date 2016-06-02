@@ -33,3 +33,7 @@ services:
     ropi.cms.map:
         class: Ropi\CMSBundle\Map\Map
         arguments: ['@doctrine.orm.entity_manager','%google_api_key%']
+
+    ropi.cms.mailer:
+        class: Ropi\CMSBundle\Mailer\MailerCSS
+        arguments: ['@css_to_inline_email_converter','@mailer', '@ropi.cms.parser', '%kernel.root_dir%']

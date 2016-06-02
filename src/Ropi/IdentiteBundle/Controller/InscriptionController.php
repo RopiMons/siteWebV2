@@ -41,9 +41,6 @@ class InscriptionController extends Controller
                     $contact->setPersonne($user);
                     $user->addContact($contact);
                     //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
-
-
-
                 }
             }
         }
@@ -94,35 +91,24 @@ class InscriptionController extends Controller
     }
     private function MailValidation(IdentifiantWeb $personne, KeyValidation $cle){
 
+        $mailer = $this->get("ropi.cms.mailer");
 
-        $converter = $this->get('css_to_inline_email_converter');
-        $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array(
+        $templateOption = array(
             'login' => $personne->getUsername(),
             'id' =>$personne->getId(),
             'cle'=>$cle->getCle(),
             'volonteMembre'=> $personne->getPersonne()->getVolonteMembre(),
             'nom' => $personne->getPersonne()->getNom(),
-            'prenom' => $personne->getPersonne()->getPrenom(),
-        ));
-        $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css')); //$personne->getIdentifiantWeb()->getId()
+            'prenom' => $personne->getPersonne()->getPrenom()
+        );
 
-        $body = $converter->generateStyledHTML();
         foreach ($personne->getPersonne()->getContacts() as $contact) {
 
             if ($contact->getTypeContact()->getType() === "Mail") {
-                $message = \Swift_Message::newInstance()
-                    ->setSubject("Inscription au Ropi")
-                    ->setFrom("info@ropi.be")
-                    ->setTo($contact->getValeur())
-                    ->setContentType('text/html')
-                    ->setBody($body);
-
-
-                ;
-
-                $this->get('mailer')->send($message);
+                $mailer->sendMail('RopiIdentiteBundle:Inscription:mail_inscription.html.twig',$templateOption,$contact->getValeur(),"Votre inscription sur Ropi.be");
             }
 
         }
+
     }
 }
