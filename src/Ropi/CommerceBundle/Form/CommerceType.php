@@ -2,6 +2,10 @@
 
 namespace Ropi\CommerceBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use Ropi\AuthenticationBundle\Entity\College;
+use Ropi\CommerceBundle\Entity\Commerce;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,6 +23,13 @@ class CommerceType extends AbstractType {
         $builder
             ->add('nom', null, array(
                 'label' => 'Nom de votre commerce'
+            ))
+            ->add('college',EntityType::class,array(
+                'label' => "Je souhaite inscrire mon commerce à ce collège",
+                'class' => College::class,
+                'query_builder' => function(EntityRepository $repository){
+                    return $repository->getQBofCollege1et2();
+                }
             ))
             ->add('description', null, array(
                 'label' => 'Description de votre commerce',

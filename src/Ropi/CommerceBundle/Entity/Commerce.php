@@ -77,6 +77,11 @@ class Commerce
     private $updateAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Ropi\AuthenticationBundle\Entity\College", inversedBy="membres")
+     */
+    private $college;
+
+    /**
      * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
      * @Assert\Valid
      */
@@ -551,5 +556,29 @@ class Commerce
     public function getLon()
     {
         return $this->lon;
+    }
+
+    /**
+     * Set college
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\College $college
+     *
+     * @return Commerce
+     */
+    public function setCollege(\Ropi\AuthenticationBundle\Entity\College $college = null)
+    {
+        $this->college = $college;
+
+        return $this;
+    }
+
+    /**
+     * Get college
+     *
+     * @return \Ropi\AuthenticationBundle\Entity\College
+     */
+    public function getCollege()
+    {
+        return $this->college;
     }
 }

@@ -2,11 +2,15 @@
 
 {% block content %}
     <h1>Formulaire d'inscription</h1>
+    <p>Votre nouveau commerce est automatiquement lié au membre usager utilisé pour vous authentifier sur le site.</p>
+    <p>Dès que votre commerce aura été ajouté (bouton en bas du formulaire), il deviendra membre effectif prestataire (appartenance au collège n°1) ou membre effectif associatif (appartenance au collège n°2). Cependant un représentant de l'asbl Ropi prendra contact avec vous afin de vérifier l’éligibilité de votre commerce, de répondre à vos éventuelles questions et de signer la convention.</p>
+    <p> Après paiement de la cotisation, l'inscription de votre commerce sera alors validée et la page de votre commerce sera rendu visible sur le site internet</p>
     <p>
-        Suite à votre inscription sur notre site en ligne, un représentant du Ropi prendra contact avec vous afin de vérifier l'élligibilité de votre commerce. Ensuite une rencontre sera prévue afin de vous expliquer les tenants et les abouttisants. L'inscription de votre commerce sera alors validée et disponible sur notre site Internet.
-        <br \><br \>
-        Merci d'avance de l'intêret porté.
-
+        Montant des cotisations en fonctions des collèges :
+        <ul>
+            <li>Collège des prestataires : {{ parametres.getValueOf('cotisationPrestataireEuro') }}€ ou {{ parametres.getValueOf('cotisationPrestataireRopi') }}R</li>
+            <li>Collège des associations : {{ parametres.getValueOf('cotisationAssociationEuro') }}€ ou {{ parametres.getValueOf('cotisationAssociationRopi') }}R</li>
+        </ul>
     </p>
     {{ form(form) }}
 {% endblock %}
