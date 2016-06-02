@@ -51,7 +51,8 @@ class CommerceVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        if(in_array('ROLE_ADMIN',$token->getRoles())){
+        
+        if(in_array('ROLE_ADMIN',$token->getUser()->getRoles())){
             return true;
         }
 
