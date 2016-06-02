@@ -10,6 +10,7 @@ namespace Ropi\CMSBundle\Map;
 
 use Doctrine\ORM\EntityManager;
 use Ropi\CommerceBundle\Entity\Commerce;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class Map
 {
