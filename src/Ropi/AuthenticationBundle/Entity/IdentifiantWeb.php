@@ -42,7 +42,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      *
      * @ORM\Column(name="Username", type="string", length=50)
      *  @Assert\Length(min=3, minMessage="Vous devez avoir un nom d'utilisateur de min {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")  
+     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
      * @Assert\Regex(pattern="/\W/", match = false ,message="La chaine ne peux pas avoir que des Chiffres et des lettres")
      */
@@ -57,9 +57,9 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     /**
      * @var string
      *
-     * @ORM\Column(name="motDePasse", type="string", length=255)
+     * @ORM\Column(name="motDePasse", type="string", length=255 )
      *  @Assert\Length(min=6, minMessage="Votre mot de passe dois avoir au moins {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du mot de passe ne peux pas dépasser {{ limit }} caractères",  groups={"registration"})  
+     * max =50, maxMessage="La longeur du mot de passe ne peux pas dépasser {{ limit }} caractères")
      */
     private $motDePasse;
 
@@ -409,7 +409,10 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     }
 
     public function __toString() {
-        return $this->username;
+        if($this->username != null)
+        return $this->username ;
+
+        return " ";
     }
 
     /**

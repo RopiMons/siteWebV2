@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class IdentifiantWebType extends AbstractType
+class IdentifiantWebAdminType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -29,10 +29,10 @@ class IdentifiantWebType extends AbstractType
             //->add('salt')
             //->add('lastConnection')
             //->add('createAt')
-            ->add('Personne', PersonneType::class)
+          //  ->add('Personne', PersonneType::class)
             ->add('actif',null,array("label"=>"Utilisateur Actif ?"))
-            //->add('role')
-            //->add('permission')
+            ->add('role')
+            ->add('permission')
             //->add("submit","submit")
             
               
@@ -46,9 +46,7 @@ class IdentifiantWebType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
-            'validation_groups' => array("registration",'Default')
-
-
+           
         ));
     }
 

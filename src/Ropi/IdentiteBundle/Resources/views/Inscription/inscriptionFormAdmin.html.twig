@@ -7,16 +7,16 @@
 <h2>Votre identité</h2>
 
 <p>
-    {{ form_row(form.Personne.nom) }}
-    {{ form_row(form.Personne.prenom) }}
-    {{ form_row(form.Personne.dateNaissance) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.dateNaissance) }}
 
-    {{ form_widget(form.Personne.volonteMembre) }}
-    {{ form_label(form.Personne.volonteMembre, ["Je souhaite me faire membre effectif de l'ASBL Ropi - ", parametres.getValueOf("cotisationUsagerEuro"), "€ ou ", parametres.getValueOf("cotisationUsagerRopi"), "R" ]|join)}}
-    {{ form_errors(form.Personne.volonteMembre) }}
+    {{ form_widget(form.volonteMembre) }}
+    {{ form_label(form.volonteMembre, ["Je souhaite me faire membre effectif de l'ASBL Ropi - ", parametres.getValueOf("cotisationUsagerEuro"), "€ ou ", parametres.getValueOf("cotisationUsagerRopi"), "R" ]|join)}}
+    {{ form_errors(form.volonteMembre) }}
 </p>
 <br\>
-{% for contact in form.Personne.contacts %}
+{% for contact in form.contacts %}
     {{ form_label(contact, contact.vars.value.typeContact.type|capitalize) }}
     {{ form_errors(contact) }}
     {{ form_widget(contact) }}
@@ -24,7 +24,7 @@
 
 <h2>Adresse</h2>
 <p>
-    {% for adresse in form.Personne.adresses %}
+    {% for adresse in form.adresses %}
         {{  form_row(adresse.rue) }}
         {{  form_row(adresse.numero) }}
         {{  form_row( adresse.complement) }}

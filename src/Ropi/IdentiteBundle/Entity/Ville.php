@@ -32,7 +32,7 @@ class Ville
      * @var string
      *
      * @ORM\Column(name="codePostal", type="string", length=15)
-     *
+     *@Assert\NotBlank()
      */
     private $codePostal;
 
@@ -142,12 +142,13 @@ class Ville
 
 
     /**
-     * @Assert\Callback
+     * @Assert\Callback( groups={"default"})
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if (isset($this->pays)) {
-
+            dump($context->getGroup());
+            if (isset($this->pays)) {
+            if ($context->getGroup() !="admin" && ($this->codePostal != null || $this->codePostal != "") )
         $regex = $this->getPays()->getRegex();
 
         if(!preg_match($regex,$this->getCodePostal())){
