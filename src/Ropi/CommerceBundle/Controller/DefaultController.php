@@ -53,7 +53,7 @@ class DefaultController extends Controller {
             $em->persist($commerce);
             $em->flush();
             
-            $this->addFlash('success', 'Votre commerce nous a bien été proposé. Vous serez recontacté dès que possible');
+            $this->addFlash('success', 'Votre commerce nous a bien été proposé. Vous serez recontacté dès que possible.');
             
             $this->sendMailValidationCommerce($personne->getContacts(), $commerce, $personne);
             
