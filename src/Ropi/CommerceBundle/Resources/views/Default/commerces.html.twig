@@ -32,26 +32,3 @@
         {% endfor %}
     </table>
 {% endblock %}
-
-{% block headJavascripts %}
-
-    {{ parent() }}
-
-    {% include 'RopiCMSBundle:Map:_mapHead.html.twig' %}
-
-{% endblock %}
-
-{% block rightColumn %}
-
-    <div class="col-lg-12 col-md-12 col-sm-12" id="carte"  style="height: 30%">
-
-        <h4>Les commercants Ropi</h4>
-
-        <div id="googleCarte" >
-
-        </div>
-    </div>
-
-{% endblock %}
-
-{% block bodyProprety %}onload="initialiser()"{% endblock %}

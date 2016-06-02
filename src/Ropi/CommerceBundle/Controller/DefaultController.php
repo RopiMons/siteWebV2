@@ -217,6 +217,7 @@ class DefaultController extends Controller {
     /**
      * 
      * @Route("/commerces", name="commerces")
+     * @Route("/map", name="qr_code_map")
      * @Route("/commerce/{nom}", name="commerce_view")
      * 
      * @Template()
@@ -246,12 +247,9 @@ class DefaultController extends Controller {
                 'visible'=>true,
                 'valide'=>true
             ));
-
-             $map = $this->get("ropi.cms.map");
             
             return array(
-                'commerces'=> $commerces,
-                'marqueurs' => $map->getMarqueurs()
+                'commerces'=> $commerces
             );
             
         

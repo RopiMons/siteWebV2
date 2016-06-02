@@ -120,13 +120,8 @@ class DefaultController extends Controller {
 
     private function indexAction() {
 
-        $map = $this->get("ropi.cms.map");
-
-        $marqueurs = $map->getMarqueurs();
-
         return $this->render('RopiCMSBundle:Default:index.html.twig', array(
-            'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll(),
-            'marqueurs' => $marqueurs
+            'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll()
         ));
     }
 
