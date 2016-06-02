@@ -276,16 +276,9 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      *
      * @param \Ropi\AuthenticationBundle\Entity\Role $roles
      */
-    public function removeRole( $role) {
+    public function removeRole($role) {
 
-        $tab = new ArrayCollection();
-
-        foreach ($this->role as $roles) {
-
-            if ($role !== $roles->getRoles())
-                $tab[] = $role;
-        }
-        $this->role = $tab;
+        $this->role->removeElement($role);
     }
 
     /**

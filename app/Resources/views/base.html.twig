@@ -141,30 +141,32 @@
 
         </div>
         <div class="row" style="">
-        <div class="col-md-3" style=" ">
-            {% block right %}
-            <div class="col-lg-12 col-md-12 col-sm-12" id="carte"  style="height:200px; margin-bottom:50px ">
+            <div class="col-md-3" style=" ">
+                {% block right %}
+                <div class="col-lg-12 col-md-12 col-sm-12" id="carte"  style="height:200px; margin-bottom:50px ">
 
-                <h4>Les commercants Ropi</h4>
+                    <h4>Les commerçants Ropi</h4>
 
-                <div id="googleCarte" ></div>
+                    <div id="googleCarte" ></div>
+
+                </div>
+
+
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12" id="News" >
+
+                    {{ render(controller('IolaCorporationNewsBundle:News:index' )) }}
+
+                </div>
+
+
+
+                {% block rightColumn %}
+                {% endblock %}
 
             </div>
-
-
-
-
-            <div class="col-lg-12 col-md-12 col-sm-12" id="News" >
-
-                {{ render(controller('IolaCorporationNewsBundle:News:index' )) }}
-
-            </div>
-
         </div>
-            </div>
-
-        {% block rightColumn %}
-        {% endblock %}
         <div class="col-md-12"></div>
 
         {% endblock %}

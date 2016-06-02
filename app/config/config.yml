@@ -4,6 +4,8 @@ imports:
     - { resource: services.yml }
     - { resource: "@RopiParametresBundle/Resources/config/services.yml" }
     - { resource: "@RopiCMSBundle/Resources/config/services.yml" }
+    - { resource: "@RopiAuthenticationBundle/Resources/config/services.yml" }
+    - { resource: "@RopiCommerceBundle/Resources/config/services.yml" }
 
 
 

@@ -1,0 +1,6 @@
+services:
+    ropi.authentication.listeners:
+        class: Ropi\AuthenticationBundle\Listener\AuthenticationListener
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }

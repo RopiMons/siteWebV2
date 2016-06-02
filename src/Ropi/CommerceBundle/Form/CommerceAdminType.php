@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ropi\IdentiteBundle\Form\AdresseCommerceType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CommerceAdminType extends CommerceType {
 
@@ -25,6 +26,13 @@ class CommerceAdminType extends CommerceType {
             ))
             ->add('depot', null, array(
                 'label' => 'Est-ce qu\'il est possible de se faire livrer des Ropi dans ce commerce ?'
+            ))
+            ->remove("imageFile")
+            ->add('imageFile', VichImageType::class, array(
+                'required' => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_link' => true, // not mandatory, default is true
+
             ))
 
             //->add('createdAt')

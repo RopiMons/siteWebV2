@@ -3,14 +3,13 @@
 {% block content %}
     {% set cotisation =  parametres.getValueOf('cotisationUsagerEuro') %}
     <h1>Inscription sur le site du Ropi</h1>
-    <p>Merci de votre inscription sur le site du Ropi ASBL</p>
-    <p>Petit rappel de vos informations de connections</p>
-    <h2>Identifiants de connection</h2>
+    <p>Merci de vous être inscrit sur le site de Ropi ASBL !<br /></p>
+
     <p>Votre login :  {{ login }} <br /></p>
 
     {% if volonteMembre %}
-        <h2>Votre adhésion en tant que membre effectif</h2>
-        <p>Vous avez émis la volonté de vous inscrire en tant que membre effectif de notre ASBL et nous vous remercions de participer à notre démocratie interne. Afin de confirmer votre demande, merci de verser le montant de {{ cotisation }}€ sur le compte de l'ASBL</p>
+        <p>Vous vous êtes inscrit en tant que membre usager effectif. Nous vous en remercions car ainsi vous financez l'asbl et participez à sa démocratie interne.</p>
+        <p>Afin de confirmer votre demande d'adhésion, merci de verser le montant de {{ cotisation }}€ sur le compte de l'ASBL</p>
         <p>
         <ul>
             <li>
@@ -27,12 +26,17 @@
             </li>
         </ul>
         </p>
-        <p>Si vous souhaitez payer votre cotisation en Ropi ({{ parametres.getValueOf('cotisationUsagerRopi') }}R), merci de prendre contact avec l'ASBL</p>
+        <p>Si vous souhaitez payer votre cotisation en Ropi ({{ parametres.getValueOf('cotisationUsagerRopi') }}R), merci de prendre contact avec l'ASBL <br /></p>
+    {% else %}
+        <p>Vous vous êtes inscrit en tant que membre usager sympathisant.<br /></p>    
     {% endif %}
+
 
     <h2>Validation de l'inscription</h2>
     <p>Afin de valider votre inscription, merci de cliquer sur le lien suivant:</p>
-    <p> <a href="{{url("Ropi_Key",{"id":id,'key':cle}) }}">{{url("Ropi_Key",{"id":id,'key':cle}) }}</a></p>
+    <p> <a href="{{url("Ropi_Key",{"id":id,'key':cle}) }}">{{url("Ropi_Key",{"id":id,'key':cle}) }}</a><br /></p>
+    
+    <p>Si vous désirez créer un commerce, rendez-vous sur "Mon espace Ropi" -> "Ajouter mon commerce"</p>
     <p>A très bientôt sur www.ropi.be</p>
     <p>L'équipe du Ropi</p>
 {% endblock %}
