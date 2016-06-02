@@ -23,6 +23,9 @@ class Personne2Type extends AbstractType {
                 ->add('contacts', CollectionType::class, array(
                     'entry_type' => ContactType::class
                 ))
+            ->add('volonteMembre',null,array(
+                'label' => "Je souhaite me faire membre effectif de l'ASBL Ropi - 15€ ou 10R"
+            ))
         ;
     }
 

@@ -4,9 +4,11 @@
 
 
 {% block content %}
-    <h1 class="souligné"> Inscription sur le site: </h1>
+    <h1> Inscription sur le site: </h1>
+
 
    {{  include("RopiIdentiteBundle:Inscription:inscriptionForm.html.twig") }}
     {{  include('RopiIdentiteBundle:Inscription:inscriptionFormIdentifiantWeb.html.twig') }}
+    {{form_row(form.Enregistrer)}}
 
 {% endblock %}

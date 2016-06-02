@@ -217,6 +217,7 @@ class DefaultController extends Controller {
     /**
      * 
      * @Route("/commerces", name="commerces")
+     * @Route("/map", name="qr_code_map")
      * @Route("/commerce/{nom}", name="commerce_view")
      * 
      * @Template()
@@ -247,7 +248,9 @@ class DefaultController extends Controller {
                 'valide'=>true
             ));
             
-            return array('commerces'=>$commerces);
+            return array(
+                'commerces'=> $commerces
+            );
             
         
     }

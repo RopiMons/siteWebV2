@@ -25,3 +25,11 @@ services:
         class: Ropi\CMSBundle\Twig\CMSExtension
         tags:
             - { name: twig.extension }
+
+    ropi.cms.parser:
+        class: Ropi\CMSBundle\Parser\Parser
+        arguments: ['@parametre.parametres']
+
+    ropi.cms.map:
+        class: Ropi\CMSBundle\Map\Map
+        arguments: ['@doctrine.orm.entity_manager','%google_api_key%']

@@ -18,8 +18,15 @@ class PersonneType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('nom')
-                ->add('prenom')
-                ->add('dateNaissance',BirthdayType::class)
+                ->add('prenom',null,array(
+                    'label' => 'Prénom'
+                ))
+                ->add('dateNaissance',BirthdayType::class,array(
+                    'label' => 'Date de naissance'
+                ))
+                ->add('volonteMembre',null,array(
+                    'label' => ""
+                ))
                 ->add('contacts', CollectionType::class, array(
                     'entry_type' => ContactType::class
                 ))

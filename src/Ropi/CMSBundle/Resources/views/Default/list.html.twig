@@ -114,7 +114,7 @@
                             {% endif %}
 
                             {% if date(page.publicationDate) <= date() and page.isActive %}
-                                {% if page.route is defined  and page.route is not null %} <a href="{% if page.parametres %}{{ path(page.route, page.parametres) }}{% else %}{{ path(page.route) }}{% endif %}" target="_blank" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true" value="Test"></span></a> {% endif %}
+                                {% if page.route is defined  and page.route != "" %} <a href="{% if page.parametres %}{{ path(page.route, page.parametres) }}{% else %}{{ path(page.route) }}{% endif %}" target="_blank" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true" value="Test"></span></a> {% endif %}
                             {% else %}
                                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                             {% endif %}

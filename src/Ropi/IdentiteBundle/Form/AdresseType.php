@@ -23,7 +23,7 @@ class AdresseType extends AbstractType
                 
             ))
             ->add('numero',null,array(
-                
+                'label' => 'Numéro'
             ))
             ->add('complement',null,array(
                 'label' => 'Complément d\'adresse',

@@ -7,6 +7,7 @@ use Ropi\CMSBundle\Entity\Categorie;
 use Ropi\CMSBundle\Entity\Page;
 use Ropi\CMSBundle\Form\CategorieType;
 use Ropi\CMSBundle\Form\PageDynamiqueType;
+use Ropi\CMSBundle\Map\Map;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -118,6 +119,7 @@ class DefaultController extends Controller {
     }
 
     private function indexAction() {
+
         return $this->render('RopiCMSBundle:Default:index.html.twig', array(
             'pages' => $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique')->findAll()
         ));

@@ -45,6 +45,29 @@ and open the template in the editor.
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'SourceSansProRegular';
+    src: url('/font/SourceSansPro-Regular.eot');
+    src: url('/font/SourceSansPro-Regular.eot?#iefix') format('eot'),
+         url('/font/SourceSansPro-Regular.otf.woff') format('woff'),
+         url('/font/SourceSansPro-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SourceSansProSB';
+    src: url('/font/SourceSansPro-Semibold.eot');
+    src: url('/font/SourceSansPro-Semibold.eot?#iefix') format('eot'),
+         url('/font/SourceSansPro-Semibold.otf.woff') format('woff'),
+         url('/font/SourceSansPro-Semibold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 .margin5{
 	margin-left:10px ;
 }
@@ -124,11 +147,11 @@ body{
 
 h1{
 	font-family : rupture, Arial, Verdana, serif;
-	font-size:1.5em;
+	font-size:1.75em;
 }
 h2{
 	font-family : rupture, Arial, Verdana, serif;
-	font-size:1.75em;
+	font-size:1.5em;
 }
 h3{
 	font-size:1em;
@@ -301,3 +324,6 @@ a{
     padding-top: 7px;
     
 }
+
+html, body { height: 100%; margin: 0; padding: 0; }
+#googleCarte { height: 100%; }

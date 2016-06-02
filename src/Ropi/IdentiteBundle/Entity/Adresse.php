@@ -32,7 +32,7 @@ class Adresse
     /**
      * @ORM\Column(name="actif", type="boolean")
      */
-    private $actif = true;
+    private $actif;
 
 
     /**
@@ -225,6 +225,7 @@ class Adresse
     public function __construct()
     {
         $this->personnes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setActif(true);
     }
 
     /**

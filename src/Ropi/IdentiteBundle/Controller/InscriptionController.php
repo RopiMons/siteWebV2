@@ -55,7 +55,7 @@ class InscriptionController extends Controller
 
         if ($user->getAdresses() === null){
             $adresse = new Adresse();
-            //$adresse->setTypeAdresse(new \Ropi\IdentiteBundle\Entity\TypeAdresse());
+            
             $user->addAdress($adresse);
 
 
@@ -66,24 +66,17 @@ class InscriptionController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-
-
             $em = $this->getDoctrine()->getManager();
-
-
 
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($users);
             $users->setMotDePasse($encoder->encodePassword($users->getMotDePasse(), $users->getSalt()));
-            $emCle = $this->getDoctrine()->getRepository('RopiAuthenticationBundle:KeyValidation');
+            
             $em->persist($users);
             $em->flush();
 
             $cle = new KeyValidation($users->getSalt());
             $cle->setIdentifiantWeb($users->getId());
-            // $users->setKey($cle);
-
             $em->persist($cle);
 
 
@@ -103,8 +96,14 @@ class InscriptionController extends Controller
 
 
         $converter = $this->get('css_to_inline_email_converter');
-        $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array('login' => $personne->getUsername(),
-            'id' =>$personne->getId(),'cle'=>$cle->getCle()));
+        $converter->setHTMLByView('RopiIdentiteBundle:Inscription:mail_inscription.html.twig', array(
+            'login' => $personne->getUsername(),
+            'id' =>$personne->getId(),
+            'cle'=>$cle->getCle(),
+            'volonteMembre'=> $personne->getPersonne()->getVolonteMembre(),
+            'nom' => $personne->getPersonne()->getNom(),
+            'prenom' => $personne->getPersonne()->getPrenom(),
+        ));
         $converter->setCSS(file_get_contents($this->container->getParameter('kernel.root_dir') . '/../app/Resources/public/css/ropi.css')); //$personne->getIdentifiantWeb()->getId()
 
         $body = $converter->generateStyledHTML();

@@ -1,0 +1,3 @@
+[submodule "vendor/bundles/Vich/GeographicalBundle"]
+	path = vendor/bundles/Vich/GeographicalBundle
+	url = https://github.com/dustin10/VichGeographicalBundle.git

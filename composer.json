@@ -53,6 +53,7 @@
         "stfalcon/tinymce-bundle": "2.*",
         "vich/uploader-bundle" : "*",
         "friendsofsymfony/jsrouting-bundle": "*"
+
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

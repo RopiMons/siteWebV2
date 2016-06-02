@@ -23,36 +23,25 @@
 {% block javascripts %}
     {% javascripts '@RopiCMSBundle/Resources/public/js/init_map.js'
     %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
 {% block headJavascripts %}
     {{ parent() }}
     {% javascripts '@RopiCMSBundle/Resources/public/js/jquery.imagemapster.js'
-                   '@RopiCMSBundle/Resources/public/js/map_resize.js'
+    '@RopiCMSBundle/Resources/public/js/map_resize.js'
     %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
     {% endjavascripts %}
+
 {% endblock %}
 
 {% block rightColumn %}
-
-    <div class="col-lg-12 col-md-12 col-sm-12" id="carte" >
-        <div id="carte2">
-            <h4>Les commercants Ropi</h4>
-        </div>
         <div class="col-lg-12 col-md-12 col-sm-12 text-justified" id="legende">
             <h1 id="ropi-caption-header">Le Ropi, en pratique</h1>
             <h3 id="ropi-caption-text">Le Ropi, la monnaie complémentaire à Mons et ses environs.</h3>
-        </div>
-
-    </div>
-
-    <div class="col-lg-12 col-md-12 col-sm-12" id="News" >
-
-               {{ render(controller('IolaCorporationNewsBundle:News:index' )) }}
-
         </div>
 
     </div>

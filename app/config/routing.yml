@@ -1,4 +1,3 @@
-
 ropi_commande:
     resource: "@RopiCommandeBundle/Controller/"
     type:     annotation

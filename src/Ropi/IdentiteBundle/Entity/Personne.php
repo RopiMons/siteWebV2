@@ -56,6 +56,11 @@ class Personne
     private $dateNaissance;
 
     /**
+     * @ORM\Column(name="volonteMembre", type="boolean")
+     */
+    private $volonteMembre = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="Ropi\CommandeBundle\Entity\Commande", mappedBy="client")
      */
 
@@ -201,6 +206,7 @@ class Personne
     {
         $this->creeLe = new \DateTime();
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+
         $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -331,7 +337,7 @@ class Personne
             }
         }
 
-        return $retour;
+        return ($retour->count() > 0) ? $retour : null;
     }
 
 
@@ -384,5 +390,29 @@ class Personne
     public function __toString()
     {
      return $this->nom;
+    }
+
+    /**
+     * Set volonteMembre
+     *
+     * @param boolean $volonteMembre
+     *
+     * @return Personne
+     */
+    public function setVolonteMembre($volonteMembre)
+    {
+        $this->volonteMembre = $volonteMembre;
+
+        return $this;
+    }
+
+    /**
+     * Get volonteMembre
+     *
+     * @return boolean
+     */
+    public function getVolonteMembre()
+    {
+        return $this->volonteMembre;
     }
 }

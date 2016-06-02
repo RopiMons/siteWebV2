@@ -3,20 +3,18 @@
 namespace Ropi\ParametresBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Parametre
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ropi\ParametresBundle\Entity\ParametreRepository")
- * 
- * @ORM\MappedSuperclass
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"bool"="ParametreBool", "concret"="ParametreConcret"})
+ *
+ * @UniqueEntity(fields={"nom"}, message="Ce parametre existe déjà")
  * 
  */
-abstract class Parametre
+class Parametre
 {
     /**
      * @var integer
@@ -42,14 +40,44 @@ abstract class Parametre
     private $description;
     
     /**
-     * @ORM\OneToOne(targetEntity="Parametre", mappedBy="enfant")
+     * @ORM\OneToMany(targetEntity="Parametre", mappedBy="enfant")
      */
     private $parent;
     
     /**
-     * @ORM\OneToOne(targetEntity="Parametre", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Parametre", mappedBy="parent")
      */
     private $enfant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur", type="string", length=255)
+     */
+    private $valeur;
+
+    /**
+     * Set valeur
+     *
+     * @param string $valeur
+     * @return ParametreConcret
+     */
+    public function setValeur($valeur)
+    {
+        $this->valeur = $valeur;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur
+     *
+     * @return string
+     */
+    public function getValeur()
+    {
+        return $this->valeur;
+    }
 
 
     /**
@@ -152,5 +180,61 @@ abstract class Parametre
     public function getEnfant()
     {
         return $this->enfant;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->parent = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enfant = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add parent
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $parent
+     *
+     * @return Parametre
+     */
+    public function addParent(\Ropi\ParametresBundle\Entity\Parametre $parent)
+    {
+        $this->parent[] = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Remove parent
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $parent
+     */
+    public function removeParent(\Ropi\ParametresBundle\Entity\Parametre $parent)
+    {
+        $this->parent->removeElement($parent);
+    }
+
+    /**
+     * Add enfant
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $enfant
+     *
+     * @return Parametre
+     */
+    public function addEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
+    {
+        $this->enfant[] = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfant
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $enfant
+     */
+    public function removeEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
+    {
+        $this->enfant->removeElement($enfant);
     }
 }
