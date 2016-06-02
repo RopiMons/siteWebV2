@@ -1,0 +1,7 @@
+services:
+    ropi.commerce_voter:
+                class: Ropi\CommerceBundle\Security\CommerceVoter
+                tags:
+                    - { name: security.voter }
+                # small performance boost
+                public: false

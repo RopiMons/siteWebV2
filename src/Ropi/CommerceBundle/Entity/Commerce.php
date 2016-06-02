@@ -104,7 +104,7 @@ class Commerce
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo")
+     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo", nullable=true)
      *
      * @Assert\Image(
      *     minWidth = 200,

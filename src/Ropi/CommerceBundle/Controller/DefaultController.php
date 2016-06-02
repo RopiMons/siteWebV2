@@ -120,11 +120,13 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/my/commerce/update/{id}/{route}", requirements={"id": "\d+"}, defaults={"route": null}, name="commerce_update")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_COMMERCANT')")
      * @Template()
      */
     public function updateAction(Request $request, $id, $route = null) {
         $commerce = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce")->find($id);
+
+        $this->denyAccessUnlessGranted('edit',$commerce);
 
         if ($commerce) {
             $form = $this->createCommercantForm($request, $commerce, true);
@@ -277,6 +279,21 @@ class DefaultController extends Controller {
         $mailer->sendMail("RopiCommerceBundle:Mail:_notificationEquipe.html.twig",array('commerce'=>$commerce,'personne'=>$personne),"info@ropi.be","[Ropi.Be/admin] confirmation de création de commerce ");
 
 
+
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_COMMERCANT')")
+     * @Route("/my/mesCommerces", name="commerces_my")
+     * @Template("RopiCommerceBundle:Default:listingsModifs.html.twig")
+     */
+    public function myCommercesAction(){
+
+        $commerces = $this->getDoctrine()->getRepository(Commerce::class)->getMyCommerces($this->getUser()->getPersonne());
+
+        return array(
+            'commerces' => $commerces
+        );
 
     }
 

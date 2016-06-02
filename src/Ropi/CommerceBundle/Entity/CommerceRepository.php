@@ -4,6 +4,7 @@ namespace Ropi\CommerceBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\DBAL\Types\Type;
+use Ropi\IdentiteBundle\Entity\Personne;
 
 /**
  * CommerceRep ository
@@ -21,6 +22,17 @@ class CommerceRepository extends EntityRepository {
                         ->getQuery()
                         ->getSingleScalarResult()
         ;
+    }
+
+    public function getMyCommerces(Personne $personne){
+        return $this->createQueryBuilder("c")
+            ->select(array('c','p'))
+            ->join("c.personnes","p")
+            ->where("p.id = :id")
+            ->setParameter('id',$personne->getId())
+            ->getQuery()
+            ->execute()
+            ;
     }
 
 }
