@@ -121,7 +121,9 @@ class NewsController extends Controller
     }
     public function editAction(Request $request, News $news){
         $document = $news;
-      
+      if (count($document->getAlbum())<= 0){
+          $document->addAlbum(new Album());
+      }
 
         $form = $this->createForm(NewsType::class,$document);
         $form->add('save', SubmitType::class, array('label' => 'Create Task'));
@@ -132,6 +134,13 @@ class NewsController extends Controller
 
             $document->setUser($this->getUser());
             $document->setDateEcriture( new \Datetime());
+            foreach($document->getAlbum() as $alb){
+
+                if (count($alb->getFiles()) <=0){
+                    $document->removeAlbum($alb);
+                }
+
+            }
 
             $em->persist($document);
 
