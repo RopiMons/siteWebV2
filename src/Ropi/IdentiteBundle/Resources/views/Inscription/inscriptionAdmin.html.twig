@@ -1,0 +1,14 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}Inscription admin {% endblock %}
+
+
+{% block content %}
+    <h1> Inscription: </h1>
+
+
+   {{  include("RopiIdentiteBundle:Inscription:inscriptionFormAdmin.html.twig") }}
+    {{  include('RopiIdentiteBundle:Inscription:inscriptionFormIdentifiantWebAdmin.html.twig') }}
+    {{form_row(form.Enregistrer)}}
+
+{% endblock %}

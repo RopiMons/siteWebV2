@@ -87,7 +87,7 @@ class Personne
     private $commerces;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"persist"})
      * @Assert\Valid
      */
     private $identifiantWeb;

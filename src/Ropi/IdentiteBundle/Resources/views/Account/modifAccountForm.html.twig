@@ -43,8 +43,8 @@
     {{ form_widget(contact) }}
 
 {% endfor %}
-{{form_row(form._token)}}
-{{form_row(form.Enregistrer)}}
+
+<a class="btn btn-primary" href="{{ path(url, {"user":user.personne.id}) }}"> ajouter un moyen de contact</a><br>
 
 {% if user %}
     <h3>Adresse</h3>
@@ -76,9 +76,11 @@
             {% endfor %}
             </tbody>
         </table>
-        <a href="{{ path("Ropi_adress_add") }}"> ajouter une adresse </a><br>
+        <a class="btn btn-primary" href="{{ path("Ropi_adress_add") }}"> ajouter une adresse </a><br>
     </div>
 {% endif %}
+{{form_row(form._token)}}
+{{form_row(form.Enregistrer)}}
 
 
 

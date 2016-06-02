@@ -3,6 +3,8 @@
 namespace Ropi\IdentiteBundle\Controller;
 
 use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\IdentiteBundle\Entity\Pays;
+use Ropi\IdentiteBundle\Entity\Ville;
 use Ropi\IdentiteBundle\Form\AdresseType;
 use Ropi\IdentiteBundle\Form\PersonneModifAdminType;
 use Ropi\IdentiteBundle\Form\PersonneModifType;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\AuthenticationBundle\Entity\KeyValidation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Ropi\IdentiteBundle\Form\ContactAdminType;
 
 
 
@@ -60,6 +63,31 @@ class AccountController extends Controller
 
         // $users = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\IdentifiantWeb")->loadById($user->getIdentifiantWeb()->getId());
 
+
+            $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
+            $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
+
+            if(count($user->getContacts())<= 0){
+
+                foreach ($moyenDeContacts as $i => $moyenDeContact) {
+                    if ($moyenDeContact->getObligatoire()) {
+
+                        $contact = new Contact();
+                        $contact->setTypeContact($moyenDeContact);
+                        $contact->setPersonne($user);
+                        $user->addContact($contact);
+                        //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
+
+                    }
+                }
+            }
+
+
+        if ($user->getIdentifiantWeb() == null){
+           $ident = new IdentifiantWeb();
+            $ident->setPersonne($user);
+                $user->setIdentifiantWeb($ident);
+        }
 
 
         return $this->modifuser($request, $user->getIdentifiantWeb(), "Le compte à bien été modifié!", "Ropi_admin_user_listing",PersonneModifAdminType::class);
@@ -145,6 +173,26 @@ class AccountController extends Controller
         return $this->Adresse($request, $Newaddesse, $user);
 
     }
+    /**
+     * @route("/my/contact/nouvelle",name="Ropi_Contact_add")
+     *  @Security( "has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT') or has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
+     * @Template
+     */
+    public function AjoutContactAction(Request $request){
+        $user = $this->getUser()->getPersonne();
+        $NewContact = new Contact();
+        return $this->Contact($request, $NewContact, $user);
+    }
+    /**
+     * @route("/admin/{user}/contact/nouvelle",name="Ropi_contact_admin_add")
+     *  @Security( "has_role('ROLE_ADMIN')")
+     * @Template("RopiIdentiteBundle:Account:AjoutContactAdmin.html.twig")
+     */
+    public function AjoutContactAdminAction(Request $request, Personne $user){
+
+        $NewContact = new Contact();
+        return $this->Contact($request, $NewContact, $user,"Ropi_admin_user_modification");
+    }
 
     /**
      * @route("/my/adresse/modification/{adresse}",name="Ropi_adress_modif")
@@ -156,7 +204,7 @@ class AccountController extends Controller
 
         return $this->Adresse($request, $adresse);
     }
-    private function Adresse(Request $request, $Newaddesse, $user = null){
+    private function Adresse(Request $request, $Newaddesse, $user = null, $url = "Ropi_account_modification"){
         $form = $this->createForm(AdresseType::class, $Newaddesse);
         $form->add("Enregistrer",SubmitType::class);
         $form->handleRequest($request);
@@ -175,13 +223,43 @@ class AccountController extends Controller
             //$this->MailValidation($user, $cle);
             $this->get("session")->getFlashBag(array(
                 "succes"=>"Une nouvelle adresse à été rajouté"));
-            return $this->redirect($this->generateUrl("Ropi_account_modification"));
+            return $this->redirect($this->generateUrl($url));
         }
         return  Array(
             "form" => $form->createView(),"user"=>$user
         );
     }
+    private function Contact(Request $request,Contact $NewContact,Personne $user = null, $url = "Ropi_account_modification"){
+        $form = $this->createForm(ContactAdminType::class, $NewContact);
+        $form->add("Enregistrer",SubmitType::class);
+        $form->handleRequest($request);
 
+
+        if ( $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            if(isset($user)) {
+
+
+                $NewContact->setPersonne($user);
+
+            }
+
+            $em->persist($NewContact);
+
+
+            $em->flush();
+
+            //$this->MailValidation($user, $cle);
+            $this->get("session")->getFlashBag(array(
+                "succes"=>"D'un nouveau moyen de contact"));
+            if($url != "Ropi_account_modification" )   return $this->redirect($this->generateUrl($url, array('user' => $user)));
+            return $this->redirect($this->generateUrl($url));
+        }
+        return  Array(
+            "form" => $form->createView(),"user"=>$user
+        );
+    }
 
 
     /**
