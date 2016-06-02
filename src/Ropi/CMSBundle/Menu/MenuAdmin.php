@@ -26,6 +26,7 @@ class MenuAdmin extends AbstractMenu {
         $tab["Mon commerces"]["Créer un nouveau commerce"] = array('route'=>'commerce_new');
         $tab["News"]["Les news"] = array('route'=>'iola_corporation_news_show');
         $tab["News"]["Ajouter"] = array('route'=>'iola_corporation_news_add');
+        $tab["Utilisateurs"]["liste"] =  array('route'=>'Ropi_admin_user_listing');
     
         return $tab;
 

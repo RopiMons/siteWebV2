@@ -199,4 +199,40 @@ class AccountController extends Controller
         return $this->redirectToRoute("Ropi_account_modification");
     }
 
+
+    /**
+     * @route("/my/adresse/modification/{adresse}",name="Ropi_add_Personne")
+     * @Security( "has_role('ROLE_UTILISATEUR_ACTIVE') or has_role('ROLE_COMMERCANT') or has_role('ROLE_ADMIN') or has_role('ROLE_CMS_CREATE')")
+     * @Template("RopiIdentiteBundle:Account:AjoutAdresse.html.twig")
+     */
+
+
+
+    public function addPersonneAction(Request $request, $Newaddesse, $user = null){
+        $personne = Personne::class;
+        $form = $this->createForm(PersonneType::class, $$personne);
+        $form->add("Enregistrer",SubmitType::class);
+        $form->handleRequest($request);
+
+
+        if ( $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            if(isset($user)) {
+                $Newaddesse->addPersonne($user);
+            }
+            //$user->addAdress($Newaddesse);
+            $em->persist($Newaddesse);
+
+            $em->flush();
+            //$this->MailValidation($user, $cle);
+            $this->get("session")->getFlashBag(array(
+                "succes"=>"Une nouvelle adresse à été rajouté"));
+            return $this->redirect($this->generateUrl("Ropi_account_modification"));
+        }
+        return  Array(
+            "form" => $form->createView(),"user"=>$user
+        );
+    }
+
 }

@@ -111,4 +111,5 @@ class InscriptionController extends Controller
         }
 
     }
+
 }
