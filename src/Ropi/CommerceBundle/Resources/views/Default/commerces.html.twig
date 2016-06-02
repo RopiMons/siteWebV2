@@ -2,14 +2,14 @@
 
 {% block content %}
     <h1>Voici les commerçants montois adhérents au Ropieur</h1>
-    <table class="table table-responsive"> 
+    <table class="table table-responsive">
         <thead>
-            <tr>
-                <th>Logo</th>
-                <th>Nom du magasin</th>
-                <th>Adresse</th>
-                <th>Code Postal</th>
-            </tr>
+        <tr>
+            <th>Logo</th>
+            <th>Nom du magasin</th>
+            <th>Adresse</th>
+            <th>Code Postal</th>
+        </tr>
         </thead>
         {% for commerce in commerces %}
             <tr>
@@ -32,3 +32,26 @@
         {% endfor %}
     </table>
 {% endblock %}
+
+{% block headJavascripts %}
+
+    {{ parent() }}
+
+    {% include 'RopiCMSBundle:Map:_mapHead.html.twig' %}
+
+{% endblock %}
+
+{% block rightColumn %}
+
+    <div class="col-lg-12 col-md-12 col-sm-12" id="carte"  style="height: 30%">
+
+        <h4>Les commercants Ropi</h4>
+
+        <div id="googleCarte" >
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block bodyProprety %}onload="initialiser()"{% endblock %}

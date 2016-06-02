@@ -246,8 +246,13 @@ class DefaultController extends Controller {
                 'visible'=>true,
                 'valide'=>true
             ));
+
+             $map = $this->get("ropi.cms.map");
             
-            return array('commerces'=>$commerces);
+            return array(
+                'commerces'=> $commerces,
+                'marqueurs' => $map->getMarqueurs()
+            );
             
         
     }
