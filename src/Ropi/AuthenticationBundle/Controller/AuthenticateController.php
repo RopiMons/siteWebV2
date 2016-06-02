@@ -133,9 +133,6 @@ class AuthenticateController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-
-
             $em = $this->getDoctrine()->getManager();
 
             $factory = $this->get('security.encoder_factory');

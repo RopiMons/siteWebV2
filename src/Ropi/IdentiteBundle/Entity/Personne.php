@@ -201,6 +201,7 @@ class Personne
     {
         $this->creeLe = new \DateTime();
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
