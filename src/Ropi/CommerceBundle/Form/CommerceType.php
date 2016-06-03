@@ -33,10 +33,10 @@ class CommerceType extends AbstractType {
             ))
             ->add('description', null, array(
                 'label' => 'Description de votre commerce',
-                //'attr' => array(
-                //    'class' => 'tinymce',
-                //    'data-theme' => 'advanced'
-                //)
+                'attr' => array(
+                    'class' => 'tinymce',
+                    'data-theme' => 'advanced'
+                )
             ))
             ->add('imageFile', VichImageType::class, array(
                 'required' => true,
