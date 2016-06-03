@@ -167,7 +167,7 @@ class AuthenticateController extends Controller
 
         $form = $this->createFormBuilder()
             ->add('email',EmailType::class,array(
-                'label' => 'Merci d\'entré adresse email'
+                'label' => 'Veuillez entrer votre adresse email'
             ))
             ->add('Ré-initialiser mon mot de passe',SubmitType::class)
             ->getForm()
