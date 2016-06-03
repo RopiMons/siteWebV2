@@ -199,8 +199,6 @@ class AuthenticateController extends Controller
 
                     $manager->persist($key);
 
-                    dump($key);
-
                     $option = array(
                         'mail' => $data["email"],
                         'username' => $iw->getUsername(),
