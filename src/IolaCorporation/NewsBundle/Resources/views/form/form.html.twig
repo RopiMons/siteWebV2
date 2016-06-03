@@ -6,3 +6,8 @@ Ajouter une news{% endblock %}
   {% block content %}
       {{ form(form) }}
   {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ tinymce_init({})}}
+{% endblock %}

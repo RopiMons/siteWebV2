@@ -6,6 +6,7 @@ use IolaCorporation\NewsBundle\Entity\Album;
 use IolaCorporation\NewsBundle\Form\AlbumType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,9 +20,18 @@ class NewsType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('news')
+            ->add('news',TextareaType::class,array(
+                'label'=>'Corps de la news',
+                'attr' => array(
+                    'class'=>'tinymce',
+                    'data-theme' => 'advanced'
+                )
+            ))
+
             //->add('dateEcriture')
+
             ->add('datePublication')
+
             ->add('enable',null, array(
                 'required' => false
             ))
