@@ -28,23 +28,57 @@ class Parser
 
     public function parse($text){
 
+
         /** &[xxxx] -> A remplacer par le parametre xxxx **/
 
         $regex = "/[*][[][[:alnum:]]+[]]/";
+        $text = $this->doIt($regex,"parametresRetour",$text);
+
+
+        /** [xxx](http://xxxxxx.xx.xx) -> Lien html **/
+
+        $regex = "/[[].[^]]+[]][(][^)]+[)]/";
+        $text = $this->doIt($regex,"linkGenerator",$text);
+
+
+
+        return $text;
+
+
+    }
+
+    private function doIt($regex,$functionName,$text){
+
         if(preg_match_all($regex,$text,$results)) {
-            
+
             array_unique($results);
 
             foreach ($results[0] as $result) {
 
-                $text = str_replace($result, $this->parametresRetour($result), $text);
+                $text = str_replace($result, $this->$functionName($result), $text);
 
             }
         }
 
         return $text;
+    }
 
+    private function linkGenerator($result){
 
+        if(preg_match("/[[].+[]]/",$result,$tab)){
+            $nom = substr($tab[0],1,-1);
+
+        }
+
+        if(preg_match("/[(].+[)]/",$result,$tab)){
+            $lien = substr($tab[0],1,-1);
+        }
+
+        if(isset($nom) && isset($lien)){
+            return '<a href="'.$lien.'">'.$nom.'</a>';
+        }
+
+        return null;
     }
 
     private function parametresRetour($result){
