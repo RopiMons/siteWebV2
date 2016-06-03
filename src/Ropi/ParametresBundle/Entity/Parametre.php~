@@ -190,4 +190,38 @@ class Parametre
     }
 
     
+
+    /**
+     * Add enfant
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $enfant
+     *
+     * @return Parametre
+     */
+    public function addEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
+    {
+        $this->enfants[] = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfant
+     *
+     * @param \Ropi\ParametresBundle\Entity\Parametre $enfant
+     */
+    public function removeEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
+    {
+        $this->enfants->removeElement($enfant);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
+    }
 }

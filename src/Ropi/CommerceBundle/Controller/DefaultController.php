@@ -177,6 +177,8 @@ class DefaultController extends Controller {
         $repo = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce");
         $commerces = $repo->findBy(array('valide' => true));
 
+
+
         return array(
             'commerces' => $commerces,
             'route' => 'admin_commerces'
@@ -244,7 +246,7 @@ class DefaultController extends Controller {
                 'valide' => true
             ));
 
-            if ($commerce) {
+            if ($commerce && $commerce->getVisible()) {
                 
                 return $this->render("RopiCommerceBundle:Default:commerceView.html.twig",array(
                     'commerce'=>$commerce,
@@ -252,16 +254,24 @@ class DefaultController extends Controller {
             }else{
                 $this->addFlash("danger", "Ce commerce n'existe pas ou n'est pas activé");
             }
-        } 
-            
-            $commerces = $repo->findBy(array(
-                'visible'=>true,
-                'valide'=>true
-            ));
-            
-            return array(
-                'commerces'=> $commerces
-            );
+        }
+
+        $commerces = $repo->findBy(array(
+            'valide' => true,
+            'visible' => true
+        ));
+
+        $tab = array();
+
+        foreach ($commerces as $commerce){
+            if($commerce->getVisible()){
+                $tab[] = $commerce;
+            }
+        }
+
+        return array(
+            'commerces' => $tab
+        );
             
         
     }

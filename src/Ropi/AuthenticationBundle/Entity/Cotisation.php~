@@ -43,7 +43,7 @@ class Cotisation
 
 
     /**
-     * @ORM\OneToMany(targetEntity="PaiementCot", mappedBy="cotisation")
+     * @ORM\OneToMany(targetEntity="PaiementCot", mappedBy="cotisation", cascade={"persist"})
      */
     private $paiements;
 
@@ -51,6 +51,11 @@ class Cotisation
      * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="cotisations")
      */
     private $personne;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="cotisations")
+     */
+    private $commerce;
 
 
     /**

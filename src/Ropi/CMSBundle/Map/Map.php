@@ -52,28 +52,31 @@ class Map
 
         if($commerces){
 
-            foreach ($commerces as $key => $commerce){
+            foreach ($commerces as $key => $commerce) {
 
-                if($commerce->getLat()==null || $commerce->getLon()==null){
-                    
-                    if(isset($commerce->getAdresses()[0])){
-                        $adresse = $commerce->getAdresses()[0];
-                        $ville = $adresse->getVille();
-                        $test = $this->geoCoder($adresse->getRue()." ".$adresse->getNumero()." - ".$ville->getCodePostal() ." " .$ville->getVille()." ".$ville->getPays()->getNom());
+                if ($commerce->getVisible()) {
 
-                        $commerce->setLat($test["lat"]);
-                        $commerce->setLon($test["lng"]);
-                    }else{
-                        break;
+                    if ($commerce->getLat() == null || $commerce->getLon() == null) {
+
+                        if (isset($commerce->getAdresses()[0])) {
+                            $adresse = $commerce->getAdresses()[0];
+                            $ville = $adresse->getVille();
+                            $test = $this->geoCoder($adresse->getRue() . " " . $adresse->getNumero() . " - " . $ville->getCodePostal() . " " . $ville->getVille() . " " . $ville->getPays()->getNom());
+
+                            $commerce->setLat($test["lat"]);
+                            $commerce->setLon($test["lng"]);
+                        } else {
+                            break;
+                        }
                     }
+
+                    $retour[$key]["lat"] = $commerce->getLat();
+                    $retour[$key]["lon"] = $commerce->getLon();
+                    $retour[$key]["nom"] = $commerce->getNom();
                 }
 
-                $retour[$key]["lat"] = $commerce->getLat();
-                $retour[$key]["lon"] = $commerce->getLon();
-                $retour[$key]["nom"] = $commerce->getNom();
+                $this->entityManager->flush();
             }
-
-            $this->entityManager->flush();
         }
         
         return $retour;

@@ -6,6 +6,7 @@ namespace Ropi\IdentiteBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ropi\IdentiteBundle\Entity\TraitRepo\CotisationManagement;
 use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Personne
 {
+    use CotisationManagement;
 
     const MembreEffectif = 'Membre Effectif';
     const MembreSympathisant = 'Membre Sympathisant';
@@ -463,49 +465,7 @@ class Personne
         return $this->cotisations;
     }
 
-    private function getLastCotisation($nom){
-        $last = null;
-
-        foreach ($this->cotisations as $cotisation){
-            if($last==null && $cotisation->$nom() != null){
-                $last = $cotisation;
-            }elseif($cotisation!=null && $last!=null){
-                if($last->$nom() < $cotisation->$nom()){
-                    $last = $cotisation;
-                }
-            }
-        }
-
-        return $last;
-    }
-
-    public function getLastCotisationPaye(){
-        return $this->getLastCotisation('getDateEcheance');
-    }
-
-    public function getLastCotisationProcedure(){
-        return $this->getLastCotisation('getDateCreation');
-    }
-
-    public function hasActifCotisation(){
-        if(($cotisation = $this->getLastCotisationPaye()) != null)
-        {
-            return new \DateTime() < $cotisation->getDateEcheance();
-        }
-
-        return null;
-    }
-
-    public function hasActifProcedurePaiement(){
-        if(($cotisation =  $this->getLastCotisationProcedure()) != null ){
-
-            return new \DateTime() < date_modify($cotisation->getDateCreation(),"+1 month");
-
-        }
-
-        return false;
-    }
-
+    
     public function getMembreStatut(){
 
         if($this->hasActifCotisation()){

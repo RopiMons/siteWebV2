@@ -2,13 +2,15 @@
 
 namespace Ropi\AuthenticationBundle\Form;
 
+use Ropi\AuthenticationBundle\Entity\PaiementCot;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class PaiementCotType extends AbstractType
+class CotisationAndPaiementType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,21 +18,15 @@ class PaiementCotType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $thisYear = date("Y");
-        $years = array($thisYear,$thisYear-1,$thisYear+1);
         $builder
-            ->add('montant')
-
-            ->add('numOperation',null,array(
-                'label' => 'Numéro d\'opération'
+            ->add('montant',null,array(
+                'label' => 'Montant définis pour la cotisation',
+                'required' => true
             ))
-
-            ->add('dateOperation', DateType::class,array(
-                'label' => 'Date de l\'opération comptable',
-                'years' => $years
+            ->add('paiements',CollectionType::class,array(
+                'entry_type' => PaiementCotType::class,
+                'label' => 'Paiement effectué'
             ))
-
-            //->add('cotisation')
         ;
     }
     
@@ -40,7 +36,7 @@ class PaiementCotType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\AuthenticationBundle\Entity\PaiementCot'
+            'data_class' => 'Ropi\AuthenticationBundle\Entity\Cotisation'
         ));
     }
 }

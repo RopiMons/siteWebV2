@@ -3,6 +3,8 @@
 namespace Ropi\CommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ropi\AuthenticationBundle\Entity\Cotisation;
+use Ropi\IdentiteBundle\Entity\TraitRepo\CotisationManagement;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -24,6 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Commerce
 {
+    use CotisationManagement;
     /**
      * @var integer
      *
@@ -80,6 +83,12 @@ class Commerce
      * @ORM\ManyToOne(targetEntity="Ropi\AuthenticationBundle\Entity\College", inversedBy="membres")
      */
     private $college;
+
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="commerce")
+     */
+    private $cotisations;
 
     /**
      * @ORM\OneToMany(targetEntity="Ropi\IdentiteBundle\Entity\Adresse", mappedBy="commerce", cascade={"persist","remove"})
@@ -350,7 +359,7 @@ class Commerce
      */
     public function getVisible()
     {
-        return $this->visible;
+        return $this->visible && $this->hasActifCotisation();
     }
 
     /**
@@ -580,5 +589,37 @@ class Commerce
     public function getCollege()
     {
         return $this->college;
+    }
+
+    /**
+     * @return Cotisation
+     */
+    public function getCotisations()
+    {
+        return $this->cotisations;
+    }
+
+    /**
+     * Add cotisation
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\Cotisation $cotisation
+     *
+     * @return Commerce
+     */
+    public function addCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
+    {
+        $this->cotisations[] = $cotisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove cotisation
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\Cotisation $cotisation
+     */
+    public function removeCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
+    {
+        $this->cotisations->removeElement($cotisation);
     }
 }

@@ -18,7 +18,7 @@
             <tr>
                 <td><a href="{{ path('commerce_update', { id: commerce.id, route: app.request.attributes.get('_route') }) }}">{{ commerce.nom }}</a></td>
                 <td>{% if commerce.valide %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td>
-                <td>{% if commerce.valide and commerce.visible %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td>
+                <td>{% if commerce.hasActifCotisation %}{% if commerce.valide and commerce.visible %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}{% else %}<span class=" glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Cotisation{% endif %}</td>
                 <td>xx</td>
                 <td><ul>
                         <li>Mon commerce est mal localisé</li>

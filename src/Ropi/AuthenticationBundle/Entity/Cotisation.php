@@ -43,7 +43,7 @@ class Cotisation
 
 
     /**
-     * @ORM\OneToMany(targetEntity="PaiementCot", mappedBy="cotisation")
+     * @ORM\OneToMany(targetEntity="PaiementCot", mappedBy="cotisation", cascade={"persist"})
      */
     private $paiements;
 
@@ -51,6 +51,11 @@ class Cotisation
      * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="cotisations")
      */
     private $personne;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="cotisations")
+     */
+    private $commerce;
 
 
     /**
@@ -244,5 +249,29 @@ class Cotisation
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * Set commerce
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerce
+     *
+     * @return Cotisation
+     */
+    public function setCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerce = null)
+    {
+        $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * Get commerce
+     *
+     * @return \Ropi\CommerceBundle\Entity\Commerce
+     */
+    public function getCommerce()
+    {
+        return $this->commerce;
     }
 }

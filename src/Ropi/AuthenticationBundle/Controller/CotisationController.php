@@ -11,9 +11,11 @@ namespace Ropi\AuthenticationBundle\Controller;
 
 use Ropi\AuthenticationBundle\Entity\Cotisation;
 use Ropi\AuthenticationBundle\Entity\PaiementCot;
+use Ropi\AuthenticationBundle\Form\CotisationAndPaiementType;
 use Ropi\AuthenticationBundle\Form\CotisationType;
 use Ropi\AuthenticationBundle\Form\PaiementCotType;
 use Ropi\CommandeBundle\Entity\Paiement;
+use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\Personne;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,5 +101,56 @@ class CotisationController extends Controller
         );
 
 
+    }
+
+    /**
+     * @Route("/admin/commerces/paiement/add/{id}", name="admin_add_paiement_et_cotisation_commerce")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Template("RopiAuthenticationBundle:Cotisation:newCotisation.html.twig")
+     */
+    public function addPaiementAndCot(Request $request, Commerce $commerce){
+        
+        if($commerce->hasActifProcedurePaiement()){
+            $cotisation = $commerce->getLastCotisationProcedure();
+        }else{
+            $cotisation = new Cotisation();
+            $cotisation->setCollege($commerce->getCollege());
+            $commerce->addCotisation($cotisation);
+        }
+        $paiement = new PaiementCot();
+        $paiement->setCotisation($cotisation);
+        $cotisation->addPaiement($paiement);
+        $cotisation->setCommerce($commerce);
+        
+        $form = $this->createForm(CotisationAndPaiementType::class,$cotisation)
+            ->add('Enregistrer',SubmitType::class)
+            ;
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $paiements = $form->getData();
+
+            $manager = $this->getDoctrine()->getManager();
+
+            $manager->persist($cotisation);
+
+            foreach ($paiements as $paiement){
+                $paiement->setCotisation($cotisation);
+                $manager->persist($paiement);
+            }
+
+
+            $manager->flush();
+
+            $this->addFlash('success','La cotisation de ce membre a bien été prise en compte');
+
+            return $this->redirectToRoute('admin_commerces');
+
+        }
+
+        return array(
+            'form' => $form->createView()
+        );
     }
 }
