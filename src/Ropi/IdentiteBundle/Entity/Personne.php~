@@ -87,7 +87,7 @@ class Personne
     private $commerces;
     
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"persist"})
      * @Assert\Valid
      */
     private $identifiantWeb;
@@ -97,6 +97,11 @@ class Personne
      * @Assert\Valid
      */
     private $adresses;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="personne")
+     */
+    private $cotisations;
 
     /**
      * Get id
@@ -208,6 +213,7 @@ class Personne
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->commerces = new ArrayCollection();
         $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cotisations = new ArrayCollection();
     }
 
     /**
@@ -414,5 +420,82 @@ class Personne
     public function getVolonteMembre()
     {
         return $this->volonteMembre;
+    }
+
+    /**
+     * Add cotisation
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\Cotisation $cotisation
+     *
+     * @return Personne
+     */
+    public function addCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
+    {
+        $this->cotisations[] = $cotisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove cotisation
+     *
+     * @param \Ropi\AuthenticationBundle\Entity\Cotisation $cotisation
+     */
+    public function removeCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
+    {
+        $this->cotisations->removeElement($cotisation);
+    }
+
+    /**
+     * Get cotisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCotisations()
+    {
+        return $this->cotisations;
+    }
+
+    private function getLastCotisation($nom){
+        $last = null;
+
+        foreach ($this->cotisations as $cotisation){
+            if($last==null && $cotisation->$nom() != null){
+                $last = $cotisation;
+            }elseif($cotisation!=null && $last!=null){
+                if($last->$nom() < $cotisation->$nom()){
+                    $last = $cotisation;
+                }
+            }
+        }
+
+        return $last;
+    }
+    
+    public function getLastCotisationPaye(){
+        return $this->getLastCotisation('getDateEcheance');
+    }
+    
+    public function getLastCotisationProcedure(){
+        return $this->getLastCotisation('getDateCreation');
+    }
+    
+    public function hasActifCotisation(){
+        if($cotisation = $this->getLastCotisationPaye() != null)
+        {
+            return new \DateTime() > $cotisation->getDateEcheance();
+        }
+
+        return null;
+    }
+
+    public function hasActifProcedurePaiement(){
+        if(($cotisation =  $this->getLastCotisationProcedure()) != null ){
+
+            return new \DateTime() < date_modify($cotisation->getDateCreation(),"+1 month");
+
+        }
+
+        return false;
     }
 }

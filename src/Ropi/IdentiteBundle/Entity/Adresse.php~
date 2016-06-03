@@ -39,7 +39,7 @@ class Adresse
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=10)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank( )
      */
     private $numero;
 
@@ -52,7 +52,7 @@ class Adresse
     
     /**
      * @ORM\ManyToOne(targetEntity="TypeAdresse")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank( groups={"registration"})
      */
     private $typeAdresse;
     

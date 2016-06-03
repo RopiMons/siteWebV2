@@ -115,4 +115,33 @@ class College
     {
         return $this->membres;
     }
+
+    /**
+     * Set numero
+     *
+     * @param integer $numero
+     *
+     * @return College
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return integer
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 }

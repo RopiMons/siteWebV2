@@ -1,0 +1,133 @@
+<?php
+
+namespace Ropi\AuthenticationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Paiement
+ *
+ * @ORM\Table(name="paiement")
+ * @ORM\Entity(repositoryClass="Ropi\AuthenticationBundle\Repository\PaiementRepository")
+ */
+class Paiement
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montant", type="float")
+     */
+    private $montant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numOperation", type="string", length=255)
+     */
+    private $numOperation;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateOperation", type="datetime")
+     */
+    private $dateOperation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Cotisation", inversedBy="paiements")
+     */
+    private $cotisation;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set montant
+     *
+     * @param float $montant
+     *
+     * @return Paiement
+     */
+    public function setMontant($montant)
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    /**
+     * Get montant
+     *
+     * @return float
+     */
+    public function getMontant()
+    {
+        return $this->montant;
+    }
+
+    /**
+     * Set numOperation
+     *
+     * @param string $numOperation
+     *
+     * @return Paiement
+     */
+    public function setNumOperation($numOperation)
+    {
+        $this->numOperation = $numOperation;
+
+        return $this;
+    }
+
+    /**
+     * Get numOperation
+     *
+     * @return string
+     */
+    public function getNumOperation()
+    {
+        return $this->numOperation;
+    }
+
+    /**
+     * Set dateOperation
+     *
+     * @param \DateTime $dateOperation
+     *
+     * @return Paiement
+     */
+    public function setDateOperation($dateOperation)
+    {
+        $this->dateOperation = $dateOperation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOperation
+     *
+     * @return \DateTime
+     */
+    public function getDateOperation()
+    {
+        return $this->dateOperation;
+    }
+}
+
