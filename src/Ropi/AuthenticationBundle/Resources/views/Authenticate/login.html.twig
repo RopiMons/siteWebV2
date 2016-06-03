@@ -9,7 +9,7 @@
     {% endif %}
     {{ include('RopiAuthenticationBundle:Authenticate:loginForm.html.twig', {'last_username': last_username}) }}
     <br \>
-    <a href="{{path('ropi_inscription')}}" title="Inscription"> Inscription </a>
-    <br \>
-    <p><a href="{{ path('forget_pass') }}">J'ai oublié mon mot de pase</a></p>
+    <a href="{{path('ropi_inscription')}}" title="Inscription"> <div class="btn btn-primary" role="button">Inscription</div></a>
+    <br \><br \>
+    <a href="{{ path('forget_pass') }}"><div class="btn btn-primary" role="button">J'ai oublié mon mot de pase</div></a>
 {% endblock %}
