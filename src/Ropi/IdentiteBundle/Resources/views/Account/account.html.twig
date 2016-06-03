@@ -5,6 +5,13 @@
 
 {% block content %}
     <h1 class="souligné"> Mon compte: </h1>
+    Mon statut au sein de l'ASBL :
+    {% if user.membreStatut == constant('Ropi\\IdentiteBundle\\Entity\\Personne::MembreEffectif') %}
+        Membre effectif (Echéance cotisation {{ user.lastCotisationPaye.dateEcheance|date("d/m/Y") }})
+    {% else %}
+        Membre sympathisant
+    {% endif %}
+    <br \><br \>
     Nom: {{ user.nom}}<br>
     Prenom: {{ user.prenom}}<br>
     Date de naissance: {{ user.dateNaissance|date('d-m-Y') }}<br>
@@ -12,20 +19,28 @@
         {{ contact.typeContact.type }} :  {{ contact.valeur }}<br>
     {% endfor %}
     <ul>
-    {%  for addresse in user.adresses %}
-        <li> {{ addresse.rue }},{{ addresse.numero }}. {{ addresse.ville.ville }} {{ addresse.ville.codePostal}} pays:{{ addresse.ville.pays.shortNom}} </li>
-    {% endfor %}
+        {%  for addresse in user.adresses %}
+            <li> {{ addresse.rue|capitalize }} {{ addresse.complement|capitalize }}, {{ addresse.numero }} - {{ addresse.ville.ville }} {{ addresse.ville.codePostal}} - {{ addresse.ville.pays.nom|capitalize }} </li>
+        {% endfor %}
     </ul>
 
     Username: {{ user.identifiantWeb.username }}<br/>
-    Derniére Connection {{ user.identifiantWeb.lastConnection |date('d-m-Y H:m:s')}}<br>
+    Derniére connection : {{ user.identifiantWeb.lastConnection |date('d-m-Y H:m:s')}}<br>
 
     <a href="{{ path("Ropi_change_pwd") }}"> Changer le mot de passe</a>
-    <br>
-    <br>
+    <br><br>
 
-  <a href="{{ path("Ropi_account_modification") }}" alt="bouton modification compte"><button class="center"> modifier mon compte</button></a>
-
+    <h2>Coordonnées bancaires</h2>
+    <p>Envie de devenir membre effectif ? De prolonger votre cotisation ?</p>
+    <p>Voici les informations bancaires afin de verser votre cotisation de {{ parametres.getValueOf('cotisationUsagerEuro') }}€ :
+        <ul>
+            <li>{{  parametres.getValueOf('compteCourant') }}</li>
+            <li>ROPI ASBL - {{ parametres.getValueOf('adresseSiegeSocial') }}</li>
+            <li>Commentaire : Cotisation {{ user.nom|capitalize }} {{ user.prenom|capitalize }}</li>
+        </ul>
+    </p>
+    <br><br>
+    <a href="{{ path("Ropi_account_modification") }}" alt="bouton modification compte"><button class="center"> modifier mon compte</button></a>
 
 
 {% endblock %}
