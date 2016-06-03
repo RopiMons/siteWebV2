@@ -397,7 +397,7 @@ class Commande
     public function getPrix(){
         $solde = 0;
 
-        foreach($this->getArticlesQuantite() as $ac){
+            foreach($this->getArticlesQuantite() as $ac){
             $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
         }
 

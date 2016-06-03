@@ -257,7 +257,7 @@ class DefaultController extends Controller
         $solde = 0;
         
         foreach ($commandes as $commande){
-            foreach ($commande->getArticles() as $ac) {
+            foreach ($commande->getArticlesQuantite() as $ac) {
                 $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
             }
         }
