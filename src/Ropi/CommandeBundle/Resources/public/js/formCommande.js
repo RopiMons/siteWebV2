@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 
 
-    $(".jumbotron").click(function(){
+    $(".thumbnail").click(function(){
 
         $("#result2").html(" ");
 
