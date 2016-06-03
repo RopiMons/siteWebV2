@@ -8,17 +8,36 @@
     {{ commerce.description|raw }}
     <br \><br \><br \><br \>
 
-    <div id="global">
-        <div id="gauche"><h2>Adresse du commerce</h2>
-            {% for adresse in commerce.adresses %}
-                {{ adresse.rue }} {{ adresse.complement }} {{ adresse.numero }}
-                {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}
-
-            {% endfor %}
-        </div>
-        <div id="droite"><h2>Caractéristiques du membre</h2>
-            {% if commerce.depot %}Vous pouvez vous faire livrer gratuitement vos Ropi dans ce commerce{% endif %}
-        Collège d'appartenance : {{ commerce.college.nom }}
+    <div class="row">
+        {% for adresse in commerce.adresses %}
+            <div class="col-xs-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h2>Adresse du commerce</h2>
+                        <p>{{ adresse.rue }} {{ adresse.complement }} {{ adresse.numero }}<br \>
+                            {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if commerce.depot %}
+            <div class="col-xs-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h2>Le truc en plus </h2>
+                        <p>Ce commerce accepte la livraison gratuite de Ropi chez lui</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h2>Collège</h2>
+                    <p>{{ commerce.college.nom }}</p>
+                </div>
+            </div>
         </div>
     </div>
+
 {% endblock %}
