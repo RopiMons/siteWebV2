@@ -6,4 +6,19 @@
         <div id="droite"><h1>{{ commerce.nom }}</h1></div>
     </div>
     {{ commerce.description|raw }}
+    <br \><br \><br \><br \>
+
+    <div id="global">
+        <div id="gauche"><h2>Adresse du commerce</h2>
+            {% for adresse in commerce.adresses %}
+                {{ adresse.rue }} {{ adresse.complement }} {{ adresse.numero }}
+                {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}
+
+            {% endfor %}
+        </div>
+        <div id="droite"><h2>Caractéristiques du membre</h2>
+            {% if commerce.depot %}Vous pouvez vous faire livrer gratuitement vos Ropi dans ce commerce{% endif %}
+        Collège d'appartenance : {{ commerce.college.nom }}
+        </div>
+    </div>
 {% endblock %}
