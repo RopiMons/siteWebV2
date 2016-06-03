@@ -55,8 +55,9 @@ class Parser
 
             foreach ($results[0] as $result) {
 
-                $text = str_replace($result, $this->$functionName($result), $text);
-
+                if(($retour = $this->$functionName($result))!=null) {
+                    $text = str_replace($result, $retour , $text);
+                }
             }
         }
 
@@ -88,9 +89,11 @@ class Parser
             $result = $this->parametres->getValueOf(substr($result, 2, -1));
         }
         catch (NotFoundResourceException $e){
-
+            $result = null;
+        }
+        finally{
+            return $result;
         }
 
-        return $result;
     }
 }

@@ -11,7 +11,7 @@ namespace Ropi\ParametresBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Ropi\ParametresBundle\Entity\Parametre;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class Parametres
 {
@@ -31,7 +31,11 @@ class Parametres
 
         $parametre = $this->entityManager->getRepository(Parametre::class)->findOneBy(array('nom'=>$string));
 
-        return ($parametre) ? $parametre->getValeur() : new NotFoundResourceException("Ce paramètres $string n'a pas été trouvé");
+        if($parametre) {
+            return $parametre->getValeur();
+        }else{
+            throw new ParameterNotFoundException("Ce paramètres $string n'a pas été trouvé");
+        }
 
     }
 
