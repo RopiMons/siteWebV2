@@ -42,11 +42,12 @@ class MailerCSS
 
     
     public function sendMail($template, $templateOption, $to, $subject, $from = null){
+
         if($from == null){
             $from = "info@ropi.be";
         }
         
-        $converter = $this->converter; //Il faut bien dissocier les deux objets
+        $converter = clone $this->converter; //Il faut bien dissocier les deux objets
 
         $converter->setHTMLByView($template,$templateOption);
         $converter->setCSS(file_get_contents($this->rootDir . '/../app/Resources/public/css/ropi.css'));
@@ -59,6 +60,7 @@ class MailerCSS
             ->setContentType("text/html")
             ->setBody($body)
             ;
+
 
         $this->mailer->send($message);       
         

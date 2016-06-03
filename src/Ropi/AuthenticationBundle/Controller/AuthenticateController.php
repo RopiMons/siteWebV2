@@ -205,7 +205,7 @@ class AuthenticateController extends Controller
                         'lien' => $this->generateUrl("retrieve_my_pass",array('cle'=>$key->getCle())),
                     );
 
-                    $mailer = $this->get("ropi.cms.mailerCSS");
+                    $mailer = $this->get("ropi.cms.mailer");
                     $mailer->sendMail("RopiAuthenticationBundle:Mail:_resetPass.html.twig", $option, $data["email"], "[Ropi.Be] Réinitialisation de votre mot de passe");
 
                     $manager->flush();
@@ -213,7 +213,7 @@ class AuthenticateController extends Controller
                 }catch (\Exception $e){
 
                 }finally{
-                    //return $this->redirectToRoute("home");
+                    return $this->redirectToRoute("home");
                 }
 
 
