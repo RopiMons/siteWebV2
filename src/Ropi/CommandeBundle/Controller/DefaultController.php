@@ -7,6 +7,7 @@ use Ropi\CommandeBundle\Entity\Commande;
 use Ropi\CommandeBundle\Form\CommandeClientType;
 use Ropi\CommandeBundle\Form\CommandePaiementType;
 use Ropi\CommandeBundle\Form\CommandeType;
+use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\IdentiteBundle\Form\AdresseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -248,5 +249,22 @@ class DefaultController extends Controller
 
         return new JsonResponse($this->renderView("RopiCommandeBundle:Default:_myAdressesChoices.html.twig",array('adresses'=>$adresses)));
     }
+
+    /** @Template("RopiCommandeBundle:Default:simple.html.twig") */
+    public function getNbRopiCommandeAction(){
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findAll();
+
+        $solde = 0;
+        
+        foreach ($commandes as $commande){
+            foreach ($commande->getArticles() as $ac) {
+                $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
+            }
+        }
+
+        return array('solde'=>$solde);
+    }
+
+
 
 }

@@ -307,4 +307,28 @@ class DefaultController extends Controller {
 
     }
 
+    /**
+     * @Template("RopiCommerceBundle:Default:simple.html.twig")
+     */
+    public function getNbCommercantAction(){
+
+        $commerces = $this->getDoctrine()->getRepository(Commerce::class)->findBy(array(
+            'visible' => true,
+            'valide' => true
+        ));
+
+
+        $nb = 0;
+
+        foreach ($commerces as $commerce){
+            if($commerce->getVisible()){
+                $nb ++;
+            }
+        }
+
+        return array(
+            'nb' => $nb
+        );
+    }
+
 }
