@@ -127,7 +127,7 @@ class Cotisation
      *
      * @return Cotisation
      */
-    public function addPaiement(\Ropi\AuthenticationBundle\Entity\Paiement $paiement)
+    public function addPaiement(\Ropi\AuthenticationBundle\Entity\PaiementCot $paiement)
     {
         $this->paiements[] = $paiement;
 
@@ -139,7 +139,7 @@ class Cotisation
      *
      * @param \Ropi\AuthenticationBundle\Entity\Paiement $paiement
      */
-    public function removePaiement(\Ropi\AuthenticationBundle\Entity\Paiement $paiement)
+    public function removePaiement(\Ropi\AuthenticationBundle\Entity\PaiementCot $paiement)
     {
         $this->paiements->removeElement($paiement);
     }
