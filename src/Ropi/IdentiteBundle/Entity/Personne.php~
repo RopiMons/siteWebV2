@@ -17,6 +17,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Personne
 {
+
+    const MembreEffectif = 'Membre Effectif';
+    const MembreSympathisant = 'Membre Sympathisant';
+    const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
+    const MembreVolonte = 'Membre Volonté';
+
+
     /**
      * @var integer
      *
@@ -31,7 +38,7 @@ class Personne
      *
      * @ORM\Column(name="nom", type="string", length=50)
      *  @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")  
+     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
      * @Assert\Regex(pattern="/\d/", match = false ,message="La chaine ne peux pas avoir que des lettres")
      */
@@ -42,7 +49,7 @@ class Personne
      *
      * @ORM\Column(name="prenom", type="string", length=50)
      * @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")  
+     * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
      * @Assert\Regex(pattern="/\d/", match = false ,message="La chaine ne peux pas avoir que des lettres")
      */
@@ -74,24 +81,24 @@ class Personne
      * @ORM\Column(name="creeLe", type="datetime")
      */
     private $creeLe;
-    
-    /** 
+
+    /**
      * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist","remove"})
      * @Assert\Valid
      */
     private $contacts;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"persist","remove"})
      */
     private $commerces;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"persist"})
      * @Assert\Valid
      */
     private $identifiantWeb;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"persist","remove"})
      * @Assert\Valid
@@ -106,7 +113,7 @@ class Personne
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -129,7 +136,7 @@ class Personne
     /**
      * Get nom
      *
-     * @return string 
+     * @return string
      */
     public function getNom()
     {
@@ -152,7 +159,7 @@ class Personne
     /**
      * Get prenom
      *
-     * @return string 
+     * @return string
      */
     public function getPrenom()
     {
@@ -175,7 +182,7 @@ class Personne
     /**
      * Get dateNaissance
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateNaissance()
     {
@@ -198,7 +205,7 @@ class Personne
     /**
      * Get creeLe
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreeLe()
     {
@@ -242,7 +249,7 @@ class Personne
     /**
      * Get contacts
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getContacts()
     {
@@ -275,7 +282,7 @@ class Personne
     /**
      * Get commerces
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCommerces()
     {
@@ -298,7 +305,7 @@ class Personne
     /**
      * Get identifiantWeb
      *
-     * @return \Ropi\AuthenticationBundle\Entity\IdentifiantWeb 
+     * @return \Ropi\AuthenticationBundle\Entity\IdentifiantWeb
      */
     public function getIdentifiantWeb()
     {
@@ -331,7 +338,7 @@ class Personne
     /**
      * Get adresses
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAdresses()
     {
@@ -374,7 +381,7 @@ class Personne
     /**
      * Get commandes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCommandes()
     {
@@ -395,7 +402,7 @@ class Personne
     }
     public function __toString()
     {
-     return $this->nom;
+        return $this->nom;
     }
 
     /**
@@ -471,19 +478,19 @@ class Personne
 
         return $last;
     }
-    
+
     public function getLastCotisationPaye(){
         return $this->getLastCotisation('getDateEcheance');
     }
-    
+
     public function getLastCotisationProcedure(){
         return $this->getLastCotisation('getDateCreation');
     }
-    
+
     public function hasActifCotisation(){
-        if($cotisation = $this->getLastCotisationPaye() != null)
+        if(($cotisation = $this->getLastCotisationPaye()) != null)
         {
-            return new \DateTime() > $cotisation->getDateEcheance();
+            return new \DateTime() < $cotisation->getDateEcheance();
         }
 
         return null;
@@ -498,4 +505,19 @@ class Personne
 
         return false;
     }
+
+    public function getMembreStatut(){
+
+        if($this->hasActifCotisation()){
+            return self::MembreEffectif;
+        }elseif($this->hasActifProcedurePaiement()){
+            return self::MembreEffectifTemporaire;
+        }elseif($this->volonteMembre){
+            return self::MembreVolonte;
+        }else{
+            return self::MembreSympathisant;
+        }
+    }
+
+
 }

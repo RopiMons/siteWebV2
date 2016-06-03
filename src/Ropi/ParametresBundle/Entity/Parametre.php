@@ -40,14 +40,14 @@ class Parametre
     private $description;
     
     /**
-     * @ORM\OneToMany(targetEntity="Parametre", mappedBy="enfant")
+     * @ORM\ManyToOne(targetEntity="Parametre", inversedBy="enfants")
      */
     private $parent;
     
     /**
      * @ORM\OneToMany(targetEntity="Parametre", mappedBy="parent")
      */
-    private $enfant;
+    private $enfants;
 
     /**
      * @var string
@@ -186,33 +186,10 @@ class Parametre
      */
     public function __construct()
     {
-        $this->parent = new \Doctrine\Common\Collections\ArrayCollection();
         $this->enfant = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add parent
-     *
-     * @param \Ropi\ParametresBundle\Entity\Parametre $parent
-     *
-     * @return Parametre
-     */
-    public function addParent(\Ropi\ParametresBundle\Entity\Parametre $parent)
-    {
-        $this->parent[] = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Remove parent
-     *
-     * @param \Ropi\ParametresBundle\Entity\Parametre $parent
-     */
-    public function removeParent(\Ropi\ParametresBundle\Entity\Parametre $parent)
-    {
-        $this->parent->removeElement($parent);
-    }
+    
 
     /**
      * Add enfant
@@ -223,7 +200,7 @@ class Parametre
      */
     public function addEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
     {
-        $this->enfant[] = $enfant;
+        $this->enfants[] = $enfant;
 
         return $this;
     }
@@ -235,6 +212,16 @@ class Parametre
      */
     public function removeEnfant(\Ropi\ParametresBundle\Entity\Parametre $enfant)
     {
-        $this->enfant->removeElement($enfant);
+        $this->enfants->removeElement($enfant);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
     }
 }

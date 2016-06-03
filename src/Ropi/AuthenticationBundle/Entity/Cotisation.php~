@@ -127,7 +127,7 @@ class Cotisation
      *
      * @return Cotisation
      */
-    public function addPaiement(\Ropi\AuthenticationBundle\Entity\Paiement $paiement)
+    public function addPaiement(\Ropi\AuthenticationBundle\Entity\PaiementCot $paiement)
     {
         $this->paiements[] = $paiement;
 
@@ -139,7 +139,7 @@ class Cotisation
      *
      * @param \Ropi\AuthenticationBundle\Entity\Paiement $paiement
      */
-    public function removePaiement(\Ropi\AuthenticationBundle\Entity\Paiement $paiement)
+    public function removePaiement(\Ropi\AuthenticationBundle\Entity\PaiementCot $paiement)
     {
         $this->paiements->removeElement($paiement);
     }
@@ -207,14 +207,19 @@ class Cotisation
 
     public function getDateEcheance(){
         if($this->isPaye()){
-            $paiement = $this->getLastPaiement();
-            return date_modify($paiement->getDateOperation(), '+1 year');
+            $date = clone $this->getLastPaiement()->getDateOperation();
+
+            return date_modify($date, '+1 year');
         }
     }
 
     /** @ORM\PrePersist */
     public function onPrePersist(){
         $this->dateCreation = new \DateTime();
+    }
+
+    public function getDetteTotale(){
+        return $this->montant - $this->getMontantDejaPaye();
     }
 
     /**

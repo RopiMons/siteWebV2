@@ -57,7 +57,7 @@ class Statut
     private $delay;
 
     /**
-     * @ORM\OneToMany(targetEntity="Statut", mappedBy="statut")
+     * @ORM\OneToMany(targetEntity="Commande", mappedBy="statut")
      */
 
     private $commandes;

@@ -64,6 +64,7 @@ class Commande
 
     private $client;
 
+    
     /**
      * @ORM\ManyToOne(targetEntity="Statut", inversedBy="commandes")
      */

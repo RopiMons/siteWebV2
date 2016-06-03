@@ -3,6 +3,8 @@
 namespace Ropi\AuthenticationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Paiement
@@ -46,6 +48,17 @@ class PaiementCot
      * @ORM\ManyToOne(targetEntity="Cotisation", inversedBy="paiements")
      */
     private $cotisation;
+
+    /** @Assert\Callback */
+    public function validate(ExecutionContextInterface $context, $payload){
+        $dette = $this->cotisation->getDetteTotale();
+        if($this->montant>$dette){
+            $context->buildViolation('Le montant est plus élevé que la dette de ce membre ('.$dette.')')
+                ->atPath('montant')
+                ->addViolation()
+                ;
+        }
+    }
 
 
     /**
@@ -109,7 +122,7 @@ class PaiementCot
     /**
      * Set dateOperation
      *
-     * @param \DateTime $dateOperation
+     * @param \Date $dateOperation
      *
      * @return Paiement
      */
@@ -123,7 +136,7 @@ class PaiementCot
     /**
      * Get dateOperation
      *
-     * @return \DateTime
+     * @return \Date
      */
     public function getDateOperation()
     {
