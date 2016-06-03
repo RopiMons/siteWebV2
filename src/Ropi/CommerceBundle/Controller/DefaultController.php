@@ -28,7 +28,7 @@ class DefaultController extends Controller {
 
     public function newCommerceAction(Request $request) {
 
-        $form = $this->createCommercantForm($request);
+        $form = $this->createCommercantForm($request,null,true);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();

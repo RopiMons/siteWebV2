@@ -35,6 +35,12 @@ class CommerceAdminType extends CommerceType {
 
             ))
 
+            ->add('personnes',null,array(
+                'label' => 'Personne(s) physique(s) associée(s) à ce commerce ',
+                'expanded' => false,
+                'multiple' => true
+            ))
+
             //->add('createdAt')
             //->add('updateAt')
         ;
