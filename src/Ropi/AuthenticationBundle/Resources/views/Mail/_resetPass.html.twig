@@ -1,0 +1,17 @@
+{% extends '::email.html.twig' %}
+
+{% block content %}
+
+    <p>Bonjour ! Vous avez demandé à réinitialiser le mot de passe du compte utilisateur lié à l'adresse {{ mail }}</p>
+    <p>
+    <ul>
+        <li>Votre identifiant : {{ username }}</li>
+    </ul>
+    </p>
+
+    <p>Veuillez cliquer sur le lien suivant pour introduire un nouveau mot de passe</p>
+
+    {{ lien }}
+
+    <p>Ropieur'Bot</p>
+{% endblock %}
