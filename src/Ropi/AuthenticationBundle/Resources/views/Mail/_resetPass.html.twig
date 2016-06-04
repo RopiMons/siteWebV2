@@ -11,7 +11,7 @@
 
     <p>Veuillez cliquer sur le lien suivant pour introduire un nouveau mot de passe</p>
 
-    {{ url("retrieve_my_pass", { cle: key.cle} ) }}
+    <a href="{{ url("retrieve_my_pass", { cle: key.cle} ) }}">Réinitialiser mon mot de passe</a>
 
     <p>Ropieur'Bot</p>
 {% endblock %}
