@@ -202,7 +202,7 @@ class AuthenticateController extends Controller
                     $option = array(
                         'mail' => $data["email"],
                         'username' => $iw->getUsername(),
-                        'lien' => $this->generateUrl("retrieve_my_pass",array('cle'=>$key->getCle())),
+                        'cle' => $key
                     );
 
                     $mailer = $this->get("ropi.cms.mailer");

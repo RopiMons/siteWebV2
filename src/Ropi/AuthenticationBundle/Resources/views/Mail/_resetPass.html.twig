@@ -11,7 +11,7 @@
 
     <p>Veuillez cliquer sur le lien suivant pour introduire un nouveau mot de passe</p>
 
-    {{ lien }}
+    {{ url("retrieve_my_pass", { cle: key.cle} ) }}
 
     <p>Ropieur'Bot</p>
 {% endblock %}

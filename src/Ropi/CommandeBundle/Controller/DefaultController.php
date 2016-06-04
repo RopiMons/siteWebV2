@@ -168,7 +168,7 @@ class DefaultController extends Controller
 
         $manager = $this->getDoctrine()->getManager();
 
-        switch($choixLivraison){
+        switch($choixLivraison){    
             case "commercant" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonCommerçant.html.twig',array('commerces' => $manager->getRepository("Ropi\CommerceBundle\Entity\Commerce")->findBy(array('depot'=>true,'visible'=>true,'valide'=>true)),'modeDeLivraison' => $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDeLivraison")->findOneBy(array('nom'=>'Chez un commercant')))));
             case "moi" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonADomicile.html.twig',array('adresses' => $this->getUser()->getPersonne()->getAdresses())));
             default : $test = null;
