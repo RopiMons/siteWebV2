@@ -39,7 +39,7 @@
                         {% if statut == constant('Ropi\\IdentiteBundle\\Entity\\Personne::MembreEffectif') %}
                             Prolongé Cotisation
                         {% elseif statut == constant('Ropi\\IdentiteBundle\\Entity\\Personne::MembreEffectifTemporaire') %}
-                            <a href="{{ path('admin_add_paiement_cotisation_membre', { id: user.getLastCotisationProcedure.id }) }}">Ajouter un paiement</a>
+                            <a href="{{ path('admin_add_paiement_cotisation_membre', { id: user.getLastCotisationProcedure.id, route : app.request.attributes.get('_route') }) }}">Ajouter un paiement</a>
                         {% else %}
                             <a href="{{ path('admin_new_cotisation_membre',{ id: user.id }) }}">Ajouter une cotisation</a>
                         {% endif %}

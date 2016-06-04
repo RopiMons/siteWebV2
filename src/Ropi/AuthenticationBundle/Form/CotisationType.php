@@ -22,10 +22,10 @@ class CotisationType extends AbstractType
                 'required' => true
             ))
             //->add('dateCreation', DateTimeType::class)
-            ->add('college',null,array(
+            /*->add('college',null,array(
                 'label' => 'Collège a assigner',
                 'required' => true
-            ))
+            ))*/
             //->add('personne')
         ;
     }

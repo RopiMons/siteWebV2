@@ -33,8 +33,15 @@
                     <a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
                     <a href="{{ path('commerce_change', {'id': commerce.id, 'proprety': 'valide', 'route': route }) }}"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
                     <a href="{{ path('commerce_remove',{ 'id': commerce.id, 'route': route }) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    {% if not commerce.hasActifCotisation %}<a href="{{ path('admin_add_paiement_et_cotisation_commerce', { id: commerce.id }) }}"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span></a>{% endif %}
 
+                    {% set statut = commerce.membreStatut  %}
+                    {% if statut == constant('Ropi\\CommerceBundle\\Entity\\Commerce::MembreEffectif') %}
+                       <!--- Prolonger la cotisation -->
+                    {% elseif statut == constant('Ropi\\CommerceBundle\\Entity\\Commerce::MembreEffectifTemporaire') %}
+                        <a href="{{ path( "admin_add_paiement_cotisation_membre" , { id: commerce.lastCotisationProcedure.id , route : app.request.attributes.get('_route') }) }}">Ajouter un paiement</a>
+                    {% else %}
+                        <a href="{{ path('admin_new_cotisation_commerce', { id: commerce.id }) }}">Ajouter une cotisation</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

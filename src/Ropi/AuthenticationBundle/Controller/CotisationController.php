@@ -9,6 +9,7 @@
 namespace Ropi\AuthenticationBundle\Controller;
 
 
+use Ropi\AuthenticationBundle\Entity\College;
 use Ropi\AuthenticationBundle\Entity\Cotisation;
 use Ropi\AuthenticationBundle\Entity\PaiementCot;
 use Ropi\AuthenticationBundle\Form\CotisationAndPaiementType;
@@ -17,6 +18,8 @@ use Ropi\AuthenticationBundle\Form\PaiementCotType;
 use Ropi\CommandeBundle\Entity\Paiement;
 use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\Personne;
+use Ropi\IdentiteBundle\Entity\TraitRepo\CotisationManagement;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,26 +29,58 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CotisationController extends Controller
 {
+    
     /**
      *
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/admin/membres/cotisation/new/personne/{id}", name="admin_new_cotisation_membre")
-     * @Template()
+     * @Template("RopiAuthenticationBundle:Cotisation:newCotisation.html.twig")
      */
+    public function newCotisationPersonneAction(Request $request,Personne $personne){
 
-    public function newCotisationAction(Request $request,Personne $personne){
+        $college = $this->getDoctrine()->getRepository(College::class)->findOneBy(array(
+            'numero' => '3'
+        ));
+
+        $retour = $this->newCotisationAction($request,$personne,$college, "Personne");
+
+        return ($retour == "Ok") ? $this->redirectToRoute('Ropi_admin_user_listing') : $retour ;
+    }
+
+    
+    /**
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/membres/cotisation/new/commerce/{id}", name="admin_new_cotisation_commerce")
+     * @Template("RopiAuthenticationBundle:Cotisation:newCotisation.html.twig")
+     */
+    public function newCotisationCommerceAction(Request $request,Commerce $commerce){
+
+        $college = $commerce->getCollege();
+
+        $retour = $this->newCotisationAction($request,$commerce, $college, "Commerce");
+
+        return ($retour == "Ok") ? $this->redirectToRoute('admin_commerces') : $retour ;
+    }
+    
+    
+    private function newCotisationAction(Request $request,$cotisationManagement,College $college, $type){
+
+        $functionName = "set".$type;
 
         $cotisation = new Cotisation();
-        $cotisation->setPersonne($personne);
+        $cotisation->$functionName($cotisationManagement);
 
         $form = $this->createForm(CotisationType::class, $cotisation)
             ->add('Enregistrer',SubmitType::class)
-            ;
+        ;
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $cotisation = $form->getData();
+
+            $cotisation->setCollege($college);
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($cotisation);
@@ -53,7 +88,7 @@ class CotisationController extends Controller
 
             $this->addFlash('success','La cotisation a bien été rajoutée');
 
-            return $this->redirectToRoute('Ropi_admin_user_listing');
+            return "Ok";
         }
 
         return array(
@@ -64,12 +99,11 @@ class CotisationController extends Controller
     }
 
     /**
-     *
      * @Security("has_role('ROLE_ADMIN')")
-     * @Route("/admin/membres/paiement/add/cotisation/{id}", name="admin_add_paiement_cotisation_membre")
+     * @Route("/admin/membres/paiement/add/cotisation/{id}/{route}", name="admin_add_paiement_cotisation_membre")
      * @Template("RopiAuthenticationBundle:Cotisation:newCotisation.html.twig")
-     */
-    public function addPaiement(Request $request, Cotisation $cotisation){
+     */    
+    public function addPaiement(Request $request, Cotisation $cotisation, $route){
 
         $paiement = new PaiementCot();
         $paiement->setCotisation($cotisation);
@@ -90,9 +124,8 @@ class CotisationController extends Controller
 
             $this->addFlash('success','Le paiement a bien été enregistré.');
 
-            return $this->redirectToRoute('Ropi_admin_user_listing');
-
-
+            return $this->redirectToRoute($route);
+            
         }
 
 

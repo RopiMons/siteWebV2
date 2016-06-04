@@ -20,11 +20,11 @@ class Personne
 {
     use CotisationManagement;
 
+
     const MembreEffectif = 'Membre Effectif';
     const MembreSympathisant = 'Membre Sympathisant';
     const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
     const MembreVolonte = 'Membre Volonté';
-
 
     /**
      * @var integer

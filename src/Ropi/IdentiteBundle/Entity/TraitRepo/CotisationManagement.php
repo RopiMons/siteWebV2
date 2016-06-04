@@ -5,8 +5,8 @@ namespace Ropi\IdentiteBundle\Entity\TraitRepo;
 use Ropi\AuthenticationBundle\Entity\Cotisation;
 
 trait CotisationManagement{
-
-    /**
+    
+     /**
      * @return Cotisation
      */
     abstract public function getCotisations();

@@ -27,6 +27,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Commerce
 {
     use CotisationManagement;
+
+
+    const MembreEffectif = 'Membre Effectif';
+    const MembreSympathisant = 'Membre Sympathisant';
+    const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
     /**
      * @var integer
      *
@@ -621,5 +626,16 @@ class Commerce
     public function removeCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
     {
         $this->cotisations->removeElement($cotisation);
+    }
+
+    public function getMembreStatut(){
+
+        if($this->hasActifCotisation()){
+            return self::MembreEffectif;
+        }elseif($this->hasActifProcedurePaiement()){
+            return self::MembreEffectifTemporaire;;
+        }else{
+            return self::MembreSympathisant;
+        }
     }
 }
