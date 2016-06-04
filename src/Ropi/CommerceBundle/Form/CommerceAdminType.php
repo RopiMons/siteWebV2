@@ -38,7 +38,20 @@ class CommerceAdminType extends CommerceType {
             ->add('personnes',null,array(
                 'label' => 'Personne(s) physique(s) associée(s) à ce commerce ',
                 'expanded' => false,
-                'multiple' => true
+                'multiple' => true,
+                'choice_label' => function($personne){
+                    try{
+
+                        $iw = $personne->getIdentifiantWeb();
+                        $retour = $iw->getUsername();
+
+                    }catch (\Exception $e){
+                        $retour = $personne->getNom(). " " . $personne->getPrenom();
+                    }finally{
+                        return $retour;
+                    }
+                }
+
             ))
 
             //->add('createdAt')
