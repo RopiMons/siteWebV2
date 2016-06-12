@@ -141,9 +141,12 @@ class AuthenticateController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
+
             $factory = $this->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($user->getIdentifiantWeb());
-            $user->getIdentifiantWeb()->setMotDePasse($encoder->encodePassword($user->getIdentifiantWeb()->getMotDePasse(), $user->getIdentifiantWeb()->getSalt()));
+
+            $encoder = $factory->getEncoder($user);
+            
+            $user->setMotDePasse($encoder->encodePassword($user->getMotDePasse(), $user->getSalt()));
 
 
             $em->persist($user);

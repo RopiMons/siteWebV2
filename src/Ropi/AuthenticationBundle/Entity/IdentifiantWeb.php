@@ -59,7 +59,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      *
      * @ORM\Column(name="motDePasse", type="string", length=255 )
      *  @Assert\Length(min=6, minMessage="Votre mot de passe dois avoir au moins {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du mot de passe ne peux pas dépasser {{ limit }} caractères")
+     * max =50, maxMessage="La longeur du mot de passe ne peux pas dépasser {{ limit }} caractères", groups={"registration"})
      */
     private $motDePasse;
 
