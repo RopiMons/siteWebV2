@@ -1,13 +1,13 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{ news.titre }}{% endblock %}
+{% block title %}{{ parser.parse(news.titre) }}{% endblock %}
 
   {% block content %}
     <div class="row">
 
      <div class="col-sm-12" style="margin-top: 20px;"> <h1 class="text-capitalize text-bold text-primary" style="display: inline;"><u> {{ news.titre }}</u> </h1><span class="pull-right">le {{ news.datePublication |date("d/m/Y") }} </span></div>
 
-      <div class="col-sm-12">{% autoescape true %} <p>{{ news.news |raw }} </p>
+      <div class="col-sm-12">{% autoescape true %} <p>{{ parser.parse(news.news) |raw }} </p>
 	  
 	  {% endautoescape %}
 	  </div>

@@ -54,9 +54,9 @@
     </div>
 
     <div class="caption">
-        <a href="{{ path("iola_corporation_news_detail", {'news':new.id}) }}"><h2>{{ new.titre }}</h2></a>
+        <a href="{{ path("iola_corporation_news_detail", {'news':new.id}) }}"><h2>{{ parser.parse(new.titre) }}</h2></a>
         {% autoescape true %}
-        <p>{{ new.news[:100]|raw  }}</p>
+        <p>{{ parser.parse(new.news[:100])|raw  }}</p>
         {% endautoescape %}
 
         <div id="ajax-start">
