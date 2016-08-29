@@ -15,10 +15,9 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
     public function findNewNews($max = 1,$min =0)
 {
     $x= $this->createQueryBuilder('d')
-        ->addSelect('a')
-        ->addSelect('f')
-        ->addOrderBy('d.datePublication','DESC')
-        ->addOrderBy('d.id','DESC')
+        ->select(array('d','a','f'))
+        ->orderBy('d.datePublication','DESC')
+        ->orderBy('d.id','DESC')
 
         ->leftJoin('d.album', 'a')
         ->leftJoin("a.files","f")
@@ -36,11 +35,8 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
   public function findNewsGame()
 {
     $x= $this->createQueryBuilder('d')
-        
-        ->addOrderBy('d.datePublication','DESC')
-        ->addOrderBy('d.id','DESC')
-
-        
+        ->orderBy('d.datePublication','DESC')
+        ->orderBy('d.id','DESC')
         ->where('d.enabledGame = True')
         ->andWhere('d.datePublication <= CURRENT_TIMESTAMP()');
 
@@ -54,10 +50,8 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
 
         $x= $this->createQueryBuilder('d')
             ->select('count(d)')
-            ->addOrderBy('d.datePublication','DESC')
-            ->addOrderBy('d.id','DESC')
-
-
+            ->orderBy('d.datePublication','DESC')
+            ->orderBy('d.id','DESC')
             ->where('d.enable = True')
             ->andWhere('d.datePublication <= CURRENT_TIMESTAMP()');
 
@@ -74,7 +68,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
     public function fiveNews($id){
 
     $x = $this->createQueryBuilder('n')
-        ->addOrderBy('n.datePublication','DESC')
+        ->orderBy('n.datePublication','DESC')
         ->where('n.id != :id')
         ->andWhere('n.enable =True')
         ->setParameter('id',$id)
@@ -86,7 +80,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
 
         $x = $this->createQueryBuilder('n')
 
-            ->addOrderBy('n.datePublication','DESC')
+            ->orderBy('n.datePublication','DESC')
             ->setFirstResult($start)
             ->setMaxResults($stop)
         ;
