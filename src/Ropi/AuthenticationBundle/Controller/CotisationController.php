@@ -42,7 +42,7 @@ class CotisationController extends Controller
             'numero' => '3'
         ));
 
-        $retour = $this->newCotisationAction($request,$personne,$college, "Personne");
+        $retour = $this->newCotisationAction($request,$personne, $college, "Personne");
 
         return ($retour == "Ok") ? $this->redirectToRoute('Ropi_admin_user_listing') : $retour ;
     }
