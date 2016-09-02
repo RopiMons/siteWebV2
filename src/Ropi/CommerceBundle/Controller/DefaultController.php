@@ -32,14 +32,18 @@ class DefaultController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            
+
             $repoAT = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeAdresse");
             $at = $repoAT->findOneBy(array('valeur'=>'Adresse du commerce'));
-            
-            $personne = $this->getUser()->getPersonne();
 
+            /** @var Commerce $commerce */
             $commerce = $form->getData();
-            $commerce->addPersonne($personne);
+
+            if(!$this->isGranted('ROLE_ADMIN')){
+                $personne = $this->getUser()->getPersonne();
+                $commerce->addPersonne($personne);
+            }
+
             $commerce->setVisible(false);
             $commerce->setDepot(false);
 
@@ -52,13 +56,15 @@ class DefaultController extends Controller {
 
             $em->persist($commerce);
             $em->flush();
-            
+
             $this->addFlash('success', 'Votre commerce nous a bien été proposé. Vous serez recontacté dès que possible.');
-            
-            $this->sendMailValidationCommerce($personne->getContacts(), $commerce, $personne);
-            
-            
-            
+
+            foreach ($commerce->getPersonnes() as $personne ) {
+                $this->sendMailValidationCommerce($personne->getContacts(), $commerce, $personne);
+            }
+
+
+
             return $this->redirect($this->generateUrl("Ropi_ok"));
         }
 
@@ -92,7 +98,7 @@ class DefaultController extends Controller {
 
     /**
      * @Security(" has_role('ROLE_ADMIN')")
-     * 
+     *
      * @Route("/my/commerce/validate/{id}", requirements={"id": "\d+"}, defaults={"id": null}, name="commerce_validate")
      * @Template()
      */
@@ -103,10 +109,10 @@ class DefaultController extends Controller {
             $commercant = $repo->findOneBy(array('id' => $id));
 
             if ($commercant) {
-                
+
                 $commercant->setValide(true);
-                  
-            
+
+
                 $this->getDoctrine()->getManager()->flush();
             }
 
@@ -141,7 +147,7 @@ class DefaultController extends Controller {
             }
 
             return $this->render("RopiCommerceBundle:Default:newCommerce.html.twig", array(
-                        'form' => $form->createView(),
+                'form' => $form->createView(),
             ));
         } else {
             throw $this->createNotFoundException();
@@ -150,9 +156,9 @@ class DefaultController extends Controller {
 
     /**
      * @Security( "has_role('ROLE_ADMIN')")
-     * 
+     *
      * @Route("/my/commerce/remove/{id}/{route}", requirements={"id": "\d+"}, defaults={"route": null}, name="commerce_remove")
-     * 
+     *
      */
     public function removeAction($id, $route = null) {
         $repo = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce");
@@ -186,10 +192,10 @@ class DefaultController extends Controller {
     }
 
     /**
-     * 
+     *
      * @Route("/my/commerce/{proprety}/{id}/{route}", requirements={"id": "\d+"}, name="commerce_change")
      * @Security( "has_role('ROLE_ADMIN')")
-     * 
+     *
      * Attention, très dangeureux d'ouvrir vers l'extérieure ... La généricité ...
      */
     public function changeProprety($proprety, $id, $route = null) {
@@ -227,13 +233,13 @@ class DefaultController extends Controller {
     }
 
     /**
-     * 
+     *
      * @Route("/commerces", name="commerces")
      * @Route("/map", name="qr_code_map")
      * @Route("/commerce/{nom}", name="commerce_view")
-     * 
+     *
      * @Template()
-     * 
+     *
      */
     public function commercesAction($nom = null) {
         $repo = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce");
@@ -247,7 +253,7 @@ class DefaultController extends Controller {
             ));
 
             if ($commerce && $commerce->getVisible()) {
-                
+
                 return $this->render("RopiCommerceBundle:Default:commerceView.html.twig",array(
                     'commerce'=>$commerce,
                 ));
@@ -272,20 +278,20 @@ class DefaultController extends Controller {
         return array(
             'commerces' => $tab
         );
-            
-        
+
+
     }
-    
+
     public function sendMailValidationCommerce($adresseCommercant, Commerce $commerce, Personne $personne){
-        
+
         $mailer = $this->get("ropi.cms.mailer");
-        
+
         foreach ($adresseCommercant as $contact){
             if($contact->getTypeContact()== "Mail"){
                 $mailer->sendMail("RopiCommerceBundle:Mail:_confirmationCommercant.html.twig",array('commerce'=>$commerce),$contact->getValeur(),"[Ropi.Be] confirmation de création de commerce");
             }
-        }      
-        
+        }
+
         $mailer->sendMail("RopiCommerceBundle:Mail:_notificationEquipe.html.twig",array('commerce'=>$commerce,'personne'=>$personne),"info@ropi.be","[Ropi.Be/admin] confirmation de création de commerce ");
 
 

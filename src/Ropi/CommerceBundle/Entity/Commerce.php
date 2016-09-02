@@ -53,6 +53,8 @@ class Commerce
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -117,6 +119,7 @@ class Commerce
      *
      * @ORM\Column(name="logo", type="string", length=255)
      *
+     *
      */
     private $logo;
 
@@ -133,6 +136,11 @@ class Commerce
      * )
      *
      * @var File
+     */
+
+    /**
+     * @var
+     * @Assert\NotNull(message="Merci d'uploader votre logo")
      */
     private $imageFile;
 

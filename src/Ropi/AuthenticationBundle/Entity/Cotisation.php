@@ -192,7 +192,7 @@ class Cotisation
     }
 
     public function isPaye(){
-        return $this->getMontantDejaPaye() >= $this->montant;
+        return $this->getMontantDejaPaye() >= $this->montant && $this->montant!=0;
     }
 
     public function getLastPaiement(){
@@ -211,9 +211,9 @@ class Cotisation
     }
 
     public function getDateEcheance(){
+
         if($this->isPaye()){
             $date = clone $this->getLastPaiement()->getDateOperation();
-
             return date_modify($date, '+1 year');
         }
     }
