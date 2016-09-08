@@ -114,19 +114,11 @@ class Commerce
      */
     private $etiquettes;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="string", length=255)
-     *
-     *
-     */
-    private $logo;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo", nullable=true)
+     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo")
      *
      * @Assert\Image(
      *     minWidth = 200,
@@ -135,14 +127,20 @@ class Commerce
      *     maxHeight = 400
      * )
      *
+     * @Assert\NotNull(message="Merci d'uploader votre logo")
+     *
      * @var File
      */
+    private $imageFile;
 
     /**
-     * @var
-     * @Assert\NotNull(message="Merci d'uploader votre logo")
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255)
+     *
+     *
      */
-    private $imageFile;
+    private $logo;
 
     /**
      * @var boolean

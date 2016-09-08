@@ -67,5 +67,5 @@ class CommerceAdminType extends CommerceType {
             'data_class' => 'Ropi\CommerceBundle\Entity\Commerce'
         ));
     }
-    
+
 }
