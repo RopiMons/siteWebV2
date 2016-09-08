@@ -14,9 +14,9 @@
         </ul>
     </p>
 
-    <p>Afin de valider votre adhésion, veuillez verser une cotisation de *[cotisationAssociationEuro] | *[cotisationPrestataireEuro] € sur le fonds de garantie de l'asbl Ropi *[compteFondGarantie] avec en communication "Cotisation nom du commerce".</p>
-    <p>Alternativement, vous pouvez choisir de payer votre cotisation directement en Ropi. Le montant de la cotisation est de *[cotisationAssociationRopi] | *[cotisationPrestataireRopi] Ropi et pourra être transmise à un bénévole lors de son passage. Si vous n'avez pas encore de Ropi, vous pouvez les commander par internet via Mon espace Ropi -> Commander des Ropi.</p>
-    <p>Une fois votre commerce validé, pouvez-vous aussi contrôler que la [localisation géographique (GPS)](http://dev.ropi.be/commerces) de votre commerce, basée sur l'adresse que vous avez introduite, est bien correcte ? Dans le cas contraire, nous pourrons faire la correction nécessaire lors de notre rencontre.</p>
+    <p>Afin de valider votre adhésion, veuillez verser une cotisation de {% if commerce.college.numero == 2 %}*[cotisationAssociationEuro]{% else %}*[cotisationPrestataireEuro]{% endif %} € sur le fonds de garantie de l'asbl Ropi *[compteFondGarantie] avec en communication "Cotisation nom du commerce".</p>
+    <p>Alternativement, vous pouvez choisir de payer votre cotisation directement en Ropi. Le montant de la cotisation est de {% if commerce.college.numero == 2 %}*[cotisationAssociationRopi]{% else %}*[cotisationPrestataireRopi]{% endif %} Ropi et pourra être transmise à un bénévole lors de son passage. Si vous n'avez pas encore de Ropi, vous pouvez les commander par internet via Mon espace Ropi -> [Commander des Ropi](https://www.ropi.be/page/Actions/Commander%20des%20Ropi).</p>
+    <p>Une fois votre commerce validé, pouvez-vous aussi contrôler que la [localisation géographique (GPS)](https://www.ropi.be) de votre commerce, basée sur l'adresse que vous avez introduite, est bien correcte ? Dans le cas contraire, nous pourrons faire la correction nécessaire lors de notre rencontre.</p>
     <p>
     A très bientôt,
     L'équipe Ropi
