@@ -4,6 +4,7 @@ namespace Ropi\CommandeBundle\Controller;
 
 use Ropi\CommandeBundle\Entity\ArticleCommande;
 use Ropi\CommandeBundle\Entity\Commande;
+use Ropi\CommandeBundle\Entity\ModeDeLivraison;
 use Ropi\CommandeBundle\Form\CommandeClientType;
 use Ropi\CommandeBundle\Form\CommandePaiementType;
 use Ropi\CommandeBundle\Form\CommandeType;
@@ -169,7 +170,7 @@ class DefaultController extends Controller
         $manager = $this->getDoctrine()->getManager();
 
         switch($choixLivraison){    
-            case "commercant" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonCommerçant.html.twig',array('commerces' => $manager->getRepository("Ropi\CommerceBundle\Entity\Commerce")->findBy(array('depot'=>true,'visible'=>true,'valide'=>true)),'modeDeLivraison' => $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDeLivraison")->findOneBy(array('nom'=>'Chez un commercant')))));
+            case "commercant" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonCommercant.html.twig',array('commerces' => $manager->getRepository(Commerce::class)->findBy(array('depot'=>true,'visible'=>true,'valide'=>true)),'modeDeLivraison' => $manager->getRepository(ModeDeLivraison::class)->findOneBy(array('nom'=>'Dépôt chez un commerçant')))));
             case "moi" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonADomicile.html.twig',array('adresses' => $this->getUser()->getPersonne()->getAdresses())));
             default : $test = null;
         }

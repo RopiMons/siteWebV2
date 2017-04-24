@@ -31,7 +31,7 @@
     ],
     "require": {
 
-        "php": ">=5.5.9",
+        "php": ">=7",
         "symfony/symfony": "3.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",

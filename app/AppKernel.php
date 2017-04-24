@@ -22,7 +22,7 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Ropi\CMSBundle\RopiCMSBundle(),
-            new \RobertoTru\ToInlineStyleEmailBundle\RobertoTruToInlineStyleEmailBundle(),
+            new RobertoTru\ToInlineStyleEmailBundle\RobertoTruToInlineStyleEmailBundle(),
 
             new Ropi\TestBundle\RopiTestBundle(),
             new Ropi\CommerceBundle\RopiCommerceBundle(),
