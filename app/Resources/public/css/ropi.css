@@ -1,28 +1,16 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 25 mai 2015, 19:45:38
-    Author     : Laurent Cardon <laurent.cardon@ropi.be>
-*/
-
-
-
 .dropdown-submenu{position:relative;}
-.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;border-radius:0 6px 6px 6px;}
 .dropdown-submenu:hover>.dropdown-menu{display:block;}
 .dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
-.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px; border-radius:6px 0 6px 6px;}
 .margin-left{margin-left: 10px;}
 
 .navbar-brand{
 	height: inherit;
 }
 
-.souligné{
+.souligne{
     text-decoration: underline;
 }
 /* Police personalisée*/
@@ -133,7 +121,7 @@ body{
 
 #Global #gauche {
 	float: left;
-	with : 30%;
+	width : 30%;
 }
 
 #Global #droite {
@@ -168,24 +156,12 @@ aside li {
 }
 
 ul li img:hover{
-	-webkit-transform: scale(1.10);
-		-moz-transform: scale(1.10);
-		-ms-transform: scale(1.10);
-		-o-transform: scale(1.10);
 			transform: scale(1.10);
 }
 ul li img{
-	-webkit-transition: all .5s cubic-bezier( .6, 2, .4, 1);
-		-moz-transition: all .5s cubic-bezier( .6, 2, .4, 1);
-		-ms-transition: all .5s cubic-bezier( .6, 2, .4, 1);
-		-o-transition: all .5s cubic-bezier( .6, 2, .4, 1);
 			transition: all .5s cubic-bezier( .6, 2, .4, 1);
 }
 ul:hover li img:not(:hover){
-	-webkit-filter: grayscale(1) blur(2px);
-		-moz-filter: grayscale(1) blur(2px);
-		-ms-filter: grayscale(1) blur(2px);
-		-o-filter: grayscale(1) blur(2px);
 			filter: grayscale(1) blur(2px);
 }
 

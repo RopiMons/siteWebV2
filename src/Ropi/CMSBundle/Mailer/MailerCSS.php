@@ -51,7 +51,7 @@ class MailerCSS
 
         $converter->setHTMLByView($template,$templateOption);
         $converter->setCSS(file_get_contents($this->rootDir . '/../app/Resources/public/css/ropi.css'));
-        $body = $this->parser->parse($converter->generateStyledHTML());
+        $body = $converter->css
         
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
