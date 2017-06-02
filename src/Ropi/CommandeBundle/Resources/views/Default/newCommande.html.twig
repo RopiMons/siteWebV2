@@ -17,10 +17,10 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Image</th>
-                <th>Quantité</th>
-                <th>Articles</th>
-                <th>Prix</th>
+                <th>Apperçu Billet</th>
+                <th>Quantité à commander</th>
+                <th>Description</th>
+                <th>Prix (€)</th>
             </tr>
             </thead>
             <tbody>
@@ -28,16 +28,19 @@
                 <tr>
                     <td width="40%"><img class="col-sm-8 img100" src="{{ vich_uploader_asset(formac.article.vars.data, 'imageFile') }}" alt="{{ formac.article.vars.value.nom }}" /></td>
                     <td style="vertical-align: middle">
-                        {{ form_widget(formac.quantite) }}
+                        {{ form_widget(formac.quantite, {'attr' : {'class' : 'toUpdate'} }) }}
                         {{ form_errors(formac.quantite) }}
                     </td>
                     <td style="vertical-align: middle"><p>{{ formac.article.vars.value.nom |capitalize }}</p></td>
-                    <td style="vertical-align: middle">{{ formac.article.vars.value.prix }} €</td>
+                    <td id="prix" style="vertical-align: middle">{{ formac.article.vars.value.prix }} €</td>
                 </tr>
 
             {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div id="totalArticle">
+        <p>Sous-total : 0€</p>
     </div>
 
     <h2>Lieu de livraison</h2>
@@ -46,7 +49,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <div class="thumbnail" id="commercant">
+            <div class="thumbnail changePointer" id="commercant">
                 <div class="caption" >
                     <h2>Chez un COMMERCANT</h2>
                     <p>Sans frais</p>
@@ -54,7 +57,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-6">
-            <div class="thumbnail" id="moi">
+            <div class="thumbnail changePointer" id="moi">
                 <div class="caption">
                     <h2>Chez MOI</h2>
                     <p>Moyennant participation</p>

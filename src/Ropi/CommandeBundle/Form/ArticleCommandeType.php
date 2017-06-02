@@ -16,7 +16,9 @@ class ArticleCommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantite')
+            ->add('quantite',null,array(
+                'attr' => array('min'=>'0')
+            ))
             ->add('article',TextType::class,array(
                 'data_class' => "Ropi\CommandeBundle\Entity\Article",
                 'disabled' => true,

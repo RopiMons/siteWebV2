@@ -1,7 +1,4 @@
 $(document).ready(function(){
-
-
-
     $(".thumbnail").click(function(){
 
         $("#result2").html(" ");
@@ -19,6 +16,14 @@ $(document).ready(function(){
 
         });
 
+    });
+
+    $(".toUpdate").change(function(){
+        var montant = 0;
+        $(".toUpdate").each(function(){
+            montant += parseInt($(this).val()) * parseFloat($("#prix",$(this).parents("tr")[0]).html());
+        });
+        $("div#totalArticle").html("<p>Sous Total : " + montant.toString() + " €</p>");
     });
 
 

@@ -1,15 +1,19 @@
 <h2>Récapitulatif de votre commande {{ commande.refCommande }}</h2>
 
 <h4>Coupures demandées</h4>
+{% set total = 0 %}
 <ul>
     {% for qa in commande.articlesQuantite %}
         <li>{{ qa.quantite }} {{ qa.article.nom }} ({{ qa.quantite }} x {{ qa.article.prix }}€)</li>
+        {% set total = total +   (qa.quantite  * qa.article.prix)  %}
     {% endfor %}
 </ul>
+<div id="totalArticle">Sous-total commande : {{ total }} €</div>
 <br \>
 <h4>Mode de livraison sélectionné : </h4>
 <p>{{ commande.modeDeLivraison.nom }} (frais de livraison:{{ commande.modeDeLivraison.frais }} €)</p>
 <p>{{ commande.modeDeLivraison.description }}</p>
+<div id="totalArticle">Sous-total livraison : {{ commande.modeDeLivraison.frais }} €</div>
 <br \>
 <h4>Adresse de livraison</h4>
 {% set adresse = commande.adresseDeLivraison %}

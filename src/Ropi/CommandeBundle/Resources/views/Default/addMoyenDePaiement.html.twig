@@ -10,11 +10,24 @@
         {% for mode in mdp  %}
 
             <input type="radio" name="moyenDePaiement" value="{{ mode.id }}" {% if loop.index0 == 0 %}checked="checked"{% endif %}>{{ mode.nom }} (frais supplémentaires + {{ mode.computeFrais }} €)<br \>
+            <input type="hidden" id="montant_{{ mode.id }}" value="{{ mode.computeFrais }} " />
         {% endfor %}
+        <div id="totalArticle" class="sousTotalPaiement"></div>
+
         <br \>
 
+        <div id="totalCommande"></div>
+        <input type="hidden" id="montantTotalCommande" value="{{ commande.prix }}" \>
+        <br \>
+        <br \>
         <input type="submit" value="Je termine ma commande">
 
     </form>
 
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@RopiCommandeBundle/Resources/public/js/formAddCommande.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
