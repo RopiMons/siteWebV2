@@ -21,7 +21,7 @@ use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\AuthenticationBundle\Entity\KeyValidation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Ropi\IdentiteBundle\Form\ContactAdminType;
-
+use Symfony\Component\Security\Core\Exception\AccessDeniedException ;
 
 
 class AccountController extends Controller
@@ -102,7 +102,9 @@ class AccountController extends Controller
 
         if(!is_string($message) || !is_string($cheminRetour)){
 
-            throw $this->createAccessDeniedException("Une erreur s'est produite!");
+            throw new $this->createAccessDeniedException("Une erreur s'est produite!");
+
+
         }
 
         $form = $this->createForm($type, $user);
@@ -179,7 +181,7 @@ class AccountController extends Controller
             );
 
         } else {
-            throw $this->createNotFoundException();
+            throw new $this->createNotFoundException();
         }
     }
 
