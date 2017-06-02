@@ -132,10 +132,7 @@
 
                     {% include ("chemin.html.twig") %}
 
-
-                    {% block content %} plan
-
-                    {% endblock %}
+                    {% block content %}{% endblock %}
 
                 </div>
             </article>
@@ -163,8 +160,7 @@
 
 
 
-                {% block rightColumn %}
-                {% endblock %}
+                {% block rightColumn %}{% endblock %}
 
             </div>
         </div>
@@ -189,7 +185,7 @@
             </nav>
         </div>
         <div class="col-sm-3" id="copyright">
-            {% block footCopyright %} <p>2015 Copyright©ropi.be</p>{% endblock %}
+            {% block footCopyright %} <p>2017 Copyright©ropi.be</p>{% endblock %}
 
         </div>
     </div>

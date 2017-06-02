@@ -1,5 +1,5 @@
 
-<h1 class="souligné"> {{ titre }} </h1>
+<h1 class="souligne"> {{ titre }} </h1>
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
@@ -7,7 +7,7 @@
     {{ form_row(form.Personne.prenom) }}
     {{ form_row(form.Personne.dateNaissance) }}
 
-<h2 class="souligné">Identifiant web:</h2>
+<h2 class="souligne">Identifiant web:</h2>
 <p class="margin5">
     {% if user %}
     Login : {{ user.username }}<br>

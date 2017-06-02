@@ -4,7 +4,7 @@
 
 
 {% block content %}
-    <h1 class="souligné"> Mon compte: </h1>
+    <h1 class="souligne"> Mon compte: </h1>
     Mon statut au sein de l'ASBL :
     {% if user.membreStatut == constant('Ropi\\IdentiteBundle\\Entity\\Personne::MembreEffectif') %}
         Membre effectif (Echéance cotisation {{ user.lastCotisationPaye.dateEcheance|date("d/m/Y") }})
