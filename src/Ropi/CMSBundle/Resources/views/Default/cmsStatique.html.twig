@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+    <div class="pageStatique">
     {{ parser.parse(page.contenu)|raw }}
+    </div>
 {% endblock %}

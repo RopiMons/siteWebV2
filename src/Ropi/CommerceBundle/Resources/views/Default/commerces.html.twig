@@ -7,15 +7,15 @@
         <tr>
             <th>Logo</th>
             <th>Nom du magasin</th>
-            <th>Adresse</th>
-            <th>Code Postal</th>
+            <th class="hidden-xs">Adresse</th>
+            <th class="hidden-xs">Code Postal</th>
         </tr>
         </thead>
         {% for commerce in commerces %}
             <tr>
                 <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}"><img class="col-sm-12 logoCommerceView" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" /></a></td>
                 <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}">{{ commerce.nom }}</a></td>
-                <td>
+                <td class="hidden-xs">
                     {% for adresse in commerce.adresses %}
 
                         {{ adresse.rue }}, {{ adresse.numero }}
@@ -23,7 +23,7 @@
                     {% endfor %}
                 </td>
 
-                <td>
+                <td class="hidden-xs">
                     {% for adresse in commerce.adresses %}
                         {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}
                     {% endfor %}
