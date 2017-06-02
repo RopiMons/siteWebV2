@@ -142,17 +142,38 @@ class AccountController extends Controller
      */
     public function DeleteUserAction(Request $request, Personne $personne){
 
-        $this->remove($personne);
-
+       if ($personne->getIdentifiantWeb() != null) $this->remove($personne->getIdentifiantWeb());
+        else $this->remove($personne);
         return $this->redirectToRoute("Ropi_admin_user_listing");
     }
 
-    private function remove($objet){
+    private function remove($objet,$boolPersonne = 0){
 
         if ($objet) {
+            if (get_class($objet) == "Personne"){
+                    $personne = $objet;
+            }
+            else{$addresses = $objet->getPersonne()->getAdresses();
+                $personne = $objet->getPersonne();
+                $this->getDoctrine()->getManager()->remove($objet);
+            }
+            $contacts = $personne->getContacts();
+            $addresses = $personne->getReelAdresses();
+            $personne->setEnable(false);
+            //$this->getDoctrine()->getManager()->remove($objet);
+            //$this->getDoctrine()->getManager()->flush();
 
-            $this->getDoctrine()->getManager()->remove($objet);
+            foreach(  $addresses as $addresse){
+                $this->getDoctrine()->getManager()->remove($addresse);
+            }
+            foreach($contacts as $contact){
+                $this->getDoctrine()->getManager()->remove($contact);
+            }
+
+            $this->getDoctrine()->getManager()->remove($contact);
             $this->getDoctrine()->getManager()->flush();
+
+
             $this->get('session')->getFlashBag()->add(
                 'success', 'Suppression effectuée :-)'
             );

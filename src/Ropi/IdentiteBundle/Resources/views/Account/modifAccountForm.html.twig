@@ -76,12 +76,22 @@
             {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-primary" href="{{ path("Ropi_adress_add") }}"> ajouter une adresse </a><br>
+        <a class="btn btn-primary" href="{{ path("Ropi_adress_add") }}"> ajouter une adresse </a><br><br>
+
     </div>
 {% endif %}
 {{form_row(form._token)}}
 {{form_row(form.Enregistrer)}}
 
+<a class="btn btn-primary" onclick="if(confirm('toto')){ window.location='{{path('Ropi_admin_user_delete',{'personne':user.id})}}'}">Supprimer l'utilisateur<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 
 
+<script type="application/javascript">
+    function delt (url){
+
+    if(confirm("Voulez vous vraiment supprimer ce commentaire ?")){
+        window.location=url;
+    }
+}
+</script>
 

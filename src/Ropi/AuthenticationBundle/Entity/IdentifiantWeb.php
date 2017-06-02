@@ -111,8 +111,14 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     private $personne;
 
-    
-   
+    /**
+     * @var int
+     *
+     * @ORM\OneToMany(targetEntity="IolaCorporation\NewsBundle\Entity\News", mappedBy="user" , cascade={"persist"})
+     *@ORM\JoinColumn(nullable=true)
+     */
+    private $news;
+
 
     /**
      * Get id
@@ -257,6 +263,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
         $this->personne = new Personne();
         $this->role= new \Doctrine\Common\Collections\ArrayCollection();
         $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -438,4 +445,15 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
         $this->role = $role;
     }
 
+    /**
+     * @ORM\PreRemove
+     */
+    public function onPreRemove()
+    {
+        foreach ($this->news as $new) {
+            $new->setuser();
+        }
+
+
+    }
 }

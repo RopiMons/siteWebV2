@@ -41,7 +41,8 @@ class News
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb")
+     * @ORM\ManyToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", inversedBy="news",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
