@@ -35,7 +35,7 @@
                         <td colspan="3"><a href="{{ path("Ropi_admin_add_identifiantWeb",{"personne": user.id}) }}" ><button>Cree un identifiant Web</button></a> </td>
                     {% endif %}
                     <td> <a href="{{ path("Ropi_admin_user_modification",{'user':user.id})}}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-                        <a href="{{ path("Ropi_admin_user_delete",{'personne':user.id})}}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        <a href="" onclick="ConfirmDialog('{{url("Ropi_admin_user_delete",{'personne':user.id}) }}' );"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 
                         {% if statut == constant('Ropi\\IdentiteBundle\\Entity\\Personne::MembreEffectif') %}
                             Prolongé Cotisation
@@ -53,4 +53,11 @@
         </table>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@IolaCorporationNewsBundle/Resources/public/js/alert.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

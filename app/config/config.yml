@@ -48,7 +48,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ RopiCMSBundle, RopiCommandeBundle ]
+    bundles:        [ RopiCMSBundle, RopiCommandeBundle, IolaCorporationNewsBundle, RopiIdentiteBundle, RopiCommerceBundle ]
     #java: /usr/bin/java
     filters:
         lessphp:
