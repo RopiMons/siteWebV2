@@ -306,5 +306,10 @@ div#totalArticle{
 	font-weight: bold;
 }
 
+.changePointer:hover{
+	cursor: pointer;
+	background-color: #00b3ee;
+}
+
 html, body { height: 100%; margin: 0; padding: 0; }
 #googleCarte { height: 100%; }
