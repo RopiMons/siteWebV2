@@ -301,5 +301,10 @@ a{
     
 }
 
+div#totalArticle{
+	text-align: right;
+	font-weight: bold;
+}
+
 html, body { height: 100%; margin: 0; padding: 0; }
 #googleCarte { height: 100%; }
