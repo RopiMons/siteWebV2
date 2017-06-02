@@ -70,10 +70,33 @@ class Personne
     private $volonteMembre = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ropi\CommandeBundle\Entity\Commande", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="Ropi\CommandeBundle\Entity\Commande", mappedBy="client",  cascade={"persist"})
      */
 
     private $commandes;
+    /**
+     * @var \Boolean
+     *
+     * @ORM\Column(name="enable", type="boolean", options={"default":true})
+     */
+    private $enable;
+
+    /**
+     * @return boolean
+     */
+    public function isEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * @param boolean $enable
+     */
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
+    }
+
 
 
 
@@ -85,13 +108,13 @@ class Personne
     private $creeLe;
 
     /**
-     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"remove"})
      * @Assert\Valid
      */
     private $contacts;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"persist"})
      */
     private $commerces;
 
@@ -102,13 +125,13 @@ class Personne
     private $identifiantWeb;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove"})
      * @Assert\Valid
      */
     private $adresses;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="personne")
+     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="personne" , cascade={"persist"})
      */
     private $cotisations;
 
@@ -354,7 +377,9 @@ class Personne
 
         return ($retour->count() > 0) ? $retour : null;
     }
-
+    public function getReelAdresses(){
+        return $this->adresses;
+    }
 
 
     /**

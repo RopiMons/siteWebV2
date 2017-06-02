@@ -21,7 +21,7 @@ use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\AuthenticationBundle\Entity\KeyValidation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Ropi\IdentiteBundle\Form\ContactAdminType;
-
+use Symfony\Component\Security\Core\Exception\AccessDeniedException ;
 
 
 class AccountController extends Controller
@@ -102,7 +102,9 @@ class AccountController extends Controller
 
         if(!is_string($message) || !is_string($cheminRetour)){
 
-            throw $this->createAccessDeniedException("Une erreur s'est produite!");
+            throw new $this->createAccessDeniedException("Une erreur s'est produite!");
+
+
         }
 
         $form = $this->createForm($type, $user);
@@ -142,23 +144,44 @@ class AccountController extends Controller
      */
     public function DeleteUserAction(Request $request, Personne $personne){
 
-        $this->remove($personne);
-
+       if ($personne->getIdentifiantWeb() != null) $this->remove($personne->getIdentifiantWeb());
+        else $this->remove($personne);
         return $this->redirectToRoute("Ropi_admin_user_listing");
     }
 
-    private function remove($objet){
+    private function remove($objet,$boolPersonne = 0){
 
         if ($objet) {
+            if (get_class($objet) == "Personne"){
+                    $personne = $objet;
+            }
+            else{$addresses = $objet->getPersonne()->getAdresses();
+                $personne = $objet->getPersonne();
+                $this->getDoctrine()->getManager()->remove($objet);
+            }
+            $contacts = $personne->getContacts();
+            $addresses = $personne->getReelAdresses();
+            $personne->setEnable(false);
+            //$this->getDoctrine()->getManager()->remove($objet);
+            //$this->getDoctrine()->getManager()->flush();
 
-            $this->getDoctrine()->getManager()->remove($objet);
+            foreach(  $addresses as $addresse){
+                $this->getDoctrine()->getManager()->remove($addresse);
+            }
+            foreach($contacts as $contact){
+                $this->getDoctrine()->getManager()->remove($contact);
+            }
+
+            $this->getDoctrine()->getManager()->remove($contact);
             $this->getDoctrine()->getManager()->flush();
+
+
             $this->get('session')->getFlashBag()->add(
                 'success', 'Suppression effectuée :-)'
             );
 
         } else {
-            throw $this->createNotFoundException();
+            throw new $this->createNotFoundException();
         }
     }
 

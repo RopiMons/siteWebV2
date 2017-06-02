@@ -24,7 +24,7 @@ class ListingController extends Controller
      public function listingUserAction(Request $request) {
 
          $repoUser= $this->getDoctrine()->getRepository("Ropi\identiteBundle\Entity\Personne");
-         $users = $repoUser->findAll();
+         $users = $repoUser->findByEnable(true);
 
 
         return array("users"=>$users);

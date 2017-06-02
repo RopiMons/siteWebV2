@@ -59,7 +59,7 @@ class Commande
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes")
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes", cascade={"all"})
      */
 
     private $client;
