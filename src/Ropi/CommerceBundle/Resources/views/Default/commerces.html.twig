@@ -1,34 +1,33 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1>Voici les commerçants montois adhérents au Ropieur</h1>
-    <table class="table table-responsive">
-        <thead>
-        <tr>
-            <th>Logo</th>
-            <th>Nom du magasin</th>
-            <th>Adresse</th>
-            <th>Code Postal</th>
-        </tr>
-        </thead>
-        {% for commerce in commerces %}
-            <tr>
-                <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}"><img class="col-sm-12 logoCommerceView" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" /></a></td>
-                <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}">{{ commerce.nom }}</a></td>
-                <td>
-                    {% for adresse in commerce.adresses %}
-
-                        {{ adresse.rue }}, {{ adresse.numero }}
-                        {{ adresse.complement }}
-                    {% endfor %}
-                </td>
-
-                <td>
-                    {% for adresse in commerce.adresses %}
-                        {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}
-                    {% endfor %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <h1>Nos commerçants montois</h1>
+    {{ sg_datatables_render(datatable) }}
 {% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/v/bs/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-flash-1.2.2/b-html5-1.2.2/b-print-1.2.2/fc-3.2.2/fh-3.1.2/r-2.1.0/datatables.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css">
+        <link rel="stylesheet" href="https://cdn.rawgit.com/noelboss/featherlight/1.7.1/release/featherlight.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.css"/>
+    {% endblock %}
+    {% block headJavascripts %}
+        {{ parent() }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.js" charset="UTF-8"></script>
+        <script src="https://cdn.datatables.net/v/bs/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-flash-1.2.2/b-html5-1.2.2/b-print-1.2.2/fc-3.2.2/fh-3.1.2/r-2.1.0/datatables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+        <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.1/release/featherlight.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
+
+        <script src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    {% endblock %}

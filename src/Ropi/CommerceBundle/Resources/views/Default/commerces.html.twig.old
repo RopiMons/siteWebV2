@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>Voici les commerçants montois adhérents au Ropieur</h1>
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Nom du magasin</th>
+            <th>Adresse</th>
+            <th>Code Postal</th>
+        </tr>
+        </thead>
+        {% for commerce in commerces %}
+            <tr>
+                <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}"><img class="col-sm-12 logoCommerceView" src="{{ vich_uploader_asset(commerce, 'imageFile') }}" alt="{{ commerce.nom }}" /></a></td>
+                <td><a href="{{ path('commerce_view', {'nom': commerce.nom}) }}">{{ commerce.nom }}</a></td>
+                <td>
+                    {% for adresse in commerce.adresses %}
+
+                        {{ adresse.rue }}, {{ adresse.numero }}
+                        {{ adresse.complement }}
+                    {% endfor %}
+                </td>
+
+                <td>
+                    {% for adresse in commerce.adresses %}
+                        {{ adresse.ville.codePostal }} {{ adresse.ville.ville }}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

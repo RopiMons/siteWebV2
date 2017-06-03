@@ -2,6 +2,7 @@
 
 namespace Ropi\CommerceBundle\Controller;
 
+use Ropi\CommerceBundle\Datatables\CommerceDatatable;
 use Ropi\IdentiteBundle\Entity\Personne;
 use Ropi\IdentiteBundle\Entity\TypeAdresse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DefaultController extends Controller {
 
@@ -181,7 +183,7 @@ class DefaultController extends Controller {
      */
     public function indexAction() {
         $repo = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce");
-        $commerces = $repo->findBy(array('valide' => true));
+        $commerces = $repo->getValideCommerces();
 
 
 
@@ -241,7 +243,7 @@ class DefaultController extends Controller {
      * @Template()
      *
      */
-    public function commercesAction($nom = null) {
+    public function commercesAction(Request $request, $nom = null) {
         $repo = $this->getDoctrine()->getRepository("Ropi\CommerceBundle\Entity\Commerce");
 
         if (isset($nom)) {
@@ -259,25 +261,11 @@ class DefaultController extends Controller {
                 ));
             }else{
                 $this->addFlash("danger", "Ce commerce n'existe pas ou n'est pas activé");
+                return $this->redirectToRoute("commerce_index");
             }
         }
 
-        $commerces = $repo->findBy(array(
-            'valide' => true,
-            'visible' => true
-        ));
-
-        $tab = array();
-
-        foreach ($commerces as $commerce){
-            if($commerce->getVisible()){
-                $tab[] = $commerce;
-            }
-        }
-
-        return array(
-            'commerces' => $tab
-        );
+       return $this->redirectToRoute("commerce_index");
 
 
     }
@@ -335,6 +323,65 @@ class DefaultController extends Controller {
         return array(
             'nb' => $nb
         );
+    }
+
+
+    /**
+     * Lists all Post entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/commercants", name="commerce_index")
+     * @Method("GET")
+     *
+     * @return Response
+     */
+    public function commerceIndexAction(Request $request)
+    {
+        $isAjax = $request->isXmlHttpRequest();
+
+        // Get your Datatable ...
+        //$datatable = $this->get('app.datatable.post');
+        //$datatable->buildDatatable();
+
+        // or use the DatatableFactory
+        /** @var DatatableInterface $datatable */
+        $datatable = $this->get('sg_datatables.factory')->create(CommerceDatatable::class);
+        $datatable->buildDatatable();
+
+        if ($isAjax) {
+            $responseService = $this->get('sg_datatables.response');
+            $responseService->setDatatable($datatable);
+
+            $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
+            $datatableQueryBuilder->buildQuery();
+
+            dump($datatableQueryBuilder->getQb()->getDQL()); //die();
+
+            return $responseService->getResponse();
+        }
+
+        return $this->render('RopiCommerceBundle:Default:commerces.html.twig', array(
+            'datatable' => $datatable,
+        ));
+    }
+
+    /**
+     * Finds and displays a Post entity.
+     *
+     * @param Post $post
+     *
+     * @Route("/commerces/{id}", name = "commerce_show", options = {"expose" = true})
+     * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @return Response
+     */
+    public function showAction(Commerce $commerce)
+    {
+        return $this->render('post/show.html.twig', array(
+            'commerce' => $commerce
+        ));
     }
 
 }

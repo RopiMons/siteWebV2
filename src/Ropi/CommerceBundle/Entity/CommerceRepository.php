@@ -35,4 +35,46 @@ class CommerceRepository extends EntityRepository {
             ;
     }
 
+    public function getValideCommerces(){
+        return $this->createQueryBuilder("c")
+            ->select(array('c'))
+            ->where("c.valide = :true")
+            ->setParameter("true",true)
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
+    public function getPublicCommerces(){
+        return $this->createQueryBuilder("c")
+            ->select(array('c','cot','p','a','v'))
+            ->leftJoin("c.cotisations","cot")
+            ->leftJoin("cot.paiements","p")
+            ->leftJoin("c.adresses","a")
+            ->leftJoin("a.ville","v")
+            ->where("c.valide = :true")
+            ->andWhere("c.visible = :true")
+            ->setParameter("true",true)
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
+
+    public function getCodePostalWithCommerceValideAndVisible(){
+
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb
+            ->select('DISTINCT(v.codePostal) AS codePostal, v.ville')
+            ->leftJoin('c.adresses','a')
+            ->leftJoin('a.ville','v')
+            ->where('c.visible = :true')
+            ->andWhere('c.valide = :true')
+            ->setParameter('true',true)
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
 }

@@ -24,7 +24,6 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 
-
 ropicms:
     resource: "@RopiCMSBundle/Controller/"
 
@@ -36,3 +35,10 @@ ropi_user:
 ropi_News:
     resource: "@IolaCorporationNewsBundle/Resources/config/routing.yml"
     prefix:   /
+
+sg_datatables:
+    resource: "@SgDatatablesBundle/Controller/"
+    type:     annotation
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

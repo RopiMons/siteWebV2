@@ -43,4 +43,16 @@ class AdresseRepository extends EntityRepository
             ;
 
     }
+
+    public function adresseCommerce($id){
+        return $this->createQueryBuilder('a')
+            ->select(array('a','v'))
+            ->leftJoin('a.ville','v')
+            ->where('a.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
+
 }

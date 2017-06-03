@@ -8,10 +8,9 @@ imports:
     - { resource: "@RopiCommerceBundle/Resources/config/services.yml" }
 
 
-
 framework:
     #esi:             ~
-    translator:      { fallbacks: fr }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -201,3 +200,19 @@ vich_uploader:
                 inject_on_load:     false # should the file be deleted when the entity is removed
                 delete_on_update:   true #  should the file be deleted when a new file is uploaded
                 delete_on_remove:   true # should the file be injected into the uploadable entity when it is loaded from the data store. The object will be an instance of Symfony\Component\HttpFoundation\File\File
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+    filter_sets:
+        cache: ~
+        thumbnail_50_x_50:
+            quality: 75
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }
+                background : { size : [54, 54], position : center, color : '#0B0B61' }
+        thumbnail_250_x_250:
+            quality: 98
+            filters:
+                thumbnail: { size: [250, 250], mode: outbound }
+                background : { size : [254, 254], position : center, color : '#0B0B61' }
