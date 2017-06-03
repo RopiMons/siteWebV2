@@ -3,11 +3,11 @@
 {% block title %}{{ parser.parse(news.titre) }}{% endblock %}
 
   {% block content %}
-    <div class="row">
+    <div class="row ">
 
      <div class="col-sm-12" style="margin-top: 20px;"> <h1 class="text-capitalize text-bold text-primary" style="display: inline;"><u> {{ news.titre }}</u> </h1><span class="pull-right">le {{ news.datePublication |date("d/m/Y") }} </span></div>
 
-      <div class="col-sm-12">{% autoescape true %} <p>{{ parser.parse(news.news) |raw }} </p>
+      <div class="col-sm-12 pageStatique">{% autoescape true %} <p>{{ parser.parse(news.news) |raw }} </p>
 	  
 	  {% endautoescape %}
 	  </div>
@@ -87,24 +87,3 @@
             {% endif %}
     </div>
   {% endblock %}
-
- {% block rightColumn %}
-
-     <div class="background_left" style="margin-left:20px;padding-left: 20px;">
-         <div class="row featurette">
-
-             <h2 >Les quelque dernieres news</h2>
-            <ul>
-             {% for news in fiveNews %}
-              <a href="{{ path('iola_corporation_news_detail',{'news':news.id }) }}"><li>{{ news.titre }}</li></a>
-                 {% endfor %}
-                 </ul>
-
-
-         </div>
-
-
-
-     </div>
-
- {% endblock %}

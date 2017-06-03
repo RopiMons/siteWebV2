@@ -55,7 +55,23 @@
     font-style: normal;
 
 }
+@media screen and (max-width: 700px) {
+	.pageStatique img {
+		max-width: 400px;
+		max-height: 400px;
+		width: 100%;
+		height: auto;
 
+	}
+}
+@media screen and (min-width: 701px) and (max-width: 3000px)  {
+	.pageStatique img {
+		max-width: 800px;
+		max-height: 800px;
+		width: 100%;
+		height: auto;
+	}
+}
 .margin5{
 	margin-left:10px ;
 }
@@ -313,3 +329,11 @@ div#totalArticle{
 
 html, body { height: 100%; margin: 0; padding: 0; }
 #googleCarte { height: 100%; }
+
+@media screen and (min-width: 1000px) {
+	.blockDroite{
+		padding-right: 0px;
+		margin-right: -80px;
+	}
+
+}

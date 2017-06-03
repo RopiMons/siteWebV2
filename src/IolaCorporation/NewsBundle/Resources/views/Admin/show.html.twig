@@ -39,13 +39,22 @@
 
                 <td>
                     <a href=" {{ path('iola_corporation_news_edit',{'news': new.id}) }} "><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a href=" {{ path('iola_corporation_news_delete',{'news': new.id}) }} "> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <a href=""onclick="ConfirmDialog('{{url('iola_corporation_news_delete',{'news': new.id}) }}' );"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                 </td>
             </tr>
           {% endfor %}
     </tbody>
       </table>
       </div>
+
+
+
   {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@IolaCorporationNewsBundle/Resources/public/js/alert.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 

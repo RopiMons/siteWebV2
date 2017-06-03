@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1>Nos commerçants montois</h1>
-    {{ sg_datatables_render(datatable) }}
+    <h1>Voici les commerçants montois adhérents au Ropi</h1>
+    <p>{{ sg_datatables_render(datatable) }}</p>
 {% endblock %}
 
     {% block stylesheets %}
@@ -25,7 +25,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
         <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.1/release/featherlight.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
-
         <script src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
 
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
