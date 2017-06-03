@@ -81,8 +81,6 @@ class CommerceDatatable extends AbstractDatatable
         $this->features->set(array(
         ));
 
-        dump($this->em->getRepository(Commerce::class)->getCodePostalWithCommerceValideAndVisible());
-
         $filtreOptions = array();
         foreach ($this->em->getRepository(Commerce::class)->getCodePostalWithCommerceValideAndVisible() as $tab){
             $filtreOptions[$tab['codePostal']] = $tab['codePostal'] . " " . $tab['ville'];
