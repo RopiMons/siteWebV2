@@ -38,7 +38,7 @@ class DefaultController extends Controller {
                 $contact->setPersonne($user);
                 $user->addContact($contact);
                 //$form->add(new \Ropi\IdentiteBundle\Form\ContactType($contact->getTypeContact()));
-                dump($contact->getTypeContact());
+
                 $form->add('contacts', CollectionType::class, array('entry_type' => new ContactType($contact->getTypeContact())));
                 $form->add("submit", SubmitType::class);
             }
@@ -75,7 +75,7 @@ class DefaultController extends Controller {
      * @Template()
      */
     public function roleAction(Request $request, Role $id = null) {
-        dump($id);
+
         if ($id === null)
             $role = new Role();
         else

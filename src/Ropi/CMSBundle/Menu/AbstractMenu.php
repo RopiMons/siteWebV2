@@ -52,7 +52,6 @@ Abstract class AbstractMenu  {
             $menu[$key]->setChildrenAttribute('role', 'menu');
             $menu[$key]->setChildrenAttribute('class', 'dropdown-menu');
         } else {
-            dump($compteur);
             if ($compteur <= 1)
                 $menu->addChild($key, array('uri' => '#', 'label' => $key))->setAttribute('class', 'dropdown-submenu  ');
             else

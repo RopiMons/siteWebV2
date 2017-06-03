@@ -356,8 +356,6 @@ class DefaultController extends Controller {
             $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
             $datatableQueryBuilder->buildQuery();
 
-            dump($datatableQueryBuilder->getQb()->getDQL()); //die();
-
             return $responseService->getResponse();
         }
 
