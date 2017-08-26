@@ -65,7 +65,7 @@ class Personne
     private $dateNaissance;
 
     /**
-     * @ORM\Column(name="volonteMembre", type="boolean")
+     * @ORM\Column(name="volonteMembre", type="boolean" , nullable=true, options={"default":false})
      */
     private $volonteMembre = false;
 
@@ -79,7 +79,7 @@ class Personne
      *
      * @ORM\Column(name="enable", type="boolean", options={"default":true})
      */
-    private $enable;
+    private $enable = true;
 
     /**
      * @return boolean
@@ -108,7 +108,7 @@ class Personne
     private $creeLe;
 
     /**
-     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne",  cascade={"persist"})
      * @Assert\Valid
      */
     private $contacts;
@@ -125,7 +125,7 @@ class Personne
     private $identifiantWeb;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove", "persist"})
      * @Assert\Valid
      */
     private $adresses;
