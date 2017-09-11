@@ -28,8 +28,10 @@ class InscriptionController extends Controller
         return $this->redirect($this->generateUrl("Ropi_ok"));
     }
     $users= new IdentifiantWeb();
-    $user = $users->getPersonne();
+    $users->setActif(true);
 
+    $user = $users->getPersonne();
+    
     $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
     $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
 
@@ -83,7 +85,8 @@ class InscriptionController extends Controller
 
 
         $em->flush();
-        $this->MailValidation($users, $cle);
+
+      //  $this->MailValidation($users, $cle);
 
          $this->get("session")->getFlashBag()->add(
                 'success',"Votre compte a bien été créé, vous allez recevoir un email afin de valider votre inscription !" );
@@ -95,6 +98,9 @@ class InscriptionController extends Controller
     );
 }
     private function MailValidation(IdentifiantWeb $personne, KeyValidation $cle){
+
+
+
 
         $mailer = $this->get("ropi.cms.mailer");
 
