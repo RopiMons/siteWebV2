@@ -28,10 +28,15 @@ class InscriptionController extends Controller
         return $this->redirect($this->generateUrl("Ropi_ok"));
     }
     $users= new IdentifiantWeb();
+
     $users->setActif(true);
+    $perm = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\Permission")->find(32);
+    $users->addPermission($perm);
+
 
     $user = $users->getPersonne();
-
+    $user->setEnable(true);
+    
     $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
     $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
 
