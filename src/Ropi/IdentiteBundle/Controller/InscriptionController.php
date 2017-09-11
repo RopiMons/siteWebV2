@@ -30,13 +30,13 @@ class InscriptionController extends Controller
     $users= new IdentifiantWeb();
 
     $users->setActif(true);
-    $perm = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\Permission")->find(32);
+    $perm = $this->getDoctrine()->getRepository("Ropi\AutheticateBundle\Entity\Permission")->find(32);
     $users->addPermission($perm);
 
 
     $user = $users->getPersonne();
     $user->setEnable(true);
-    
+
     $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
     $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
 
