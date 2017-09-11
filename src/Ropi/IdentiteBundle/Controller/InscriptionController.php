@@ -30,7 +30,8 @@ class InscriptionController extends Controller
     $users= new IdentifiantWeb();
 
     $users->setActif(true);
-    $perm = $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneById(32);
+    $perm =  $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneByPermission("ROLE_UTILISATEUR_ACTIVE");
+
     $users->addPermission($perm);
 
 
