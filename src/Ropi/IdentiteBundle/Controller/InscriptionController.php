@@ -29,14 +29,10 @@ class InscriptionController extends Controller
     }
     $users= new IdentifiantWeb();
 
-    $users->setActif(true);
-    $perm =  $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneByPermission("ROLE_UTILISATEUR_ACTIVE");
-
-    $users->addPermission($perm);
 
 
     $user = $users->getPersonne();
-    $user->setEnable(true);
+
 
     $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
     $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
@@ -76,6 +72,12 @@ class InscriptionController extends Controller
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
 
+        $users->setActif(true);
+        $perm =  $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneByPermission("ROLE_UTILISATEUR_ACTIVE");
+
+        $users->addPermission($perm);
+   
+
         $em = $this->getDoctrine()->getManager();
 
         $factory = $this->get('security.encoder_factory');
@@ -87,10 +89,14 @@ class InscriptionController extends Controller
 
         $cle = new KeyValidation($users->getSalt());
         $cle->setIdentifiantWeb($users->getId());
+
         $em->persist($cle);
 
 
         $em->flush();
+
+
+
 
       //  $this->MailValidation($users, $cle);
 
