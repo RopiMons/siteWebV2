@@ -31,7 +31,7 @@ class InscriptionController extends Controller
     $users->setActif(true);
 
     $user = $users->getPersonne();
-    
+
     $moyenDeContactRepo = $this->getDoctrine()->getRepository("Ropi\IdentiteBundle\Entity\TypeMoyenContact");
     $moyenDeContacts = $moyenDeContactRepo->loadForInscription();
 
@@ -89,7 +89,7 @@ class InscriptionController extends Controller
       //  $this->MailValidation($users, $cle);
 
          $this->get("session")->getFlashBag()->add(
-                'success',"Votre compte a bien été créé, vous allez recevoir un email afin de valider votre inscription !" );
+                'success',"Votre compte a bien été créé" );/*vous allez recevoir un email afin de valider votre inscription !*/
 
         return  $this->redirect($this->generateUrl("home"));
     }
