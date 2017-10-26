@@ -93,7 +93,7 @@ class Commerce
 
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="commerce", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="commerce", cascade={"persist", "remove"})
      */
     private $cotisations;
 
