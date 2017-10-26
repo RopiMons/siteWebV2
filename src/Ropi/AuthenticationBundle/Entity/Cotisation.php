@@ -53,7 +53,7 @@ class Cotisation
     private $personne;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="cotisations", cascade={"persist, "remove"})
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="cotisations", cascade={"persist"})
      */
     private $commerce;
 
