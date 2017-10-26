@@ -43,6 +43,7 @@ class CommerceAdminType extends CommerceType {
                     try{
 
                         $iw = $personne->getIdentifiantWeb();
+                        if (!isset($iw)) { $retour = $personne->getNom(). " " . $personne->getPrenom();}
                         $retour = $iw->getUsername();
 
                     }catch (\Exception $e){

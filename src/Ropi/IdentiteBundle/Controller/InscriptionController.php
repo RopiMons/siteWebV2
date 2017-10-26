@@ -76,7 +76,7 @@ class InscriptionController extends Controller
         $perm =  $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneByPermission("ROLE_UTILISATEUR_ACTIVE");
 
         $users->addPermission($perm);
-   
+
 
         $em = $this->getDoctrine()->getManager();
 
