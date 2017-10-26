@@ -41,11 +41,11 @@ class CommerceAdminType extends CommerceType {
                 'multiple' => true,
                 'choice_label' => function($personne){
                     try{
-
+                        $retour = $personne->getNom(). " " . $personne->getPrenom();
                         $iw = $personne->getIdentifiantWeb();
                         if (!isset($iw)) { $retour = $personne->getNom(). " " . $personne->getPrenom();}
-                        $retour = $iw->getUsername();
-                        
+                       else $retour = $iw->getUsername();
+
 
                     }catch (\Exception $e){
                         $retour = $personne->getNom(). " " . $personne->getPrenom();
