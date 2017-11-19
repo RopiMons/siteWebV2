@@ -314,14 +314,14 @@ class DefaultController extends Controller {
 
         $nb = 0;
 
-        foreach ($commerces as $commerce){
+        /*foreach ($commerces as $commerce){
             if($commerce->getVisible()){
                 $nb ++;
             }
-        }
+        }*/
 
         return array(
-            'nb' => $nb
+            'nb' => sizeof($commerces)
         );
     }
 
@@ -341,22 +341,25 @@ class DefaultController extends Controller {
         $isAjax = $request->isXmlHttpRequest();
 
         // Get your Datatable ...
-        //$datatable = $this->get('app.datatable.post');
-        //$datatable->buildDatatable();
-
-        // or use the DatatableFactory
-        /** @var DatatableInterface $datatable */
-        $datatable = $this->get('sg_datatables.factory')->create(CommerceDatatable::class);
+        $datatable = $this->get('app.datatable.commerces');
         $datatable->buildDatatable();
+
+
 
         if ($isAjax) {
             $responseService = $this->get('sg_datatables.response');
             $responseService->setDatatable($datatable);
 
             $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
-            $datatableQueryBuilder->buildQuery();
+
+            /** @var QueryBuilder $qb */
+            $qb = $datatableQueryBuilder->getQb()
+                ->where("commerce.valide = :true")
+                ->andWhere("commerce.visible = :true")
+                ->setParameter("true",true);
 
             return $responseService->getResponse();
+
         }
 
         return $this->render('RopiCommerceBundle:Default:commerces.html.twig', array(

@@ -5,3 +5,7 @@ services:
                     - { name: security.voter }
                 # small performance boost
                 public: false
+
+    app.datatable.commerces:
+                class: Ropi\CommerceBundle\Datatables\CommerceDatatable
+                parent: sg_datatables.datatable.abstract
