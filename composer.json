@@ -53,7 +53,7 @@
         "stfalcon/tinymce-bundle": "2.*",
         "vich/uploader-bundle" : "*",
         "friendsofsymfony/jsrouting-bundle": "*",
-        "sg/datatablesbundle": "^1.0",
+        "sg/datatablesbundle": "dev-master",
         "liip/imagine-bundle": "^1.8"
 
     },
