@@ -5,6 +5,7 @@ namespace Ropi\CMSBundle\Controller;
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use Ropi\CMSBundle\Entity\Categorie;
 use Ropi\CMSBundle\Entity\Page;
+use Ropi\CMSBundle\Entity\PageDynamique;
 use Ropi\CMSBundle\Form\CategorieType;
 use Ropi\CMSBundle\Form\PageDynamiqueType;
 use Ropi\CMSBundle\Map\Map;
@@ -82,7 +83,7 @@ class DefaultController extends Controller {
      */
     public function getPageAction($categorie = null, $titreMenu = null) {
         if (isset($categorie) && isset($titreMenu)) {
-            $repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageStatique');
+            $repo = $this->getDoctrine()->getRepository(PageStatique::class);
             try {
                 $page = $repo->getPageForCMS($categorie, $titreMenu);
                 $this->verifAutorisation($page);
@@ -99,7 +100,7 @@ class DefaultController extends Controller {
                 throw $this->createNotFoundException("Cette page n'a pas été trouvée");
             }
         } else {
-            $this->verifAutorisation($repo = $this->getDoctrine()->getRepository('Ropi\CMSBundle\Entity\PageDynamique')->findOneBy(array('titreMenu'=>'Accueil')));
+            $this->verifAutorisation($repo = $this->getDoctrine()->getRepository(PageDynamique::class)->findOneBy(array('titreMenu'=>'Accueil')));
             return $this->indexAction();
         }
     }

@@ -42,16 +42,16 @@ class Map
     
     public function getMarqueurs(){
 
-        $commerces = $this->entityManager->getRepository(Commerce::class)->findBy(array(
-            'visible' => true,
-            'valide' => true,
-            
-        ));
+        $commerces = $this->entityManager->getRepository(Commerce::class)->getForMap();
 
         $retour = array();
 
         if($commerces){
 
+            /**
+             * @var  int $key
+             * @var Commerce $commerce
+             */
             foreach ($commerces as $key => $commerce) {
 
                 if ($commerce->getVisible()) {

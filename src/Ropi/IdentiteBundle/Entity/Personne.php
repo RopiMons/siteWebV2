@@ -42,7 +42,7 @@ class Personne
      *  @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
      * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
-     * @Assert\Regex(pattern="/\d/", match = false ,message="La chaine ne peux pas avoir que des lettres")
+     *
      */
     private $nom;
 
@@ -53,7 +53,7 @@ class Personne
      * @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
      * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
-     * @Assert\Regex(pattern="/\d/", match = false ,message="La chaine ne peux pas avoir que des lettres")
+     *
      */
     private $prenom;
 

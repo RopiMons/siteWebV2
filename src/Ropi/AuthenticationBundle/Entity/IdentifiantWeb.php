@@ -385,13 +385,13 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
 
     public function serialize() {
         return serialize(array(
-            $this->id, $this->username, $this->motDePasse, $this->personne
+            $this->id, $this->username, $this->motDePasse
         ));
     }
 
     public function unserialize($serialized) {
         list (
-                $this->id, $this->username, $this->motDePasse, $this->personne
+                $this->id, $this->username, $this->motDePasse
                 ) = unserialize($serialized);
     }
 
@@ -400,7 +400,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     public function onPrePersist() {
         if (!isset($this->actif)) {
-            $this->actif = true;
+            $this->actif = false;
         }
         $this->setCreateAt(new \DateTime());
         

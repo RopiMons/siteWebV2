@@ -1,6 +1,6 @@
 <?php
 
-namespace Ropi\CommerceBundle\Entity;
+namespace Ropi\CommerceBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\DBAL\Types\Type;
@@ -73,6 +73,23 @@ class CommerceRepository extends EntityRepository {
             ->andWhere('c.valide = :true')
             ->setParameter('true',true)
             ->getQuery()
+            ->execute()
+            ;
+    }
+
+    public function getForMap(){
+        return $this->createQueryBuilder("c")
+            ->select(array("c","a","v","cot","p"))
+            ->leftJoin("c.adresses","a")
+            ->leftJoin("a.ville","v")
+            ->leftJoin("c.cotisations","cot")
+            ->leftJoin("cot.paiements","p")
+            ->where('c.visible = :true')
+            ->andWhere('c.valide = :true')
+            ->setParameter('true',true)
+            ->getQuery()
+            ->useQueryCache(true)
+            ->useResultCache(true)
             ->execute()
             ;
     }

@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Article
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\ArticleRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\ArticleRepository")
  *
  * @Vich\Uploadable
  */

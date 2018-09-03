@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Etiquette
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\EtiquetteRepository") *
+ * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Repository\EtiquetteRepository") *
  */
 class Etiquette
 {
