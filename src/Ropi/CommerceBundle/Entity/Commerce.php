@@ -457,6 +457,8 @@ class Commerce
             // otherwise the event listeners won't be called and the file is lost
             $this->updateAt = new \DateTime('now');
         }
+
+
     }
 
     /**

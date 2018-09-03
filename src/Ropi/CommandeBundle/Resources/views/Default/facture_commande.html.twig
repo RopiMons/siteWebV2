@@ -14,24 +14,35 @@
     {% endblock %}
 </head>
 <body>
-<p style="text-align: right">{{ commande.client.nom }} {{ commande.client.prenom }}</p>
-{% if commande.modeDeLivraison.aDomicile %}
-    <p style="text-align: right">{{ commande.adresseDeLivraison.rue }}, {{ commande.adresseDeLivraison.numero }}</p>
-{% if commande.adresseDeLivraison.complement is not null %}<p style="text-align: right">{{ commande.adresseDeLivraison.complement }}</p>{% endif %}
-    <p style="text-align: right">{{ commande.adresseDeLivraison.ville.codePostal }} {{ commande.adresseDeLivraison.ville.ville }}</p>
-{% endif %}
-<p>Votre commande du {{ commande.createdAt|date("d/m/Y") }}</p>
+<div class="containerHeader">
+    <span class="header">
+        <img src="/img/ropi_Logo_R.png" id="logo" />
+        <p id="logoTXT">Le Ropi, Payez en<br> argent content!</p>
+    </span>
+    <span class="clientInfo">
+    <p >{{ commande.client.nom }} {{ commande.client.prenom }}</p>
+    {% if commande.modeDeLivraison.aDomicile %}
+        <p>{{ commande.adresseDeLivraison.rue }}, {{ commande.adresseDeLivraison.numero }}</p>
+    {% if commande.adresseDeLivraison.complement is not null %}<p style="text-align: right">{{ commande.adresseDeLivraison.complement }}</p>{% endif %}
+        <p>{{ commande.adresseDeLivraison.ville.codePostal }} {{ commande.adresseDeLivraison.ville.ville }}</p>
+    {% endif %}
+
+        <p class="U G">Votre commande du {{ commande.createdAt|date("d/m/Y") }}</p>
+    </span>
+</div>
+
 
 {#Livrée le 12/05/2018#}
-
+<div class="title">
 <h1>Votre commande {{ commande.refCommande }}</h1>
 
+</div>
+<div class="ref">
+<p><span class="U">Correspondant :</span> Laurent CARDON – <span style="color:blue">laurent.cardon@ropi.be</span> –Administrateur.</p>
+<p><span class="U">Nos références :</span> Commande {{ commande.refCommande }}</p>
 
-<p>Correspondant : Laurent CARDON – laurent.cardon@ropi.be –Administrateur.</p>
-<p>Nos références : Commande {{ commande.refCommande }}</p>
-
-
-
+</div>
+<div class="commade">
 <h2>1)	Commande de Ropi</h2>
 
 <table style="width: 100%;">
@@ -47,17 +58,18 @@
     {% set prixCommande = 0 %}
     {% for articleQuantite in commande.articlesQuantite %}
         <tr>
-            <td>{{ articleQuantite.article.nom }}</td>
-            <td>{{ articleQuantite.quantite }}</td>
-            <td>{{ articleQuantite.article.prix }}€</td>
-            <td>{{ articleQuantite.article.prix * articleQuantite.quantite }}€</td>
+            <td width="25%">{{ articleQuantite.article.nom }}</td>
+            <td width="10%">{{ articleQuantite.quantite }}</td>
+            <td width="30%">{{ articleQuantite.article.prix }}€</td>
+            <td width="29%">{{ articleQuantite.article.prix * articleQuantite.quantite }}€</td>
             {% set prixCommande = prixCommande + articleQuantite.article.prix * articleQuantite.quantite %}
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<h3 style="text-align: right">Sous-Total : {% if prixCommande > 0 %}{{ prixCommande }}€{% else %}Gratuit{% endif %}</h3>
+</div>
+<h3 >Sous-Total : {% if prixCommande > 0 %}{{ prixCommande }}€{% else %}Gratuit{% endif %}</h3>
 
 La contrepartie du montant échangés est mise en fonds de garantie
 
@@ -68,23 +80,35 @@ La contrepartie du montant échangés est mise en fonds de garantie
     <tbody>
     <tr>
         <td style="text-align: left">{{ commande.modeDeLivraison.nom }}</td>
-        <td style="text-align: right">{% if commande.modeDeLivraison.frais > 0 %}{{ commande.modeDeLivraison.frais }}€{% else %}Gratuit{% endif %}</td>
+        <td style="text-align: center">{% if commande.modeDeLivraison.frais > 0 %}{{ commande.modeDeLivraison.frais }}€{% else %}Gratuit{% endif %}</td>
     </tr>
     </tbody>
 </table>
 
-<h3 style="text-align: right">Sous-Total : {{ commande.modeDeLivraison.frais }}€</h3>
+<h3 >Sous-Total : {{ commande.modeDeLivraison.frais }}€</h3>
 
 L'éventuel surplus de ce montant sert à financer l’ASBL
 
-
+<div>
 <h2>3)	Totaux</h2>
 
-<h3 style="text-align: right">Montant total : {{ commande.prix }} €</h3>
+<h3 style="font-size:1.3em;""><span style="border: groove;  padding:10px;">Montant total : {{ commande.prix }} €</span></h3>
 
 <p>Exempté de TVA - Code TVA – Art 44 – §2 11° et §2 12°</p>
 
-<h3>Commande acquittée le 7/05/2018 sur notre fonds de garantie par virement bancaire</h3>
+<p>Commande acquittée le 7/05/2018 sur notre fonds de garantie par virement bancaire</p>
 
+</div>
+<div class="footer">
+    <hr>
+<div class="left">
+    ASBL Ropi - Rue de Ghlin 24 à 7012 Jemappes<br>
+    Numéro BCE: 0506.894.878 - RPM Mons
+</div>
+    <div class="right">
+        IBAN: BE30 5230 8052 3011 - BIC: TRIO BE BB<br>
+        <span style="color: blue;">www.ropi.be</span> - info@ropi.be
+    </div>
+</div>
 </body>
 </html>

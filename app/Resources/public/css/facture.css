@@ -17,25 +17,114 @@
 
 /* Background */
 body{ 
-	background-image : url("/img/ROPI_WEB_BG_BL.png");
+	background-image : url("/img/fondPdf.png");
 	background-repeat: no-repeat;
+    background-size: 100%;
+
     font-family: Rupture, Arial, Verdana, serif;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+    margin-top: 4%;
 }
 
 
 h1{
+
 	font-family : Rupture, Arial, Verdana, serif;
 	font-size:1.75em;
+    border: groove;
 }
 h2{
 	font-family : Rupture, Arial, Verdana, serif;
 	font-size:1.5em;
+    margin-left: 20px;
 }
 h3{
 	font-family : Rupture, Arial, Verdana, serif;
-	font-size:1em;
+    text-align: right;
+    margin-right: 20px;
+    font-size:1.1em;"
+}
+#logo{
+    width: 90px;
+}
+#logoTXT{
+
+}
+.header{
+    width: 49%;
+    float:left;
+
+}
+.clientInfo{
+    text-align: right;
+    width: 49%;
+    float:right;
+
+    padding-top: 60px;
+
+}
+.containerHeader{
+    overflow: auto;
 }
 
+.title{
+    clear: both;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
 table{
-    
+    border: medium solid ;
+    border-collapse: collapse;
+    width: 100%;
+
+
+}
+th{
+    font-family: monospace;
+    border: thin solid ;
+
+    padding: 5px;
+
+
+
+}
+td{
+    font-family: sans-serif;
+    border: thin solid ;
+
+    padding: 5px;
+    text-align: center;
+
+
+}
+.U{
+    text-decoration: underline;
+}
+.G{
+    font-weight: bold ;
+}
+.ref{
+    Line-Height: 0;
+    font-size:0.9em;
+}
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+
+    text-align: center;
+
+}
+.left{
+    float:left;
+    width: 49%;
+}
+.right{
+    float:right;
+    width: 49%;
 }
