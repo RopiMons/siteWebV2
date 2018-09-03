@@ -98,10 +98,10 @@ class InscriptionController extends Controller
 
 
 
-      //  $this->MailValidation($users, $cle);
+        $this->MailValidation($users, $cle);
 
          $this->get("session")->getFlashBag()->add(
-                'success',"Votre compte a bien été créé" );/*vous allez recevoir un email afin de valider votre inscription !*/
+                'success',"Votre compte a bien été créé, vous allez recevoir un email afin de valider votre inscription !" );/*vous allez recevoir un email afin de valider votre inscription !*/
 
         return  $this->redirect($this->generateUrl("home"));
     }
