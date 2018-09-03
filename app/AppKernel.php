@@ -23,7 +23,6 @@ class AppKernel extends Kernel {
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Ropi\CMSBundle\RopiCMSBundle(),
             new RobertoTru\ToInlineStyleEmailBundle\RobertoTruToInlineStyleEmailBundle(),
-
             new Ropi\TestBundle\RopiTestBundle(),
             new Ropi\CommerceBundle\RopiCommerceBundle(),
             new Ropi\IdentiteBundle\RopiIdentiteBundle(),
@@ -34,6 +33,7 @@ class AppKernel extends Kernel {
             new IolaCorporation\NewsBundle\IolaCorporationNewsBundle(),
             new Sg\DatatablesBundle\SgDatatablesBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
         );
 
 

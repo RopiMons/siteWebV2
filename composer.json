@@ -54,7 +54,8 @@
         "vich/uploader-bundle" : "*",
         "friendsofsymfony/jsrouting-bundle": "*",
         "sg/datatablesbundle": "dev-master",
-        "liip/imagine-bundle": "^1.8"
+        "liip/imagine-bundle": "^1.8",
+        "knplabs/knp-snappy-bundle": "^1.5"
 
     },
     "require-dev": {

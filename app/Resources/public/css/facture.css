@@ -1,0 +1,41 @@
+
+.souligne{
+    text-decoration: underline;
+}
+
+@font-face {
+    font-family: 'Rupture';
+    src: url('/font/rupture-webfont.eot');
+    src: url('/font/rupture-webfont.eot?#iefix') format('eot'),
+         url('/font/rupture-webfont.woff') format('woff'),
+         url('/font/rupture-webfont.ttf') format('truetype'),
+         url('/font/rupture-webfont.svg#webfontgcwKlGj6') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* Background */
+body{ 
+	background-image : url("/img/ROPI_WEB_BG_BL.png");
+	background-repeat: no-repeat;
+    font-family: Rupture, Arial, Verdana, serif;
+}
+
+
+h1{
+	font-family : Rupture, Arial, Verdana, serif;
+	font-size:1.75em;
+}
+h2{
+	font-family : Rupture, Arial, Verdana, serif;
+	font-size:1.5em;
+}
+h3{
+	font-family : Rupture, Arial, Verdana, serif;
+	font-size:1em;
+}
+
+table{
+    
+}

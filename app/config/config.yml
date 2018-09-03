@@ -215,3 +215,10 @@ liip_imagine:
             filters:
                 thumbnail: { size: [250, 250], mode: outbound }
                 background : { size : [254, 254], position : center, color : '#0B0B61' }
+
+knp_snappy:
+    temporary_folder: "%kernel.cache_dir%/snappy"
+    pdf:
+        enabled:    true
+        binary:     /usr/bin/wkhtmltopdf
+        options:    []
