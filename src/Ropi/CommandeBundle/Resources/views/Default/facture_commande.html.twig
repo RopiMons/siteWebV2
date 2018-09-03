@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+        {% stylesheets '../app/Resources/public/css/facture.css' filter='cssrewrite' output='css/ropi.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block headJavascripts %}
+    {% endblock %}
+</head>
+<body>
+<p style="text-align: right">{{ commande.client.nom }} {{ commande.client.prenom }}</p>
+{% if commande.modeDeLivraison.aDomicile %}
+    <p style="text-align: right">{{ commande.adresseDeLivraison.rue }}, {{ commande.adresseDeLivraison.numero }}</p>
+{% if commande.adresseDeLivraison.complement is not null %}<p style="text-align: right">{{ commande.adresseDeLivraison.complement }}</p>{% endif %}
+    <p style="text-align: right">{{ commande.adresseDeLivraison.ville.codePostal }} {{ commande.adresseDeLivraison.ville.ville }}</p>
+{% endif %}
+<p>Votre commande du {{ commande.createdAt|date("d/m/Y") }}</p>
+
+{#Livrée le 12/05/2018#}
+
+<h1>Votre commande {{ commande.refCommande }}</h1>
+
+
+<p>Correspondant : Laurent CARDON – laurent.cardon@ropi.be –Administrateur.</p>
+<p>Nos références : Commande {{ commande.refCommande }}</p>
+
+
+
+<h2>1)	Commande de Ropi</h2>
+
+<table style="width: 100%;">
+    <thead>
+    <tr>
+        <th>Billet</th>
+        <th>Quantité</th>
+        <th>Prix unitiaire</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set prixCommande = 0 %}
+    {% for articleQuantite in commande.articlesQuantite %}
+        <tr>
+            <td>{{ articleQuantite.article.nom }}</td>
+            <td>{{ articleQuantite.quantite }}</td>
+            <td>{{ articleQuantite.article.prix }}€</td>
+            <td>{{ articleQuantite.article.prix * articleQuantite.quantite }}€</td>
+            {% set prixCommande = prixCommande + articleQuantite.article.prix * articleQuantite.quantite %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h3 style="text-align: right">Sous-Total : {% if prixCommande > 0 %}{{ prixCommande }}€{% else %}Gratuit{% endif %}</h3>
+
+La contrepartie du montant échangés est mise en fonds de garantie
+
+
+<h2>2)	Livraison</h2>
+
+<table style="width: 100%">
+    <tbody>
+    <tr>
+        <td style="text-align: left">{{ commande.modeDeLivraison.nom }}</td>
+        <td style="text-align: right">{% if commande.modeDeLivraison.frais > 0 %}{{ commande.modeDeLivraison.frais }}€{% else %}Gratuit{% endif %}</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3 style="text-align: right">Sous-Total : {{ commande.modeDeLivraison.frais }}€</h3>
+
+L'éventuel surplus de ce montant sert à financer l’ASBL
+
+
+<h2>3)	Totaux</h2>
+
+<h3 style="text-align: right">Montant total : {{ commande.prix }} €</h3>
+
+<p>Exempté de TVA - Code TVA – Art 44 – §2 11° et §2 12°</p>
+
+<h3>Commande acquittée le 7/05/2018 sur notre fonds de garantie par virement bancaire</h3>
+
+</body>
+</html>

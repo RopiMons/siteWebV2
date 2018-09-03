@@ -24,6 +24,29 @@ class DefaultController extends Controller
 {
 
     /**
+     * @param Commande $commande
+     * @Route("/admin/pdf/facture/commande/{commande}", name="admin_pdf_facture_commande", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function getFacture(Commande $commande){
+        return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+            'commande' => $commande
+        ));
+    }
+
+    /**
+     * @Route("/admin/commandes/view", name="admin_commandes_view")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function adminViewCommande(){
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->getAll();
+
+        return $this->render("RopiCommandeBundle:Default:admin_commandes_view.html.twig",array(
+            'commandes' => $commandes
+        ));
+    }
+
+    /**
      * @Route("/my/commande/new", name="commande_new")
      * @Template()
      * @Security( "has_role('ROLE_UTILISATEUR_ACTIVE')")
