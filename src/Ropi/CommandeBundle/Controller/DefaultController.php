@@ -289,15 +289,7 @@ class DefaultController extends Controller
 
     /** @Template("RopiCommandeBundle:Default:simple.html.twig") */
     public function getNbRopiCommandeAction(){
-        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findAll();
-
-        $solde = 0;
-
-        foreach ($commandes as $commande){
-            foreach ($commande->getArticlesQuantite() as $ac) {
-                $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
-            }
-        }
+        $solde = $this->getDoctrine()->getRepository(Commande::class)->getNbRopi();
 
         return array('solde'=>$solde);
     }

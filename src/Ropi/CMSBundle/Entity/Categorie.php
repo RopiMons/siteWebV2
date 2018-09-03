@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Categorie
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\CategorieRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Repository\CategorieRepository")
  * @UniqueEntity(fields={"nom"}, message="Il existe déjà une catégorie possèdant ce nom")
  */
 class Categorie implements PositionnableInterface {

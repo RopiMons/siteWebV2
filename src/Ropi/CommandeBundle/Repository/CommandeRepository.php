@@ -3,6 +3,7 @@
 namespace Ropi\CommandeBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * CommandeRepository
@@ -22,6 +23,26 @@ class CommandeRepository extends EntityRepository
             ->orderBy("c.createdAt","DESC")
             ->getQuery()
             ->execute()
+            ;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNbRopi(){
+        /** @var QueryBuilder $qb */
+        $qb = $this->createQueryBuilder("c");
+
+        return$qb
+            ->select("SUM(aq.quantite * a.prix)")
+            ->leftJoin("c.articlesQuantite","aq")
+            ->leftJoin("aq.article","a")
+            ->leftJoin("c.statut","s")
+            ->where("s.ordre > :ordre")
+            ->setParameter("ordre",2)
+            ->getQuery()
+            ->getSingleScalarResult()
             ;
     }
 }

@@ -20,6 +20,7 @@ security:
         auth_area:
             
             pattern: ^/
+            logout_on_user_change: true
             form_login:
                 check_path:  /login_check
             logout:
