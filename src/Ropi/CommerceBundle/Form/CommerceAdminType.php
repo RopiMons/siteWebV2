@@ -32,6 +32,7 @@ class CommerceAdminType extends CommerceType {
                 'required' => false,
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
+                'by_reference' => false
 
             ))
 

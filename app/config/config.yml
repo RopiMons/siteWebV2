@@ -188,7 +188,7 @@ vich_uploader:
                 uri_prefix:         /images/logos
                 upload_destination: "%kernel.root_dir%/../web/images/logos"
 
-                inject_on_load:     false # should the file be deleted when the entity is removed
+                inject_on_load:     true # should the file be deleted when the entity is removed
                 delete_on_update:   true #  should the file be deleted when a new file is uploaded
                 delete_on_remove:   true # should the file be injected into the uploadable entity when it is loaded from the data store. The object will be an instance of Symfony\Component\HttpFoundation\File\File
 

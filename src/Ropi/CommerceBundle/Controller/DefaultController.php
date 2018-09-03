@@ -140,10 +140,13 @@ class DefaultController extends Controller {
             $form = $this->createCommercantForm($request, $commerce, true);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                /** @var Commerce $commerce */
+                $commerce = $form->getData();
 
+                $this->getDoctrine()->getManager()->persist($commerce);
                 $this->getDoctrine()->getManager()->flush();
 
-                $this->get('session')->getFlashBag()->add('success', 'Modifications prisent en compte');
+                $this->addFlash('success', 'Modifications prisent en compte');
 
                 return $this->gestionRoute($route);
             }
