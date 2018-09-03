@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Mode
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\ModeDeLivraisonRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\ModeDeLivraisonRepository")
  *
  */
 class ModeDeLivraison extends Mode
