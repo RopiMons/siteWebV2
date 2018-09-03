@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Commerce
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\CommerceRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Repository\CommerceRepository")
  *
  * @ORM\HasLifecycleCallbacks()
  *

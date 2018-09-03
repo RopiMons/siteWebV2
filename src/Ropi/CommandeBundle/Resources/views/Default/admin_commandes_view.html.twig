@@ -1,0 +1,34 @@
+{% extends '::baseAdmin.html.twig' %}
+
+{% block content %}
+<table class="table table-responsive table-striped">
+    <thead>
+    <tr>
+        <th>Date de création</th>
+        <th>Références</th>
+        <th>Montant de la commande</th>
+        <th>Documents</th>
+        <th>Statut</th>
+        <th>Actions
+    </tr>
+    </thead>
+    <tbody>
+    {% for commande in commandes %}
+    <tr>
+        <td>{{ commande.createdAt|date("d/m/Y") }}</td>
+        <td>{{ commande.refCommande }}</td>
+        <td>{{ commande.prix }}€</td>
+        <td>
+            <a href="{{ path('admin_pdf_facture_commande',{ 'commande' : commande.id }) }}">Facture</a> | Signature
+        </td>
+        <td>{{ commande.statut.nom }}</td>
+        <td>
+            {% if commande.statut.ordre == 2 %}
+                <span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

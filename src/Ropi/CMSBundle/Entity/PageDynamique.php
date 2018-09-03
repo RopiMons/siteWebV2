@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * PageDynamique
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\PageDynamiqueRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Repository\PageDynamiqueRepository")
  */
 class PageDynamique extends Page
 {

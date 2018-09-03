@@ -2,6 +2,8 @@
 
 namespace Ropi\CommandeBundle\Controller;
 
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 use Ropi\CommandeBundle\Entity\ArticleCommande;
 use Ropi\CommandeBundle\Entity\Commande;
 use Ropi\CommandeBundle\Entity\ModeDeLivraison;
@@ -22,6 +24,40 @@ use Symfony\Component\OptionsResolver\Exception\AccessException;
 
 class DefaultController extends Controller
 {
+
+    /**
+     * @param Commande $commande
+     * @Route("/admin/pdf/facture/commande/{commande}", name="admin_pdf_facture_commande", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function getFacture(Commande $commande){
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+                'commande' => $commande
+            ))),
+            'facture.pdf',
+            array(
+                'orientation' => 'portrait',
+                'page-size' => "A4",
+                'encoding' => 'utf-8',
+                'images' => true,
+                'dpi' => 300,
+            )
+        );
+    }
+
+    /**
+     * @Route("/admin/commandes/view", name="admin_commandes_view")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function adminViewCommande(){
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->getAll();
+
+        return $this->render("RopiCommandeBundle:Default:admin_commandes_view.html.twig",array(
+            'commandes' => $commandes
+        ));
+    }
 
     /**
      * @Route("/my/commande/new", name="commande_new")
@@ -95,39 +131,39 @@ class DefaultController extends Controller
 
             $lolo = $request->get('moyenDePaiement');
 
-                if($lolo && ($mdp = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDePaiement")->find($lolo)) && ($newStatut = $manager->getRepository("Ropi\CommandeBundle\Entity\Statut")->findOneBy(array('ordre'=>2)))){
+            if($lolo && ($mdp = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDePaiement")->find($lolo)) && ($newStatut = $manager->getRepository("Ropi\CommandeBundle\Entity\Statut")->findOneBy(array('ordre'=>2)))){
 
-                    $commande->setModeDePaiement($mdp);
-                    $commande->setStatut($newStatut);
+                $commande->setModeDePaiement($mdp);
+                $commande->setStatut($newStatut);
 
-                    $manager->flush();
+                $manager->flush();
 
-                    $this->sendMails($commande);
+                $this->sendMails($commande);
 
-                    if($mdp->getRedirection() != null){
-                        //A implémenter
-                    }else{
-                        return $this->render('RopiCommandeBundle:Default:confirmationCommande.html.twig',array('commande'=>$commande));
-                    }
-
+                if($mdp->getRedirection() != null){
+                    //A implémenter
+                }else{
+                    return $this->render('RopiCommandeBundle:Default:confirmationCommande.html.twig',array('commande'=>$commande));
                 }
 
-                $mdp = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDePaiement")->findBy(array(
-                    'actif' => true
-                ));
+            }
 
-                $tab = array();
-                $montant = $commande->getPrix();
+            $mdp = $manager->getRepository("Ropi\CommandeBundle\Entity\ModeDePaiement")->findBy(array(
+                'actif' => true
+            ));
 
-                foreach($mdp as $mode){
-                    $mode->setMontant($montant);
-                    $tab[] = $mode;
-                }
+            $tab = array();
+            $montant = $commande->getPrix();
 
-                return array(
-                    'commande'=> $commande,
-                    'mdp' => $tab
-                );
+            foreach($mdp as $mode){
+                $mode->setMontant($montant);
+                $tab[] = $mode;
+            }
+
+            return array(
+                'commande'=> $commande,
+                'mdp' => $tab
+            );
 
 
 
@@ -145,7 +181,7 @@ class DefaultController extends Controller
             ->addFrom("info@ropi.be")
             ->setSubject("Votre commande en ligne")
             ->setBody($this->renderView("RopiCommandeBundle:Default:email.newCommande.html.twig",array('commande'=>$commande)),'text/html')
-            ;
+        ;
 
         $mailAdmin  = \Swift_Message::newInstance()
             ->addTo("info@ropi.be")
@@ -169,7 +205,7 @@ class DefaultController extends Controller
 
         $manager = $this->getDoctrine()->getManager();
 
-        switch($choixLivraison){    
+        switch($choixLivraison){
             case "commercant" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonCommercant.html.twig',array('commerces' => $manager->getRepository(Commerce::class)->findBy(array('depot'=>true,'visible'=>true,'valide'=>true)),'modeDeLivraison' => $manager->getRepository(ModeDeLivraison::class)->findOneBy(array('nom'=>'Dépôt chez un commerçant')))));
             case "moi" : return new JsonResponse($this->renderView('RopiCommandeBundle:Default:_livraisonADomicile.html.twig',array('adresses' => $this->getUser()->getPersonne()->getAdresses())));
             default : $test = null;
@@ -253,15 +289,7 @@ class DefaultController extends Controller
 
     /** @Template("RopiCommandeBundle:Default:simple.html.twig") */
     public function getNbRopiCommandeAction(){
-        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findAll();
-
-        $solde = 0;
-        
-        foreach ($commandes as $commande){
-            foreach ($commande->getArticlesQuantite() as $ac) {
-                $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
-            }
-        }
+        $solde = $this->getDoctrine()->getRepository(Commande::class)->getNbRopi();
 
         return array('solde'=>$solde);
     }

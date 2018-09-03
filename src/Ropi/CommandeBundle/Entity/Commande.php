@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Commande
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\CommandeRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\CommandeRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Commande

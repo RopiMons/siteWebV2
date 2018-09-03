@@ -1,6 +1,6 @@
 <?php
 
-namespace Ropi\CMSBundle\Entity;
+namespace Ropi\CMSBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
