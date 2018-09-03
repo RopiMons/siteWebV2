@@ -400,7 +400,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     public function onPrePersist() {
         if (!isset($this->actif)) {
-            $this->actif = true;
+            $this->actif = false;
         }
         $this->setCreateAt(new \DateTime());
         
