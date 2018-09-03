@@ -41,7 +41,8 @@ class CommerceType extends AbstractType {
             ->add('imageFile', VichImageType::class, array(
                 'required' => true,
                 'allow_delete'  => true, // not mandatory, default is true
-                'download_link' => true, // not mandatory, default is true
+                'download_link' => true, // not mandatory, default is true,
+                'by_reference' => false
 
             ))
             ->add('adresses', CollectionType::class, array(

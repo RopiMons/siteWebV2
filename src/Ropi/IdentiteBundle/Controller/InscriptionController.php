@@ -72,10 +72,10 @@ class InscriptionController extends Controller
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
 
-        $users->setActif(true);
-        $perm =  $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneByPermission("ROLE_UTILISATEUR_ACTIVE");
+       // $users->setActif(true);
+       // $perm =  $this->getDoctrine()->getRepository("Ropi\AuthenticationBundle\Entity\Permission")->findOneByPermission("ROLE_UTILISATEUR_ACTIVE");
 
-        $users->addPermission($perm);
+       // $users->addPermission($perm);
 
 
         $em = $this->getDoctrine()->getManager();
