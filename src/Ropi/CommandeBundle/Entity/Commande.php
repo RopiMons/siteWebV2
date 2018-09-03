@@ -463,4 +463,15 @@ class Commande
 
         return "+++".substr($communication,0,3)."/".substr($communication,3,4)."/".substr($communication,7,5)."+++";
     }
+
+    public function getSolde(){
+        $montantTotal = $this->getPrix();
+
+        /** @var Paiement $paiement */
+        foreach ($this->getPaiements() as $paiement){
+            $montantTotal -= $paiement->getMontant();
+        }
+
+        return $montantTotal;
+    }
 }

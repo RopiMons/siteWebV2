@@ -7,9 +7,12 @@ use Knp\Snappy\Pdf;
 use Ropi\CommandeBundle\Entity\ArticleCommande;
 use Ropi\CommandeBundle\Entity\Commande;
 use Ropi\CommandeBundle\Entity\ModeDeLivraison;
+use Ropi\CommandeBundle\Entity\Paiement;
+use Ropi\CommandeBundle\Entity\Statut;
 use Ropi\CommandeBundle\Form\CommandeClientType;
 use Ropi\CommandeBundle\Form\CommandePaiementType;
 use Ropi\CommandeBundle\Form\CommandeType;
+use Ropi\CommandeBundle\Form\PaiementType;
 use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\IdentiteBundle\Form\AdresseType;
@@ -292,6 +295,52 @@ class DefaultController extends Controller
         $solde = $this->getDoctrine()->getRepository(Commande::class)->getNbRopi();
 
         return array('solde'=>$solde);
+    }
+
+    /**
+     * @param Commande $commande
+     * @param Request $request
+     * @Route("/admin/commande/{commande}/paiement/add", name="admin_add_paiement", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function addPaiement(Request $request, Commande $commande){
+        $form = $this->createForm(PaiementType::class);
+        $form->add("Ajouter",SubmitType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var Paiement $paiement */
+            $paiement = $form->getData();
+
+            $commande->addPaiement($paiement);
+            $paiement->setCommande($commande);
+
+            if($commande->getSolde() == 0){
+                $nextStatut = $this->getDoctrine()->getRepository(Statut::class)->findOneBy(array(
+                    'ordre' => $commande->getStatut()->getOrdre() + 1
+                ));
+
+                $commande->setStatut($nextStatut);
+            }
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($commande);
+            $manager->persist($paiement);
+
+            $manager->flush();
+
+            $this->addFlash('success','Le paiement a bien été enregistré');
+
+            return $this->redirectToRoute("admin_commandes_view");
+        }
+
+        return $this->render(
+            "RopiCommandeBundle:Default:add_paiement.html.twig",
+            array(
+                "form" => $form->createView()
+            )
+        );
     }
 
 

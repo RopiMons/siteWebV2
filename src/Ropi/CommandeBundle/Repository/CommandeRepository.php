@@ -16,10 +16,12 @@ class CommandeRepository extends EntityRepository
     public function getAll(){
 
         return $this->createQueryBuilder("c")
-            ->select(array("c","aq","a","s"))
+            ->select(array("c","aq","a","s","p","li"))
             ->leftJoin("c.articlesQuantite","aq")
             ->leftJoin("c.statut","s")
             ->leftJoin("aq.article","a")
+            ->leftJoin("c.modeDeLivraison","li")
+            ->leftJoin("c.paiements","p")
             ->orderBy("c.createdAt","DESC")
             ->getQuery()
             ->execute()

@@ -6,7 +6,7 @@
     <tr>
         <th>Date de création</th>
         <th>Références</th>
-        <th>Montant de la commande</th>
+        <th>Montant de la commande (Solde)</th>
         <th>Documents</th>
         <th>Statut</th>
         <th>Actions
@@ -17,14 +17,14 @@
     <tr>
         <td>{{ commande.createdAt|date("d/m/Y") }}</td>
         <td>{{ commande.refCommande }}</td>
-        <td>{{ commande.prix }}€</td>
+        <td>{{ commande.prix }}€ ({{ commande.solde }}€)</td>
         <td>
             <a href="{{ path('admin_pdf_facture_commande',{ 'commande' : commande.id }) }}">Facture</a> | Signature
         </td>
         <td>{{ commande.statut.nom }}</td>
         <td>
             {% if commande.statut.ordre == 2 %}
-                <span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement
+                <a href="{{ path('admin_add_paiement',{ 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement</a>
             {% endif %}
         </td>
     </tr>
