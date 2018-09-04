@@ -3,14 +3,6 @@
     text-decoration: underline;
 }
 
-@font-face {
-    font-family: 'Rupture';
-    src:  url('/font/rupture-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 /* Background */
 body{
     background-image : url("/img/fondPdf.png");

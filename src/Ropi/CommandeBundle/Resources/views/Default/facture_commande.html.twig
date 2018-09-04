@@ -8,6 +8,19 @@
         {% stylesheets '../app/Resources/public/css/facture.css' filter='cssrewrite' output='css/facture.css' %}
             <link rel="stylesheet" href="{{ absolute_url(asset_url) }}" />
         {% endstylesheets %}
+
+        <style>
+            body {
+                background-image: url({{ absolute_url(asset('img/fondPdf.png')) }});
+            }
+            @font-face {
+                font-family: 'Rupture';
+                src: url({{ absolute_url(asset('font/rupture-webfont.woff')) }}) format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+        </style>
     {% endblock %}
 
     {% block headJavascripts %}
