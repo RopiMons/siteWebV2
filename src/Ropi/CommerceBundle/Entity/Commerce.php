@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Commerce
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\CommerceRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Repository\CommerceRepository")
  *
  * @ORM\HasLifecycleCallbacks()
  *
@@ -455,7 +455,7 @@ class Commerce
         if ($image) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
+            $this->updateAt = new \DateTime('now');
         }
     }
 
