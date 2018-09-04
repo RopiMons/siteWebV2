@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\Exception\AccessException;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
