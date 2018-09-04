@@ -11,20 +11,15 @@ use Ropi\CommandeBundle\Entity\ModeDeLivraison;
 use Ropi\CommandeBundle\Entity\Paiement;
 use Ropi\CommandeBundle\Entity\Statut;
 use Ropi\CommandeBundle\Form\CommandeClientType;
-use Ropi\CommandeBundle\Form\CommandePaiementType;
-use Ropi\CommandeBundle\Form\CommandeType;
 use Ropi\CommandeBundle\Form\PaiementType;
 use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\IdentiteBundle\Form\AdresseType;
 use function Sodium\add;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\OptionsResolver\Exception\AccessException;
 
 class DefaultController extends Controller
@@ -155,6 +150,11 @@ class DefaultController extends Controller
     public function getFacture(Commande $commande, Pdf $pdf){
 
         return new PdfResponse(
+
+            return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+                'commande' => $commande
+            ));
+
             $pdf->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
                 'commande' => $commande
             )),
