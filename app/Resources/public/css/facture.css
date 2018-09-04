@@ -20,11 +20,12 @@ body{
 	background-image : url("/img/fondPdf.png");
 	background-repeat: no-repeat;
     background-size: 100%;
-
+    position: relative;
     font-family: Rupture, Arial, Verdana, serif;
     margin-left: 7.5%;
     margin-right: 7.5%;
     margin-top: 4%;
+    min-height: 3508px;
 }
 
 
@@ -112,13 +113,11 @@ td{
 }
 .footer {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
+    bottom: 10px;
+  
 
     text-align: center;
-
+    width: 100%;
 }
 .left{
     float:left;
@@ -127,4 +126,8 @@ td{
 .right{
     float:right;
     width: 49%;
+}
+.normal{
+    position:relative;
+    height: 100%;
 }
