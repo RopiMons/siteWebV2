@@ -7,41 +7,42 @@
     font-family: 'Rupture';
     src: url('/font/rupture-webfont.eot');
     src: url('/font/rupture-webfont.eot?#iefix') format('eot'),
-         url('/font/rupture-webfont.woff') format('woff'),
-         url('/font/rupture-webfont.ttf') format('truetype'),
-         url('/font/rupture-webfont.svg#webfontgcwKlGj6') format('svg');
+    url('/font/rupture-webfont.woff') format('woff'),
+    url('/font/rupture-webfont.ttf') format('truetype'),
+    url('/font/rupture-webfont.svg#webfontgcwKlGj6') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 
 /* Background */
-body{ 
-	background-image : url("/img/fondPdf.png");
-	background-repeat: no-repeat;
+body{
+    background-image : url("/img/fondPdf.png");
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-
+    position: relative;
     font-family: Rupture, Arial, Verdana, serif;
     margin-left: 7.5%;
     margin-right: 7.5%;
     margin-top: 4%;
+    min-height: 3508px;
 }
 
 
 h1{
 
-	font-family : Rupture, Arial, Verdana, serif;
-	font-size:1.75em;
+    font-family : Rupture, Arial, Verdana, serif;
+    font-size:1.75em;
     border: groove;
 }
 h2{
-	font-family : Rupture, Arial, Verdana, serif;
-	font-size:1.5em;
+    font-family : Rupture, Arial, Verdana, serif;
+    font-size:1.5em;
     margin-left: 20px;
 }
 h3{
-	font-family : Rupture, Arial, Verdana, serif;
+    font-family : Rupture, Arial, Verdana, serif;
     text-align: right;
     margin-right: 20px;
     font-size:1.1em;"
@@ -112,14 +113,10 @@ td{
     font-size:0.9em;
 }
 .footer {
-    position: relative;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-
+    position: absolute;
+    bottom: 10px;
     text-align: center;
-
+    width: 100%;
 }
 .left{
     float:left;
@@ -128,4 +125,8 @@ td{
 .right{
     float:right;
     width: 49%;
+}
+.normal{
+    position:relative;
+    height: 100%;
 }
