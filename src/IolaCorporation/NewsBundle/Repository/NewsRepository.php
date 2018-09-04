@@ -32,19 +32,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
     return $pag;
 
 }
-  public function findNewsGame()
-{
-    $x= $this->createQueryBuilder('d')
-        ->orderBy('d.datePublication','DESC')
-        ->orderBy('d.id','DESC')
-        ->where('d.enabledGame = True')
-        ->andWhere('d.datePublication <= CURRENT_TIMESTAMP()');
 
-
-    ;
-    return $x->getQuery()->execute();
-
-}
 
     public function countNews(){
 
@@ -81,6 +69,8 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
         $x = $this->createQueryBuilder('n')
 
             ->orderBy('n.datePublication','DESC')
+            ->where('n.enable =True')
+            ->andWhere('n.datePublication <= CURRENT_TIMESTAMP()')
             ->setFirstResult($start)
             ->setMaxResults($stop)
         ;

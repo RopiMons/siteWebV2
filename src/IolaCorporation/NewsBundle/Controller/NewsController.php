@@ -17,8 +17,14 @@ class NewsController extends Controller
 {
     public function indexAction()
     {
+
         $news =  $this->getDoctrine()->getRepository(News::class)->findNewNews(5,0);
         return $this->render('IolaCorporationNewsBundle:Default:news.html.twig',array('news'=>$news));
+    }
+
+    public function OneNewsAction(){
+        $info = $this->getDoctrine()->getRepository(News::class)->titreNews(0,1);
+        return $this->render('IolaCorporationNewsBundle:Default:oneNew.html.twig',array( 'info'=> $info[0]));
     }
 
     public function detailAction(News $news)

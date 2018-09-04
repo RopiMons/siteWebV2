@@ -172,7 +172,7 @@ class Album
                  * These lines could be moved to the File Class constructor to factorize
                  * the File initialization and thus allow other classes to own Files
                  */
-                $path = sha1(uniqid(mt_rand(), true)) . '.' . $uploadedFile->guessExtension();
+                $path = $uploadedFile->getClientOriginalName();
                 $file->setPath($path);
                 $file->setSize($uploadedFile->getClientSize());
                 $file->setName($uploadedFile->getClientOriginalName());

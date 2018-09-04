@@ -1,0 +1,8 @@
+
+<h1>L'actualité</h1>
+<a href="{{ path('iola_corporation_news_detail',{'news':info.id }) }}"><h2>{{ info.titre }}</h2></a>
+<div>
+    {{ info.news |raw }}
+
+</div>
+
