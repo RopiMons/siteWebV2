@@ -20,11 +20,11 @@ class Personne
 {
     use CotisationManagement;
 
+
     const MembreEffectif = 'Membre Effectif';
     const MembreSympathisant = 'Membre Sympathisant';
     const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
     const MembreVolonte = 'Membre Volonté';
-
 
     /**
      * @var integer
@@ -42,7 +42,7 @@ class Personne
      *  @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
      * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
-     * @Assert\Regex(pattern="/\d/", match = false ,message="La chaine ne peux pas avoir que des lettres")
+     *
      */
     private $nom;
 
@@ -53,7 +53,7 @@ class Personne
      * @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
      * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
-     * @Assert\Regex(pattern="/\d/", match = false ,message="La chaine ne peux pas avoir que des lettres")
+     *
      */
     private $prenom;
 
@@ -65,15 +65,38 @@ class Personne
     private $dateNaissance;
 
     /**
-     * @ORM\Column(name="volonteMembre", type="boolean")
+     * @ORM\Column(name="volonteMembre", type="boolean" , nullable=true, options={"default":false})
      */
     private $volonteMembre = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ropi\CommandeBundle\Entity\Commande", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="Ropi\CommandeBundle\Entity\Commande", mappedBy="client",  cascade={"persist"})
      */
 
     private $commandes;
+    /**
+     * @var \Boolean
+     *
+     * @ORM\Column(name="enable", type="boolean", options={"default":true})
+     */
+    private $enable = true;
+
+    /**
+     * @return boolean
+     */
+    public function isEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * @param boolean $enable
+     */
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
+    }
+
 
 
 
@@ -85,13 +108,13 @@ class Personne
     private $creeLe;
 
     /**
-     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="personne",  cascade={"persist"})
      * @Assert\Valid
      */
     private $contacts;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Ropi\CommerceBundle\Entity\Commerce", mappedBy="personnes", cascade={"persist"})
      */
     private $commerces;
 
@@ -102,13 +125,13 @@ class Personne
     private $identifiantWeb;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Adresse", mappedBy="personnes", cascade={"remove", "persist"})
      * @Assert\Valid
      */
     private $adresses;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="personne")
+     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="personne" , cascade={"persist"})
      */
     private $cotisations;
 
@@ -354,7 +377,9 @@ class Personne
 
         return ($retour->count() > 0) ? $retour : null;
     }
-
+    public function getReelAdresses(){
+        return $this->adresses;
+    }
 
 
     /**

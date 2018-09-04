@@ -38,7 +38,7 @@ class Paiement
     /**
      * @var string
      *
-     * @ORM\Column(name="referenceComptable", type="string", length=255)
+     * @ORM\Column(name="referenceComptable", type="string", length=255, nullable=true)
      */
     private $referenceComptable;
 

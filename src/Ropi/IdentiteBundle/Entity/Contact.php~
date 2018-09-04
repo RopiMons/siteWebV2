@@ -46,7 +46,7 @@ class Contact
      */
     private $typeContact;
     /**
-     *@ORM\ManyToOne(targetEntity="Personne", inversedBy="contacts", cascade={"persist"})
+     *@ORM\ManyToOne(targetEntity="Personne", inversedBy="contacts")
      */
      private $personne;
      

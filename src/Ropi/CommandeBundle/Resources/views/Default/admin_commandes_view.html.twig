@@ -1,34 +1,54 @@
 {% extends '::baseAdmin.html.twig' %}
 
 {% block content %}
-<table class="table table-responsive table-striped">
-    <thead>
-    <tr>
-        <th>Date de création</th>
-        <th>Références</th>
-        <th>Montant de la commande</th>
-        <th>Documents</th>
-        <th>Statut</th>
-        <th>Actions
-    </tr>
-    </thead>
-    <tbody>
-    {% for commande in commandes %}
-    <tr>
-        <td>{{ commande.createdAt|date("d/m/Y") }}</td>
-        <td>{{ commande.refCommande }}</td>
-        <td>{{ commande.prix }}€</td>
-        <td>
-            <a href="{{ path('admin_pdf_facture_commande',{ 'commande' : commande.id }) }}">Facture</a> | Signature
-        </td>
-        <td>{{ commande.statut.nom }}</td>
-        <td>
-            {% if commande.statut.ordre == 2 %}
-                <span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th>Date de création</th>
+            <th>Références</th>
+            <th>Montant de la commande (Solde)</th>
+            <th>Documents</th>
+            <th>Statut</th>
+            <th>Actions
+        </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.createdAt|date("d/m/Y") }}</td>
+                <td>{{ commande.refCommande }}</td>
+                <td>{{ commande.prix }}€ ({{ commande.solde }}€)</td>
+                <td>
+                    <a href="{{ path('admin_pdf_facture_commande',{ 'commande' : commande.id }) }}">Facture</a> | <a href="{{ path('admin_commande_signature', { 'commande' : commande.id }) }}">Signature</a>
+                </td>
+                <td>{{ commande.statut.nom }}</td>
+                <td>
+                    {% if not commande.archive %}
+                        {% if commande.statut.ordre == 2 %}
+                            <a href="{{ path('admin_add_paiement',{ 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement</a>
+                        {% elseif commande.statut.ordre == 3 %}
+                            <p href="{{ path('admin_commande_livraison', { 'commande' : commande.id }) }}"><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                            {% if commande.adresseDeLivraison.commerce is not null %}
+                                La commande a été déposée au point dépot ({{ commande.adresseDeLivraison.commerce.nom }})
+                            {% else %}
+                                La commande a été confiée au service de livraison
+                            {% endif %}
+                        </a>
+                        {% elseif commande.statut.ordre == 4 %}
+                            <a href="{{ path('admin_commande_reception', { 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> La commande a été reçue</a>
+
+                        {% endif %}
+                        {% if commande.statut.ordre <= 2 %}
+                            <p> <a href="{{ path('admin_commande_delete', { 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer cette commande</a></p>
+                        {% elseif commande.statut.ordre >= 4 %}
+                            <p><a href="{{ path('admin_archive_commande', { 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Archiver la commande</a></p>
+                        {% endif %}
+                    {% else %}
+                        <p><a href="{{ path('admin_restaure_commande', { 'commande' : commande.id } ) }}"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Restaurer la commande</a></p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

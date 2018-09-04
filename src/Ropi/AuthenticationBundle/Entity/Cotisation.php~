@@ -53,7 +53,7 @@ class Cotisation
     private $personne;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="cotisations")
+     * @ORM\ManyToOne(targetEntity="Ropi\CommerceBundle\Entity\Commerce", inversedBy="cotisations", cascade={"persist", "remove"}, )
      */
     private $commerce;
 
@@ -192,7 +192,7 @@ class Cotisation
     }
 
     public function isPaye(){
-        return $this->getMontantDejaPaye() >= $this->montant;
+        return $this->getMontantDejaPaye() >= $this->montant && $this->montant!=0;
     }
 
     public function getLastPaiement(){
@@ -211,9 +211,9 @@ class Cotisation
     }
 
     public function getDateEcheance(){
+
         if($this->isPaye()){
             $date = clone $this->getLastPaiement()->getDateOperation();
-
             return date_modify($date, '+1 year');
         }
     }
@@ -249,5 +249,29 @@ class Cotisation
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * Set commerce
+     *
+     * @param \Ropi\CommerceBundle\Entity\Commerce $commerce
+     *
+     * @return Cotisation
+     */
+    public function setCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerce = null)
+    {
+        $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * Get commerce
+     *
+     * @return \Ropi\CommerceBundle\Entity\Commerce
+     */
+    public function getCommerce()
+    {
+        return $this->commerce;
     }
 }

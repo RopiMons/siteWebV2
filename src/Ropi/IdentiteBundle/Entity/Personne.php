@@ -505,4 +505,14 @@ class Personne
     }
 
 
+
+    /**
+     * Get enable.
+     *
+     * @return bool
+     */
+    public function getEnable()
+    {
+        return $this->enable;
+    }
 }

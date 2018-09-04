@@ -7,3 +7,9 @@ services:
     public: false       # Allows optimizing the container by removing unused services; this also means
       # fetching services directly from the container via $container->get() won't work.
     # The best practice is to be explicit about your dependencies anyway.
+
+    bind:
+      $cacheDir: "%kernel.cache_dir%"
+
+  Ropi\CommandeBundle\Controller\DefaultController:
+    tags: ['controller.service_arguments']

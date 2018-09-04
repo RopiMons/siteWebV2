@@ -456,4 +456,40 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
 
 
     }
+
+    /**
+     * Add news.
+     *
+     * @param \IolaCorporation\NewsBundle\Entity\News $news
+     *
+     * @return IdentifiantWeb
+     */
+    public function addNews(\IolaCorporation\NewsBundle\Entity\News $news)
+    {
+        $this->news[] = $news;
+
+        return $this;
+    }
+
+    /**
+     * Remove news.
+     *
+     * @param \IolaCorporation\NewsBundle\Entity\News $news
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeNews(\IolaCorporation\NewsBundle\Entity\News $news)
+    {
+        return $this->news->removeElement($news);
+    }
+
+    /**
+     * Get news.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
 }

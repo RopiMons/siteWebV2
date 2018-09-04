@@ -11,7 +11,7 @@ use Ropi\CMSBundle\Entity\PositionnableInterface;
 /**
  * Page
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\PageRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Repository\PageRepository")
  * 
  * @ORM\MappedSuperclass
  * @ORM\InheritanceType("JOINED")

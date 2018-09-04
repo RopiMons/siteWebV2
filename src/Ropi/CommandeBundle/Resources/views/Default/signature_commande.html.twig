@@ -34,7 +34,7 @@
 
 {#Livrée le 12/05/2018#}
 <div class="title">
-    <h1>Votre commande {{ commande.refCommande }}</h1>
+    <h1>Accusé de réception de votre commande {{ commande.refCommande }}</h1>
 
 </div>
 <div class="ref">
@@ -43,14 +43,14 @@
 
 </div>
 <div class="commade">
-    <h2>1)	Commande de Ropi</h2>
-
+    <h2>Décharge</h2>
+    <p>Je  soussigné {{ commande.client.prenom|capitalize }} {{ commande.client.nom|capitalize }} atteste  avoir  reçus  dans  son  intégralité  ma  commande {{ commande.refCommande }} qui contient, comme  suit :</p>
     <table style="width: 100%;">
         <thead>
         <tr>
-            <th>Billet</th>
+
             <th>Quantité</th>
-            <th>Prix unitiaire</th>
+            <th>Billet</th>
             <th>Total</th>
         </tr>
         </thead>
@@ -58,53 +58,36 @@
         {% set prixCommande = 0 %}
         {% for articleQuantite in commande.articlesQuantite %}
             <tr>
-                <td width="25%">{{ articleQuantite.article.nom }}</td>
                 <td width="10%">{{ articleQuantite.quantite }}</td>
-                <td width="30%">{{ articleQuantite.article.prix }}€</td>
-                <td width="29%">{{ articleQuantite.article.prix * articleQuantite.quantite }}€</td>
+                <td width="25%">{{ articleQuantite.article.nom }}</td>
+                <td width="29%">{{ articleQuantite.article.prix * articleQuantite.quantite }} Ropi</td>
                 {% set prixCommande = prixCommande + articleQuantite.article.prix * articleQuantite.quantite %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-</div>
-<h3 >Sous-Total : {% if prixCommande > 0 %}{{ prixCommande }}€{% else %}Gratuit{% endif %}</h3>
-
-La contrepartie du montant échangés est mise en fonds de garantie
-
-
-<h2>2)	Livraison</h2>
-
-<table style="width: 100%">
-    <tbody>
-    <tr>
-        <td style="text-align: left">
-            <p>{{ commande.modeDeLivraison.nom }}</p>
-            {%  if commande.adresseDeLivraison.commerce is not null %}
-                <p>{{ commande.adresseDeLivraison.commerce.nom }} - {{ commande.adresseDeLivraison.rue }}, {{ commande.adresseDeLivraison.numero }} {% if commande.adresseDeLivraison.complement is not null %}{{ commande.adresseDeLivraison.complement }}{% endif %} à {{ commande.adresseDeLivraison.ville.codePostal }} {{ commande.adresseDeLivraison.ville.ville }}</p>
-            {% endif %}
-        </td>
-        <td style="text-align: center">{% if commande.modeDeLivraison.frais > 0 %}{{ commande.modeDeLivraison.frais }}€{% else %}Gratuit{% endif %}</td>
-    </tr>
-    </tbody>
-</table>
-
-<h3 >Sous-Total : {{ commande.modeDeLivraison.frais }}€</h3>
-
-L'éventuel surplus de ce montant sert à financer l’ASBL
-
-<div class="normal">
-    <h2>3)	Totaux</h2>
-
-    <h3 style="font-size:1.3em;"><span style="border: groove;  padding:10px;">Montant total : {{ commande.prix }} €</span></h3>
-
-    <p>Exempté de TVA - Code TVA – Art 44 – §2 11° et §2 12°</p>
-
-    {% if commande.datePaiement is not null %}
-        <p class="acquite">Commande acquittée le {{ commande.datePaiement|date("d/m/Y") }}</p>
-    {% endif %}
-
+    <p>Soit un total de {{ prixCommande }} Ropi</p>
+    <p>En  signant  ce  document,  contre  réception  de  ma  commande, j'atteste  avoir  vérifié  et j'accepte ma  commande,  sans  recours  possible.</p>
+    <h2>Si je ne suis pas d'accord avec le contenu de ma commande</h2>
+    <p><ul>
+        <li>Je  fais  constater  au  commerçant ou au livreur le  contenu  de  l'enveloppe  et je  ne  signe pas  ce  document.</li>
+        <li>Je  laisse  l'enveloppe  au  commerçant ou au livreur.</li>
+        <li>Je préviens l'ASBL ROPI par mail ou téléphone
+            <ul><li>info@ropi.be</li><li>065/680.214</li></ul>
+        </li>
+    </ul></p>
+    <h2>Signature</h2>
+    <br \>
+    <br \>
+    <br \>
+    <br \>
+    <br \>
+    <br \>
+    <br \>
+    <br \>
+    <br \>
+    <p>Fait à Mons, le .......................................</p>
+    <h2>{{ commande.client.prenom|capitalize }} {{ commande.client.nom|capitalize }} </h2>
 </div>
 <div class="footer">
     <hr>

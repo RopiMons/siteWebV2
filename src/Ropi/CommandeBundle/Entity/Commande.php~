@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Commande
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\CommandeRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\CommandeRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Commande
@@ -59,7 +59,7 @@ class Commande
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes")
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes", cascade={"persist"})
      */
 
     private $client;
@@ -82,6 +82,8 @@ class Commande
      *
      */
 
+
+
     private $modeDePaiement;
 
     /**
@@ -101,6 +103,13 @@ class Commande
      */
 
     private $adresseDeLivraison;
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $archive;
 
 
     /**
@@ -397,7 +406,7 @@ class Commande
     public function getPrix(){
         $solde = 0;
 
-        foreach($this->getArticlesQuantite() as $ac){
+            foreach($this->getArticlesQuantite() as $ac){
             $solde += $ac->getQuantite() * $ac->getArticle()->getPrix();
         }
 
@@ -462,5 +471,35 @@ class Commande
         $communication = $this->getRefCommande();
 
         return "+++".substr($communication,0,3)."/".substr($communication,3,4)."/".substr($communication,7,5)."+++";
+    }
+
+    public function getSolde(){
+        $montantTotal = $this->getPrix();
+
+        /** @var Paiement $paiement */
+        foreach ($this->getPaiements() as $paiement){
+            $montantTotal -= $paiement->getMontant();
+        }
+
+        return $montantTotal;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function datePaiement(){
+        $date = null;
+        if($this->getSolde() <= 0){
+
+            /** @var Paiement $paiement */
+            foreach ($this->getPaiements() as $paiement){
+                if($date === null || $paiement->getDate() > $date){
+                    $date = $paiement->getDate();
+                }
+            }
+
+        }
+
+        return $date;
     }
 }

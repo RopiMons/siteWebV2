@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Mode
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\ModeRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\ModeRepository")
  *
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")

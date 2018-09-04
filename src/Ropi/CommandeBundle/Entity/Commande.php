@@ -59,7 +59,7 @@ class Commande
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes", cascade={"persist"})
      */
 
     private $client;
@@ -82,6 +82,8 @@ class Commande
      *
      */
 
+
+
     private $modeDePaiement;
 
     /**
@@ -101,6 +103,13 @@ class Commande
      */
 
     private $adresseDeLivraison;
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $archive;
 
 
     /**
@@ -281,6 +290,7 @@ class Commande
     /** @ORM\PrePersist */
     public function onPrePersit(){
         $dt = new \DateTime();
+        $this->archive = false;
         $this->setCreatedAt($dt);
         $this->routine($dt);
 
@@ -462,5 +472,59 @@ class Commande
         $communication = $this->getRefCommande();
 
         return "+++".substr($communication,0,3)."/".substr($communication,3,4)."/".substr($communication,7,5)."+++";
+    }
+
+    public function getSolde(){
+        $montantTotal = $this->getPrix();
+
+        /** @var Paiement $paiement */
+        foreach ($this->getPaiements() as $paiement){
+            $montantTotal -= $paiement->getMontant();
+        }
+
+        return $montantTotal;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function datePaiement(){
+        $date = null;
+        if($this->getSolde() <= 0){
+
+            /** @var Paiement $paiement */
+            foreach ($this->getPaiements() as $paiement){
+                if($date === null || $paiement->getDate() > $date){
+                    $date = $paiement->getDate();
+                }
+            }
+
+        }
+
+        return $date;
+    }
+
+    /**
+     * Set archive.
+     *
+     * @param bool $archive
+     *
+     * @return Commande
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive.
+     *
+     * @return bool
+     */
+    public function getArchive()
+    {
+        return $this->archive;
     }
 }

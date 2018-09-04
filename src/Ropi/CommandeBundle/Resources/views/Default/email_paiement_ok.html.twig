@@ -1,0 +1,20 @@
+{% extends '::email.html.twig' %}
+
+{% block content %}
+    <h1>Votre  commande {{ commande.refCommande }}</h1>
+    <p>Bonjour {{ commande.client.prenom|capitalize }} {{ commande.client.nom|capitalize }}</p>
+    <p>Nous  avons  bien  reçu  le  paiement  pour  votre  commande et nous vous en remercions. Vous trouverez ci-joint votre facture acquitée.</p>
+
+    {% if commande.modeDeLivraison.aDomicile %}
+        <p>Nous allons maintenant confier vos ROPI au service de livraison que vous avez choisis.</p>
+    {% elseif commande.adresseDeLivraison.commerce is not null %}
+        <p>Nous allons maintenant déposer votre commande dans le commerce "{{ commande.adresseDeLivraison.commerce.nom }}". Vous recevrez un mail lorserque celle-ci sera disponible. Il faut générallement compter moins de 2 jours à partir de la réception de ce mail.</p>
+        <p>Sur  place,  il  vous  sera  demandé  de  vérifier  l'enveloppe  avec  les Ropi  et  de  la  refuser  si  votre  commande  n’est  pas  complète.</p>
+        <p>Vous  trouverez  ci-joint  copie  du  document  d’acceptation  que  nous vous  demanderons  de  signer  ainsi  que  le  détail  de  votre commande.</p>
+    {% endif %}
+
+    <p>En  vous  remerciant  pour  votre  confiance  et  le  soutien  que  vous apporterez  à  l’économie  montoise.</p>
+
+    <p>Laurent  Cardon<br \>
+        Administrateur</p>
+{% endblock %}
