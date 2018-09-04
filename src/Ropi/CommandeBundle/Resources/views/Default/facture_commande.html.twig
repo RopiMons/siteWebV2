@@ -6,7 +6,7 @@
 
     {% block stylesheets %}
         {% stylesheets '../app/Resources/public/css/facture.css' filter='cssrewrite' output='css/ropi.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" href="{{ absolute_url(asset_url) }}" />
         {% endstylesheets %}
     {% endblock %}
 
@@ -16,7 +16,7 @@
 <body>
 <div class="containerHeader">
     <span class="header">
-        <img src="/img/ropi_Logo_R.png" id="logo" />
+        <img src="{{ app.request.getSchemeAndHttpHost()  }}/img/ropi_Logo_R.png" id="logo" />
         <p id="logoTXT">Le Ropi, Payez en<br> argent content!</p>
     </span>
     <span class="clientInfo">

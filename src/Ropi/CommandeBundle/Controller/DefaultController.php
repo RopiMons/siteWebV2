@@ -35,19 +35,29 @@ class DefaultController extends Controller
      */
     public function getFacture(Commande $commande){
 
+
+
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
                 'commande' => $commande
-            ))),
-            'facture.pdf',
-            array(
-                'orientation' => 'portrait',
-                'page-size' => "A4",
-                'encoding' => 'utf-8',
-                'images' => true,
-                'dpi' => 300,
-            )
+            )),
+                array(
+                    'orientation' => 'portrait',
+                    'page-size' => "A4",
+                    'encoding' => 'utf-8',
+                    'margin-top' => 0,
+                    'margin-bottom' => 0,
+                    'margin-left' => 0,
+                    'margin-right' => 0,
+                    'dpi' => 300
+                )),
+            'NoteDeFrais_'.$commande->getRefCommande().'.pdf'
+
         );
+
+        return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+            'commande' => $commande
+        ));
     }
 
     /**

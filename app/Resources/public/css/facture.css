@@ -19,7 +19,8 @@
 body{ 
 	background-image : url("/img/fondPdf.png");
 	background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
+    background-position: center center;
 
     font-family: Rupture, Arial, Verdana, serif;
     margin-left: 7.5%;
@@ -111,7 +112,7 @@ td{
     font-size:0.9em;
 }
 .footer {
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
     left: 0;
