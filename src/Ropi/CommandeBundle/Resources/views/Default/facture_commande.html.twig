@@ -11,11 +11,11 @@
 
         <style>
             body {
-                background-image: url({{ app.request.uriForPath(asset('img/fondPdf.png')) }});
+                background-image: url('{{ app.request.uriForPath(asset('img/fondPdf.png')) }}');
             }
             @font-face {
                 font-family: 'Rupture';
-                src: url({{ app.request.uriForPath(asset('font/rupture-webfont.woff')) }}) format('woff');
+                src: url('{{ app.request.uriForPath(asset('font/rupture-webfont.woff')) }}') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
