@@ -6,7 +6,7 @@
  * Time: 1:57
  */
 
-namespace Ropi\CommandeBundle\Entity;
+namespace Ropi\CommandeBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;

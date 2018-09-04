@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Statut
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\StatutRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\StatutRepository")
  */
 class Statut
 {

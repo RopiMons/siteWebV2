@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * PageStatique
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Entity\PageStatiqueRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CMSBundle\Repository\PageStatiqueRepository")
  */
 class PageStatique extends Page {
     

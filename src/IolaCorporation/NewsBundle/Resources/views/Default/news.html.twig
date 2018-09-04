@@ -1,7 +1,7 @@
 <h1>Les dernières informations</h1>
 <ul>
-{% for new in news %}
 
+{% for new in news %}
 
     <a href="{{ path('iola_corporation_news_detail',{'news':new.id }) }}"><li>{{ new.titre }}</li></a>
 {% endfor %}

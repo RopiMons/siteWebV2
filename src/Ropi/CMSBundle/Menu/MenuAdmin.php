@@ -28,6 +28,7 @@ class MenuAdmin extends AbstractMenu {
         $tab["News"]["Ajouter"] = array('route'=>'iola_corporation_news_add');
         $tab["Utilisateurs"]["liste"] =  array('route'=>'Ropi_admin_user_listing');
         $tab["Utilisateurs"]["Ajouter un membre"] =  array('route'=>'Ropi_admin_user_add');
+        $tab["Commandes"]["Listing"] = array('route'=>'admin_commandes_view');
     
         return $tab;
 

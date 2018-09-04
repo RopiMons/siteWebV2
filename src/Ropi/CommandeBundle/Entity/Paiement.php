@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Paiement
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\PaiementRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\PaiementRepository")
  */
 class Paiement
 {

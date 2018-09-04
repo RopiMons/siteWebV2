@@ -309,19 +309,7 @@ class DefaultController extends Controller {
      */
     public function getNbCommercantAction(){
 
-        $commerces = $this->getDoctrine()->getRepository(Commerce::class)->findBy(array(
-            'visible' => true,
-            'valide' => true
-        ));
-
-
-        $nb = 0;
-
-        /*foreach ($commerces as $commerce){
-            if($commerce->getVisible()){
-                $nb ++;
-            }
-        }*/
+        $commerces = $this->getDoctrine()->getRepository(Commerce::class)->getForMap();
 
         return array(
             'nb' => sizeof($commerces)
