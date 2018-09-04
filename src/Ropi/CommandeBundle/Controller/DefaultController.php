@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security;
 
 class DefaultController extends Controller
 {
