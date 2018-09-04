@@ -171,7 +171,8 @@ class DefaultController extends Controller
                     'margin-bottom' => 0,
                     'margin-left' => 0,
                     'margin-right' => 0,
-                    'dpi' => 300
+                    'dpi' => 300,
+                    'images' => true
                 )),
             'NoteDeFrais_'.$commande->getRefCommande().'.pdf'
 
