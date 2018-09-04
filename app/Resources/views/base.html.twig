@@ -36,23 +36,26 @@
 <div class="container" style="">
     <header class="row"> <!-- Logo & slogan -->
         {% block header %}
-            <div class="col-xs-12">
+            <div class="col-xs-12" >
 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-4 col-md-4 col-lg-4">
 
                     <a class="navbar-brand men" href="{{ path('home') }}"><img id="logo" class=" img100" src="/img/ropi_logo.png" alt="logo du ropi"/></a>
                     <h2 id="slogan" class="col-sm-12">Le Ropi, payez en argent content!</h2>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-1 col-md-1 col-lg-2">
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-5 col-md-5 col-lg-3" style="margin-top:30px;">
                     <h2 id="slogan">Nombre de Ropis commandés : {{  render(controller("RopiCommandeBundle:Default:getNbRopiCommande")) }}<br>Nombre de commerçants : {{ render(controller("RopiCommerceBundle:Default:getNbCommercant")) }}</h2>
                 </div>
                 <a href="https://github.com/RopiMons/siteWebV2"><img class="img100" style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
+                <div style="position:absolute;top: 10px;right: 170px;"><a href="https://www.facebook.com/RopiAsbl/"><img style="max-width: 30px;"  src="/img/fb.png" alt="Facebook" ></a>
+                </div>
             </div>
         {% endblock %}
+
     </header>
 
 
