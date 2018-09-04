@@ -27,13 +27,13 @@
                         {% if commande.statut.ordre == 2 %}
                             <a href="{{ path('admin_add_paiement',{ 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement</a>
                         {% elseif commande.statut.ordre == 3 %}
-                            <p href="{{ path('admin_commande_livraison', { 'commande' : commande.id }) }}"><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                            {% if commande.adresseDeLivraison.commerce is not null %}
-                                La commande a été déposée au point dépot ({{ commande.adresseDeLivraison.commerce.nom }})
-                            {% else %}
-                                La commande a été confiée au service de livraison
-                            {% endif %}
-                        </a>
+                            <a href="{{ path('admin_commande_livraison', { 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                {% if commande.adresseDeLivraison.commerce is not null %}
+                                    La commande a été déposée au point dépot ({{ commande.adresseDeLivraison.commerce.nom }})
+                                {% else %}
+                                    La commande a été confiée au service de livraison
+                                {% endif %}
+                            </a>
                         {% elseif commande.statut.ordre == 4 %}
                             <a href="{{ path('admin_commande_reception', { 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> La commande a été reçue</a>
 
