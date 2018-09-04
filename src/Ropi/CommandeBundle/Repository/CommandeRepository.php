@@ -13,7 +13,7 @@ use Doctrine\ORM\QueryBuilder;
  */
 class CommandeRepository extends EntityRepository
 {
-    public function getAll(){
+    public function getAll($archive = false){
 
         return $this->createQueryBuilder("c")
             ->select(array("c","aq","a","s","p","li","ali","comm"))
@@ -25,6 +25,8 @@ class CommandeRepository extends EntityRepository
             ->leftJoin("c.adresseDeLivraison","ali")
             ->leftJoin("ali.commerce","comm")
             ->orderBy("c.createdAt","DESC")
+            ->where("c.archive = :archive")
+            ->setParameter("archive",$archive)
             ->getQuery()
             ->execute()
             ;

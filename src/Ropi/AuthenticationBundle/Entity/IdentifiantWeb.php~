@@ -59,7 +59,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      *
      * @ORM\Column(name="motDePasse", type="string", length=255 )
      *  @Assert\Length(min=6, minMessage="Votre mot de passe dois avoir au moins {{ limit }} caractères.",
-     * max =50, maxMessage="La longeur du mot de passe ne peux pas dépasser {{ limit }} caractères")
+     * max =50, maxMessage="La longeur du mot de passe ne peux pas dépasser {{ limit }} caractères", groups={"registration"})
      */
     private $motDePasse;
 
@@ -111,8 +111,14 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
      */
     private $personne;
 
-    
-   
+    /**
+     * @var int
+     *
+     * @ORM\OneToMany(targetEntity="IolaCorporation\NewsBundle\Entity\News", mappedBy="user" , cascade={"persist"})
+     *@ORM\JoinColumn(nullable=true)
+     */
+    private $news;
+
 
     /**
      * Get id
@@ -257,6 +263,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
         $this->personne = new Personne();
         $this->role= new \Doctrine\Common\Collections\ArrayCollection();
         $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -378,13 +385,13 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
 
     public function serialize() {
         return serialize(array(
-            $this->id, $this->username, $this->motDePasse, $this->personne
+            $this->id, $this->username, $this->motDePasse
         ));
     }
 
     public function unserialize($serialized) {
         list (
-                $this->id, $this->username, $this->motDePasse, $this->personne
+                $this->id, $this->username, $this->motDePasse
                 ) = unserialize($serialized);
     }
 
@@ -438,4 +445,15 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
         $this->role = $role;
     }
 
+    /**
+     * @ORM\PreRemove
+     */
+    public function onPreRemove()
+    {
+        foreach ($this->news as $new) {
+            $new->setuser();
+        }
+
+
+    }
 }

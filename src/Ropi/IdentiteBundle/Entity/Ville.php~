@@ -146,7 +146,6 @@ class Ville
      */
     public function validate(ExecutionContextInterface $context)
     {
-            dump($context->getGroup());
             if (isset($this->pays)) {
             if ($context->getGroup() !="admin" && ($this->codePostal != null || $this->codePostal != "") )
         $regex = $this->getPays()->getRegex();

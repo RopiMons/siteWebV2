@@ -17,6 +17,7 @@ use Ropi\CommandeBundle\Form\PaiementType;
 use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\Adresse;
 use Ropi\IdentiteBundle\Form\AdresseType;
+use function Sodium\add;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,6 +34,87 @@ class DefaultController extends Controller
     function __construct($cacheDir)
     {
         $this->cacheDir = $cacheDir;
+    }
+
+    /**
+     * @param Commande $commande
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/commande/{commande}/restaure", name="admin_restaure_commande", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function restaureCommande(Commande $commande){
+        $commande->setArchive(false);
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($commande);
+        $manager->flush();
+
+        $this->addFlash("success","La commande a bien été restaurée !");
+
+        return $this->redirectToRoute("admin_commandes_archive_view");
+    }
+
+    /**
+     * @param Commande $commande
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/commande/{commande}/archive", name="admin_archive_commande", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function archiveCommande(Commande $commande){
+        $commande->setArchive(true);
+
+        if($commande->getStatut()->getOrdre() == 5){
+            $nextStatut = $this->getDoctrine()->getRepository(Statut::class)->findOneBy(array(
+                'ordre' => $commande->getStatut()->getOrdre() + 1
+            ));
+            $commande->setStatut($nextStatut);
+        }
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($commande);
+        $manager->flush();
+
+        $this->addFlash("success","La commande a bien été archivée !");
+
+        return $this->redirectToRoute("admin_commandes_view");
+    }
+
+    /**
+     * @param Commande $commande
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/commande/remove/{commande}", name="admin_commande_delete", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function deleteCommande(Commande $commande){
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($commande);
+        $manager->flush();
+
+        $this->addFlash("success","La commande a bien été supprimée");
+        return $this->redirectToRoute("admin_commandes_view");
+    }
+
+    /**
+     * @param Commande $commande
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/commande/confirm/reception/{commande}", name="admin_commande_reception", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function receptionOk(Commande $commande){
+
+        $nextStatut = $this->getDoctrine()->getRepository(Statut::class)->findOneBy(array(
+            'ordre' => $commande->getStatut()->getOrdre() + 1
+        ));
+        $commande->setStatut($nextStatut);
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($commande);
+        $manager->flush();
+
+        $this->addFlash("success","Excelent ! C'est noté :-)");
+
+        return $this->redirectToRoute("admin_commandes_view");
     }
 
     /**
@@ -133,6 +215,22 @@ class DefaultController extends Controller
             'commandes' => $commandes
         ));
     }
+
+
+    /**
+     * @Route("/admin/commandes/archive/view", name="admin_commandes_archive_view")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function adminViewCommandeArchive(){
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->getAll(true);
+
+        return $this->render("RopiCommandeBundle:Default:admin_commandes_view.html.twig",array(
+            'commandes' => $commandes
+        ));
+    }
+
+
+
 
     /**
      * @Route("/my/commande/new", name="commande_new")

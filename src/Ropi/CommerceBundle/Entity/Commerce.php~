@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Commerce
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Entity\CommerceRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommerceBundle\Repository\CommerceRepository")
  *
  * @ORM\HasLifecycleCallbacks()
  *
@@ -27,6 +27,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Commerce
 {
     use CotisationManagement;
+
+
+    const MembreEffectif = 'Membre Effectif';
+    const MembreSympathisant = 'Membre Sympathisant';
+    const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
     /**
      * @var integer
      *
@@ -48,6 +53,8 @@ class Commerce
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -86,7 +93,7 @@ class Commerce
 
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="commerce")
+     * @ORM\OneToMany(targetEntity="Ropi\AuthenticationBundle\Entity\Cotisation", mappedBy="commerce", cascade={"persist", "remove"})
      */
     private $cotisations;
 
@@ -107,18 +114,11 @@ class Commerce
      */
     private $etiquettes;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="string", length=255)
-     *
-     */
-    private $logo;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo", nullable=true)
+     * @Vich\UploadableField(mapping="logo_image", fileNameProperty="logo")
      *
      * @Assert\Image(
      *     minWidth = 200,
@@ -127,9 +127,20 @@ class Commerce
      *     maxHeight = 400
      * )
      *
+     * @Assert\NotNull(message="Merci d'uploader votre logo")
+     *
      * @var File
      */
     private $imageFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255)
+     *
+     *
+     */
+    private $logo;
 
     /**
      * @var boolean
@@ -444,8 +455,10 @@ class Commerce
         if ($image) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
+            $this->updateAt = new \DateTime('now');
         }
+
+
     }
 
     /**
@@ -621,5 +634,16 @@ class Commerce
     public function removeCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
     {
         $this->cotisations->removeElement($cotisation);
+    }
+
+    public function getMembreStatut(){
+
+        if($this->hasActifCotisation()){
+            return self::MembreEffectif;
+        }elseif($this->hasActifProcedurePaiement()){
+            return self::MembreEffectifTemporaire;;
+        }else{
+            return self::MembreSympathisant;
+        }
     }
 }

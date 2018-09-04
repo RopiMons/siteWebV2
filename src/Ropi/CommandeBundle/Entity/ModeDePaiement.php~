@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Mode
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Entity\ModeDePaiementRepository")
+ * @ORM\Entity(repositoryClass="Ropi\CommandeBundle\Repository\ModeDePaiementRepository")
  *
  */
 class ModeDePaiement extends Mode

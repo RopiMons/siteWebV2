@@ -59,7 +59,7 @@ class Commande
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="commandes", cascade={"persist"})
      */
 
     private $client;
@@ -82,6 +82,8 @@ class Commande
      *
      */
 
+
+
     private $modeDePaiement;
 
     /**
@@ -101,6 +103,13 @@ class Commande
      */
 
     private $adresseDeLivraison;
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $archive;
 
 
     /**
@@ -281,6 +290,7 @@ class Commande
     /** @ORM\PrePersist */
     public function onPrePersit(){
         $dt = new \DateTime();
+        $this->archive = false;
         $this->setCreatedAt($dt);
         $this->routine($dt);
 
@@ -492,5 +502,29 @@ class Commande
         }
 
         return $date;
+    }
+
+    /**
+     * Set archive.
+     *
+     * @param bool $archive
+     *
+     * @return Commande
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive.
+     *
+     * @return bool
+     */
+    public function getArchive()
+    {
+        return $this->archive;
     }
 }
