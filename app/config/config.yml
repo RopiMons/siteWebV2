@@ -114,7 +114,10 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }    
+    auth_mode: "%mailer_auth_mode%"
+    encryption: "%mailer_encryption%"
+    port:   "%mailer_port%"
+    spool:     { type: memory }
 
 braincrafted_bootstrap:
     #less_filter: lessphp

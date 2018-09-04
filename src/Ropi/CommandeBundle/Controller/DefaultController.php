@@ -152,11 +152,6 @@ class DefaultController extends Controller
      */
     public function getFacture(Commande $commande, Pdf $pdf){
 
-        return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
-            'commande' => $commande
-        ));
-
-
         return new PdfResponse(
 
 
@@ -602,10 +597,6 @@ class DefaultController extends Controller
             $attachements,
             "laurent.cardon@ropi.be"
         );
-
-        foreach ($attachements as $fileName){
-            unlink($fileName);
-        }
 
     }
 

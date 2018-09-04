@@ -52,4 +52,5 @@ assetic:
 #                query_cache_driver: apc
 
 swiftmailer:
-    disable_delivery: true
+    disable_delivery: false
+    delivery_addresses: ['laurent.cardon@ropi.be']
