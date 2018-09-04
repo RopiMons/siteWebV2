@@ -347,7 +347,7 @@ class DefaultController extends Controller
         }
     }
 
-    private function sendMails(Commande $commande, \Swift_Mailer $mailer){
+    private function sendMails(Commande $commande){
 
         $mailClient = \Swift_Message::newInstance()
             ->addTo($commande->getClient()->getEmail())
@@ -363,6 +363,7 @@ class DefaultController extends Controller
             ->setBody($this->renderView("RopiCommandeBundle:Default:email.admin.newCommande.html.twig",array('commande'=>$commande)),'text/html')
         ;
 
+        $mailer = $this->get('mailer');
         $mailer->send($mailClient);
         $mailer->send($mailAdmin);
 
