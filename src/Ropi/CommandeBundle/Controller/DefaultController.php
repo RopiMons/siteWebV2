@@ -4,6 +4,7 @@ namespace Ropi\CommandeBundle\Controller;
 
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
+use Ropi\CMSBundle\Mailer\MailerCSS;
 use Ropi\CommandeBundle\Entity\ArticleCommande;
 use Ropi\CommandeBundle\Entity\Commande;
 use Ropi\CommandeBundle\Entity\ModeDeLivraison;
@@ -27,20 +28,52 @@ use Symfony\Component\OptionsResolver\Exception\AccessException;
 
 class DefaultController extends Controller
 {
+    private $cacheDir;
+
+    function __construct($cacheDir)
+    {
+        $this->cacheDir = $cacheDir;
+    }
+
+    /**
+     * @param Commande $commande
+     * @param MailerCSS $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingParamException
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingTemplatingEngineException
+     * @Route("/admin/commande/{commande}/livraison/pending", name="admin_commande_livraison", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function goLivraison(Commande $commande, MailerCSS $mailer){
+        $mailer->sendMail("RopiCommandeBundle:Default:email_livraison_ok.html.twig",
+            array('commande' => $commande),
+        $commande->getClient()->getEmail(),
+        "[Ropi.be] Livraison de vos ROPI"
+            );
+
+        $nextStatut = $this->getDoctrine()->getRepository(Statut::class)->findOneBy(array(
+            'ordre' => $commande->getStatut()->getOrdre() + 1
+        ));
+        $commande->setStatut($nextStatut);
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($commande);
+        $manager->flush();
+
+        $this->addFlash("success","Excelent ! Le client a été prévenu");
+
+        return $this->redirectToRoute("admin_commandes_view");
+    }
 
     /**
      * @param Commande $commande
      * @Route("/admin/pdf/facture/commande/{commande}", name="admin_pdf_facture_commande", requirements={"commande":"\d+"})
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function getFacture(Commande $commande){
-
-        return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
-            'commande' => $commande
-        ));
+    public function getFacture(Commande $commande, Pdf $pdf){
 
         return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+            $pdf->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
                 'commande' => $commande
             )),
                 array(
@@ -55,6 +88,35 @@ class DefaultController extends Controller
                 )),
             'NoteDeFrais_'.$commande->getRefCommande().'.pdf'
 
+        );
+
+
+    }
+
+    /**
+     * @param Commande $commande
+     * @param Pdf $pdf
+     * @return PdfResponse
+     * @Route("/admin/commande/{commande}/pdf/signature", name="admin_commande_signature", requirements={"commande":"\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function getSignature(Commande $commande, Pdf $pdf){
+
+        return new PdfResponse(
+            $pdf->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:signature_commande.html.twig",array(
+                'commande' => $commande
+            )),
+                array(
+                    'orientation' => 'portrait',
+                    'page-size' => "A4",
+                    'encoding' => 'utf-8',
+                    'margin-top' => 0,
+                    'margin-bottom' => 0,
+                    'margin-left' => 0,
+                    'margin-right' => 0,
+                    'dpi' => 300
+                )),
+            'Signature_'.$commande->getRefCommande().'.pdf'
         );
 
 
@@ -187,7 +249,7 @@ class DefaultController extends Controller
         }
     }
 
-    private function sendMails(Commande $commande){
+    private function sendMails(Commande $commande, \Swift_Mailer $mailer){
 
         $mailClient = \Swift_Message::newInstance()
             ->addTo($commande->getClient()->getEmail())
@@ -203,8 +265,8 @@ class DefaultController extends Controller
             ->setBody($this->renderView("RopiCommandeBundle:Default:email.admin.newCommande.html.twig",array('commande'=>$commande)),'text/html')
         ;
 
-        $this->get('mailer')->send($mailClient);
-        $this->get('mailer')->send($mailAdmin);
+        $mailer->send($mailClient);
+        $mailer->send($mailAdmin);
 
 
     }
@@ -308,12 +370,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param Commande $commande
      * @param Request $request
+     * @param Commande $commande
+     * @param MailerCSS $mailer
+     * @param Pdf $pdf
+     * @param string $cacheDir
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingParamException
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingTemplatingEngineException
      * @Route("/admin/commande/{commande}/paiement/add", name="admin_add_paiement", requirements={"commande":"\d+"})
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function addPaiement(Request $request, Commande $commande){
+    public function addPaiement(Request $request, Commande $commande, MailerCSS $mailer, Pdf $pdf){
+
         $form = $this->createForm(PaiementType::class);
         $form->add("Ajouter",SubmitType::class);
 
@@ -331,6 +400,7 @@ class DefaultController extends Controller
                     'ordre' => $commande->getStatut()->getOrdre() + 1
                 ));
 
+                $this->sendPDFPaiementOk($commande,$mailer,$pdf);
                 $commande->setStatut($nextStatut);
             }
 
@@ -351,6 +421,87 @@ class DefaultController extends Controller
                 "form" => $form->createView()
             )
         );
+    }
+
+
+    /**
+     * @param Commande $commande
+     * @param MailerCSS $mailer
+     * @param Pdf $pdf
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingParamException
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingTemplatingEngineException
+     */
+    private function sendPDFPaiementOk(Commande $commande, MailerCSS $mailer, Pdf $pdf){
+
+        $attachements = array();
+
+
+
+        /** Génération de la facture */
+        $fileName = $this->cacheDir."/pdf/noteDeFrais_".$commande->getRefCommande().".pdf";
+
+        $pdf->generateFromHtml(
+            $this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+                'commande' => $commande
+            )),
+            $fileName,
+            array(
+                'orientation' => 'portrait',
+                'page-size' => "A4",
+                'encoding' => 'utf-8',
+                'margin-top' => 0,
+                'margin-bottom' => 0,
+                'margin-left' => 0,
+                'margin-right' => 0,
+                'dpi' => 300
+            ),
+            true);
+
+        $attachements[] = $fileName;
+
+        /** Génération du document d'acceptation si nécessaire */
+
+        if($commande->getAdresseDeLivraison()->getCommerce() !== null){
+
+            $fileName = $this->cacheDir."/pdf/signature_".$commande->getRefCommande().".pdf";
+
+            $pdf->generateFromHtml(
+                $this->renderView("RopiCommandeBundle:Default:signature_commande.html.twig",array(
+                    'commande' => $commande
+                )),
+                $fileName,
+                array(
+                    'orientation' => 'portrait',
+                    'page-size' => "A4",
+                    'encoding' => 'utf-8',
+                    'margin-top' => 0,
+                    'margin-bottom' => 0,
+                    'margin-left' => 0,
+                    'margin-right' => 0,
+                    'dpi' => 300
+                ),
+                true);
+
+            $attachements[] = $fileName;
+        }
+
+
+        $mailer->sendMail(
+            'RopiCommandeBundle:Default:email_paiement_ok.html.twig',
+            array(
+                'commande' => $commande
+            ),
+            $commande->getClient()->getEmail(),
+            "[ROPI] Paiement reçus",
+            null,
+            $attachements,
+            "laurent.cardon@ropi.be"
+        );
+
+        foreach ($attachements as $fileName){
+            unlink($fileName);
+        }
+
     }
 
 

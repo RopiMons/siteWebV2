@@ -1,0 +1,17 @@
+{% extends '::email.html.twig' %}
+
+{% block content %}
+    <h1>Votre  commande {{ commande.refCommande }}</h1>
+    <p>Bonjour {{ commande.client.prenom|capitalize }} {{ commande.client.nom|capitalize }}</p>
+
+    {% if commande.modeDeLivraison.aDomicile %}
+        <p>Ce mail pour vous confirmé que vos ROPI ont bien été confiés au service de livraison que vous avez choisis. Ils seront donc bientôt chez vous.</p>
+    {% elseif commande.adresseDeLivraison.commerce is not null %}
+        <p>Ce mail afin de vous confirmer que votre commande est bien arrivée dans le commerce "{{ commande.adresseDeLivraison.commerce.nom }}". Pour rappel, l'adresse de ce commerce est la suivante : {{ commande.adresseDeLivraison.rue }}, {{ commande.adresseDeLivraison.numero }} {% if commande.adresseDeLivraison.complement is not null %}{{ commande.adresseDeLivraison.complement }}{% endif %} à {{ commande.adresseDeLivraison.ville.codePostal }} {{ commande.adresseDeLivraison.ville.ville }}.</p>
+    {% endif %}
+
+    <p>En  vous  remerciant  pour  votre  confiance  et  le  soutien  que  vous apporterez  à  l’économie  montoise.</p>
+
+    <p>Laurent  Cardon<br \>
+        Administrateur</p>
+{% endblock %}

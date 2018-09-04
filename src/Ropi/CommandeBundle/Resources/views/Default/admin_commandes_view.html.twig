@@ -1,34 +1,42 @@
 {% extends '::baseAdmin.html.twig' %}
 
 {% block content %}
-<table class="table table-responsive table-striped">
-    <thead>
-    <tr>
-        <th>Date de création</th>
-        <th>Références</th>
-        <th>Montant de la commande (Solde)</th>
-        <th>Documents</th>
-        <th>Statut</th>
-        <th>Actions
-    </tr>
-    </thead>
-    <tbody>
-    {% for commande in commandes %}
-    <tr>
-        <td>{{ commande.createdAt|date("d/m/Y") }}</td>
-        <td>{{ commande.refCommande }}</td>
-        <td>{{ commande.prix }}€ ({{ commande.solde }}€)</td>
-        <td>
-            <a href="{{ path('admin_pdf_facture_commande',{ 'commande' : commande.id }) }}">Facture</a> | Signature
-        </td>
-        <td>{{ commande.statut.nom }}</td>
-        <td>
-            {% if commande.statut.ordre == 2 %}
-                <a href="{{ path('admin_add_paiement',{ 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement</a>
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th>Date de création</th>
+            <th>Références</th>
+            <th>Montant de la commande (Solde)</th>
+            <th>Documents</th>
+            <th>Statut</th>
+            <th>Actions
+        </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.createdAt|date("d/m/Y") }}</td>
+                <td>{{ commande.refCommande }}</td>
+                <td>{{ commande.prix }}€ ({{ commande.solde }}€)</td>
+                <td>
+                    <a href="{{ path('admin_pdf_facture_commande',{ 'commande' : commande.id }) }}">Facture</a> | <a href="{{ path('admin_commande_signature', { 'commande' : commande.id }) }}">Signature</a>
+                </td>
+                <td>{{ commande.statut.nom }}</td>
+                <td>
+                    {% if commande.statut.ordre == 2 %}
+                        <a href="{{ path('admin_add_paiement',{ 'commande' : commande.id }) }}"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span> Ajouter un paiement</a>
+                    {% elseif commande.statut.ordre == 3 %}
+                        <a href="{{ path('admin_commande_livraison', { 'commande' : commande.id }) }}">
+                            {% if commande.adresseDeLivraison.commerce is not null %}
+                                La commande a été déposée au point dépot ({{ commande.adresseDeLivraison.commerce.nom }})
+                            {% else %}
+                                La commande a été confiée au service de livraison
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

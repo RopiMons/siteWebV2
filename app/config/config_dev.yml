@@ -44,9 +44,6 @@ monolog:
 assetic:
     use_controller: true
 
-#swiftmailer:
-#    delivery_address: me@example.com
-
 #doctrine:
 #    orm:
 #        entity_managers:
@@ -55,4 +52,4 @@ assetic:
 #                query_cache_driver: apc
 
 swiftmailer:
-    disable_delivery: false
+    disable_delivery: true

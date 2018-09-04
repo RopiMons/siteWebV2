@@ -29,7 +29,8 @@ class MailerCSS
      * @var Parser
      */
     private $parser;
-    
+
+    /** @var string */
     private $rootDir;
 
     public function __construct(ToInlineStyleEmailConverter $converter, \Swift_Mailer $mailer, Parser $parser, $rootDir)
@@ -40,8 +41,17 @@ class MailerCSS
         $this->rootDir = $rootDir;
     }
 
-    
-    public function sendMail($template, $templateOption, $to, $subject, $from = null){
+    /**
+     * @param $template
+     * @param $templateOption
+     * @param $to
+     * @param $subject
+     * @param null $from
+     * @param array|null $attachments
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingParamException
+     * @throws \RobertoTru\ToInlineStyleEmailBundle\Converter\MissingTemplatingEngineException
+     */
+    public function sendMail($template, $templateOption, $to, $subject, $from = null, array $attachments = null, $cc = null){
 
         if($from == null){
             $from = "info@ropi.be";
@@ -51,7 +61,7 @@ class MailerCSS
 
         $converter->setHTMLByView($template,$templateOption);
         $converter->setCSS(file_get_contents($this->rootDir . '/../app/Resources/public/css/ropi.css'));
-       // $body = $converter->css;
+
         $body = $this->parser->parse($converter->generateStyledHTML());
 
         $message = \Swift_Message::newInstance()
@@ -61,6 +71,16 @@ class MailerCSS
             ->setContentType("text/html")
             ->setBody($body)
             ;
+
+        if($attachments !== null && is_array($attachments)){
+            foreach ($attachments as $fileName){
+                $message->attach(\Swift_Attachment::fromPath($fileName));
+            }
+        }
+
+        if($cc !== null){
+            $message->setCc($cc);
+        }
 
 
         $this->mailer->send($message);       

@@ -5,11 +5,7 @@
 
 @font-face {
     font-family: 'Rupture';
-    src: url('/font/rupture-webfont.eot');
-    src: url('/font/rupture-webfont.eot?#iefix') format('eot'),
-    url('/font/rupture-webfont.woff') format('woff'),
-    url('/font/rupture-webfont.ttf') format('truetype'),
-    url('/font/rupture-webfont.svg#webfontgcwKlGj6') format('svg');
+    src:  url('/font/rupture-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -26,7 +22,7 @@ body{
     margin-left: 7.5%;
     margin-right: 7.5%;
     margin-top: 4%;
-    min-height: 1390px;
+    min-height: 1380px;
 }
 
 
@@ -129,4 +125,9 @@ td{
 .normal{
     position:relative;
     height: 100%;
+}
+
+.acquite {
+    color: red;
+    font-size: large;
 }
