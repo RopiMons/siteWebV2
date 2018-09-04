@@ -46,3 +46,6 @@
 
 {% endblock %}
 
+{% block contentBottom %}
+    {{ parser.parse(render(controller('IolaCorporationNewsBundle:News:OneNews' )))|raw }}
+{% endblock %}

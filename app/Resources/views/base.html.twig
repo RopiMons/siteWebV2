@@ -123,21 +123,32 @@
             {% endblock %}
         </aside>
 
-        <div id="background_article" class="col-md-6">
+        <div class="col-md-6">
+            <div  >
 
-            <!-- Text Area-->
+                <!-- Text Area-->
 
-            <article class="col-md-12">
-                <div class="content" id="content"  style="">
+                <article id="background_article" class="col-md-12">
+                    <div class="content" id="content"  style="">
 
-                    {% include ("chemin.html.twig") %}
+                        {% include ("chemin.html.twig") %}
 
-                    {% block content %}{% endblock %}
+                        {% block content %}{% endblock %}
 
+                    </div>
+                </article>
+
+                <div class="col-md-12" style="margin-top:20px;">
+                    <div  style="">
+                        {% block contentBottom %}{% endblock %}
+                    </div>
                 </div>
-            </article>
+
+
+            </div>
 
         </div>
+
         <div class="row" style="">
             <div class="col-md-3 " style=" padding-right: 0px;">
                 {% block right %}
@@ -152,7 +163,7 @@
 
 
 
-                <div class="col-lg-12 col-md-12 col-sm-12 blockDroite" id="News" >
+                <div class="col-lg-12 col-md-12 col-sm-12 blockDroite" id="News"  >
 
                     {{ parser.parse(render(controller('IolaCorporationNewsBundle:News:index' )))|raw }}
 
@@ -164,7 +175,8 @@
 
             </div>
         </div>
-        <div class="col-md-12"></div>
+
+
 
         {% endblock %}
 
