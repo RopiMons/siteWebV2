@@ -83,7 +83,7 @@ class MailerCSS
         }
 
 
-        $this->mailer->send($message);       
+        $this->mailer->send($message);
         
     }
     
