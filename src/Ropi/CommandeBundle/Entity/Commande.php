@@ -474,4 +474,23 @@ class Commande
 
         return $montantTotal;
     }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function datePaiement(){
+        $date = null;
+        if($this->getSolde() <= 0){
+
+            /** @var Paiement $paiement */
+            foreach ($this->getPaiements() as $paiement){
+                if($date === null || $paiement->getDate() > $date){
+                    $date = $paiement->getDate();
+                }
+            }
+
+        }
+
+        return $date;
+    }
 }

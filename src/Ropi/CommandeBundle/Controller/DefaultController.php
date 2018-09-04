@@ -35,7 +35,9 @@ class DefaultController extends Controller
      */
     public function getFacture(Commande $commande){
 
-
+        return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
+            'commande' => $commande
+        ));
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($this->renderView("RopiCommandeBundle:Default:facture_commande.html.twig",array(
@@ -55,9 +57,7 @@ class DefaultController extends Controller
 
         );
 
-        return $this->render("RopiCommandeBundle:Default:facture_commande.html.twig",array(
-            'commande' => $commande
-        ));
+
     }
 
     /**
