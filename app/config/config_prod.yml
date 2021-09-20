@@ -25,4 +25,4 @@ monolog:
             type:  console
 
 swiftmailer:
-    disable_delivery: false
+   logging: true
