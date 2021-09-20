@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  php-fpm-ropiv2:
+    build: ./
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./..:/var/www/html
+  mariadb-ropiv2:
+    image: mariadb
+    restart: always
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ropi_v2

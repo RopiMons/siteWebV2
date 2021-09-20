@@ -30,8 +30,18 @@ class Map
 
         $url_address = utf8_encode($adresse);
         $url_address = urlencode($url_address);
-        $query = "https://maps.googleapis.com/maps/api/geocode/json?address=$url_address&key=$this->apiKey";
-        $results = json_decode(file_get_contents($query),true);
+        $query = "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($url_address)."&key=".$this->apiKey;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, $query);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        dump($result);
+        $results = json_decode($result,true);
+
+        dump($results);
 
         if($results["status"] == "OK" && isset($results["results"]["0"])) {
             return $results["results"][0]["geometry"]["location"];
