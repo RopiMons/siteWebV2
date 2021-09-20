@@ -38,10 +38,7 @@ class Map
         $result = curl_exec($ch);
         curl_close($ch);
 
-        dump($result);
         $results = json_decode($result,true);
-
-        dump($results);
 
         if($results["status"] == "OK" && isset($results["results"]["0"])) {
             return $results["results"][0]["geometry"]["location"];
