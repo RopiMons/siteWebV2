@@ -64,8 +64,7 @@ class MailerCSS
 
         $body = $this->parser->parse($converter->generateStyledHTML());
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
+        $message = (new \Swift_Message($subject))
             ->setFrom($from)
             ->setTo($to)
             ->setContentType("text/html")
