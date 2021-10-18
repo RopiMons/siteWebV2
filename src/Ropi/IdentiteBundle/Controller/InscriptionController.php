@@ -176,8 +176,6 @@ class InscriptionController extends Controller
             /** @var Personne $personne */
             $personne = $form->getData();
 
-            dump($personne);
-
             foreach($personne->getAdresses() as $adr )
             {
                 if($adr->getVille() === null || $adr->getRue() === null){
@@ -203,10 +201,6 @@ class InscriptionController extends Controller
 
                 $personne->setIdentifiantWeb($iw);
             }
-
-            dump($personne);
-            dump($personne->getIdentifiantWeb());
-            isset($iw) ? dump($iw) : null;
 
             $em->persist($personne);
             $em->flush();
