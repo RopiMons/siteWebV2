@@ -350,17 +350,15 @@ class DefaultController extends Controller
 
     private function sendMails(Commande $commande){
 
-        $mailClient = \Swift_Message::newInstance()
+        $mailClient = (new \Swift_Message("Votre commande en ligne"))
             ->addTo($commande->getClient()->getEmail())
             ->addFrom("info@ropi.be")
-            ->setSubject("Votre commande en ligne")
             ->setBody($this->renderView("RopiCommandeBundle:Default:email.newCommande.html.twig",array('commande'=>$commande)),'text/html')
         ;
 
-        $mailAdmin  = \Swift_Message::newInstance()
+        $mailAdmin  = (new \Swift_Message("[Ropi.Be] Nouvelle commande"))
             ->addTo("info@ropi.be")
             ->addFrom("info@ropi.be")
-            ->setSubject("[Ropi.Be] Nouvelle commande")
             ->setBody($this->renderView("RopiCommandeBundle:Default:email.admin.newCommande.html.twig",array('commande'=>$commande)),'text/html')
         ;
 
