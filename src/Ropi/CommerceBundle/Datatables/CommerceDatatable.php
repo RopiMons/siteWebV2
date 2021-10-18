@@ -86,8 +86,6 @@ class CommerceDatatable extends AbstractDatatable
             $filtreOptions[$tab['codePostal']] = $tab['codePostal'] . " " . $tab['ville'];
         }
 
-        dump($filtreOptions);
-
         $this->columnBuilder
             ->add('logo', ImageColumn::class, array(
                 'title' => 'Logo',
@@ -119,11 +117,11 @@ class CommerceDatatable extends AbstractDatatable
             ->add('adresse', VirtualColumn::class, array(
                 'title' => 'Adresse',
                 'searchable' => true,
-                'search_column' => 'adresses.ville.codePostal',
+                'search_column' => 'adresses_ville.codePostal',
                 'filter' => array(SelectFilter::class, array(
                     'search_type' => 'eq',
-                    'multiple' => false,
-                    'select_options' => array_merge(['' => 'Tous'], $filtreOptions),
+                    'multiple' => true,
+                    'select_options' => ['' => 'Tous'] + $filtreOptions,
                     'cancel_button' => true,
                 )),
                 ))
