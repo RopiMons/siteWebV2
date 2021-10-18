@@ -3,6 +3,8 @@
 namespace Ropi\IdentiteBundle\Form;
 
 
+use Ropi\IdentiteBundle\Entity\Personne;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\Person;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -48,7 +50,7 @@ class PersonneType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\IdentiteBundle\Entity\Personne',
+            'data_class' => Personne::class,
              'cascade_validation' => true
         ));
     }

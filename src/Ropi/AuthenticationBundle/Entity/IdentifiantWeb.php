@@ -107,7 +107,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     
     /**
      * @ORM\OneToOne(targetEntity="Ropi\IdentiteBundle\Entity\Personne", inversedBy="identifiantWeb", cascade={"persist"})
-     * @Assert\Valid
+     *
      */
     private $personne;
 
@@ -261,9 +261,9 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     public function __construct() {
         $this->salt = md5(uniqid(null, true));
         $this->personne = new Personne();
-        $this->role= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->permission = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->role= new ArrayCollection();
+        $this->permission = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
 
     /**
@@ -409,19 +409,17 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     }
 
     public function __toString() {
-        if($this->username != null)
-        return $this->username ;
+        return $this->username ?? "";
 
-        return " ";
     }
 
     /**
      * Set personne
      *
-     * @param \Ropi\IdentiteBundle\Entity\Personne $personne
+     * @param Personne|null $personne
      * @return IdentifiantWeb
      */
-    public function setPersonne(\Ropi\IdentiteBundle\Entity\Personne $personne = null)
+    public function setPersonne(?Personne $personne = null) : self
     {
         $this->personne = $personne;
 
@@ -431,7 +429,7 @@ class IdentifiantWeb implements AdvancedUserInterface, \Serializable, EquatableI
     /**
      * Get personne
      *
-     * @return \Ropi\IdentiteBundle\Entity\Personne 
+     * @return Personne
      */
     public function getPersonne()
     {

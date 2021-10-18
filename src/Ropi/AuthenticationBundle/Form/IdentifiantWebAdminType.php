@@ -2,6 +2,7 @@
 
 namespace Ropi\AuthenticationBundle\Form;
 
+use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
 use Ropi\IdentiteBundle\Form\PersonneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -45,7 +46,7 @@ class IdentifiantWebAdminType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ropi\AuthenticationBundle\Entity\IdentifiantWeb',
+            'data_class' => IdentifiantWeb::class
            
         ));
     }

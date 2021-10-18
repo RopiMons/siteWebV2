@@ -3,28 +3,32 @@
 namespace Ropi\IdentiteBundle\Entity;
 
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ropi\AuthenticationBundle\Entity\Cotisation;
+use Ropi\AuthenticationBundle\Entity\IdentifiantWeb;
+use Ropi\CommandeBundle\Entity\Commande;
+use Ropi\CommerceBundle\Entity\Commerce;
 use Ropi\IdentiteBundle\Entity\TraitRepo\CotisationManagement;
 use Symfony\Component\Validator\Constraints as Assert;
-//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Personne
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ropi\IdentiteBundle\Entity\PersonneRepository")
+ * @ORM\Entity(repositoryClass=PersonneRepository::class)
  */
 class Personne
 {
     use CotisationManagement;
 
 
-    const MembreEffectif = 'Membre Effectif';
-    const MembreSympathisant = 'Membre Sympathisant';
-    const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
-    const MembreVolonte = 'Membre Volonté';
+    public const MembreEffectif = 'Membre Effectif';
+    public const MembreSympathisant = 'Membre Sympathisant';
+    public const MembreEffectifTemporaire = 'Membre Effectif Temporaire';
+    public const MembreVolonte = 'Membre Volonté';
 
     /**
      * @var integer
@@ -39,7 +43,7 @@ class Personne
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50)
-     *  @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
+     * @Assert\Length(min=2, minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
      * max =50, maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
      * @Assert\NotBlank(message="le champs ne peux pas être vide")
      *
@@ -58,7 +62,7 @@ class Personne
     private $prenom;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="dateNaissance", type="date")
      */
@@ -75,24 +79,24 @@ class Personne
 
     private $commandes;
     /**
-     * @var \Boolean
+     * @var Boolean
      *
      * @ORM\Column(name="enable", type="boolean", options={"default":true})
      */
     private $enable = true;
 
     /**
-     * @return boolean
+     * @return Boolean
      */
-    public function isEnable()
+    public function isEnable() : bool
     {
         return $this->enable;
     }
 
     /**
-     * @param boolean $enable
+     * @param Boolean $enable
      */
-    public function setEnable($enable)
+    public function setEnable(bool $enable) : void
     {
         $this->enable = $enable;
     }
@@ -101,7 +105,7 @@ class Personne
 
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="creeLe", type="datetime")
      */
@@ -119,7 +123,7 @@ class Personne
     private $commerces;
 
     /**
-     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Ropi\AuthenticationBundle\Entity\IdentifiantWeb", mappedBy="personne" , cascade={"persist","remove"})
      * @Assert\Valid
      */
     private $identifiantWeb;
@@ -140,7 +144,7 @@ class Personne
      *
      * @return integer
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -151,7 +155,7 @@ class Personne
      * @param string $nom
      * @return Personne
      */
-    public function setNom($nom)
+    public function setNom(string $nom) : Personne
     {
         $this->nom = $nom;
 
@@ -163,7 +167,7 @@ class Personne
      *
      * @return string
      */
-    public function getNom()
+    public function getNom() : ?string
     {
         return $this->nom;
     }
@@ -174,7 +178,7 @@ class Personne
      * @param string $prenom
      * @return Personne
      */
-    public function setPrenom($prenom)
+    public function setPrenom(string $prenom) : self
     {
         $this->prenom = $prenom;
 
@@ -186,7 +190,7 @@ class Personne
      *
      * @return string
      */
-    public function getPrenom()
+    public function getPrenom() : ?string
     {
         return $this->prenom;
     }
@@ -194,10 +198,10 @@ class Personne
     /**
      * Set dateNaissance
      *
-     * @param \DateTime $dateNaissance
+     * @param DateTime $dateNaissance
      * @return Personne
      */
-    public function setDateNaissance($dateNaissance)
+    public function setDateNaissance(DateTime $dateNaissance) : self
     {
         $this->dateNaissance = $dateNaissance;
 
@@ -207,9 +211,9 @@ class Personne
     /**
      * Get dateNaissance
      *
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDateNaissance()
+    public function getDateNaissance() : ?DateTime
     {
         return $this->dateNaissance;
     }
@@ -217,10 +221,10 @@ class Personne
     /**
      * Set creeLe
      *
-     * @param \DateTime $creeLe
+     * @param DateTime $creeLe
      * @return Personne
      */
-    public function setCreeLe($creeLe)
+    public function setCreeLe(DateTime $creeLe) : self
     {
         $this->creeLe = $creeLe;
 
@@ -230,9 +234,9 @@ class Personne
     /**
      * Get creeLe
      *
-     * @return \DateTime
+     * @return null||DateTime
      */
-    public function getCreeLe()
+    public function getCreeLe(): ?DateTime
     {
         return $this->creeLe;
     }
@@ -241,22 +245,26 @@ class Personne
      */
     public function __construct()
     {
-        $this->creeLe = new \DateTime();
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creeLe = new DateTime();
+        $this->contacts = new ArrayCollection();
         $this->commerces = new ArrayCollection();
-        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->adresses = new ArrayCollection();
         $this->cotisations = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     /**
      * Add contacts
      *
-     * @param \Ropi\IdentiteBundle\Entity\Contact $contacts
+     * @param Contact $contact
      * @return Personne
      */
-    public function addContact(\Ropi\IdentiteBundle\Entity\Contact $contacts)
+    public function addContact(Contact $contact) : self
     {
-        $this->contacts[] = $contacts;
+        if(!$this->contacts->contains($contact)){
+            $this->contacts->add($contact);
+            $contact->setPersonne($this);
+        }
 
         return $this;
     }
@@ -264,17 +272,17 @@ class Personne
     /**
      * Remove contacts
      *
-     * @param \Ropi\IdentiteBundle\Entity\Contact $contacts
+     * @param Contact $contact
      */
-    public function removeContact(\Ropi\IdentiteBundle\Entity\Contact $contacts)
+    public function removeContact(Contact $contact) : void
     {
-        $this->contacts->removeElement($contacts);
+        $this->contacts->removeElement($contact);
     }
 
     /**
      * Get contacts
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getContacts()
     {
@@ -284,12 +292,15 @@ class Personne
     /**
      * Add commerces
      *
-     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
+     * @param Commerce $commerce
      * @return Personne
      */
-    public function addCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerces)
+    public function addCommerce(Commerce $commerce) : self
     {
-        $this->commerces[] = $commerces;
+        if(!$this->commerces->contains($commerce)){
+            $this->commerces->add($commerce);
+            $commerce->addPersonne($this);
+        }
 
         return $this;
     }
@@ -297,17 +308,17 @@ class Personne
     /**
      * Remove commerces
      *
-     * @param \Ropi\CommerceBundle\Entity\Commerce $commerces
+     * @param Commerce $commerce
      */
-    public function removeCommerce(\Ropi\CommerceBundle\Entity\Commerce $commerces)
+    public function removeCommerce(Commerce $commerce) : void
     {
-        $this->commerces->removeElement($commerces);
+        $this->commerces->removeElement($commerce);
     }
 
     /**
      * Get commerces
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCommerces()
     {
@@ -317,11 +328,15 @@ class Personne
     /**
      * Set identifiantWeb
      *
-     * @param \Ropi\AuthenticationBundle\Entity\IdentifiantWeb $identifiantWeb
+     * @param IdentifiantWeb|null $identifiantWeb
      * @return Personne
      */
-    public function setIdentifiantWeb(\Ropi\AuthenticationBundle\Entity\IdentifiantWeb $identifiantWeb = null)
+    public function setIdentifiantWeb(?IdentifiantWeb $identifiantWeb = null) : self
     {
+        if($identifiantWeb!==null){
+            $identifiantWeb->setPersonne($this);
+        }
+
         $this->identifiantWeb = $identifiantWeb;
 
         return $this;
@@ -330,9 +345,9 @@ class Personne
     /**
      * Get identifiantWeb
      *
-     * @return \Ropi\AuthenticationBundle\Entity\IdentifiantWeb
+     * @return IdentifiantWeb
      */
-    public function getIdentifiantWeb()
+    public function getIdentifiantWeb(): ?IdentifiantWeb
     {
         return $this->identifiantWeb;
     }
@@ -340,12 +355,16 @@ class Personne
     /**
      * Add adresses
      *
-     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresses
+     * @param Adresse $adresse
      * @return Personne
      */
-    public function addAdress(\Ropi\IdentiteBundle\Entity\Adresse $adresses)
+    public function addAdress(Adresse $adresse) : self
     {
-        $this->adresses[] = $adresses;
+
+        if(!$this->adresses->contains($adresse)){
+            $this->adresses->add($adresse);
+            $adresse->addPersonne($this);
+        }
 
         return $this;
     }
@@ -353,9 +372,9 @@ class Personne
     /**
      * Remove adresses
      *
-     * @param \Ropi\IdentiteBundle\Entity\Adresse $adresses
+     * @param Adresse $adresses
      */
-    public function removeAdress(\Ropi\IdentiteBundle\Entity\Adresse $adresses)
+    public function removeAdress(Adresse $adresses) : void
     {
         $this->adresses->removeElement($adresses);
     }
@@ -363,7 +382,7 @@ class Personne
     /**
      * Get adresses
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getAdresses()
     {
@@ -377,7 +396,8 @@ class Personne
 
         return ($retour->count() > 0) ? $retour : null;
     }
-    public function getReelAdresses(){
+    public function getReelAdresses(): ArrayCollection
+    {
         return $this->adresses;
     }
 
@@ -385,12 +405,14 @@ class Personne
     /**
      * Add commandes
      *
-     * @param \Ropi\CommandeBundle\Entity\Commande $commandes
+     * @param Commande $commande
      * @return Personne
      */
-    public function addCommande(\Ropi\CommandeBundle\Entity\Commande $commandes)
+    public function addCommande(Commande $commande) : self
     {
-        $this->commandes[] = $commandes;
+        if(!$this->commandes->contains($commande)){
+            $this->commandes->add($commande);
+        }
 
         return $this;
     }
@@ -398,17 +420,17 @@ class Personne
     /**
      * Remove commandes
      *
-     * @param \Ropi\CommandeBundle\Entity\Commande $commandes
+     * @param Commande $commande
      */
-    public function removeCommande(\Ropi\CommandeBundle\Entity\Commande $commandes)
+    public function removeCommande(Commande $commande) : void
     {
-        $this->commandes->removeElement($commandes);
+        $this->commandes->removeElement($commande);
     }
 
     /**
      * Get commandes
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCommandes()
     {
@@ -418,14 +440,13 @@ class Personne
     public function getEmail(){
 
         foreach($this->getContacts() as $contact){
-            if($contact->getTypeContact()->getValidateur()=="Email"){
+            if($contact->getTypeContact()->getValidateur() === "Email"){
                 $mail = $contact->getValeur();
             }
         }
 
-        if(isset($mail)){
-            return $mail;
-        }
+        return $mail ?? null;
+
     }
     public function __toString()
     {
@@ -435,11 +456,11 @@ class Personne
     /**
      * Set volonteMembre
      *
-     * @param boolean $volonteMembre
+     * @param bool $volonteMembre
      *
      * @return Personne
      */
-    public function setVolonteMembre($volonteMembre)
+    public function setVolonteMembre(bool $volonteMembre): self
     {
         $this->volonteMembre = $volonteMembre;
 
@@ -449,9 +470,9 @@ class Personne
     /**
      * Get volonteMembre
      *
-     * @return boolean
+     * @return Boolean
      */
-    public function getVolonteMembre()
+    public function getVolonteMembre() : ?bool
     {
         return $this->volonteMembre;
     }
@@ -459,13 +480,16 @@ class Personne
     /**
      * Add cotisation
      *
-     * @param \Ropi\AuthenticationBundle\Entity\Cotisation $cotisation
+     * @param Cotisation $cotisation
      *
      * @return Personne
      */
-    public function addCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
+    public function addCotisation(Cotisation $cotisation) : self
     {
-        $this->cotisations[] = $cotisation;
+        if(!$this->cotisations->contains($cotisation))
+        {
+            $this->cotisations->add($cotisation);
+        }
 
         return $this;
     }
@@ -473,9 +497,9 @@ class Personne
     /**
      * Remove cotisation
      *
-     * @param \Ropi\AuthenticationBundle\Entity\Cotisation $cotisation
+     * @param Cotisation $cotisation
      */
-    public function removeCotisation(\Ropi\AuthenticationBundle\Entity\Cotisation $cotisation)
+    public function removeCotisation(Cotisation $cotisation) : void
     {
         $this->cotisations->removeElement($cotisation);
     }
@@ -483,7 +507,7 @@ class Personne
     /**
      * Get cotisations
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCotisations()
     {
@@ -491,17 +515,22 @@ class Personne
     }
 
     
-    public function getMembreStatut(){
+    public function getMembreStatut(): string
+    {
 
-        if($this->hasActifCotisation()){
+        if ($this->hasActifCotisation()) {
             return self::MembreEffectif;
-        }elseif($this->hasActifProcedurePaiement()){
-            return self::MembreEffectifTemporaire;
-        }elseif($this->volonteMembre){
-            return self::MembreVolonte;
-        }else{
-            return self::MembreSympathisant;
         }
+
+        if ($this->hasActifProcedurePaiement()) {
+            return self::MembreEffectifTemporaire;
+        }
+
+        if($this->volonteMembre) {
+            return self::MembreVolonte;
+        }
+
+        return self::MembreSympathisant;
     }
 
 
@@ -511,7 +540,7 @@ class Personne
      *
      * @return bool
      */
-    public function getEnable()
+    public function getEnable(): bool
     {
         return $this->enable;
     }

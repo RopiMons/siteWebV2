@@ -86,6 +86,8 @@ class CommerceDatatable extends AbstractDatatable
             $filtreOptions[$tab['codePostal']] = $tab['codePostal'] . " " . $tab['ville'];
         }
 
+        dump($filtreOptions);
+
         $this->columnBuilder
             ->add('logo', ImageColumn::class, array(
                 'title' => 'Logo',
@@ -117,11 +119,11 @@ class CommerceDatatable extends AbstractDatatable
             ->add('adresse', VirtualColumn::class, array(
                 'title' => 'Adresse',
                 'searchable' => true,
-                'search_column' => 'adresses_ville.codePostal',
+                'search_column' => 'adresses.ville.codePostal',
                 'filter' => array(SelectFilter::class, array(
                     'search_type' => 'eq',
-                    'multiple' => true,
-                    'select_options' => array('' => 'Tous') + $filtreOptions,
+                    'multiple' => false,
+                    'select_options' => array_merge(['' => 'Tous'], $filtreOptions),
                     'cancel_button' => true,
                 )),
                 ))
@@ -131,15 +133,15 @@ class CommerceDatatable extends AbstractDatatable
     /**
      * {@inheritdoc}
      */
-    public function getEntity()
+    public function getEntity(): string
     {
-        return 'Ropi\CommerceBundle\Entity\Commerce';
+        return Commerce::class;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'commerce_datatable';
     }

@@ -9,7 +9,7 @@ FROM php:7.2-fpm-alpine
 ENV PHP_MEMORY_LIMIT=-1
 
 # Apk install
-RUN apk --no-cache update && apk --no-cache add bash acl yarn openssl
+RUN apk --no-cache update && apk --no-cache add bash acl yarn openssl wkhtmltopdf
 
 # Set timezone
 RUN apk  --no-cache  upgrade --update \

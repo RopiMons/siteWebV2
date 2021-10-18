@@ -36,9 +36,10 @@ ropi_News:
     resource: "@IolaCorporationNewsBundle/Resources/config/routing.yml"
     prefix:   /
 
-sg_datatables:
+sg_datatables_bundle:
     resource: "@SgDatatablesBundle/Controller/"
     type:     annotation
+    prefix:   /sg
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

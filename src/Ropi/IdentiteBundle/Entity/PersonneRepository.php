@@ -3,6 +3,8 @@
 namespace Ropi\IdentiteBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 /**
  * PersonneRepository
